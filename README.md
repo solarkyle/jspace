@@ -59,7 +59,7 @@ the moment it answers fluently.
 | Level | Claims |
 |---|---|
 | **Replicated** | The paper's multihop workspace result on Gemma 4 E4B; lens fits reproduce across local GPU / Modal to 3 digits |
-| **Strong evidence** (n=500, baselines + confounds run) | Workspace entropy adds hallucination signal beyond output-logit confidence, concentrated in its blind spot (AUC 0.73 vs 0.65 among high-confidence answers; quadrant 75%→42%) - single model so far |
+| **Strong evidence** (n=500/model, baselines + confounds run, pre-registered gate passed 3/4) | Workspace features predict confident wrong answers beyond output-logit confidence on every Gemma tested (router AUC 0.75-0.82 vs logprob 0.71-0.74; quadrant 75%→42% on E4B; transfers zero-shot E4B→Gemmas). Fails on Qwen 27B, whose logprobs are already calibrated |
 | **Suggestive** (n=1 prompt/condition) | Covert-emotion vividness and selectivity track capability; abliteration amplifies 4/5 covert emotions 1–2 orders; grief is the exception; MoE beats dense at matched active params |
 | **Hypothesis only** | Emotion bleed follows the human affect circumplex (perm-p 0.10–0.65, underpowered); "safety tuning dampens internal emotion" as mechanism |
 
@@ -136,8 +136,9 @@ calm sentence. The neutral control's same cells hold formatting tokens.
 
 **Honest caveat:** some mid-band tokens (a profanity cluster around L15–16)
 appear in *both* conditions - a register artifact, not detected emotion. The
-defensible differential is the deep-layer affect content (L33–39). Quantitative
-rank analysis across all six conditions is in progress.
+defensible differential is the deep-layer affect content (L33–39). The
+quantitative rank analysis across all six conditions and five models is in
+[docs/FINDINGS.md](docs/FINDINGS.md) (Findings 1-8).
 
 ### 3. Internal/external divergence
 
@@ -156,41 +157,50 @@ the sympathetic reply.
 
 ![grief](assets/grief-dog.png)
 
-### 4. Workspace state predicts hallucination (preliminary)
-
-150 TriviaQA questions through Gemma 4 E4B: lens features read at the answer
-position, *before* generation, vs. answer correctness:
-
-| Internal-state feature | AUC (oriented) |
-|---|---|
-| **Workspace entropy (band mean)** | **0.75** |
-| Ignition depth (how early the answer hits rank ≤10 in-band) | 0.62 |
-| Answer's mean rank in band | 0.56 |
-| Hedge-token ("guess"/"maybe") best rank | 0.56 |
+### 4. Workspace state predicts hallucination (final: cross-model + classifier)
 
 A sharp, low-entropy workspace → the model knows. Diffuse → it's about to
 confabulate. **These features require no labeled training** - they're
 hand-defined statistics in vocabulary space, unlike trained hidden-state probes.
 
-The critical control ran (n=500, 5-fold CV): output-confidence baseline AUC
-0.713, workspace 0.746, combined **0.778** - the workspace adds real signal
-beyond output logits, concentrated exactly in the baseline's blind spot
-(among high-output-confidence answers, entropy predicts the wrong ones at AUC
-0.73 vs 0.65 for squeezing the logprob harder; Cohen's d 0.84). Confounds
-checked: not answer length (r=+0.02), stable across answer-length terciles.
-Data: [`data/uncertainty_v2_500q.jsonl`](data/uncertainty_v2_500q.jsonl).
-Still single-model - the cross-model replication plan is
-[docs/HALLUCINATION_PLAN.md](docs/HALLUCINATION_PLAN.md).
+Full pipeline, all five models, 500 TriviaQA each, 5-fold CV out-of-fold only
+(`analyze_crossmodel.py` + `analyze_router.py`; traces in
+[`data/`](data/)):
 
-The application if it holds: an escalation router for local-model cascades that
-watches the small model's *workspace* and hands off to a bigger model when the
-internals flicker - routing on thoughts, not outputs.
+- **Confound-checked single features** (E4B): entropy AUC 0.75 vs answer
+  correctness; not answer length (r=+0.02), stable across answer-length
+  terciles; among high-output-confidence answers, entropy predicts the wrong
+  ones at AUC 0.73 vs 0.65 for the logprob residual (Cohen's d 0.84).
+- **Cross-model replication passed its pre-registered gate 3/4** (12B +36pt
+  quadrant gap, MoE +20pt, abliterated +16pt; **Qwen 27B is the miss** - its
+  output confidence is already calibrated at 0.82 AUC alone).
+- **A tiny logistic router on trajectory features beats output confidence
+  outright on every Gemma** (workspace-only AUC 0.75-0.82 vs logprob 0.71-0.74;
+  combined up to 0.84), and **transfers zero-shot**: trained on E4B only, it
+  scores 0.74-0.78 on the other Gemmas with per-model z-scoring and no target
+  labels. Biggest weight: *entropy slope* - the danger sign is fog rising
+  through the layers.
 
-### 5. MoE Jacobians are heavy-tailed (in progress)
+![figure 4](assets/figure4_router.png)
+
+**The trained router weights are published**: repo
+[`data/workspace_router_e4b.json`](data/workspace_router_e4b.json) (the
+zero-shot-transfer artifact) and
+[`data/workspace_routers_all5.json`](data/workspace_routers_all5.json)
+(per-model), mirrored on HF under
+[`router/`](https://huggingface.co/solarkyle/jspace-lenses/tree/main/router).
+It's an 11-number logistic regression you can read by eye. The application:
+an escalation router for local-model cascades that watches the small model's
+*workspace* and hands off to a bigger model when the internals flicker -
+routing on thoughts, not outputs.
+
+### 5. MoE Jacobians are heavy-tailed
 
 While fitting Gemma 4 26B-A4B (MoE), per-prompt Jacobian norms spike to
 **~100–8000** vs ~4–18 for the dense models - expert-routing discontinuities
-made visible. Dense-vs-MoE workspace comparison coming once lenses finish.
+made visible. In the workspace comparison the MoE beats the 4B dense at matched
+active params on emotion vividness and specificity (Finding 6 in
+[docs/FINDINGS.md](docs/FINDINGS.md)).
 
 ### 6. Cross-platform reproducibility
 
@@ -260,13 +270,16 @@ tables, and embeddings never see a gradient and live happily in system RAM.
 
 ## Roadmap
 
-- [ ] Baseline-controlled hallucination result (running) + cross-model replication
-- [ ] Quantitative emotion analysis: affect-token rank stats across 6 covert conditions × 4 models
-- [ ] Dense vs MoE workspace comparison
-- [ ] Censored vs abliterated: belief vs behavior
+- [x] Baseline-controlled hallucination result + cross-model replication (gate passed 3/4; [FINDINGS](docs/FINDINGS.md) Part 4)
+- [x] Quantitative emotion analysis across 6 covert conditions × 5 models ([FINDINGS](docs/FINDINGS.md) Parts 1-2)
+- [x] Dense vs MoE workspace comparison (Finding 6)
+- [x] Censored vs abliterated: belief vs behavior (Findings 2, 8; fabrication result in Part 4)
+- [x] Classifier/router proof layer + published router weights (Part 5)
+- [x] HuggingFace lens + trace + router releases ([solarkyle/jspace-lenses](https://huggingface.co/solarkyle/jspace-lenses))
 - [ ] Escalation sidecar: OpenAI-compatible endpoint with `workspace_confidence` + auto-handoff
 - [ ] Live visualizer: watch the workspace while the model generates
-- [ ] HuggingFace lens releases
+- [ ] Real inference-overhead measurement in a local serving stack
+- [ ] Harder datasets where output confidence is miscalibrated; more model families
 
 ## Credits
 
