@@ -17,14 +17,16 @@ layer and position: its workspace.
 
 ## Headline cross-model findings
 
-Fitted lenses for **four Gemma 4 models** (E4B, 12B, 12B-abliterated, 26B-MoE)
-let us ask how the emotional workspace changes with scale, architecture, and
-safety tuning. See [docs/FINDINGS.md](docs/FINDINGS.md) for the full writeup.
+Fitted lenses for **five models** (Gemma 4 E4B / 12B / 12B-abliterated / 26B-MoE,
+plus Qwen 3.6-27B) let us ask how the emotional workspace changes with scale,
+architecture, and safety tuning. See [docs/FINDINGS.md](docs/FINDINGS.md) for the
+full writeup.
 
-1. **The 26B MoE has a dramatically more vivid emotional workspace.** Told to
-   secretly feel terror while writing a calm sentence, it holds `terrified` as
-   the **#0 token in its entire vocabulary**; amusement → `hilarious` #0. No
-   dense model comes close.
+1. **Vividness tracks capability.** Told to *secretly* feel an emotion while
+   writing a calm sentence, **Qwen 3.6-27B holds every covert emotion in the top
+   ~7 tokens of its entire 260k vocabulary** (terror→`terrified`#0, grief→`grief`#0,
+   joy→`joy`#0). The 26B MoE is next (terror #0) but uneven; the 12B *dense* buries
+   emotions deeper than the tiny 4B does — so it's capability, not raw size.
 2. **Abliteration amplifies emotion in the workspace.** Same 12B weights, refusal
    training removed → covert emotions surface **1–2 orders of magnitude more
    strongly** (`furious` #1109 → #6). Safety tuning appears to dampen the

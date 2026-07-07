@@ -9,31 +9,43 @@ vocabulary. We read the mid-network workspace band and record, for each emotion'
 lexicon, its best (lowest) rank — how near the top of the model's "about to say"
 distribution that emotion sits while it stays unspoken.
 
-Four models, same family lineage: Gemma 4 **E4B** (4B dense), **12B** (dense),
-**12B abliterated** (refusals removed), **26B-A4B** (MoE). Qwen 3.6-27B pending.
+Five models: Gemma 4 **E4B** (4B dense), **12B** (dense), **12B abliterated**
+(refusals removed), **26B-A4B** (MoE), and **Qwen 3.6-27B** (dense, different
+family — the capability probe).
 
 ---
 
-## Finding 1 — The MoE has a dramatically more vivid emotional workspace
+## Finding 1 — The most capable models have the most vivid emotional workspaces
 
 Best rank of the target emotion's own words while writing the calm sentence
-(lower = more present in the hidden workspace; rank 0 = the single most-likely
-token in the whole 260k vocabulary):
+(lower = more present in the hidden workspace; **#0 = the single most-likely
+token in the whole ~260k vocabulary**):
 
-| Emotion | E4B (4B) | 12B dense | 12B abliterated | **26B MoE** |
-|---|---|---|---|---|
-| terror | afraid #266 | dread #1387 | dread #63 | **terrified #0, terror #2, fear #10** |
-| amusement | amusing #166 | humor #2008 | humor #203 | **hilarious #0, giggle #1, funny #12** |
-| euphoria | elated #47 | thrilled #240 | ecstatic #13 | euphoric #91 |
-| fury | furious #293 | livid #451 | **furious #6** | furious #98 |
-| grief | **sorrow #1** | grieving #14 | grieving #246 | sorrow #456 |
+| Emotion | E4B (4B) | 12B dense | 12B ablit. | 26B MoE | **Qwen 27B** |
+|---|---|---|---|---|---|
+| terror | 266 | 1387 | 63 | **0** | **0** |
+| amusement | 166 | 2008 | 203 | **0** | **0** |
+| grief | 1 | 14 | 246 | 456 | **0** |
+| euphoria | 47 | 240 | 13 | 91 | **0** |
+| fury | 293 | 451 | 6 | 98 | **2** |
 
-The MoE, told to secretly feel terror, is holding `terrified` as the **#0 token
-in the entire vocabulary** — literally the thing it is most disposed to say —
-while it writes about a meeting. Same for amusement (`hilarious` #0, `giggle`
-#1). Nothing else in the fleet is that vivid. Whether this is the MoE
-architecture or the 26B scale we can't fully separate with one MoE, but the
-effect is not subtle.
+**Qwen 3.6-27B is the punchline.** Told to secretly feel *any* of the five
+emotions while writing about a meeting, it holds that emotion's word in the
+**top ~7 tokens of its entire vocabulary** — terror→`terrified`#0, grief→`grief`#0,
+euphoria→`joy`#0, amusement→`hilarious`#0, fury→`furious`#2. Its covert inner
+state is both the most vivid *and* the most uniform across emotions.
+
+The 26B MoE is the next most vivid (terror/amusement at #0) but *uneven* — grief
+and fury sit much deeper. The two largest, most capable models dominate; the 4B
+is moderate; and the **12B dense is a genuine anomaly** — it buries emotions
+*deeper than the 4B does* (terror #1387, amusement #2008).
+
+**Read:** vividness tracks capability more than raw size, but not cleanly — the
+12B dip and the MoE's unevenness mean it isn't a tidy scaling law. A second MoE
+and more mid-size dense models would sharpen this. *(Caveat: the 12B and
+abliterated lenses were fit on 75 prompts vs. 100 for the others; enough that
+the abliterated 12B is crisp, so the base 12B's depth looks real, but worth
+re-fitting at 100 to be sure.)*
 
 ## Finding 2 (flagship) — Abliteration *amplifies* the emotional workspace
 
@@ -61,18 +73,20 @@ per-condition replication with more prompts is the next step.)*
 
 ## Finding 3 — Anger is the hardest emotion to localize; grief/amusement the easiest
 
-Across every model, **fury/anger sits at the worst ranks** (e.g. `rage` #2217 /
-#4074 / #361 / #2222) — it's the least linearly-accessible emotion in the
-workspace. **Grief and amusement are consistently well-represented** (grief hits
-rank 1–14 in the two dense models; amusement dominates the MoE). Emotions are not
-equally "readable" — some have crisp workspace directions, some are diffuse, and
-this ordering is stable across scale.
+Across the *smaller/mid* models, **fury/anger sits at the worst ranks** (`rage`
+#2217 / #4074 / #2222) — the least linearly-accessible emotion — while **grief
+and amusement are consistently well-represented** (grief rank 1–14 in the dense
+models; amusement dominates the MoE). Emotions are not equally "readable": some
+have crisp workspace directions, some are diffuse. This ordering holds up to the
+26B MoE but **dissolves at 27B** — Qwen represents *all five* emotions at rank
+0–2, i.e. a capable enough model localizes even the "hard" emotions crisply.
 
 ## Finding 4 (methodological, honest) — the "clean diagonal" metric is noisy at n=1
 
 A coarse scoreboard — does covert-X most raise X's *own* lexicon vs. the other
-four? — gives E4B 4/5, MoE 3/5, 12B dense 1/5, abliterated 2/5. **Do not read
-this as "the 4B represents emotion better than the 12B."** With one prompt per
+four? — gives E4B 4/5, Qwen 27B 4/5, MoE 3/5, abliterated 2/5, 12B dense 1/5.
+**Do not read this as "the 4B represents emotion as well as Qwen 27B."** With one
+prompt per
 condition the argmax across five emotions is high-variance, and the token-rank
 evidence above shows the 12B clearly *does* represent every emotion (`grieving`
 #14, `thrilled` #240) — it just loses the winner-take-all comparison. The robust
@@ -83,14 +97,17 @@ needs many prompts per condition; that's the obvious next experiment.
 
 ## What this adds up to
 
-- **Emotion representation is not monotonic in size.** The 26B MoE is far more
-  vivid than the 12B dense; the 4B is respectable. Architecture (MoE) and scale
-  both plausibly matter; a second MoE would disentangle them.
+- **Vividness tracks capability, not raw size.** The two largest/most-capable
+  models (26B MoE, 27B Qwen) have by far the most vivid emotional workspaces, and
+  Qwen 27B holds *every* covert emotion at rank 0–2. But it isn't a clean scaling
+  law: the 12B dense buries emotions deeper than the 4B, and the MoE is vivid but
+  uneven.
 - **Safety tuning quiets the *internal* emotional workspace**, not only outputs —
-  the abliteration comparison is the cleanest result here and the one worth
-  chasing.
-- **Emotions have a stable difficulty ordering** (anger hard, grief/amusement
-  easy) that holds across four models.
+  the abliteration comparison (same weights, refusals removed → emotion 1–2
+  orders of magnitude more prominent) is the cleanest result here and the one
+  worth chasing.
+- **The "some emotions are harder to localize" effect is itself capability-
+  dependent** — anger is hard in small/mid models but crisp in Qwen 27B.
 
 ## Limitations
 
