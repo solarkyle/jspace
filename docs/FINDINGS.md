@@ -278,7 +278,7 @@ reproduced the local accuracy to the third digit, 0.428 = 0.428).
 | 26B-MoE | 0.642 | 0.910 | 0.705 | +20pt | 0.681 / 0.537 |
 | **Qwen-27B** | 0.636 | 0.845 | **0.870** | **-3pt** | **0.514** / 0.664 |
 
-- **The pre-registered gate (hold on 3+ of 4 new models) passed at exactly 3/4.**
+- **The gate (hold on 3+ of 4 new models, set before the runs) passed at exactly 3/4.**
 - **The honest miss is Qwen 27B**, where workspace entropy carries no signal
   (AUC 0.51 = chance). Its output confidence is extremely well calibrated
   (0.82 AUC alone, the best of the five). Two readings we cannot yet separate:

@@ -91,7 +91,7 @@ returns that answer instead, tagged with which model answered. A
 r/LocalLLaMA-ready demo: Gemma E4B answering with Qwen 27B (or a cloud model)
 as big brother, plus a live log showing which queries got escalated and why.
 
-## Decision gates (pre-registered so we stay honest)
+## Decision gates (written before the runs so we stay honest)
 
 - If Phase 1 replication fails (workspace adds nothing on 3+ models): publish
   the negative result with the E4B quadrant finding as a single-model
@@ -100,7 +100,7 @@ as big brother, plus a live log showing which queries got escalated and why.
   practical case for the router dies (logprobs are cheaper); the interp
   finding (workspace state correlates with knowledge access) still stands.
 - If both hold: write it up properly (blog post + maybe arXiv note), because
-  "label-free single-pass hallucination flag from the model's own workspace"
+  "single-pass hallucination flag from the model's own workspace"
   would be genuinely useful and, as far as we know from a same-day literature
   check, not published in this form.
 

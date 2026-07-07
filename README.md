@@ -85,7 +85,7 @@ full writeup.
    *internal* emotional representation, not just the output.
 3. **Anger is the hardest emotion to localize; grief/amusement the easiest** -
    a stable ordering across all four models.
-4. **Workspace state predicts hallucination**, label-free, competitive with and
+4. **Workspace state predicts hallucination** (single features need no labels; the router is supervised), competitive with and
    complementary to output confidence (5-fold CV AUC: baseline 0.71, workspace
    0.75, combined **0.78**; n=500 TriviaQA). The sharpest cut: answers where the
    output logit is *confident* are **75% correct when the workspace is clean vs
@@ -175,7 +175,7 @@ Full pipeline, all five models, 500 TriviaQA each, 5-fold CV out-of-fold only
   correctness; not answer length (r=+0.02), stable across answer-length
   terciles; among high-output-confidence answers, entropy predicts the wrong
   ones at AUC 0.73 vs 0.65 for the logprob residual (Cohen's d 0.84).
-- **Cross-model replication passed its pre-registered gate 3/4** (12B +36pt
+- **Cross-model replication passed its 3-of-4 gate (written before the runs)** (12B +36pt
   quadrant gap, MoE +20pt, abliterated +16pt; **Qwen 27B is the miss** - its
   output confidence is already calibrated at 0.82 AUC alone).
 - **A tiny logistic router on trajectory features beats output confidence

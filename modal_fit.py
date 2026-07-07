@@ -32,6 +32,7 @@ image = (
         "datasets",
         "accelerate",
         "huggingface_hub",
+        "bitsandbytes",
     )
     .pip_install("git+https://github.com/anthropics/jacobian-lens")
 )
@@ -232,7 +233,7 @@ def emotions(models: str = "google/gemma-4-26B-A4B-it", out: str = "out/emotion_
     secrets=[modal.Secret.from_name("huggingface")],
 )
 def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
-                    tag: str = "trivia", max_new: int = 24) -> list:
+                    tag: str = "trivia", max_new: int = 24, quant: str = "") -> list:
     """Hallucination probe (Phase 1 of docs/HALLUCINATION_PLAN.md), cloud port
     of probe_uncertainty.py. Reads lens features at the answer position, greedy
     generation, labels vs aliases. `questions` overrides TriviaQA (each item:
@@ -251,6 +252,12 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
 
     tok = transformers.AutoTokenizer.from_pretrained(model_id)
     kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
+    if quant == "4bit":
+        kwargs = dict(
+            quantization_config=transformers.BitsAndBytesConfig(
+                load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.bfloat16),
+            device_map="cuda")
     try:
         hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
     except ValueError:
@@ -506,7 +513,7 @@ def dump(models: str, out: str = "out/workspace_dump.json"):
 
 @app.local_entrypoint()
 def uncertainty(models: str, n: int = 500, tag: str = "trivia",
-                questions_file: str = "", max_new: int = 24):
+                questions_file: str = "", max_new: int = 24, quant: str = ""):
     """modal run modal_fit.py::uncertainty --models "a,b" [--questions-file f.json]"""
     import json
     import os
@@ -516,7 +523,7 @@ def uncertainty(models: str, n: int = 500, tag: str = "trivia",
     model_list = [m.strip() for m in models.split(",")]
     results = list(uncertainty_run.map(
         model_list, kwargs={"n": n, "questions": qs, "tag": tag,
-                            "max_new": max_new}))
+                            "max_new": max_new, "quant": quant}))
     os.makedirs("out", exist_ok=True)
     for mid, rows in zip(model_list, results):
         local = f"out/uncertainty_{tag}_{_slug(mid)}.jsonl"
