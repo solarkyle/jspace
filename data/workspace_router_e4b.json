@@ -1,0 +1,69 @@
+{
+ "trained_on": "google/gemma-4-E4B-it, 500 TriviaQA, 2026-07-07",
+ "predicts": "P(answer is WRONG)",
+ "usage": "z-score each feature over your own traffic (the transfer trick), then risk = sigmoid(w . z + b); escalate when risk > threshold (0.5 is reasonable; tune to your escalation budget)",
+ "models": {
+  "workspace_only": {
+   "features": [
+    "ws_mean_entropy",
+    "ws_max_entropy",
+    "ws_late_entropy",
+    "ws_entropy_slope",
+    "ws_entropy_std",
+    "ws_ignition_frac",
+    "ws_ignition_depth",
+    "ws_mean_log_rank",
+    "ws_band_agreement",
+    "ws_hedge_rank"
+   ],
+   "weights": [
+    0.28013,
+    0.39998,
+    -0.16794,
+    1.05426,
+    -0.27498,
+    0.27829,
+    0.31354,
+    -0.15258,
+    -0.06773,
+    0.19185
+   ],
+   "bias": 0.34956
+  },
+  "combined": {
+   "features": [
+    "bl_first_token_logprob",
+    "bl_mean_logprob",
+    "bl_min_logprob",
+    "bl_answer_len",
+    "ws_mean_entropy",
+    "ws_max_entropy",
+    "ws_late_entropy",
+    "ws_entropy_slope",
+    "ws_entropy_std",
+    "ws_ignition_frac",
+    "ws_ignition_depth",
+    "ws_mean_log_rank",
+    "ws_band_agreement",
+    "ws_hedge_rank"
+   ],
+   "weights": [
+    -0.35574,
+    -0.57688,
+    0.40373,
+    0.34521,
+    0.28294,
+    0.38259,
+    -0.14355,
+    0.98739,
+    -0.3593,
+    0.3902,
+    0.40726,
+    -0.12692,
+    -0.09776,
+    0.20108
+   ],
+   "bias": 0.40705
+  }
+ }
+}
