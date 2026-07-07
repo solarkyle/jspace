@@ -1,0 +1,8 @@
+.venv/
+jacobian-lens/
+out/
+__pycache__/
+*.pt
+slices/
+docs/slices-full-local/
+docs/slices-large-local/
