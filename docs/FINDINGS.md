@@ -320,6 +320,45 @@ years, fake novels' authors, fake battles, fake elements).
 
 ---
 
+# Part 5 - the classifier proof layer (`analyze_router.py`)
+
+Same traces, no new GPU. Logistic regression predicting WRONG, 5-fold CV,
+out-of-fold scores only. Feature sets: output-confidence baselines (4 features)
+vs workspace trajectory features (10: mean/max/late-band entropy, slope, std,
+ignition, answer rank, band agreement, hedge rank) vs combined.
+
+| model | lp-only | workspace-only | combined | wrong caught @50% budget (combined vs lp) |
+|---|---|---|---|---|
+| E4B | 0.711 | **0.773** | **0.787** | 70% vs 63% |
+| 12B | 0.736 | **0.824** | **0.843** | 77% vs 64% |
+| 12B-ablit | 0.731 | **0.799** | **0.812** | 74% vs 67% |
+| 26B-MoE | 0.725 | **0.749** | **0.783** | 76% vs 66% |
+| Qwen-27B | **0.856** | 0.646 | 0.838 | 81% vs 83% |
+
+- **With the full trajectory feature set, workspace-only BEATS output
+  confidence outright on every Gemma** - not just complements it. The single
+  mean-entropy feature undersold the signal.
+- **Zero-shot transfer**: a classifier trained only on E4B (features z-scored
+  per model) scores 0.74-0.78 on the other Gemmas, beating transferred
+  logprob-only (0.66-0.70). No target-model labels needed.
+- **Blind-spot subset** (confident answers only): workspace 0.67-0.79 vs
+  logprob 0.50-0.64. On the MoE, logprob is literally at chance (0.497) while
+  workspace features reach 0.668.
+- **Honest update to the abliteration claim**: richer trajectory features
+  recover most of the abliterated model's self-knowledge signal (blind-spot
+  0.59 with mean entropy alone -> 0.72 with the full set). Abliteration damages
+  the mean-entropy signal specifically, not everything.
+- Qwen stays the miss: workspace features alone 0.646, and combining them
+  slightly hurts its excellent logprob baseline (0.838 vs 0.856).
+
+![figure 4](../assets/figure4_router.png)
+
+The left panel is the plain-language version: bucket confident answers by
+internal fog level. Low fog: 76-90% correct. High fog: 41-71%. The staircase
+appears on every Gemma; Qwen's flat bars are the honest miss, visible.
+
+---
+
 ## What this adds up to
 
 - **Vividness tracks capability, not raw size.** The two largest/most-capable
