@@ -84,7 +84,9 @@ def auc(score, label):
     return (r[label == 1].sum() - n1 * (n1 + 1) / 2) / (n0 * n1)
 
 def cv_auc(X, y, k=5, seed=0):
-    """y here = wrong(1)/right(0). Returns mean test AUC + pooled OOF scores."""
+    """y = wrong(1)/right(0). Normalization is fit on train folds only
+    (a reddit reviewer caught the earlier full-dataset z-scoring; fixing it
+    moved every AUC by ~0.0001, but it was still wrong). Expects RAW features."""
     rng = np.random.default_rng(seed)
     idx = rng.permutation(len(y))
     folds = np.array_split(idx, k)
@@ -92,8 +94,9 @@ def cv_auc(X, y, k=5, seed=0):
     aucs = []
     for i in range(k):
         te = folds[i]; tr = np.concatenate([folds[j] for j in range(k) if j != i])
-        w, b = logit_fit(X[tr], y[tr])
-        s = X[te] @ w + b
+        mu, sd = X[tr].mean(0), X[tr].std(0) + 1e-9
+        w, b = logit_fit((X[tr] - mu) / sd, y[tr])
+        s = (X[te] - mu) / sd @ w + b
         oof[te] = s
         aucs.append(auc(s, y[te].astype(bool)))
     return float(np.mean(aucs)), oof

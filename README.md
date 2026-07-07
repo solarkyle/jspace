@@ -24,11 +24,15 @@ also a [clickable demo](https://solarkyle.github.io/jspace/demo/).)*
 
 ## The one-line version for busy people
 
-A single-pass, label-free internal-state signal (workspace entropy) catches
+A single-pass internal-state signal (workspace readout noise) catches
 **overconfident hallucinations that output confidence cannot see by definition**.
-No sampling, no trained probe, no labels - one forward pass and the model's own
-vocabulary space. Replicated on 4 of 5 models (pre-registered gate: 3 of 4 new
-models - passed), 500 TriviaQA each, confound-checked:
+No sampling, no trained activation probe - one forward pass and the model's own
+vocabulary space. The core quadrant result needs no labels at all (median
+splits); the router on top is an 11-parameter supervised logistic readout.
+Replicated on 4 of 5 models (a 3-of-4 gate written before the cross-model runs
+- passed), 500 TriviaQA each, confound-checked. Known issue: TriviaQA's alias
+lists mislabel some correct answers as wrong (label noise attenuates AUC, it
+doesn't inflate it):
 
 | Model | accuracy | confident + clean workspace | confident + NOISY workspace | blind-spot AUC: entropy vs logprob | E4B threshold, no tuning: % wrong caught |
 |---|---|---|---|---|---|
@@ -59,7 +63,7 @@ the moment it answers fluently.
 | Level | Claims |
 |---|---|
 | **Replicated** | The paper's multihop workspace result on Gemma 4 E4B; lens fits reproduce across local GPU / Modal to 3 digits |
-| **Strong evidence** (n=500/model, baselines + confounds run, pre-registered gate passed 3/4) | Workspace features predict confident wrong answers beyond output-logit confidence on every Gemma tested (router AUC 0.75-0.82 vs logprob 0.71-0.74; quadrant 75%→42% on E4B; transfers zero-shot E4B→Gemmas). Fails on Qwen 27B, whose logprobs are already calibrated |
+| **Strong evidence** (n=500/model, baselines + confounds run, 3-of-4 gate passed) | Workspace features predict confident wrong answers beyond output-logit confidence on every Gemma tested (router AUC 0.75-0.82 vs logprob 0.71-0.74; quadrant 75%→42% on E4B; transfers zero-shot E4B→Gemmas). Fails on Qwen 27B, whose logprobs are already calibrated |
 | **Suggestive** (n=1 prompt/condition) | Covert-emotion vividness and selectivity track capability; abliteration amplifies 4/5 covert emotions 1–2 orders; grief is the exception; MoE beats dense at matched active params |
 | **Hypothesis only** | Emotion bleed follows the human affect circumplex (perm-p 0.10–0.65, underpowered); "safety tuning dampens internal emotion" as mechanism |
 
