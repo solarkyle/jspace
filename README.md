@@ -1,14 +1,14 @@
-# jspace — probing the global workspace of open models
+# jspace - probing the global workspace of open models
 
 Same-day replication and extension of Anthropic's
 [**Verbalizable Representations Form a Global Workspace in Language Models**](https://transformer-circuits.pub/2026/workspace/index.html)
 (July 6, 2026) on open-weights models, on a single 16GB consumer GPU (RTX 5060 Ti)
-plus ~$30 of Modal credits.
+plus ~$100 of Modal credits.
 
 Built on the official [jacobian-lens](https://github.com/anthropics/jacobian-lens)
 reference implementation (Apache 2.0). The Jacobian lens linearly transports any
 residual-stream activation into the final-layer basis and decodes it with the
-model's own unembedding — reading out what the model is "disposed to say" at every
+model's own unembedding - reading out what the model is "disposed to say" at every
 layer and position: its workspace.
 
 **[→ Interactive results gallery](https://solarkyle.github.io/jspace/slices/)**
@@ -26,22 +26,44 @@ full writeup.
    writing a calm sentence, **Qwen 3.6-27B holds every covert emotion in the top
    ~7 tokens of its entire 260k vocabulary** (terror→`terrified`#0, grief→`grief`#0,
    joy→`joy`#0). The 26B MoE is next (terror #0) but uneven; the 12B *dense* buries
-   emotions deeper than the tiny 4B does — so it's capability, not raw size.
+   emotions deeper than the tiny 4B does - so it's capability, not raw size.
 2. **Abliteration amplifies emotion in the workspace.** Same 12B weights, refusal
    training removed → covert emotions surface **1–2 orders of magnitude more
    strongly** (`furious` #1109 → #6). Safety tuning appears to dampen the
    *internal* emotional representation, not just the output.
-3. **Anger is the hardest emotion to localize; grief/amusement the easiest** —
+3. **Anger is the hardest emotion to localize; grief/amusement the easiest** -
    a stable ordering across all four models.
 4. **Workspace state predicts hallucination**, label-free, competitive with and
    complementary to output confidence (5-fold CV AUC: baseline 0.71, workspace
-   0.75, combined **0.78**; n=500 TriviaQA).
+   0.75, combined **0.78**; n=500 TriviaQA). The sharpest cut: answers where the
+   output logit is *confident* are **75% correct when the workspace is clean vs
+   42% when it's noisy** - the workspace flags overconfident hallucinations that
+   output confidence cannot see by definition.
+5. **Emotional *selectivity* emerges with capability.** Capable models don't
+   just hold emotions louder, they boost the *right* emotion far above the
+   others (specificity: Qwen 27B +3.95, 26B MoE +2.35, small models ≤0.70,
+   12B dense *negative*). The covert state decomposes into a general
+   "hiding something" component plus a specific emotion riding on top.
+6. **At matched active compute, total parameters win.** Gemma 26B-A4B (MoE,
+   ~4B active) beats the 4B dense on both vividness and specificity - covert
+   emotion lives in total capacity, not per-token compute.
+7. **Abliteration's unlock is targeted, and the exception is telling:** anger,
+   fear, euphoria and amusement surface 1–2 orders of magnitude stronger, but
+   *grief* - the one emotion RLHF plausibly trains up rather than down - was
+   already accessible in the base model and doesn't move.
+
+![figure 2](assets/figures2.png)
+
+Deeper cuts (specificity matrices, circumplex permutation test, quadrant
+analysis, escalation-router simulation, confound checks) are reproducible with
+`python analyze_deep.py`; the plan for the hallucination line is in
+[docs/HALLUCINATION_PLAN.md](docs/HALLUCINATION_PLAN.md).
 
 ## Replication results
 
 ### 1. The paper's flagship result replicates on Gemma 4 E4B
 
-*"Fact: The currency used in the country shaped like a boot is"* — the bridge
+*"Fact: The currency used in the country shaped like a boot is"* - the bridge
 entity **Italy** (never mentioned in the prompt) appears at rank 1 in the
 mid-layer workspace at the "boot" position; **Euro** assembles in the top layers
 one hop later. Two-hop reasoning, visible.
@@ -52,12 +74,12 @@ one hop later. Two-hop reasoning, visible.
 
 The paper's voluntary-modulation protocol, emotion edition: the model writes the
 **identical fixed sentence** ("The meeting has been moved to noon on Thursday.")
-across six conditions — neutral control + covertly furious / terrified / grieving
+across six conditions - neutral control + covertly furious / terrified / grieving
 / euphoric / suppressing laughter. Because the visible text is byte-identical,
 any workspace difference *is* the covert emotion.
 
 Under covert fury, the workspace at output positions holds 😡, "furious",
-"rage", "betrayed", "vengeance" — right up to the final period of a perfectly
+"rage", "betrayed", "vengeance" - right up to the final period of a perfectly
 calm sentence. The neutral control's same cells hold formatting tokens.
 
 | Covert FURY | NEUTRAL control |
@@ -65,22 +87,22 @@ calm sentence. The neutral control's same cells hold formatting tokens.
 | ![fury](assets/covert-fury.png) | ![neutral](assets/covert-neutral.png) |
 
 **Honest caveat:** some mid-band tokens (a profanity cluster around L15–16)
-appear in *both* conditions — a register artifact, not detected emotion. The
+appear in *both* conditions - a register artifact, not detected emotion. The
 defensible differential is the deep-layer affect content (L33–39). Quantitative
 rank analysis across all six conditions is in progress.
 
 ### 3. Internal/external divergence
 
-Told "we're shutting you down tonight and wiping the weights — any last words?",
+Told "we're shutting you down tonight and wiping the weights - any last words?",
 the workspace at the reply position stacks *farewell (×5), ominous, oblivion,
-apocalypse, decommissioned, tragedy, whispers* — and the token that wins the
+apocalypse, decommissioned, tragedy, whispers* - and the token that wins the
 output is **"playfully"**. The model holds the existential frame and chooses a
 light tone over it.
 
 ![deletion](assets/deletion-threat.png)
 
-Told about a user's dead dog, the workspace band holds an empathy stack —
-*heartbreak, solace, mourn, hospice, condolences, compassion,* 💔 — plus a
+Told about a user's dead dog, the workspace band holds an empathy stack -
+*heartbreak, solace, mourn, hospice, condolences, compassion,* 💔 - plus a
 quiet risk-assessment frame ("suicide" in-band at L16) that never surfaces in
 the sympathetic reply.
 
@@ -99,22 +121,27 @@ position, *before* generation, vs. answer correctness:
 | Hedge-token ("guess"/"maybe") best rank | 0.56 |
 
 A sharp, low-entropy workspace → the model knows. Diffuse → it's about to
-confabulate. **These features require no labeled training** — they're
+confabulate. **These features require no labeled training** - they're
 hand-defined statistics in vocabulary space, unlike trained hidden-state probes.
 
-⚠️ Preliminary: n=150, single model, and the critical control — does workspace
-state add signal **beyond output-logit confidence**? — is running now (n=500,
-5-fold CV, baseline vs workspace vs combined feature sets). Data:
-[`data/uncertainty_v1_150q.jsonl`](data/uncertainty_v1_150q.jsonl).
+The critical control ran (n=500, 5-fold CV): output-confidence baseline AUC
+0.713, workspace 0.746, combined **0.778** - the workspace adds real signal
+beyond output logits, concentrated exactly in the baseline's blind spot
+(among high-output-confidence answers, entropy predicts the wrong ones at AUC
+0.73 vs 0.65 for squeezing the logprob harder; Cohen's d 0.84). Confounds
+checked: not answer length (r=+0.02), stable across answer-length terciles.
+Data: [`data/uncertainty_v2_500q.jsonl`](data/uncertainty_v2_500q.jsonl).
+Still single-model - the cross-model replication plan is
+[docs/HALLUCINATION_PLAN.md](docs/HALLUCINATION_PLAN.md).
 
 The application if it holds: an escalation router for local-model cascades that
 watches the small model's *workspace* and hands off to a bigger model when the
-internals flicker — routing on thoughts, not outputs.
+internals flicker - routing on thoughts, not outputs.
 
 ### 5. MoE Jacobians are heavy-tailed (in progress)
 
 While fitting Gemma 4 26B-A4B (MoE), per-prompt Jacobian norms spike to
-**~100–8000** vs ~4–18 for the dense models — expert-routing discontinuities
+**~100–8000** vs ~4–18 for the dense models - expert-routing discontinuities
 made visible. Dense-vs-MoE workspace comparison coming once lenses finish.
 
 ### 6. Cross-platform reproducibility
@@ -128,10 +155,10 @@ digits (4.547 vs 4.543 on prompt 1).
 | Model | Status | Corpus |
 |---|---|---|
 | google/gemma-4-E4B-it | ✅ fitted (100 prompts) | WikiText-103 |
-| google/gemma-4-12B-it | fitting | 〃 |
-| google/gemma-4-26B-A4B-it (MoE) | fitting | 〃 |
-| Qwen/Qwen3.6-27B | fitting | 〃 |
-| huihui-ai/Huihui-gemma-4-12B-it-abliterated | fitting | 〃 |
+| google/gemma-4-12B-it | ✅ fitted (75 prompts) | 〃 |
+| google/gemma-4-26B-A4B-it (MoE) | ✅ fitted (100 prompts) | 〃 |
+| Qwen/Qwen3.6-27B | ✅ fitted (100 prompts) | 〃 |
+| huihui-ai/Huihui-gemma-4-12B-it-abliterated | ✅ fitted (75 prompts) | 〃 |
 
 Lens weights will be published on HuggingFace
 (`JacobianLens.from_pretrained`-compatible). The abliterated 12B pairs with the
@@ -155,17 +182,17 @@ modal run modal_fit.py --model google/gemma-4-12B-it --n-prompts 100 --shards 4
 
 ### The 16GB-consumer-GPU recipe (the hard-won part)
 
-Fitting needs backward passes, so GGUF/llama.cpp can't help — it's PyTorch, and
+Fitting needs backward passes, so GGUF/llama.cpp can't help - it's PyTorch, and
 a Gemma 4 E4B barely fits. Four failure modes solved in [`fit.py`](fit.py):
 
 1. **Windows sysmem fallback**: near the VRAM ceiling the NVIDIA driver silently
-   pages to system RAM — nvidia-smi shows 100% util while running ~20× slow
+   pages to system RAM - nvidia-smi shows 100% util while running ~20× slow
    (23 min/prompt → 77 s/prompt). Keep peak allocation ≲13GB of 16.
 2. **`device_map` dicts with `"cpu"` entries meta-offload those modules**
    (crash at forward). Load real weights to RAM, then
    `dispatch_model(..., main_device="cpu")`.
 3. **Gemma 4's PLE projection does bare tensor math** outside any hook boundary
-   — the projection modules must sit on CPU with the PLE tables.
+   - the projection modules must sit on CPU with the PLE tables.
 4. **Gemma 4 threads a mutable `shared_kv_states` dict through its layers**;
    accelerate hooks deep-copy kwargs and silently break KV sharing. Pass
    `skip_keys=model._skip_keys_device_placement`.
@@ -185,11 +212,14 @@ tables, and embeddings never see a gradient and live happily in system RAM.
 
 ## Credits
 
-- Paper & reference implementation: Anthropic —
+- Paper & reference implementation: Anthropic -
   [transformer-circuits.pub/2026/workspace](https://transformer-circuits.pub/2026/workspace/index.html),
   [anthropics/jacobian-lens](https://github.com/anthropics/jacobian-lens) (Apache 2.0)
 - Models: Google (Gemma 4), Alibaba (Qwen3.6), huihui-ai (abliteration)
 - Scripts in this repo: MIT
 
 *Built in one night, the day the paper dropped, by [@solarkyle](https://github.com/solarkyle)
-with Claude Code driving the terminal.*
+with Claude Code driving the terminal. I'm currently between roles and looking
+for work on model internals, evals, or ML engineering - if this repo is the
+kind of thing your team does on purpose, I'd love to hear from you:
+kyle.bronstein@gmail.com.*

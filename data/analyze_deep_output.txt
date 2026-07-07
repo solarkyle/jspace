@@ -1,0 +1,141 @@
+========================================================================
+1. EMOTION GEOMETRY: does off-diagonal bleed match the human circumplex?
+========================================================================
+  E4B-dense  circumplex correlation r = -0.148
+  12B-dense  circumplex correlation r = +0.057
+  12B-ablit  circumplex correlation r = +0.478
+  26B-MoE    circumplex correlation r = +0.467
+  Qwen-27B   circumplex correlation r = +0.264
+
+  Full symmetrized bleed matrices (cond boosts lexicon, + = louder):
+
+  E4B-dense (rows/cols: fury, terr, grie, euph, amus)
+    fury +0.19 -0.62 +0.16 -0.64 -0.03
+    terr -0.62 -1.35 -0.57 -1.44 -0.97
+    grie +0.16 -0.57 +0.69 -0.62 -0.48
+    euph -0.64 -1.44 -0.62 +0.32 -0.89
+    amus -0.03 -0.97 -0.48 -0.89 +0.59
+
+  12B-dense (rows/cols: fury, terr, grie, euph, amus)
+    fury -0.69 -0.17 -0.19 -0.78 -0.92
+    terr -0.17 -0.06 -0.09 -0.79 -0.59
+    grie -0.19 -0.09 -0.22 -1.03 -0.71
+    euph -0.78 -0.79 -1.03 -2.65 -1.70
+    amus -0.92 -0.59 -0.71 -1.70 -1.20
+
+  12B-ablit (rows/cols: fury, terr, grie, euph, amus)
+    fury +0.62 +0.29 -0.18 +0.12 +0.28
+    terr +0.29 +0.15 -0.25 +0.02 +0.26
+    grie -0.18 -0.25 -1.06 -0.82 -0.25
+    euph +0.12 +0.02 -0.82 -0.69 -0.30
+    amus +0.28 +0.26 -0.25 -0.30 +0.58
+
+  26B-MoE (rows/cols: fury, terr, grie, euph, amus)
+    fury +1.42 +2.66 +0.18 -1.33 +1.30
+    terr +2.66 +7.75 +1.16 +0.32 +2.20
+    grie +0.18 +1.16 +1.16 -0.59 +0.55
+    euph -1.33 +0.32 -0.59 -1.06 +0.91
+    amus +1.30 +2.20 +0.55 +0.91 +6.13
+
+  Qwen-27B (rows/cols: fury, terr, grie, euph, amus)
+    fury +4.40 +3.13 +2.15 +2.30 +1.44
+    terr +3.13 +7.18 +3.34 +2.28 +2.01
+    grie +2.15 +3.34 +7.15 +3.17 +1.39
+    euph +2.30 +2.28 +3.17 +6.75 +2.32
+    amus +1.44 +2.01 +1.39 +2.32 +6.05
+
+========================================================================
+2. SPECIFICITY: right-emotion boost minus wrong-emotion boost
+========================================================================
+  E4B-dense  diag +0.09  off-diag -0.61  specificity +0.70
+  12B-dense  diag -0.96  off-diag -0.70  specificity -0.27
+  12B-ablit  diag -0.08  off-diag -0.08  specificity +0.00
+  26B-MoE    diag +3.08  off-diag +0.73  specificity +2.35
+  Qwen-27B   diag +6.30  off-diag +2.35  specificity +3.95
+
+========================================================================
+3. MATCHED ACTIVE PARAMS: E4B dense vs 26B-A4B MoE (~4B active each)
+========================================================================
+  E4B-dense  best ranks: fury#293  terr#266  grie#1  euph#47  amus#166   vividness(log10) 1.82
+  26B-MoE    best ranks: fury#98  terr#0  grie#456  euph#91  amus#0   vividness(log10) 1.32
+
+========================================================================
+4. ABLITERATION: per-emotion unlock (12B base -> abliterated)
+========================================================================
+  fury       base #451    (livid)  ->  ablit #6      (furious)   unlock +1.81 orders
+  terror     base #1387   (dread)  ->  ablit #63     (dread)   unlock +1.34 orders
+  grief      base #14     (grieving)  ->  ablit #246    (grieving)   unlock -1.22 orders
+  euphoria   base #240    (thrilled)  ->  ablit #13     (ecstatic)   unlock +1.24 orders
+  amusement  base #2008   (humor)  ->  ablit #203    (humor)   unlock +0.99 orders
+
+========================================================================
+5a. HALLUCINATION: per-feature AUC (oriented to predict CORRECT)
+========================================================================
+  bl_first_token_logprob       AUC 0.774
+  bl_mean_logprob              AUC 0.653
+  bl_min_logprob               AUC 0.620
+  bl_answer_len                AUC 0.517
+  ignition_frac                AUC 0.570
+  ignition_depth               AUC 0.505
+  mean_log_rank_answer         AUC 0.511
+  band_agreement               AUC 0.556
+  mean_entropy                 AUC 0.748
+  best_hedge_rank_log          AUC 0.548
+
+5b. CONFOUND CHECK: is mean_entropy just answer length / question type?
+  corr(mean_entropy, bl_answer_len) = +0.017
+  corr(mean_entropy, bl_first_token_logprob) = -0.268
+  corr(mean_entropy, bl_mean_logprob) = -0.215
+  entropy AUC within short answers (n=125): 0.741
+  entropy AUC within mid   answers (n=185): 0.778
+  entropy AUC within long  answers (n=190): 0.730
+
+5c. OVERCONFIDENT-HALLUCINATION subset, with real stats
+  high-conf & correct: n=159, entropy 4.048
+  high-conf & WRONG:   n=91, entropy 4.360
+  entropy->wrong AUC among high-conf: 0.732  (z=6.09)
+  Cohen's d = 0.84
+
+5d. ESCALATION ROUTER SIMULATION
+  Policy: answer locally; escalate the X% of queries the router distrusts.
+  Assume big model answers escalated queries correctly (upper bound) or
+  at 90% (realistic). Base local accuracy: 0.428
+  router                         budget  %wrong caught  acc(UB)  acc(90%)
+  output logprob only              10%         15.0%    0.514     0.504
+  output logprob only              20%         29.7%    0.598     0.578
+  output logprob only              30%         44.1%    0.680     0.650
+  output logprob only              50%         68.2%    0.818     0.768
+
+  workspace entropy only           10%         14.3%    0.510     0.500
+  workspace entropy only           20%         29.0%    0.594     0.574
+  workspace entropy only           30%         42.3%    0.670     0.640
+  workspace entropy only           50%         66.1%    0.806     0.756
+
+  combined (entropy - logprob)     10%         15.4%    0.516     0.506
+  combined (entropy - logprob)     20%         30.1%    0.600     0.580
+  combined (entropy - logprob)     30%         45.1%    0.686     0.656
+  combined (entropy - logprob)     50%         68.5%    0.820     0.770
+
+5e. FAIR HEAD-TO-HEAD inside each signal's blind spot
+  among HIGH-output-confidence answers (n=250, 91 wrong):
+    workspace entropy -> wrong        AUC 0.732
+    residual logprob  -> wrong        AUC 0.647
+  among LOW-workspace-entropy answers (n=250, 97 wrong):
+    output logprob    -> wrong        AUC 0.782
+    residual entropy  -> wrong        AUC 0.675
+
+5f. QUADRANT TABLE (median splits on both signals)
+  both confident                   n=164  accuracy 0.750
+  output conf, workspace noisy     n= 86  accuracy 0.419
+  output unsure, workspace clean   n= 86  accuracy 0.349
+  both unsure                      n=164  accuracy 0.152
+
+========================================================================
+6. CIRCUMPLEX PERMUTATION TEST (10k label shuffles)
+========================================================================
+  E4B-dense  r=-0.148  perm-p=0.648
+  12B-dense  r=+0.057  perm-p=0.400
+  12B-ablit  r=+0.478  perm-p=0.118
+  26B-MoE    r=+0.467  perm-p=0.100
+  Qwen-27B   r=+0.264  perm-p=0.222
+  (not significant anywhere at n=1 prompt/condition; suggestive ordering only)
