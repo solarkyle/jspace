@@ -106,7 +106,7 @@ as big brother, plus a live log showing which queries got escalated and why.
 
 ## Budget
 
-Remaining Modal credits ~$149. Phases 1-2 estimated $25-45 total (forward
-passes only, no fitting). Phase 3 is free (local). Phase 5 is free (local).
-Leaves margin for one more lens fit if a new model matters (e.g. a Qwen MoE
+Phases 1-2 are cheap (forward passes only, no fitting: roughly $25-45 of
+cloud GPU time total). Phase 3 is free (local). Phase 5 is free (local).
+A new lens fit only becomes worth it if a new model matters (e.g. a Qwen MoE
 for the dense-vs-MoE hallucination comparison).
