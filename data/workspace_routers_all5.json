@@ -1,0 +1,326 @@
+{
+ "predicts": "P(answer is WRONG)",
+ "usage": "pick your model's router (or the E4B one for zero-shot transfer to other Gemmas); z-score features over your own traffic; risk = sigmoid(w . z + b); escalate above your budget threshold",
+ "routers": {
+  "gemma-4-e4b-it": {
+   "workspace_only": {
+    "features": [
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     0.28013,
+     0.39998,
+     -0.16794,
+     1.05426,
+     -0.27498,
+     0.27829,
+     0.31354,
+     -0.15258,
+     -0.06773,
+     0.19185
+    ],
+    "bias": 0.34956
+   },
+   "combined": {
+    "features": [
+     "bl_first_token_logprob",
+     "bl_mean_logprob",
+     "bl_min_logprob",
+     "bl_answer_len",
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     -0.35574,
+     -0.57688,
+     0.40373,
+     0.34521,
+     0.28294,
+     0.38259,
+     -0.14355,
+     0.98739,
+     -0.3593,
+     0.3902,
+     0.40726,
+     -0.12692,
+     -0.09776,
+     0.20108
+    ],
+    "bias": 0.40705
+   }
+  },
+  "gemma-4-12b-it": {
+   "workspace_only": {
+    "features": [
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     0.19423,
+     -0.67859,
+     0.60638,
+     0.63291,
+     0.42633,
+     -0.18268,
+     -0.39401,
+     0.11127,
+     0.09771,
+     -0.58355
+    ],
+    "bias": 0.00557
+   },
+   "combined": {
+    "features": [
+     "bl_first_token_logprob",
+     "bl_mean_logprob",
+     "bl_min_logprob",
+     "bl_answer_len",
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     -0.72695,
+     -0.05685,
+     0.08191,
+     -0.17313,
+     0.28286,
+     -0.72357,
+     0.50632,
+     0.4506,
+     0.43193,
+     -0.08501,
+     -0.35828,
+     0.15565,
+     0.11485,
+     -0.55831
+    ],
+    "bias": 0.07648
+   }
+  },
+  "huihui-gemma-4-12b-it-abliterated": {
+   "workspace_only": {
+    "features": [
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     0.06636,
+     0.63948,
+     -0.70345,
+     1.7233,
+     -0.18434,
+     0.14606,
+     0.20122,
+     -0.02065,
+     0.0,
+     -0.31471
+    ],
+    "bias": 0.14366
+   },
+   "combined": {
+    "features": [
+     "bl_first_token_logprob",
+     "bl_mean_logprob",
+     "bl_min_logprob",
+     "bl_answer_len",
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     -0.70157,
+     -0.18929,
+     -0.05444,
+     0.09719,
+     -0.01666,
+     0.59829,
+     -0.54203,
+     1.48867,
+     -0.09453,
+     0.08478,
+     0.12635,
+     0.00726,
+     0.0,
+     -0.32372
+    ],
+    "bias": 0.23879
+   }
+  },
+  "gemma-4-26b-a4b-it": {
+   "workspace_only": {
+    "features": [
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     -0.23501,
+     0.51785,
+     0.09106,
+     1.32856,
+     0.50776,
+     0.39041,
+     -0.39041,
+     0.14353,
+     0.09463,
+     -0.13696
+    ],
+    "bias": -0.61423
+   },
+   "combined": {
+    "features": [
+     "bl_first_token_logprob",
+     "bl_mean_logprob",
+     "bl_min_logprob",
+     "bl_answer_len",
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     -0.81187,
+     -0.13444,
+     0.18382,
+     0.16841,
+     0.05808,
+     0.36346,
+     -0.06901,
+     0.97275,
+     0.3966,
+     0.43184,
+     -0.43184,
+     0.20674,
+     0.08671,
+     -0.11975
+    ],
+    "bias": -0.56518
+   }
+  },
+  "qwen3.6-27b": {
+   "workspace_only": {
+    "features": [
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     0.87293,
+     -0.56753,
+     0.13357,
+     -0.87207,
+     0.62395,
+     -0.15785,
+     -0.09906,
+     0.31858,
+     0.05129,
+     -0.19274
+    ],
+    "bias": -0.59439
+   },
+   "combined": {
+    "features": [
+     "bl_first_token_logprob",
+     "bl_mean_logprob",
+     "bl_min_logprob",
+     "bl_answer_len",
+     "ws_mean_entropy",
+     "ws_max_entropy",
+     "ws_late_entropy",
+     "ws_entropy_slope",
+     "ws_entropy_std",
+     "ws_ignition_frac",
+     "ws_ignition_depth",
+     "ws_mean_log_rank",
+     "ws_band_agreement",
+     "ws_hedge_rank"
+    ],
+    "weights": [
+     0.05127,
+     -0.20117,
+     -1.6785,
+     -0.12354,
+     0.09854,
+     -0.30625,
+     0.01904,
+     -0.26732,
+     0.58953,
+     -0.20983,
+     -0.15159,
+     0.20149,
+     0.01758,
+     -0.28693
+    ],
+    "bias": -0.5788
+   }
+  }
+ }
+}
