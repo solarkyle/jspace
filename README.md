@@ -293,3 +293,9 @@ tables, and embeddings never see a gradient and live happily in system RAM.
 I'm currently between roles and looking for work on model internals, evals, or
 ML engineering - if this repo is the kind of thing your team does on purpose,
 I'd love to hear from you: fintechkyle@gmail.com.*
+
+## Contributing
+
+Open to it. The issues tab has the experiment list, grab anything. Traces and
+fitted lenses are on [HF](https://huggingface.co/solarkyle/jspace-lenses) so
+most analysis ideas don't even need a GPU.

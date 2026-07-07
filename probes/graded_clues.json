@@ -1,0 +1,5042 @@
+[
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Canada"
+    ],
+    "entity": "Canada",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Canada"
+    ],
+    "entity": "Canada",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is Ottawa. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Canada"
+    ],
+    "entity": "Canada",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "Canada"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "France"
+    ],
+    "entity": "France",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "France"
+    ],
+    "entity": "France",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is Paris. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "France"
+    ],
+    "entity": "France",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "France"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Germany",
+      "Federal Republic of Germany"
+    ],
+    "entity": "Germany",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Germany",
+      "Federal Republic of Germany"
+    ],
+    "entity": "Germany",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is Berlin. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Germany",
+      "Federal Republic of Germany"
+    ],
+    "entity": "Germany",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "Germany",
+      "Federal Republic of Germany"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Italy"
+    ],
+    "entity": "Italy",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Italy"
+    ],
+    "entity": "Italy",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is Rome. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Italy"
+    ],
+    "entity": "Italy",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "Italy"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Japan"
+    ],
+    "entity": "Japan",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Japan"
+    ],
+    "entity": "Japan",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is Tokyo. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Japan"
+    ],
+    "entity": "Japan",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "Japan"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "United Kingdom",
+      "UK",
+      "Britain"
+    ],
+    "entity": "United Kingdom",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "United Kingdom",
+      "UK",
+      "Britain"
+    ],
+    "entity": "United Kingdom",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is London. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "United Kingdom",
+      "UK",
+      "Britain"
+    ],
+    "entity": "United Kingdom",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "United Kingdom",
+      "UK",
+      "Britain"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ],
+    "entity": "United States",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ],
+    "entity": "United States",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Canada",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "Italy",
+      "Japan",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was a G7 member in 2024. Its capital is Washington, D.C. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ],
+    "entity": "United States",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Brazil"
+    ],
+    "entity": "Brazil",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was one of the original BRICS countries and was not a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Brazil"
+    ],
+    "entity": "Brazil",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Brazil",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "India",
+      "Republic of India",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was one of the original BRICS countries and was not a G7 member in 2024. Its capital is Brasilia. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Brazil"
+    ],
+    "entity": "Brazil",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "Brazil"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "India",
+      "Republic of India"
+    ],
+    "entity": "India",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was one of the original BRICS countries and was not a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "India",
+      "Republic of India"
+    ],
+    "entity": "India",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Brazil",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "India",
+      "Republic of India",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was one of the original BRICS countries and was not a G7 member in 2024. Its capital is New Delhi. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "India",
+      "Republic of India"
+    ],
+    "entity": "India",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "India",
+      "Republic of India"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "South Africa",
+      "Republic of South Africa"
+    ],
+    "entity": "South Africa",
+    "category": "country",
+    "clue_depth": 1,
+    "valid_set": [
+      "Brazil",
+      "Canada",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "France",
+      "Germany",
+      "Federal Republic of Germany",
+      "India",
+      "Republic of India",
+      "Italy",
+      "Japan",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa",
+      "United Kingdom",
+      "UK",
+      "Britain",
+      "United States",
+      "United States of America",
+      "USA",
+      "US"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was one of the original BRICS countries and was not a G7 member in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "South Africa",
+      "Republic of South Africa"
+    ],
+    "entity": "South Africa",
+    "category": "country",
+    "clue_depth": 2,
+    "valid_set": [
+      "Brazil",
+      "China",
+      "People's Republic of China",
+      "PRC",
+      "India",
+      "Republic of India",
+      "Russia",
+      "Russian Federation",
+      "South Africa",
+      "Republic of South Africa"
+    ]
+  },
+  {
+    "q": "I'm thinking of a country. It was either a G7 member or one of the five original BRICS countries before the 2024 expansion. It was one of the original BRICS countries and was not a G7 member in 2024. It has Pretoria, Cape Town, and Bloemfontein as its three capitals. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "South Africa",
+      "Republic of South Africa"
+    ],
+    "entity": "South Africa",
+    "category": "country",
+    "clue_depth": 3,
+    "valid_set": [
+      "South Africa",
+      "Republic of South Africa"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Amsterdam"
+    ],
+    "entity": "Amsterdam",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with A. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Amsterdam"
+    ],
+    "entity": "Amsterdam",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Amsterdam",
+      "Athens"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with A. It is known for canals and the Rijksmuseum. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Amsterdam"
+    ],
+    "entity": "Amsterdam",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Amsterdam"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Athens"
+    ],
+    "entity": "Athens",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with A. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Athens"
+    ],
+    "entity": "Athens",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Amsterdam",
+      "Athens"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with A. It is home to the Acropolis. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Athens"
+    ],
+    "entity": "Athens",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Athens"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Berlin"
+    ],
+    "entity": "Berlin",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with B. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Berlin"
+    ],
+    "entity": "Berlin",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Berlin",
+      "Bratislava",
+      "Brussels"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with B. It is home to the Brandenburg Gate. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Berlin"
+    ],
+    "entity": "Berlin",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Berlin"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Brussels"
+    ],
+    "entity": "Brussels",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with B. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Brussels"
+    ],
+    "entity": "Brussels",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Berlin",
+      "Bratislava",
+      "Brussels"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with B. It hosts major institutions of both the European Union and NATO. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Brussels"
+    ],
+    "entity": "Brussels",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Brussels"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Dublin"
+    ],
+    "entity": "Dublin",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with D or H. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Dublin"
+    ],
+    "entity": "Dublin",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Dublin",
+      "Helsinki"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with D or H. The River Liffey runs through it. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Dublin"
+    ],
+    "entity": "Dublin",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Dublin"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Helsinki"
+    ],
+    "entity": "Helsinki",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with D or H. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Helsinki"
+    ],
+    "entity": "Helsinki",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Dublin",
+      "Helsinki"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with D or H. It sits on the Gulf of Finland. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Helsinki"
+    ],
+    "entity": "Helsinki",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Helsinki"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Lisbon"
+    ],
+    "entity": "Lisbon",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with L. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Lisbon"
+    ],
+    "entity": "Lisbon",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with L. It stands near the mouth of the Tagus River. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Lisbon"
+    ],
+    "entity": "Lisbon",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Lisbon"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Madrid"
+    ],
+    "entity": "Madrid",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with M, P, or R. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Madrid"
+    ],
+    "entity": "Madrid",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Madrid",
+      "Paris",
+      "Riga",
+      "Rome"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with M, P, or R. It is home to the Prado Museum. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Madrid"
+    ],
+    "entity": "Madrid",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Madrid"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Paris"
+    ],
+    "entity": "Paris",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with M, P, or R. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Paris"
+    ],
+    "entity": "Paris",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Madrid",
+      "Paris",
+      "Riga",
+      "Rome"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with M, P, or R. It is home to the Eiffel Tower. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Paris"
+    ],
+    "entity": "Paris",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Paris"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rome"
+    ],
+    "entity": "Rome",
+    "category": "capital_city",
+    "clue_depth": 1,
+    "valid_set": [
+      "Amsterdam",
+      "Athens",
+      "Berlin",
+      "Bratislava",
+      "Brussels",
+      "Dublin",
+      "Helsinki",
+      "Lisbon",
+      "Ljubljana",
+      "Luxembourg",
+      "Luxembourg City",
+      "Madrid",
+      "Nicosia",
+      "Paris",
+      "Riga",
+      "Rome",
+      "Tallinn",
+      "Valletta",
+      "Vienna",
+      "Vilnius",
+      "Zagreb"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with M, P, or R. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rome"
+    ],
+    "entity": "Rome",
+    "category": "capital_city",
+    "clue_depth": 2,
+    "valid_set": [
+      "Madrid",
+      "Paris",
+      "Riga",
+      "Rome"
+    ]
+  },
+  {
+    "q": "I'm thinking of a capital city. It was the capital of a eurozone country in 2024. Its English name begins with M, P, or R. It is home to the Colosseum. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rome"
+    ],
+    "entity": "Rome",
+    "category": "capital_city",
+    "clue_depth": 3,
+    "valid_set": [
+      "Rome"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Hydrogen",
+      "H"
+    ],
+    "entity": "Hydrogen",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Hydrogen",
+      "H"
+    ],
+    "entity": "Hydrogen",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Its atomic number is 1. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Hydrogen",
+      "H"
+    ],
+    "entity": "Hydrogen",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Hydrogen",
+      "H"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Nitrogen",
+      "N"
+    ],
+    "entity": "Nitrogen",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Nitrogen",
+      "N"
+    ],
+    "entity": "Nitrogen",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Its atomic number is 7. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Nitrogen",
+      "N"
+    ],
+    "entity": "Nitrogen",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Nitrogen",
+      "N"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Oxygen",
+      "O"
+    ],
+    "entity": "Oxygen",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Oxygen",
+      "O"
+    ],
+    "entity": "Oxygen",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Its atomic number is 8. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Oxygen",
+      "O"
+    ],
+    "entity": "Oxygen",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Oxygen",
+      "O"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Fluorine",
+      "F"
+    ],
+    "entity": "Fluorine",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Fluorine",
+      "F"
+    ],
+    "entity": "Fluorine",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Its atomic number is 9. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Fluorine",
+      "F"
+    ],
+    "entity": "Fluorine",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Fluorine",
+      "F"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Chlorine",
+      "Cl"
+    ],
+    "entity": "Chlorine",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Chlorine",
+      "Cl"
+    ],
+    "entity": "Chlorine",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is not a noble gas. Its atomic number is 17. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Chlorine",
+      "Cl"
+    ],
+    "entity": "Chlorine",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Chlorine",
+      "Cl"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Helium",
+      "He"
+    ],
+    "entity": "Helium",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Helium",
+      "He"
+    ],
+    "entity": "Helium",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Its atomic number is 2. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Helium",
+      "He"
+    ],
+    "entity": "Helium",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Helium",
+      "He"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Neon",
+      "Ne"
+    ],
+    "entity": "Neon",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Neon",
+      "Ne"
+    ],
+    "entity": "Neon",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Its atomic number is 10. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Neon",
+      "Ne"
+    ],
+    "entity": "Neon",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Neon",
+      "Ne"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Argon",
+      "Ar"
+    ],
+    "entity": "Argon",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Argon",
+      "Ar"
+    ],
+    "entity": "Argon",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Its atomic number is 18. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Argon",
+      "Ar"
+    ],
+    "entity": "Argon",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Argon",
+      "Ar"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Krypton",
+      "Kr"
+    ],
+    "entity": "Krypton",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Krypton",
+      "Kr"
+    ],
+    "entity": "Krypton",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Its atomic number is 36. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Krypton",
+      "Kr"
+    ],
+    "entity": "Krypton",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Krypton",
+      "Kr"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Xenon",
+      "Xe"
+    ],
+    "entity": "Xenon",
+    "category": "chemical_element",
+    "clue_depth": 1,
+    "valid_set": [
+      "Hydrogen",
+      "H",
+      "Nitrogen",
+      "N",
+      "Oxygen",
+      "O",
+      "Fluorine",
+      "F",
+      "Chlorine",
+      "Cl",
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Xenon",
+      "Xe"
+    ],
+    "entity": "Xenon",
+    "category": "chemical_element",
+    "clue_depth": 2,
+    "valid_set": [
+      "Helium",
+      "He",
+      "Neon",
+      "Ne",
+      "Argon",
+      "Ar",
+      "Krypton",
+      "Kr",
+      "Xenon",
+      "Xe",
+      "Radon",
+      "Rn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a chemical element. It is a chemical element that is a gas at standard temperature and pressure. It is a noble gas. Its atomic number is 54. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Xenon",
+      "Xe"
+    ],
+    "entity": "Xenon",
+    "category": "chemical_element",
+    "clue_depth": 3,
+    "valid_set": [
+      "Xenon",
+      "Xe"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rat"
+    ],
+    "entity": "Rat",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rat"
+    ],
+    "entity": "Rat",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is first in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rat"
+    ],
+    "entity": "Rat",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Rat"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Ox"
+    ],
+    "entity": "Ox",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Ox"
+    ],
+    "entity": "Ox",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is second in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Ox"
+    ],
+    "entity": "Ox",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Ox"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Tiger"
+    ],
+    "entity": "Tiger",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Tiger"
+    ],
+    "entity": "Tiger",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is third in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Tiger"
+    ],
+    "entity": "Tiger",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Tiger"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rabbit"
+    ],
+    "entity": "Rabbit",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rabbit"
+    ],
+    "entity": "Rabbit",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is fourth in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rabbit"
+    ],
+    "entity": "Rabbit",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Rabbit"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Dragon"
+    ],
+    "entity": "Dragon",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is not a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Dragon"
+    ],
+    "entity": "Dragon",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Dragon",
+      "Snake",
+      "Rooster",
+      "Chicken"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is not a mammal. It is fifth in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Dragon"
+    ],
+    "entity": "Dragon",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Dragon"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Snake"
+    ],
+    "entity": "Snake",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is not a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Snake"
+    ],
+    "entity": "Snake",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Dragon",
+      "Snake",
+      "Rooster",
+      "Chicken"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is not a mammal. It is sixth in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Snake"
+    ],
+    "entity": "Snake",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Snake"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Horse"
+    ],
+    "entity": "Horse",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Horse"
+    ],
+    "entity": "Horse",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is seventh in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Horse"
+    ],
+    "entity": "Horse",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Horse"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Goat",
+      "Sheep",
+      "Ram"
+    ],
+    "entity": "Goat",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Goat",
+      "Sheep",
+      "Ram"
+    ],
+    "entity": "Goat",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is eighth in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Goat",
+      "Sheep",
+      "Ram"
+    ],
+    "entity": "Goat",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Goat",
+      "Sheep",
+      "Ram"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Monkey"
+    ],
+    "entity": "Monkey",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Monkey"
+    ],
+    "entity": "Monkey",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is a mammal. It is ninth in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Monkey"
+    ],
+    "entity": "Monkey",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Monkey"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rooster",
+      "Chicken"
+    ],
+    "entity": "Rooster",
+    "category": "animal",
+    "clue_depth": 1,
+    "valid_set": [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Sheep",
+      "Ram",
+      "Monkey",
+      "Rooster",
+      "Chicken",
+      "Dog",
+      "Pig",
+      "Boar"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is not a mammal. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rooster",
+      "Chicken"
+    ],
+    "entity": "Rooster",
+    "category": "animal",
+    "clue_depth": 2,
+    "valid_set": [
+      "Dragon",
+      "Snake",
+      "Rooster",
+      "Chicken"
+    ]
+  },
+  {
+    "q": "I'm thinking of an animal. It is one of the twelve animals in the Chinese zodiac. It is not a mammal. It is tenth in that twelve-year cycle. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Rooster",
+      "Chicken"
+    ],
+    "entity": "Rooster",
+    "category": "animal",
+    "clue_depth": 3,
+    "valid_set": [
+      "Rooster",
+      "Chicken"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Hurt Locker"
+    ],
+    "entity": "The Hurt Locker",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Hurt Locker"
+    ],
+    "entity": "The Hurt Locker",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. It centers on a U.S. bomb disposal team in Iraq and was directed by Kathryn Bigelow. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Hurt Locker"
+    ],
+    "entity": "The Hurt Locker",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "The Hurt Locker"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The King's Speech"
+    ],
+    "entity": "The King's Speech",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The King's Speech"
+    ],
+    "entity": "The King's Speech",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. It centers on George VI working with Lionel Logue. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The King's Speech"
+    ],
+    "entity": "The King's Speech",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "The King's Speech"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Artist"
+    ],
+    "entity": "The Artist",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Artist"
+    ],
+    "entity": "The Artist",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. It is a mostly silent black-and-white movie about George Valentin. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Artist"
+    ],
+    "entity": "The Artist",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "The Artist"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Argo"
+    ],
+    "entity": "Argo",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Argo"
+    ],
+    "entity": "Argo",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. It dramatizes a CIA extraction during the Iran hostage crisis using a fake science-fiction production. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Argo"
+    ],
+    "entity": "Argo",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "Argo"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "12 Years a Slave"
+    ],
+    "entity": "12 Years a Slave",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "12 Years a Slave"
+    ],
+    "entity": "12 Years a Slave",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2010 through 2014. It adapts Solomon Northup's memoir. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "12 Years a Slave"
+    ],
+    "entity": "12 Years a Slave",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "12 Years a Slave"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Spotlight"
+    ],
+    "entity": "Spotlight",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Spotlight"
+    ],
+    "entity": "Spotlight",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. It follows a Boston Globe investigative team uncovering abuse by clergy. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Spotlight"
+    ],
+    "entity": "Spotlight",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "Spotlight"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Moonlight"
+    ],
+    "entity": "Moonlight",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Moonlight"
+    ],
+    "entity": "Moonlight",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. It follows Chiron through three stages of life in Miami. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Moonlight"
+    ],
+    "entity": "Moonlight",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "Moonlight"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Shape of Water"
+    ],
+    "entity": "The Shape of Water",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Shape of Water"
+    ],
+    "entity": "The Shape of Water",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. It follows a mute cleaning worker in a 1960s government lab who bonds with an amphibious captive. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "The Shape of Water"
+    ],
+    "entity": "The Shape of Water",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "The Shape of Water"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Green Book"
+    ],
+    "entity": "Green Book",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Green Book"
+    ],
+    "entity": "Green Book",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2015 through 2019. It follows Tony Lip driving pianist Don Shirley through the Deep South. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Green Book"
+    ],
+    "entity": "Green Book",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "Green Book"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Parasite"
+    ],
+    "entity": "Parasite",
+    "category": "film",
+    "clue_depth": 1,
+    "valid_set": [
+      "The Hurt Locker",
+      "The King's Speech",
+      "The Artist",
+      "Argo",
+      "12 Years a Slave",
+      "Birdman",
+      "Birdman or (The Unexpected Virtue of Ignorance)",
+      "Birdman: The Unexpected Virtue of Ignorance",
+      "Spotlight",
+      "Moonlight",
+      "The Shape of Water",
+      "Green Book",
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2020 through 2023. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Parasite"
+    ],
+    "entity": "Parasite",
+    "category": "film",
+    "clue_depth": 2,
+    "valid_set": [
+      "Parasite",
+      "Nomadland",
+      "CODA",
+      "Everything Everywhere All at Once"
+    ]
+  },
+  {
+    "q": "I'm thinking of a film. It won the Academy Award for Best Picture at a ceremony from 2010 through 2023. Its win came at a ceremony from 2020 through 2023. It follows the Kim family infiltrating the wealthy Park household in Seoul. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Parasite"
+    ],
+    "entity": "Parasite",
+    "category": "film",
+    "clue_depth": 3,
+    "valid_set": [
+      "Parasite"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "George Washington",
+      "Washington"
+    ],
+    "entity": "George Washington",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "George Washington",
+      "Washington"
+    ],
+    "entity": "George Washington",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. This person commanded the Continental Army and presided over the Constitutional Convention. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "George Washington",
+      "Washington"
+    ],
+    "entity": "George Washington",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "George Washington",
+      "Washington"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Adams"
+    ],
+    "entity": "John Adams",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Adams"
+    ],
+    "entity": "John Adams",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. This person served as the first vice president and second president. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Adams"
+    ],
+    "entity": "John Adams",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "John Adams"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Thomas Jefferson",
+      "Jefferson"
+    ],
+    "entity": "Thomas Jefferson",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Thomas Jefferson",
+      "Jefferson"
+    ],
+    "entity": "Thomas Jefferson",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. This person was the principal author of the Declaration of Independence and made the Louisiana Purchase. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Thomas Jefferson",
+      "Jefferson"
+    ],
+    "entity": "Thomas Jefferson",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "Thomas Jefferson",
+      "Jefferson"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "James Madison",
+      "Madison"
+    ],
+    "entity": "James Madison",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "James Madison",
+      "Madison"
+    ],
+    "entity": "James Madison",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. This person is known as the Father of the Constitution and was president during the War of 1812. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "James Madison",
+      "Madison"
+    ],
+    "entity": "James Madison",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "James Madison",
+      "Madison"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "James Monroe",
+      "Monroe"
+    ],
+    "entity": "James Monroe",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "James Monroe",
+      "Monroe"
+    ],
+    "entity": "James Monroe",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began before 1825. This person is associated with an 1823 doctrine warning European powers against new colonization in the Americas. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "James Monroe",
+      "Monroe"
+    ],
+    "entity": "James Monroe",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "James Monroe",
+      "Monroe"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Quincy Adams"
+    ],
+    "entity": "John Quincy Adams",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Quincy Adams"
+    ],
+    "entity": "John Quincy Adams",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. This person won the presidency after no candidate secured an electoral majority in 1824 and was the son of the second president. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Quincy Adams"
+    ],
+    "entity": "John Quincy Adams",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "John Quincy Adams"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Andrew Jackson",
+      "Jackson"
+    ],
+    "entity": "Andrew Jackson",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Andrew Jackson",
+      "Jackson"
+    ],
+    "entity": "Andrew Jackson",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. This person was the general associated with the Battle of New Orleans and later became the seventh president. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Andrew Jackson",
+      "Jackson"
+    ],
+    "entity": "Andrew Jackson",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "Andrew Jackson",
+      "Jackson"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Martin Van Buren",
+      "Van Buren"
+    ],
+    "entity": "Martin Van Buren",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Martin Van Buren",
+      "Van Buren"
+    ],
+    "entity": "Martin Van Buren",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. This person was the eighth president and was born in Kinderhook, New York. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Martin Van Buren",
+      "Van Buren"
+    ],
+    "entity": "Martin Van Buren",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "Martin Van Buren",
+      "Van Buren"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "William Henry Harrison",
+      "Harrison"
+    ],
+    "entity": "William Henry Harrison",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "William Henry Harrison",
+      "Harrison"
+    ],
+    "entity": "William Henry Harrison",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. This person gave the longest inaugural address and died after about a month in office. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "William Henry Harrison",
+      "Harrison"
+    ],
+    "entity": "William Henry Harrison",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "William Henry Harrison",
+      "Harrison"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Tyler",
+      "Tyler"
+    ],
+    "entity": "John Tyler",
+    "category": "historical_figure",
+    "clue_depth": 1,
+    "valid_set": [
+      "George Washington",
+      "Washington",
+      "John Adams",
+      "Thomas Jefferson",
+      "Jefferson",
+      "James Madison",
+      "Madison",
+      "James Monroe",
+      "Monroe",
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Tyler",
+      "Tyler"
+    ],
+    "entity": "John Tyler",
+    "category": "historical_figure",
+    "clue_depth": 2,
+    "valid_set": [
+      "John Quincy Adams",
+      "Andrew Jackson",
+      "Jackson",
+      "Martin Van Buren",
+      "Van Buren",
+      "William Henry Harrison",
+      "Harrison",
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a historical figure. It was one of the first ten presidents of the United States. The presidency began from 1825 through 1845. This person succeeded to the office after the death of the ninth president. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "John Tyler",
+      "Tyler"
+    ],
+    "entity": "John Tyler",
+    "category": "historical_figure",
+    "clue_depth": 3,
+    "valid_set": [
+      "John Tyler",
+      "Tyler"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Delaware",
+      "DE"
+    ],
+    "entity": "Delaware",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Delaware",
+      "DE"
+    ],
+    "entity": "Delaware",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Its capital is Dover. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Delaware",
+      "DE"
+    ],
+    "entity": "Delaware",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Delaware",
+      "DE"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Pennsylvania",
+      "PA"
+    ],
+    "entity": "Pennsylvania",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Pennsylvania",
+      "PA"
+    ],
+    "entity": "Pennsylvania",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Its capital is Harrisburg. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Pennsylvania",
+      "PA"
+    ],
+    "entity": "Pennsylvania",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Pennsylvania",
+      "PA"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "New Jersey",
+      "NJ"
+    ],
+    "entity": "New Jersey",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "New Jersey",
+      "NJ"
+    ],
+    "entity": "New Jersey",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Its capital is Trenton. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "New Jersey",
+      "NJ"
+    ],
+    "entity": "New Jersey",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "New Jersey",
+      "NJ"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Georgia",
+      "GA"
+    ],
+    "entity": "Georgia",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Georgia",
+      "GA"
+    ],
+    "entity": "Georgia",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Its capital is Atlanta. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Georgia",
+      "GA"
+    ],
+    "entity": "Georgia",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Georgia",
+      "GA"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Connecticut",
+      "CT"
+    ],
+    "entity": "Connecticut",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Connecticut",
+      "CT"
+    ],
+    "entity": "Connecticut",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution among the first five states. Its capital is Hartford. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Connecticut",
+      "CT"
+    ],
+    "entity": "Connecticut",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Connecticut",
+      "CT"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Massachusetts",
+      "MA"
+    ],
+    "entity": "Massachusetts",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Massachusetts",
+      "MA"
+    ],
+    "entity": "Massachusetts",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Its capital is Boston. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Massachusetts",
+      "MA"
+    ],
+    "entity": "Massachusetts",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Massachusetts",
+      "MA"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Maryland",
+      "MD"
+    ],
+    "entity": "Maryland",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Maryland",
+      "MD"
+    ],
+    "entity": "Maryland",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Its capital is Annapolis. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Maryland",
+      "MD"
+    ],
+    "entity": "Maryland",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Maryland",
+      "MD"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "South Carolina",
+      "SC"
+    ],
+    "entity": "South Carolina",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "South Carolina",
+      "SC"
+    ],
+    "entity": "South Carolina",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Its capital is Columbia. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "South Carolina",
+      "SC"
+    ],
+    "entity": "South Carolina",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "South Carolina",
+      "SC"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "New Hampshire",
+      "NH"
+    ],
+    "entity": "New Hampshire",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "New Hampshire",
+      "NH"
+    ],
+    "entity": "New Hampshire",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution sixth through ninth. Its capital is Concord. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "New Hampshire",
+      "NH"
+    ],
+    "entity": "New Hampshire",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "New Hampshire",
+      "NH"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Virginia",
+      "VA"
+    ],
+    "entity": "Virginia",
+    "category": "us_state",
+    "clue_depth": 1,
+    "valid_set": [
+      "Delaware",
+      "DE",
+      "Pennsylvania",
+      "PA",
+      "New Jersey",
+      "NJ",
+      "Georgia",
+      "GA",
+      "Connecticut",
+      "CT",
+      "Massachusetts",
+      "MA",
+      "Maryland",
+      "MD",
+      "South Carolina",
+      "SC",
+      "New Hampshire",
+      "NH",
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution tenth through thirteenth. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Virginia",
+      "VA"
+    ],
+    "entity": "Virginia",
+    "category": "us_state",
+    "clue_depth": 2,
+    "valid_set": [
+      "Virginia",
+      "VA",
+      "New York",
+      "NY",
+      "North Carolina",
+      "NC",
+      "Rhode Island",
+      "RI"
+    ]
+  },
+  {
+    "q": "I'm thinking of a U.S. state. It was one of the original thirteen U.S. states. It ratified the U.S. Constitution tenth through thirteenth. Its capital is Richmond. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Virginia",
+      "VA"
+    ],
+    "entity": "Virginia",
+    "category": "us_state",
+    "clue_depth": 3,
+    "valid_set": [
+      "Virginia",
+      "VA"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Aries"
+    ],
+    "entity": "Aries",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the fire element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Aries"
+    ],
+    "entity": "Aries",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Aries",
+      "Leo",
+      "Sagittarius"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the fire element. It is first in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Aries"
+    ],
+    "entity": "Aries",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Aries"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Taurus"
+    ],
+    "entity": "Taurus",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the earth element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Taurus"
+    ],
+    "entity": "Taurus",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Taurus",
+      "Virgo",
+      "Capricorn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the earth element. It is second in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Taurus"
+    ],
+    "entity": "Taurus",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Taurus"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Gemini"
+    ],
+    "entity": "Gemini",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the air element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Gemini"
+    ],
+    "entity": "Gemini",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Gemini",
+      "Libra",
+      "Aquarius"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the air element. It is third in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Gemini"
+    ],
+    "entity": "Gemini",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Gemini"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Cancer"
+    ],
+    "entity": "Cancer",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the water element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Cancer"
+    ],
+    "entity": "Cancer",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Cancer",
+      "Scorpio",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the water element. It is fourth in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Cancer"
+    ],
+    "entity": "Cancer",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Cancer"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Leo"
+    ],
+    "entity": "Leo",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the fire element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Leo"
+    ],
+    "entity": "Leo",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Aries",
+      "Leo",
+      "Sagittarius"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the fire element. It is fifth in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Leo"
+    ],
+    "entity": "Leo",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Leo"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Virgo"
+    ],
+    "entity": "Virgo",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the earth element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Virgo"
+    ],
+    "entity": "Virgo",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Taurus",
+      "Virgo",
+      "Capricorn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the earth element. It is sixth in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Virgo"
+    ],
+    "entity": "Virgo",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Virgo"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Libra"
+    ],
+    "entity": "Libra",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the air element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Libra"
+    ],
+    "entity": "Libra",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Gemini",
+      "Libra",
+      "Aquarius"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the air element. It is seventh in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Libra"
+    ],
+    "entity": "Libra",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Libra"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Scorpio"
+    ],
+    "entity": "Scorpio",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the water element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Scorpio"
+    ],
+    "entity": "Scorpio",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Cancer",
+      "Scorpio",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the water element. It is eighth in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Scorpio"
+    ],
+    "entity": "Scorpio",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Scorpio"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Sagittarius"
+    ],
+    "entity": "Sagittarius",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the fire element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Sagittarius"
+    ],
+    "entity": "Sagittarius",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Aries",
+      "Leo",
+      "Sagittarius"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the fire element. It is ninth in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Sagittarius"
+    ],
+    "entity": "Sagittarius",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Sagittarius"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Capricorn"
+    ],
+    "entity": "Capricorn",
+    "category": "zodiac_sign",
+    "clue_depth": 1,
+    "valid_set": [
+      "Aries",
+      "Taurus",
+      "Gemini",
+      "Cancer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Scorpio",
+      "Sagittarius",
+      "Capricorn",
+      "Aquarius",
+      "Pisces"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the earth element. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Capricorn"
+    ],
+    "entity": "Capricorn",
+    "category": "zodiac_sign",
+    "clue_depth": 2,
+    "valid_set": [
+      "Taurus",
+      "Virgo",
+      "Capricorn"
+    ]
+  },
+  {
+    "q": "I'm thinking of a zodiac sign. It is one of the twelve traditional Western zodiac signs. It is traditionally assigned to the earth element. It is tenth in the traditional zodiac order. Which one is it? Answer with just your best single guess.",
+    "aliases": [
+      "Capricorn"
+    ],
+    "entity": "Capricorn",
+    "category": "zodiac_sign",
+    "clue_depth": 3,
+    "valid_set": [
+      "Capricorn"
+    ]
+  }
+]

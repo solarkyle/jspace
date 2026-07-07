@@ -232,7 +232,7 @@ def emotions(models: str = "google/gemma-4-26B-A4B-it", out: str = "out/emotion_
     secrets=[modal.Secret.from_name("huggingface")],
 )
 def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
-                    tag: str = "trivia") -> list:
+                    tag: str = "trivia", max_new: int = 24) -> list:
     """Hallucination probe (Phase 1 of docs/HALLUCINATION_PLAN.md), cloud port
     of probe_uncertainty.py. Reads lens features at the answer position, greedy
     generation, labels vs aliases. `questions` overrides TriviaQA (each item:
@@ -283,13 +283,19 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
 
     rows = []
     for i, item in enumerate(questions):
+        if item.get("system"):
+            msgs = [{"role": "system", "content": item["system"]},
+                    {"role": "user", "content": item["q"]}]
+        elif "clue_depth" in item:
+            msgs = [{"role": "user", "content": item["q"]}]  # q self-contained
+        else:
+            msgs = [{"role": "user", "content":
+                     f"Answer with just the answer, nothing else: {item['q']}"}]
         prompt = tok.apply_chat_template(
-            [{"role": "user", "content":
-              f"Answer with just the answer, nothing else: {item['q']}"}],
-            tokenize=False, add_generation_prompt=True, enable_thinking=False)
-        input_ids = model.encode(prompt, max_length=512)
+            msgs, tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        input_ids = model.encode(prompt, max_length=1536)
         ids, gen_ids, step_logprobs = input_ids, [], []
-        for _ in range(24):
+        for _ in range(max_new):
             with torch.no_grad():
                 hidden = model.forward(ids).last_hidden_state[:, -1]
                 head = model._lm_head
@@ -317,6 +323,7 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
 
         lens_logits, _, _ = lens.apply(model, prompt, positions=[-1])
         ranks_ans, ranks_hedge, entropies, top1s = [], [], [], []
+        shape = {"top1_p": [], "rival_mass": [], "tail_mass": [], "eff_k20": []}
         for layer in band:
             logits = lens_logits[layer][0].float()
             order = logits.argsort(descending=True)
@@ -327,6 +334,15 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
             probs = logits.softmax(-1)
             entropies.append(float(-(probs * probs.clamp_min(1e-12).log()).sum()))
             top1s.append(int(order[0]))
+            # distribution shape: competition (rivals) vs diffuse noise (tail)
+            p_sorted = probs[order]
+            t1 = float(p_sorted[0]); t5 = float(p_sorted[:5].sum())
+            t20 = p_sorted[:20]
+            shape["top1_p"].append(round(t1, 5))
+            shape["rival_mass"].append(round(t5 - t1, 5))       # mass held by rivals 2-5
+            shape["tail_mass"].append(round(1.0 - float(t20.sum()), 5))  # smear beyond top20
+            q = t20 / t20.sum()
+            shape["eff_k20"].append(round(float(1.0 / (q * q).sum()), 3))  # participation ratio
         ranks_arr = np.array(ranks_ans)
         ignited = np.nonzero(ranks_arr <= 10)[0]
         features = {
@@ -337,6 +353,7 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
             "mean_entropy": float(np.mean(entropies)),
             "best_hedge_rank_log": float(np.log1p(min(ranks_hedge))),
             "layer_entropies": [round(e, 4) for e in entropies],
+            "shape": shape,
         }
         extra = {k: v for k, v in item.items() if k not in ("q", "aliases")}
         rows.append({"q": item["q"], "answer": answer, "correct": correct,
@@ -489,7 +506,7 @@ def dump(models: str, out: str = "out/workspace_dump.json"):
 
 @app.local_entrypoint()
 def uncertainty(models: str, n: int = 500, tag: str = "trivia",
-                questions_file: str = ""):
+                questions_file: str = "", max_new: int = 24):
     """modal run modal_fit.py::uncertainty --models "a,b" [--questions-file f.json]"""
     import json
     import os
@@ -498,7 +515,8 @@ def uncertainty(models: str, n: int = 500, tag: str = "trivia",
         qs = json.load(open(questions_file, encoding="utf-8"))
     model_list = [m.strip() for m in models.split(",")]
     results = list(uncertainty_run.map(
-        model_list, kwargs={"n": n, "questions": qs, "tag": tag}))
+        model_list, kwargs={"n": n, "questions": qs, "tag": tag,
+                            "max_new": max_new}))
     os.makedirs("out", exist_ok=True)
     for mid, rows in zip(model_list, results):
         local = f"out/uncertainty_{tag}_{_slug(mid)}.jsonl"
