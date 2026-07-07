@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>jspace — probing the global workspace of open models</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{font-family:system-ui,-apple-system,sans-serif;max-width:640px;margin:3rem auto;
+       line-height:1.55;padding:0 1.2rem;color:#111}
+  @media(prefers-color-scheme:dark){body{background:#111;color:#eee}a{color:#7ab7ff}}
+  h1{margin-bottom:.2rem}.sub{color:#888;margin-top:0}
+  li{margin:.5rem 0}code{background:#8881;padding:.1rem .3rem;border-radius:3px}
+</style>
+<h1>jspace</h1>
+<p class="sub">Probing the global workspace of open models with the Jacobian lens.</p>
+<p>Same-day replication and extension of Anthropic's
+<a href="https://transformer-circuits.pub/2026/workspace/index.html">global-workspace paper</a>
+(July 2026) on five open models, fit on a 16GB consumer GPU + Modal.</p>
+<ul>
+  <li><a href="https://github.com/solarkyle/jspace">→ GitHub repo</a> (code, data, README)</li>
+  <li><a href="https://github.com/solarkyle/jspace/blob/master/docs/FINDINGS.md">→ Cross-model findings report</a></li>
+  <li><a href="slices/">→ Interactive probe gallery</a> (click cells to pin tokens)</li>
+</ul>
+<p><b>Headline:</b> covert-emotion vividness tracks capability — Qwen&nbsp;3.6-27B
+holds every secretly-felt emotion in the top ~7 tokens of its whole vocabulary;
+abliteration amplifies internal emotion 1–2 orders of magnitude; and workspace
+state predicts hallucination label-free (CV-AUC&nbsp;0.78).</p>
