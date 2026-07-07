@@ -16,6 +16,8 @@ layer and position: its workspace.
 &nbsp;·&nbsp; **[→ Cross-model findings report](docs/FINDINGS.md)**
 &nbsp;·&nbsp; **[→ Probe gallery](https://solarkyle.github.io/jspace/slices/)**
 
+![demo](assets/demo.gif)
+
 ## The one-line version for busy people
 
 A single-pass, label-free internal-state signal (workspace entropy) catches
@@ -202,10 +204,14 @@ digits (4.547 vs 4.543 on prompt 1).
 | Qwen/Qwen3.6-27B | ✅ fitted (100 prompts) | 〃 | `6a9e13bd6fc8` |
 | huihui-ai/Huihui-gemma-4-12B-it-abliterated | ✅ fitted (75 prompts) | 〃 | `060ea173c4d1` |
 
-Lens weights will be published on HuggingFace
-(`JacobianLens.from_pretrained`-compatible). The abliterated 12B pairs with the
-base 12B for a controlled question: **does abliteration delete the model's
-internal harm assessment, or just the refusal behavior?**
+**All five fitted lenses + every eval trace are on HuggingFace:
+[solarkyle/jspace-lenses](https://huggingface.co/solarkyle/jspace-lenses)**
+(`JacobianLens.load`-compatible, loading snippet in the model card). The
+abliterated 12B pairs with the base 12B for a controlled question: **does
+abliteration delete the model's internal harm assessment, or just the refusal
+behavior?** (Partial answer in [docs/FINDINGS.md](docs/FINDINGS.md) Part 4: it
+also converts refusal-of-fabrication into confident fabrication and damages the
+workspace's self-knowledge signal.)
 
 ## Reproduce
 
