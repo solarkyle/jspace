@@ -69,7 +69,7 @@ for k, slug in enumerate(others[:4]):
     E2 = np.array([r["layer_entropies"] for r in r2])
     y2 = np.array([r["correct"] for r in r2])
     x2 = np.linspace(0.25, 0.75, E2.shape[1])
-    axk = sub.inset_axes([0.06 + 0.5 * (k % 2), 0.02 + 0.48 * (1 - k // 2), 0.40, 0.38])
+    axk = sub.inset_axes([0.09 + 0.5 * (k % 2), 0.07 + 0.52 * (1 - k // 2), 0.38, 0.33])
     for val, c in [(1, GREEN), (0, RED)]:
         m = hc2 & (y2 == val)
         if m.sum() < 5:
@@ -96,7 +96,7 @@ if os.path.exists("out/qa_dump.json"):
         layers = ex["layers"]
         ents = [l["entropy"] for l in layers]
         lo, hi = min(ents), max(ents)
-        axb.set_xlim(0, 1); axb.set_ylim(-1.5, len(layers))
+        axb.set_xlim(0, 1); axb.set_ylim(-3.0, len(layers))
         axb.axis("off")
         q = ex["q"] if len(ex["q"]) < 70 else ex["q"][:67] + "..."
         axb.set_title(f"“{q}”\nmodel says: “{ex['model_answer']}” - {verdict} "
@@ -107,7 +107,10 @@ if os.path.exists("out/qa_dump.json"):
             heat = (l["entropy"] - lo) / (hi - lo + 1e-9)
             axb.add_patch(plt.Rectangle((0.13, yy - 0.42), 0.85, 0.84,
                           color=plt.cm.RdYlGn_r(0.15 + 0.7 * heat), alpha=0.55, lw=0))
-            toks = [t.strip() or "·" for t in l["top"][:5]]
+            def safe(t):
+                t = t.strip() or "·"
+                return t if all(ord(c) < 0x0500 for c in t) else "·ml·"
+            toks = [safe(t) for t in l["top"][:5]]
             # bold the token if it's the model's eventual answer token
             ans = ex["first_token"].strip()
             txt = "  ".join(f"[{t}]" if t == ans else t for t in toks)
@@ -117,7 +120,7 @@ if os.path.exists("out/qa_dump.json"):
                      ha="right", color="#666")
             axb.text(0.995, yy, f"{l['entropy']:.1f}", fontsize=7, va="center",
                      ha="right", color="#666")
-        axb.text(0.14, -1.0, "top workspace tokens per layer (deep layers at top); "
+        axb.text(0.14, -1.9, "top workspace tokens per layer (deep layers at top); "
                  "[answer] = the token it ends up saying;\nrow color = entropy "
                  "(green calm → red fog); right column = entropy value",
                  fontsize=8, color="#555")

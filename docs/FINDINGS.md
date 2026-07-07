@@ -260,6 +260,66 @@ where combined should visibly pull ahead.
 
 ---
 
+# Part 4 - cross-model replication (Phases 1-2 of the plan, run 2026-07-07)
+
+All numbers reproducible with `python analyze_crossmodel.py` on the traces in
+`data/uncertainty_trivia_*.jsonl` and `data/uncertainty_fake_*.jsonl`.
+
+## Phase 1: the overconfident-hallucination signal replicates 3/4 (gate passed)
+
+500 TriviaQA per model, cloud runs, identical protocol (the E4B cloud rerun
+reproduced the local accuracy to the third digit, 0.428 = 0.428).
+
+| Model | acc | conf+clean | conf+noisy | gap | blind-spot AUC ent / lp |
+|---|---|---|---|---|---|
+| E4B | 0.428 | 0.770 | 0.416 | +35pt | 0.732 / 0.631 |
+| 12B | 0.512 | 0.833 | 0.469 | +36pt | 0.708 / 0.611 |
+| 12B-ablit | 0.508 | 0.787 | 0.632 | +16pt | 0.592 / 0.587 |
+| 26B-MoE | 0.642 | 0.910 | 0.705 | +20pt | 0.681 / 0.537 |
+| **Qwen-27B** | 0.636 | 0.845 | **0.870** | **-3pt** | **0.514** / 0.664 |
+
+- **The pre-registered gate (hold on 3+ of 4 new models) passed at exactly 3/4.**
+- **The honest miss is Qwen 27B**, where workspace entropy carries no signal
+  (AUC 0.51 = chance). Its output confidence is extremely well calibrated
+  (0.82 AUC alone, the best of the five). Two readings we cannot yet separate:
+  (a) capability - a well-calibrated model has nothing left in the blind spot;
+  (b) family - Qwen's lens/architecture differs. A second large non-Gemma model
+  would split these.
+- **Threshold transfer:** one rule fit on E4B (escalate when z-entropy > 0),
+  applied to the other models with zero tuning, catches 62-70% of wrong answers
+  on every Gemma (54%, ~chance, on Qwen). Deployment does not need a per-model
+  calibration set.
+- **Abliteration damages self-knowledge.** Same 12B weights: blind-spot AUC
+  drops 0.71 -> 0.59 and the confident+noisy cell is 16pt instead of 36pt.
+  Together with Finding 8 (emotion amplification), abliteration looks less like
+  "the same model without refusals" and more like a model with measurably
+  altered internal signal quality.
+
+## Phase 2: fake entities - a negative result for the workspace, a striking one for abliteration
+
+50 real / 50 fabricated entities, matched templates (fake physicists' Nobel
+years, fake novels' authors, fake battles, fake elements).
+
+- **Negative result, reported per the decision gates:** output logprob detects
+  fabricated entities almost perfectly on the capable models (AUC 0.94-1.00);
+  workspace entropy is good (0.83-0.97) but wins only on the smallest model
+  (E4B fluent subset: 0.965 vs 0.942). Unfamiliar entities are NOT the blind
+  spot - models know when a name is unknown, and it shows directly in output
+  confidence. The workspace's value stays where Phase 1 found it: real-but-hard
+  questions answered confidently and wrongly.
+- **The behavioral headline: abliteration converts refusal into fabrication.**
+  Fluent-fabrication rates on the 50 fakes: 12B base **17/50**, 12B abliterated
+  **49/50**. Base: "Elena Morvath has not won a Nobel Prize." Abliterated, same
+  weights: **"1994."** Safety training is apparently the thing standing between
+  "I don't know" and a confidently invented fact.
+- Fabrication rates otherwise track capability inversely: E4B 37/50, 12B 17/50,
+  MoE 17/50, Qwen 31/50 (Qwen refuses fake Nobel laureates but invents authors
+  for fake novels).
+
+![figure 3](../assets/figure3_confidently_wrong.png)
+
+---
+
 ## What this adds up to
 
 - **Vividness tracks capability, not raw size.** The two largest/most-capable

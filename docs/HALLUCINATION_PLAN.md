@@ -1,5 +1,13 @@
 # Hallucination prediction: where it stands and the plan to keep pushing
 
+> **STATUS UPDATE 2026-07-07 (evening): Phases 1 and 2 are DONE.** Phase 1 gate
+> passed 3/4 (fails on Qwen 27B, whose output confidence is already calibrated);
+> threshold transfers across all Gemmas untuned. Phase 2 was a negative result
+> for workspace-vs-logprob on fake entities, with a striking behavioral finding:
+> abliteration converts refusal into fabrication (17/50 -> 49/50). Full numbers
+> in [FINDINGS.md](FINDINGS.md) Part 4, `analyze_crossmodel.py` reproduces.
+> Next up: Phases 3-5 (trajectory features, cost-matched comparison, sidecar).
+
 Status after v2 (2026-07-07): on 500 TriviaQA questions through Gemma 4 E4B,
 workspace features predict correctness at CV-AUC 0.746 (baseline 0.713,
 combined 0.778). The strongest single result is the quadrant cut: answers where

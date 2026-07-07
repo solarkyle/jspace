@@ -19,11 +19,34 @@ layer and position: its workspace.
 ## The one-line version for busy people
 
 A single-pass, label-free internal-state signal (workspace entropy) catches
-**overconfident hallucinations that output confidence cannot see by definition**:
-among confident-sounding answers, accuracy is 75% when the workspace is clean vs
-42% when it is noisy (n=500 TriviaQA, Gemma 4 E4B, confound-checked;
-cross-model replication running). No sampling, no trained probe, no labels -
-one forward pass and the model's own vocabulary space.
+**overconfident hallucinations that output confidence cannot see by definition**.
+No sampling, no trained probe, no labels - one forward pass and the model's own
+vocabulary space. Replicated on 4 of 5 models (pre-registered gate: 3 of 4 new
+models - passed), 500 TriviaQA each, confound-checked:
+
+| Model | accuracy | confident + clean workspace | confident + NOISY workspace | blind-spot AUC: entropy vs logprob | E4B threshold, no tuning: % wrong caught |
+|---|---|---|---|---|---|
+| Gemma E4B (4B) | 42.8% | **77%** | **42%** | **0.73** / 0.63 | 70% |
+| Gemma 12B | 51.2% | **83%** | **47%** | **0.71** / 0.61 | 69% |
+| Gemma 12B abliterated | 50.8% | 79% | 63% | 0.59 / 0.59 | 62% |
+| Gemma 26B MoE | 64.2% | **91%** | **71%** | **0.68** / 0.54 | 70% |
+| Qwen 3.6 27B | 63.6% | 85% | 87% | 0.51 / 0.66 | 54% (~chance) |
+
+"Confident" = top-half output logprob; "clean/noisy" = median split on workspace
+entropy. Honest misses included: the signal **fails on Qwen 27B**, whose output
+confidence is already superbly calibrated (0.82 AUC alone) - the fog signal is
+strongest exactly where you'd deploy it, on small local models routing to big
+ones. Abliteration partially destroys the model's internal self-knowledge
+(blind-spot AUC 0.73 -> 0.59 at matched size). One fixed threshold calibrated
+on E4B transfers to every Gemma unchanged.
+
+![figure 3](assets/figure3_confidently_wrong.png)
+
+The bottom panels are real single questions at maximum output confidence: when
+the model is right it holds one semantic category (nationalities) with modest
+churn; when it is about to confabulate "The Hollies" it is visibly rummaging
+through a name soup (Robert, Bobby, Christopher, Sarah, Carroll...) right up to
+the moment it answers fluently.
 
 ## Claim ladder
 
