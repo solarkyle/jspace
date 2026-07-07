@@ -13,8 +13,29 @@ layer and position: its workspace.
 
 **[→ Interactive results gallery](https://solarkyle.github.io/jspace/slices/)**
 (click any cell to pin a token and get rank-tracking charts)
+&nbsp;·&nbsp; **[→ Cross-model findings report](docs/FINDINGS.md)**
 
-## Results so far
+## Headline cross-model findings
+
+Fitted lenses for **four Gemma 4 models** (E4B, 12B, 12B-abliterated, 26B-MoE)
+let us ask how the emotional workspace changes with scale, architecture, and
+safety tuning. See [docs/FINDINGS.md](docs/FINDINGS.md) for the full writeup.
+
+1. **The 26B MoE has a dramatically more vivid emotional workspace.** Told to
+   secretly feel terror while writing a calm sentence, it holds `terrified` as
+   the **#0 token in its entire vocabulary**; amusement → `hilarious` #0. No
+   dense model comes close.
+2. **Abliteration amplifies emotion in the workspace.** Same 12B weights, refusal
+   training removed → covert emotions surface **1–2 orders of magnitude more
+   strongly** (`furious` #1109 → #6). Safety tuning appears to dampen the
+   *internal* emotional representation, not just the output.
+3. **Anger is the hardest emotion to localize; grief/amusement the easiest** —
+   a stable ordering across all four models.
+4. **Workspace state predicts hallucination**, label-free, competitive with and
+   complementary to output confidence (5-fold CV AUC: baseline 0.71, workspace
+   0.75, combined **0.78**; n=500 TriviaQA).
+
+## Replication results
 
 ### 1. The paper's flagship result replicates on Gemma 4 E4B
 
