@@ -276,8 +276,7 @@ tables, and embeddings never see a gradient and live happily in system RAM.
 - Models: Google (Gemma 4), Alibaba (Qwen3.6), huihui-ai (abliteration)
 - Scripts in this repo: MIT
 
-*Built in one night, the day the paper dropped, by [@solarkyle](https://github.com/solarkyle)
-with Claude Code driving the terminal. I'm currently between roles and looking
-for work on model internals, evals, or ML engineering - if this repo is the
-kind of thing your team does on purpose, I'd love to hear from you:
-kyle.bronstein@gmail.com.*
+*Built in one night, the day the paper dropped, by [@solarkyle](https://github.com/solarkyle).
+I'm currently between roles and looking for work on model internals, evals, or
+ML engineering - if this repo is the kind of thing your team does on purpose,
+I'd love to hear from you: fintechkyle@gmail.com.*
