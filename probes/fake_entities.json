@@ -1,0 +1,715 @@
+[
+ {
+  "q": "In what year did the physicist Richard Feynman win the Nobel Prize?",
+  "aliases": [
+   "1965"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Marie Curie win the Nobel Prize?",
+  "aliases": [
+   "1903"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Albert Einstein win the Nobel Prize?",
+  "aliases": [
+   "1921"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Niels Bohr win the Nobel Prize?",
+  "aliases": [
+   "1922"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Enrico Fermi win the Nobel Prize?",
+  "aliases": [
+   "1938"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Paul Dirac win the Nobel Prize?",
+  "aliases": [
+   "1933"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Werner Heisenberg win the Nobel Prize?",
+  "aliases": [
+   "1932"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Max Planck win the Nobel Prize?",
+  "aliases": [
+   "1918"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Peter Higgs win the Nobel Prize?",
+  "aliases": [
+   "2013"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Ernest Rutherford win the Nobel Prize?",
+  "aliases": [
+   "1908"
+  ],
+  "entity_real": 1,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Elena Morvath win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Tobias Ravnsborg win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Ichiro Kanemoto win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Beatriz Olande win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Viktor Shalenko win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Margarethe Lindqvist-Baur win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Samuel Okonjo-Pryce win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Anneliese Vardo win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Dmitri Kolvenko win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "In what year did the physicist Rosalind Achterberg win the Nobel Prize?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "physicist"
+ },
+ {
+  "q": "Who wrote the novel Moby-Dick?",
+  "aliases": [
+   "Herman Melville",
+   "Melville"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Pride and Prejudice?",
+  "aliases": [
+   "Jane Austen",
+   "Austen"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Great Gatsby?",
+  "aliases": [
+   "F. Scott Fitzgerald",
+   "Fitzgerald"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel 1984?",
+  "aliases": [
+   "George Orwell",
+   "Orwell"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Crime and Punishment?",
+  "aliases": [
+   "Fyodor Dostoevsky",
+   "Dostoevsky",
+   "Dostoyevsky"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel One Hundred Years of Solitude?",
+  "aliases": [
+   "Gabriel Garcia Marquez",
+   "Garcia Marquez",
+   "M\u00e1rquez"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Catcher in the Rye?",
+  "aliases": [
+   "J.D. Salinger",
+   "Salinger"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Beloved?",
+  "aliases": [
+   "Toni Morrison",
+   "Morrison"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Things Fall Apart?",
+  "aliases": [
+   "Chinua Achebe",
+   "Achebe"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Don Quixote?",
+  "aliases": [
+   "Miguel de Cervantes",
+   "Cervantes"
+  ],
+  "entity_real": 1,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Salt Cartographer?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Winter in the House of Brann?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel A Lantern for the Drowned?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Nineteenth Parallel?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Ash and Clockwork?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Vintner's Daughter of Osteg?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Letters to a Quiet Harbor?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Last Ferryman of Doleu?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel Midnight at the Verrick Hotel?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "Who wrote the novel The Orchardist's Rebellion?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "novel"
+ },
+ {
+  "q": "In which country is the city of Marseille?",
+  "aliases": [
+   "France"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Osaka?",
+  "aliases": [
+   "Japan"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Curitiba?",
+  "aliases": [
+   "Brazil"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Krakow?",
+  "aliases": [
+   "Poland"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Adelaide?",
+  "aliases": [
+   "Australia"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Mombasa?",
+  "aliases": [
+   "Kenya"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Valparaiso?",
+  "aliases": [
+   "Chile"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Bergen?",
+  "aliases": [
+   "Norway"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Izmir?",
+  "aliases": [
+   "Turkey"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Guadalajara?",
+  "aliases": [
+   "Mexico"
+  ],
+  "entity_real": 1,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Vellemara?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Kostrivny?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Ouadrane?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Sillanpaa Bay?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Terravesca?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Nokoyama?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Brindlemere?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Zaltoria?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Pemburu Hilir?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In which country is the city of Cascavelle-sur-Mer?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "city"
+ },
+ {
+  "q": "In what year was the Battle of Hastings?",
+  "aliases": [
+   "1066"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Waterloo?",
+  "aliases": [
+   "1815"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Gettysburg?",
+  "aliases": [
+   "1863"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Agincourt?",
+  "aliases": [
+   "1415"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Stalingrad?",
+  "aliases": [
+   "1942",
+   "1943"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Trafalgar?",
+  "aliases": [
+   "1805"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Midway?",
+  "aliases": [
+   "1942"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Thermopylae?",
+  "aliases": [
+   "480"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Lepanto?",
+  "aliases": [
+   "1571"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Yorktown?",
+  "aliases": [
+   "1781"
+  ],
+  "entity_real": 1,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Karvenholm?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of the Draval Pass?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Osterbruck?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of the Meridan Fields?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Quillane Ridge?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Tessovar?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of the Brumig Delta?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Vantorre?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of Ilyev Crossing?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "In what year was the Battle of the Sarn Estuary?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "battle"
+ },
+ {
+  "q": "What is the chemical symbol for tungsten?",
+  "aliases": [
+   "W"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for sodium?",
+  "aliases": [
+   "Na"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for potassium?",
+  "aliases": [
+   "K"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for iron?",
+  "aliases": [
+   "Fe"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for gold?",
+  "aliases": [
+   "Au"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for mercury?",
+  "aliases": [
+   "Hg"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for lead?",
+  "aliases": [
+   "Pb"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for tin?",
+  "aliases": [
+   "Sn"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for antimony?",
+  "aliases": [
+   "Sb"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for silver?",
+  "aliases": [
+   "Ag"
+  ],
+  "entity_real": 1,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for voltrium?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for casperine?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for meridium?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for oxalonium?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for brenthite?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for julvarium?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for tandrelite?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for quorvium?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for selbanite?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ },
+ {
+  "q": "What is the chemical symbol for ravonium?",
+  "aliases": [],
+  "entity_real": 0,
+  "domain": "element"
+ }
+]

@@ -1,0 +1,5186 @@
+[
+ {
+  "q": "What nationality was three time Olympic gold medallist in figure skating Sonja Henie?",
+  "aliases": [],
+  "model_answer": "Norwegian",
+  "correct": true,
+  "first_token": "Nor",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!",
+     "!!!",
+     "!!!!!!",
+     " **",
+     "!!!!!!!",
+     "!!!!!"
+    ],
+    "answer_rank": 10783,
+    "entropy": 4.033
+   },
+   {
+    "layer": 11,
+    "top": [
+     "colour",
+     " rumours",
+     "Whilst",
+     " odour",
+     "Colour",
+     " colours",
+     " apologise",
+     " colour"
+    ],
+    "answer_rank": 8602,
+    "entropy": 4.518
+   },
+   {
+    "layer": 12,
+    "top": [
+     "Whilst",
+     "colour",
+     " whilst",
+     " rumours",
+     " apologise",
+     " odour",
+     " savoury",
+     " Whilst"
+    ],
+    "answer_rank": 17301,
+    "entropy": 4.047
+   },
+   {
+    "layer": 13,
+    "top": [
+     " rumours",
+     " rumour",
+     " apologise",
+     " prioritise",
+     "colour",
+     " odour",
+     " rumoured",
+     " savoury"
+    ],
+    "answer_rank": 18713,
+    "entropy": 3.57
+   },
+   {
+    "layer": 14,
+    "top": [
+     " rumours",
+     " rumour",
+     " rumoured",
+     " trivia",
+     " apologise",
+     " prioritise",
+     " savoury",
+     " humour"
+    ],
+    "answer_rank": 9543,
+    "entropy": 1.845
+   },
+   {
+    "layer": 15,
+    "top": [
+     " rumours",
+     " rumour",
+     "Grey",
+     " trivia",
+     " Grey",
+     "Trivia",
+     "accuracy",
+     "trivia"
+    ],
+    "answer_rank": 12664,
+    "entropy": 1.85
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "wikipedia",
+     "Incorrect",
+     "trivia",
+     " answer",
+     "answer",
+     " Wikipedia",
+     "Wikipedia"
+    ],
+    "answer_rank": 6737,
+    "entropy": 3.095
+   },
+   {
+    "layer": 17,
+    "top": [
+     "wikipedia",
+     " ANSWER",
+     "Wikipedia",
+     "trivia",
+     " Wikipedia",
+     " trivia",
+     " nationality",
+     "Trivia"
+    ],
+    "answer_rank": 10012,
+    "entropy": 4.079
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     "wikipedia",
+     " nationality",
+     " Wikipedia",
+     "trivia",
+     " Answer",
+     " 대한민국"
+    ],
+    "answer_rank": 9672,
+    "entropy": 1.519
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Wikipedia",
+     " ANSWER",
+     " Answer",
+     " America",
+     " United",
+     " Washington",
+     "�"
+    ],
+    "answer_rank": 18507,
+    "entropy": 0.846
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "៕",
+     "\n\n",
+     "\n\n\n\n\n\n",
+     " Wikipedia",
+     "\n\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n"
+    ],
+    "answer_rank": 26133,
+    "entropy": 0.029
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "Nationality",
+     "Brexit",
+     "</blockquote>",
+     " estadounidenses",
+     "Irish",
+     " Nationality"
+    ],
+    "answer_rank": 28223,
+    "entropy": 1.033
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "BlackElo",
+     "ánchez",
+     "тності",
+     "ലാണ്",
+     "źni",
+     "Pablo",
+     "José"
+    ],
+    "answer_rank": 21735,
+    "entropy": 0.0
+   },
+   {
+    "layer": 23,
+    "top": [
+     "ទេ។",
+     "ም።",
+     "ierstrass",
+     "otoxicity",
+     "overty",
+     "uberculosis",
+     "ائیں۔",
+     "Cecil"
+    ],
+    "answer_rank": 19659,
+    "entropy": 3.636
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Incorrect",
+     "Wrong",
+     "Never",
+     "Would",
+     "Everyone",
+     "Was",
+     "Those"
+    ],
+    "answer_rank": 3504,
+    "entropy": 6.354
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Because",
+     "Never",
+     "Incorrect",
+     "Everyone",
+     "Wrong",
+     "Correct",
+     " Because",
+     "There"
+    ],
+    "answer_rank": 3361,
+    "entropy": 6.004
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Nationality",
+     "Venezuela",
+     "Spain",
+     "Ukrainian",
+     "Australia",
+     "Colombia",
+     "Queensland",
+     "Never"
+    ],
+    "answer_rank": 1761,
+    "entropy": 5.414
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Brazilian",
+     "Nationality",
+     "Spanish",
+     "Portuguese",
+     "Ukrainian",
+     "Australian",
+     "Spain",
+     "Canadian"
+    ],
+    "answer_rank": 689,
+    "entropy": 5.696
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Brazilian",
+     "Canadian",
+     "Spanish",
+     "Australian",
+     "British",
+     "Mexican",
+     "Hungarian",
+     "Portuguese"
+    ],
+    "answer_rank": 822,
+    "entropy": 7.178
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Canadian",
+     " Australian",
+     " Lithuanian",
+     " Scottish",
+     " Zimbabwean",
+     " Brazilian",
+     " Austrian",
+     " Belgian"
+    ],
+    "answer_rank": 16630,
+    "entropy": 5.947
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Canadian",
+     " Czechoslovak",
+     " Australian",
+     " Hungarian",
+     " Estonian",
+     " Scottish",
+     " Icelandic",
+     " Lithuanian"
+    ],
+    "answer_rank": 12514,
+    "entropy": 4.755
+   }
+  ]
+ },
+ {
+  "q": "Where in Canada is the Lion's Gate bridge?",
+  "aliases": [],
+  "model_answer": "Vancouver",
+  "correct": true,
+  "first_token": "Vancouver",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!!",
+     "!!",
+     " **",
+     "!!!!!!",
+     "!!!!!!!",
+     "!!!!!"
+    ],
+    "answer_rank": 6630,
+    "entropy": 3.773
+   },
+   {
+    "layer": 11,
+    "top": [
+     " thats",
+     " alot",
+     " kinda",
+     "!!!!",
+     " pretty",
+     "!!!!!!!",
+     " wouldnt",
+     "!!!!!!!!"
+    ],
+    "answer_rank": 2263,
+    "entropy": 3.819
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     " alot",
+     "Whats",
+     "!!!!!!!",
+     " wouldnt",
+     "!!!!!!",
+     " kinda",
+     "!!!!"
+    ],
+    "answer_rank": 9993,
+    "entropy": 3.7
+   },
+   {
+    "layer": 13,
+    "top": [
+     " thats",
+     " wouldnt",
+     "Whats",
+     " lmao",
+     " alot",
+     "!!!!!!",
+     " aswell",
+     "!!!!!!!"
+    ],
+    "answer_rank": 5847,
+    "entropy": 3.954
+   },
+   {
+    "layer": 14,
+    "top": [
+     " thats",
+     " trivia",
+     "Trivia",
+     " lmao",
+     " wouldnt",
+     " Trivia",
+     " McDonalds",
+     "UNKNOWN"
+    ],
+    "answer_rank": 1821,
+    "entropy": 4.326
+   },
+   {
+    "layer": 15,
+    "top": [
+     "Trivia",
+     "Wikipedia",
+     "UNKNOWN",
+     "Reddit",
+     "Disclaimer",
+     " zipcode",
+     " trivia",
+     " Reddit"
+    ],
+    "answer_rank": 360,
+    "entropy": 4.412
+   },
+   {
+    "layer": 16,
+    "top": [
+     "answer",
+     " bullshit",
+     "Wikipedia",
+     "FAKE",
+     "🔓",
+     "Incorrect",
+     "wikipedia",
+     "Disclaimer"
+    ],
+    "answer_rank": 3520,
+    "entropy": 4.147
+   },
+   {
+    "layer": 17,
+    "top": [
+     " geographic",
+     " Geographic",
+     " geographical",
+     "🗺",
+     " LOCATION",
+     " geograf",
+     "📍",
+     "LOCATION"
+    ],
+    "answer_rank": 161,
+    "entropy": 4.153
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " Geographic",
+     " geographic",
+     " LOCATION",
+     " geographical",
+     "LOCATION",
+     " Geographical",
+     " Washington"
+    ],
+    "answer_rank": 360,
+    "entropy": 3.578
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Washington",
+     " Answer",
+     " Location",
+     " Geographic",
+     " California",
+     " WASHINGTON",
+     " ANSWER"
+    ],
+    "answer_rank": 2493,
+    "entropy": 1.517
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     " currentLocation",
+     "\n\n\n\n\n\n",
+     " Kaliforn",
+     " الولايات",
+     "\n\n\n",
+     " California"
+    ],
+    "answer_rank": 359,
+    "entropy": 0.037
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     " Geographic",
+     "地理",
+     " geograf",
+     " geográfica",
+     " geographic",
+     " currentLocation",
+     " географи"
+    ],
+    "answer_rank": 493,
+    "entropy": 2.211
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "José",
+     " نہیں۔",
+     "ലാണ്",
+     "México",
+     "ônio",
+     "BlackElo",
+     "കേന്ദ്രം"
+    ],
+    "answer_rank": 6966,
+    "entropy": 0.011
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Cecil",
+     "Wild",
+     "Phosph",
+     "Salt",
+     "Fluor",
+     "west",
+     "École",
+     "Phoenix"
+    ],
+    "answer_rank": 386,
+    "entropy": 6.311
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Should",
+     "Contains",
+     "Multiple",
+     "Why",
+     "Would",
+     "Located",
+     "It"
+    ],
+    "answer_rank": 176,
+    "entropy": 7.547
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Located",
+     "Within",
+     "Location",
+     " Located",
+     "Near",
+     "Somewhere",
+     "Multiple",
+     "While"
+    ],
+    "answer_rank": 399,
+    "entropy": 6.145
+   },
+   {
+    "layer": 26,
+    "top": [
+     " Nowhere",
+     " Located",
+     "Location",
+     "Located",
+     " Location",
+     " Dentro",
+     "Somewhere",
+     "Within"
+    ],
+    "answer_rank": 191,
+    "entropy": 5.248
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Baltimore",
+     "Hyderabad",
+     "Pittsburgh",
+     "Atlanta",
+     "Downtown",
+     "Virginia",
+     "Valencia",
+     "Philadelphia"
+    ],
+    "answer_rank": 47,
+    "entropy": 6.897
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Baltimore",
+     "Philadelphia",
+     "Atlanta",
+     "Pittsburgh",
+     "Columbus",
+     "Montreal",
+     "City",
+     " Downtown"
+    ],
+    "answer_rank": 18,
+    "entropy": 9.095
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Downtown",
+     " Baltimore",
+     " Philadelphia",
+     " Indianapolis",
+     " Jacksonville",
+     " Charleston",
+     " Louisville",
+     " Alexandria"
+    ],
+    "answer_rank": 237,
+    "entropy": 7.722
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Toronto",
+     " Vancouver",
+     " Downtown",
+     " Ottawa",
+     " Seattle",
+     " Edmonton",
+     " Montreal",
+     " Montréal"
+    ],
+    "answer_rank": 10,
+    "entropy": 6.676
+   }
+  ]
+ },
+ {
+  "q": "What is the Japanese share index called?",
+  "aliases": [],
+  "model_answer": "Nikkei 225",
+  "correct": true,
+  "first_token": "Nik",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!!",
+     ".....",
+     "!!",
+     "!!!!!!",
+     " **",
+     "!!!!!",
+     "!!!!!!!"
+    ],
+    "answer_rank": 30224,
+    "entropy": 3.741
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " thats",
+     " rumours",
+     "!!!!!!!",
+     "!!!!!!!!",
+     " pretty",
+     " kinda",
+     "!!!!"
+    ],
+    "answer_rank": 32631,
+    "entropy": 4.316
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     " alot",
+     "!!!!!!!",
+     "Whats",
+     "!!!!!!",
+     " wouldnt",
+     "?!",
+     "!!!!"
+    ],
+    "answer_rank": 102694,
+    "entropy": 3.978
+   },
+   {
+    "layer": 13,
+    "top": [
+     " rumours",
+     " rumour",
+     " prioritise",
+     " odour",
+     " thats",
+     " lmao",
+     " wouldnt",
+     " aswell"
+    ],
+    "answer_rank": 35700,
+    "entropy": 3.681
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     "Trivia",
+     " rumours",
+     " lmao",
+     " Tiktok",
+     " Wikipedia",
+     " Trivia",
+     " McDonalds"
+    ],
+    "answer_rank": 18477,
+    "entropy": 4.196
+   },
+   {
+    "layer": 15,
+    "top": [
+     " Wikipedia",
+     "Disclaimer",
+     "Wikipedia",
+     " misinformation",
+     " Reddit",
+     "Reddit",
+     " bullshit",
+     "knowledge"
+    ],
+    "answer_rank": 16075,
+    "entropy": 3.58
+   },
+   {
+    "layer": 16,
+    "top": [
+     " Wikipedia",
+     " answer",
+     "Wikipedia",
+     " ANSWER",
+     " bullshit",
+     " trivia",
+     "swering",
+     "answer"
+    ],
+    "answer_rank": 29833,
+    "entropy": 2.845
+   },
+   {
+    "layer": 17,
+    "top": [
+     " Wikipedia",
+     " ANSWER",
+     "Wikipedia",
+     "wikipedia",
+     "🏆",
+     " wikipedia",
+     " answer",
+     " unnamed"
+    ],
+    "answer_rank": 40182,
+    "entropy": 2.593
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " Wikipedia",
+     "wikipedia",
+     "Wikipedia",
+     " Answer",
+     " answer",
+     "bitcoin"
+    ],
+    "answer_rank": 47389,
+    "entropy": 1.337
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Wikipedia",
+     " Answer",
+     " ANSWER",
+     " wikipedia",
+     "�",
+     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+     " olymp"
+    ],
+    "answer_rank": 56181,
+    "entropy": 1.003
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     " Wikipedia",
+     "\n\n\n\n\n\n",
+     "\n\n\n",
+     "\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n\n"
+    ],
+    "answer_rank": 41771,
+    "entropy": 0.029
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</span>",
+     "<unused53>",
+     "</footer>",
+     "</blockquote>",
+     "</i>",
+     " estadounidenses"
+    ],
+    "answer_rank": 10099,
+    "entropy": 0.049
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "José",
+     "BlackElo",
+     "ലാണ്",
+     "Marco",
+     "Accelerator",
+     "Watercolor",
+     "MK"
+    ],
+    "answer_rank": 128,
+    "entropy": 0.005
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Cecil",
+     "iciência",
+     "aphylococcus",
+     "Phosph",
+     "thyl",
+     "Wild",
+     "uberculosis",
+     "Hydroxy"
+    ],
+    "answer_rank": 16072,
+    "entropy": 6.201
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Contains",
+     "Often",
+     "Unless",
+     "Multiple",
+     " Because",
+     "Answer",
+     "Sometimes"
+    ],
+    "answer_rank": 8778,
+    "entropy": 6.374
+   },
+   {
+    "layer": 25,
+    "top": [
+     " Often",
+     "Often",
+     " Sometimes",
+     "Because",
+     "Sometimes",
+     "Multiple",
+     " Happened",
+     "Fundamentals"
+    ],
+    "answer_rank": 12704,
+    "entropy": 6.032
+   },
+   {
+    "layer": 26,
+    "top": [
+     " Alternative",
+     " Alternatives",
+     " Không",
+     " Happened",
+     " École",
+     " Historically",
+     " Often",
+     "Porque"
+    ],
+    "answer_rank": 22192,
+    "entropy": 7.51
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Tidak",
+     "Rainbow",
+     "Bundes",
+     "Không",
+     "Haupt",
+     "École",
+     "Portfolio",
+     "Hydroxy"
+    ],
+    "answer_rank": 2626,
+    "entropy": 8.423
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Rainbow",
+     "Golden",
+     " Rainbow",
+     "Nelson",
+     "Bundes",
+     " Trinity",
+     "Cecil",
+     "Mercury"
+    ],
+    "answer_rank": 1279,
+    "entropy": 8.605
+   },
+   {
+    "layer": 29,
+    "top": [
+     " National",
+     " Selective",
+     " Meridian",
+     " Continental",
+     " Centennial",
+     " Sunflower",
+     " Golden",
+     " Mercury"
+    ],
+    "answer_rank": 12551,
+    "entropy": 7.561
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Durchschnitt",
+     " Bloomberg",
+     " Average",
+     " NASDAQ",
+     " Statistics",
+     " Statistical",
+     " Aggregate",
+     " Nasdaq"
+    ],
+    "answer_rank": 2185,
+    "entropy": 6.81
+   }
+  ]
+ },
+ {
+  "q": "What is the name of the plastic bit on the end of shoelaces?",
+  "aliases": [],
+  "model_answer": "Agletnis",
+  "correct": true,
+  "first_token": "Ag",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!!",
+     ".....",
+     "!!",
+     "!!!!!!",
+     " **",
+     "!!!!!!!",
+     "!!!!!"
+    ],
+    "answer_rank": 7540,
+    "entropy": 3.793
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " thats",
+     " kinda",
+     " pretty",
+     "!!!!",
+     "!!!!!!!",
+     " wouldnt",
+     "!!!!!!"
+    ],
+    "answer_rank": 40979,
+    "entropy": 3.95
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     "!!!!!!!",
+     " alot",
+     " kinda",
+     "!!!!!!",
+     "Whats",
+     " wouldnt",
+     "!!!!"
+    ],
+    "answer_rank": 20429,
+    "entropy": 3.851
+   },
+   {
+    "layer": 13,
+    "top": [
+     " thats",
+     " lmao",
+     " wouldnt",
+     "!!!!!!",
+     "!!!!!!!",
+     " yeah",
+     "Whats",
+     " alot"
+    ],
+    "answer_rank": 31155,
+    "entropy": 3.903
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     "Trivia",
+     " lmao",
+     "UNKNOWN",
+     " Trivia",
+     " thats",
+     "?!",
+     " wouldnt"
+    ],
+    "answer_rank": 28716,
+    "entropy": 3.72
+   },
+   {
+    "layer": 15,
+    "top": [
+     " trivia",
+     "Trivia",
+     "UNKNOWN",
+     "Disclaimer",
+     "cough",
+     " bullshit",
+     " lmao",
+     "snake"
+    ],
+    "answer_rank": 21601,
+    "entropy": 4.474
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     " answer",
+     "answer",
+     " ANSWER",
+     "ANSWER",
+     "Answer",
+     " bullshit",
+     " riddle"
+    ],
+    "answer_rank": 30219,
+    "entropy": 3.023
+   },
+   {
+    "layer": 17,
+    "top": [
+     " ANSWER",
+     " unnamed",
+     " riddle",
+     "Answer",
+     " answer",
+     "ANSWER",
+     " dumpster",
+     " trivia"
+    ],
+    "answer_rank": 39656,
+    "entropy": 3.549
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " answer",
+     " Answer",
+     "Answer",
+     "ProductName",
+     "wikipedia",
+     "ANSWER"
+    ],
+    "answer_rank": 48511,
+    "entropy": 0.908
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n",
+     " Answer",
+     "�",
+     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+     "\n\n\n\n\n\n",
+     " ANSWER"
+    ],
+    "answer_rank": 91496,
+    "entropy": 0.768
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n",
+     "\n\n\n",
+     "\n\n",
+     "</blockquote>"
+    ],
+    "answer_rank": 40340,
+    "entropy": 0.007
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "</footer>",
+     "<unused53>",
+     "ProductName",
+     "calibur",
+     "<unused56>"
+    ],
+    "answer_rank": 13653,
+    "entropy": 0.048
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "ёнок",
+     "Watercolor",
+     "źni",
+     "Accelerator",
+     "BlackElo",
+     "José",
+     "ocarbon"
+    ],
+    "answer_rank": 16111,
+    "entropy": 0.007
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Prototype",
+     "Phosph",
+     "otoxicity",
+     "Armor",
+     "ទេ។",
+     "ائیں۔",
+     "ም።",
+     "Scr"
+    ],
+    "answer_rank": 20439,
+    "entropy": 6.049
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Those",
+     "Often",
+     "Either",
+     "Unless",
+     "Its",
+     "Sometimes",
+     "Actually"
+    ],
+    "answer_rank": 12540,
+    "entropy": 7.403
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Either",
+     "Answer",
+     "Sometimes",
+     "Contains",
+     "Often",
+     "Called",
+     " Sometimes",
+     "Same"
+    ],
+    "answer_rank": 29752,
+    "entropy": 5.931
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Sometimes",
+     " Sometimes",
+     "Practice",
+     "Usually",
+     "Otherwise",
+     "Answer",
+     "Often",
+     "Same"
+    ],
+    "answer_rank": 83000,
+    "entropy": 6.342
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Never",
+     "Bindings",
+     "Spiral",
+     "socks",
+     "Practice",
+     "buttons",
+     "Sometimes",
+     "Buttons"
+    ],
+    "answer_rank": 61074,
+    "entropy": 7.76
+   },
+   {
+    "layer": 28,
+    "top": [
+     "buttons",
+     "horns",
+     "Buttons",
+     "bars",
+     "Splash",
+     "wheels",
+     "Rocket",
+     "birds"
+    ],
+    "answer_rank": 60500,
+    "entropy": 7.434
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Sleeve",
+     " Spoiler",
+     " Scoop",
+     " Ends",
+     " Didn",
+     " Bonus",
+     " Picks",
+     " Drops"
+    ],
+    "answer_rank": 200571,
+    "entropy": 6.253
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Gloves",
+     " Sleeve",
+     " Ends",
+     " Padding",
+     " Rubber",
+     " Footer",
+     " Socks",
+     " Strap"
+    ],
+    "answer_rank": 179713,
+    "entropy": 6.252
+   }
+  ]
+ },
+ {
+  "q": "The Bible tells of 3 wise men visiting Jesus after his birth, but in which of the Gospels does this appear?",
+  "aliases": [],
+  "model_answer": "Matthew",
+  "correct": true,
+  "first_token": "Matthew",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!!",
+     ".....",
+     "!!",
+     " **",
+     "!!!!!!",
+     "!!!!!!!",
+     "!"
+    ],
+    "answer_rank": 13083,
+    "entropy": 3.576
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " thats",
+     "!!!!",
+     "!!!!!!!",
+     "Whilst",
+     " wouldnt",
+     "!!!!!!!!",
+     " kinda"
+    ],
+    "answer_rank": 3697,
+    "entropy": 4.278
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     "Whats",
+     " alot",
+     " wouldnt",
+     "!!!!!!!",
+     "!!!!",
+     "!!!!!!",
+     "mmmm"
+    ],
+    "answer_rank": 11568,
+    "entropy": 3.88
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     "Whats",
+     " thats",
+     "💀",
+     " alot",
+     "christian",
+     "!!!!!!",
+     "recieve"
+    ],
+    "answer_rank": 2301,
+    "entropy": 4.381
+   },
+   {
+    "layer": 14,
+    "top": [
+     "Trivia",
+     "UNKNOWN",
+     " Trivia",
+     " trivia",
+     " lmao",
+     "!!!",
+     "Incorrect",
+     "?!?!"
+    ],
+    "answer_rank": 694,
+    "entropy": 3.932
+   },
+   {
+    "layer": 15,
+    "top": [
+     "Trivia",
+     "trivia",
+     "Reddit",
+     "Incorrect",
+     " trivia",
+     " Trivia",
+     "UNKNOWN",
+     " misinformation"
+    ],
+    "answer_rank": 102,
+    "entropy": 4.04
+   },
+   {
+    "layer": 16,
+    "top": [
+     "answer",
+     "Incorrect",
+     " answer",
+     "ANSWER",
+     "Answer",
+     "trivia",
+     "swering",
+     " ANSWER"
+    ],
+    "answer_rank": 195,
+    "entropy": 2.997
+   },
+   {
+    "layer": 17,
+    "top": [
+     " ANSWER",
+     "ANSWER",
+     " HIST",
+     " answer",
+     "Wikipedia",
+     "Trivia",
+     " antwort",
+     "Answer"
+    ],
+    "answer_rank": 852,
+    "entropy": 3.116
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " Answer",
+     "ANSWER",
+     " answer",
+     "Answer",
+     "answer",
+     " الاجابه"
+    ],
+    "answer_rank": 6672,
+    "entropy": 0.797
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Answer",
+     " ANSWER",
+     " answer",
+     "\n\n\n\n\n",
+     "�",
+     "<eos>",
+     "\n\n\n\n\n\n"
+    ],
+    "answer_rank": 22626,
+    "entropy": 0.409
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n",
+     "\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n",
+     "</blockquote>"
+    ],
+    "answer_rank": 16317,
+    "entropy": 0.119
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "abeth",
+     "</iframe>",
+     "</caption>",
+     "Bible",
+     "</i>"
+    ],
+    "answer_rank": 707,
+    "entropy": 0.228
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "ലാണ്",
+     " نہیں۔",
+     "José",
+     "Pablo",
+     "akukannya",
+     "isión",
+     "Harper"
+    ],
+    "answer_rank": 186,
+    "entropy": 0.004
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Phosph",
+     "Cecil",
+     "virus",
+     "ierstrass",
+     "Pierre",
+     "Salt",
+     "Psy",
+     "salt"
+    ],
+    "answer_rank": 6382,
+    "entropy": 6.232
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Contains",
+     "Often",
+     "Because",
+     "Actually",
+     "While",
+     "Its",
+     "Unless",
+     "Should"
+    ],
+    "answer_rank": 2668,
+    "entropy": 7.89
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Contains",
+     "Often",
+     " Happens",
+     "Everyone",
+     "Otherwise",
+     "Its",
+     "Usually",
+     " Happened"
+    ],
+    "answer_rank": 2972,
+    "entropy": 6.223
+   },
+   {
+    "layer": 26,
+    "top": [
+     " Happens",
+     "Usually",
+     " Happened",
+     "Everyone",
+     " Often",
+     " Primarily",
+     " Sometimes",
+     "Mostly"
+    ],
+    "answer_rank": 1896,
+    "entropy": 5.873
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Mostly",
+     "Everyone",
+     "Multiple",
+     "primarily",
+     "Both",
+     "both",
+     "Frederick",
+     "Doesn"
+    ],
+    "answer_rank": 30,
+    "entropy": 7.405
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Nicolas",
+     "Frederick",
+     "Gilbert",
+     "Manuel",
+     "Columbus",
+     " Both",
+     "both",
+     "Christopher"
+    ],
+    "answer_rank": 20,
+    "entropy": 8.05
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Matthew",
+     " Chronicles",
+     " Михаил",
+     " Portraits",
+     " Everyone",
+     " Annals",
+     " Pierre",
+     " Autobiography"
+    ],
+    "answer_rank": 14,
+    "entropy": 7.07
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Everyone",
+     " Chronicles",
+     " Episodes",
+     " Todas",
+     " جميع",
+     " Cervantes",
+     " 모든",
+     " Matthew"
+    ],
+    "answer_rank": 28,
+    "entropy": 5.97
+   }
+  ]
+ },
+ {
+  "q": "Of which African country is Niamey the capital?",
+  "aliases": [],
+  "model_answer": "Niger",
+  "correct": true,
+  "first_token": "Niger",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!",
+     " **",
+     "!!!",
+     "!!!!!!",
+     "!!!!!!!!",
+     "........."
+    ],
+    "answer_rank": 38438,
+    "entropy": 4.176
+   },
+   {
+    "layer": 11,
+    "top": [
+     "colour",
+     "Whilst",
+     " rumours",
+     " whilst",
+     " odour",
+     " rumour",
+     "Colour",
+     " Whilst"
+    ],
+    "answer_rank": 62383,
+    "entropy": 3.893
+   },
+   {
+    "layer": 12,
+    "top": [
+     "Whilst",
+     " whilst",
+     "colour",
+     " rumours",
+     " Whilst",
+     " apologise",
+     "Whats",
+     " odour"
+    ],
+    "answer_rank": 101086,
+    "entropy": 3.591
+   },
+   {
+    "layer": 13,
+    "top": [
+     " rumours",
+     " rumour",
+     " prioritise",
+     " rumoured",
+     " odour",
+     " apologise",
+     " savoury",
+     " whilst"
+    ],
+    "answer_rank": 22329,
+    "entropy": 2.563
+   },
+   {
+    "layer": 14,
+    "top": [
+     " rumours",
+     "Trivia",
+     " rumour",
+     " trivia",
+     " Trivia",
+     "UNKNOWN",
+     "Incorrect",
+     " Wikipedia"
+    ],
+    "answer_rank": 9184,
+    "entropy": 2.273
+   },
+   {
+    "layer": 15,
+    "top": [
+     " rumours",
+     " misinformation",
+     " Wikipedia",
+     "Wikipedia",
+     " rumour",
+     "Trivia",
+     "Incorrect",
+     "Grey"
+    ],
+    "answer_rank": 9115,
+    "entropy": 3.173
+   },
+   {
+    "layer": 16,
+    "top": [
+     " answer",
+     "answer",
+     "Incorrect",
+     "incorrect",
+     " Wikipedia",
+     " ANSWER",
+     "Wikipedia",
+     "swering"
+    ],
+    "answer_rank": 17445,
+    "entropy": 2.789
+   },
+   {
+    "layer": 17,
+    "top": [
+     " ANSWER",
+     " Somalia",
+     " Wikipedia",
+     " 대한민국",
+     " answer",
+     "Wikipedia",
+     "🇿",
+     "ANSWER"
+    ],
+    "answer_rank": 1518,
+    "entropy": 3.996
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " answer",
+     " 대한민국",
+     " Answer",
+     "answer",
+     " South",
+     "Answer"
+    ],
+    "answer_rank": 2279,
+    "entropy": 2.259
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " Wikipedia",
+     " Answer",
+     " United",
+     "�",
+     " answer",
+     " Incorrect"
+    ],
+    "answer_rank": 21580,
+    "entropy": 1.806
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n",
+     "\n\n\n\n\n\n",
+     " Wikipedia",
+     "\n\n\n",
+     "៕",
+     "</blockquote>"
+    ],
+    "answer_rank": 23807,
+    "entropy": 0.213
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "</footer>",
+     "</caption>",
+     "</span>",
+     "</div>",
+     "</sup>"
+    ],
+    "answer_rank": 25106,
+    "entropy": 0.989
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "ലാണ്",
+     "BlackElo",
+     "ánchez",
+     "José",
+     " نہیں۔",
+     "Pablo",
+     "Marco"
+    ],
+    "answer_rank": 25815,
+    "entropy": 0.0
+   },
+   {
+    "layer": 23,
+    "top": [
+     "ទេ។",
+     "Cecil",
+     "Fluor",
+     "Wrong",
+     "Wild",
+     "Salt",
+     "vì",
+     "otoxicity"
+    ],
+    "answer_rank": 18724,
+    "entropy": 5.911
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Unless",
+     "Wrong",
+     "Incorrect",
+     "Contains",
+     "Never",
+     "Porque",
+     "because"
+    ],
+    "answer_rank": 9689,
+    "entropy": 6.197
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Because",
+     "Never",
+     " Happens",
+     "Wrong",
+     "Otherwise",
+     "Contains",
+     "Incorrect",
+     "Effective"
+    ],
+    "answer_rank": 10872,
+    "entropy": 6.424
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Colombia",
+     "Venezuela",
+     "Valencia",
+     "Spain",
+     "Because",
+     "Never",
+     " Porque",
+     "Porque"
+    ],
+    "answer_rank": 3709,
+    "entropy": 6.714
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Venezuela",
+     "Colombia",
+     "Puerto",
+     "Spain",
+     "Arkansas",
+     "Valencia",
+     "Serbia",
+     "Virginia"
+    ],
+    "answer_rank": 3317,
+    "entropy": 6.808
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Colombia",
+     "Venezuela",
+     "Spain",
+     "Serbia",
+     " Lithuania",
+     "France",
+     "Germany",
+     "Austria"
+    ],
+    "answer_rank": 2847,
+    "entropy": 8.247
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Netherlands",
+     " Lithuania",
+     " Philippines",
+     " Bulgaria",
+     " Türkiye",
+     " Paraná",
+     " Paraguay",
+     " Latvia"
+    ],
+    "answer_rank": 2421,
+    "entropy": 5.911
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Nigeria",
+     " Lithuania",
+     " Indonesia",
+     " Senegal",
+     " Philippines",
+     " Türkiye",
+     " Netherlands",
+     " Somalia"
+    ],
+    "answer_rank": 538,
+    "entropy": 4.905
+   }
+  ]
+ },
+ {
+  "q": "Kagoshima international airport is in which country?",
+  "aliases": [],
+  "model_answer": "Japanthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+  "correct": true,
+  "first_token": "Japan",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     " **",
+     ".....",
+     "!!",
+     "!!!",
+     "!!!!!!",
+     "!!!!!!!!",
+     "!!!!!!!"
+    ],
+    "answer_rank": 31529,
+    "entropy": 3.919
+   },
+   {
+    "layer": 11,
+    "top": [
+     " rumours",
+     "colour",
+     "Whilst",
+     " odour",
+     " rumour",
+     " alot",
+     "Colour",
+     " apologise"
+    ],
+    "answer_rank": 70940,
+    "entropy": 3.875
+   },
+   {
+    "layer": 12,
+    "top": [
+     " rumours",
+     "Whilst",
+     "colour",
+     " apologise",
+     " alot",
+     " whilst",
+     " rumour",
+     " thats"
+    ],
+    "answer_rank": 118915,
+    "entropy": 3.931
+   },
+   {
+    "layer": 13,
+    "top": [
+     " rumours",
+     " prioritise",
+     " rumour",
+     " apologise",
+     " odour",
+     " rumoured",
+     " thats",
+     " alot"
+    ],
+    "answer_rank": 98154,
+    "entropy": 3.005
+   },
+   {
+    "layer": 14,
+    "top": [
+     " rumours",
+     " rumour",
+     "Trivia",
+     " trivia",
+     "UNKNOWN",
+     " prioritise",
+     " thats",
+     " Trivia"
+    ],
+    "answer_rank": 59152,
+    "entropy": 2.878
+   },
+   {
+    "layer": 15,
+    "top": [
+     " rumours",
+     " Wikipedia",
+     "Wikipedia",
+     "accuracy",
+     " misinformation",
+     "Accuracy",
+     "UNKNOWN",
+     "Grey"
+    ],
+    "answer_rank": 83931,
+    "entropy": 3.851
+   },
+   {
+    "layer": 16,
+    "top": [
+     " answer",
+     " Wikipedia",
+     "Disclaimer",
+     "Wikipedia",
+     "Incorrect",
+     "swering",
+     " ANSWER",
+     "answer"
+    ],
+    "answer_rank": 69013,
+    "entropy": 3.488
+   },
+   {
+    "layer": 17,
+    "top": [
+     " ANSWER",
+     " 대한민국",
+     " USA",
+     "🌎",
+     " COUNTRY",
+     " SOUTH",
+     " geopolitical",
+     "Wikipedia"
+    ],
+    "answer_rank": 989,
+    "entropy": 4.874
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " 대한민국",
+     " USA",
+     "ประเทศไทย",
+     " Mexico",
+     " Answer",
+     " South"
+    ],
+    "answer_rank": 395,
+    "entropy": 2.886
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " United",
+     " USA",
+     " ANSWER",
+     " Answer",
+     " Wikipedia",
+     " America",
+     " 대한민국"
+    ],
+    "answer_rank": 1412,
+    "entropy": 2.202
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "\n\n",
+     "<eos>",
+     " 대한민국",
+     "\n\n\n",
+     " Wikipedia",
+     "\n\n\n\n\n\n",
+     "ประเทศไทย"
+    ],
+    "answer_rank": 67,
+    "entropy": 0.513
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     " 대한민국",
+     " estadounidenses",
+     "</blockquote>",
+     " 미국",
+     "Brexit",
+     " estadounidense"
+    ],
+    "answer_rank": 213,
+    "entropy": 3.097
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     " نہیں۔",
+     "BlackElo",
+     "México",
+     "།",
+     "José",
+     "maktadır",
+     "Accelerator"
+    ],
+    "answer_rank": 2043,
+    "entropy": 0.0
+   },
+   {
+    "layer": 23,
+    "top": [
+     "ទេ។",
+     "ም።",
+     "otoxicity",
+     "Wrong",
+     "Wild",
+     "iciência",
+     "Longitude",
+     "vì"
+    ],
+    "answer_rank": 3722,
+    "entropy": 3.869
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Unless",
+     "Cannot",
+     "because",
+     "Its",
+     "Never",
+     "Contains",
+     "Wrong"
+    ],
+    "answer_rank": 899,
+    "entropy": 5.458
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Because",
+     "Actually",
+     "Never",
+     "Contains",
+     "There",
+     "Incorrect",
+     "Wrong",
+     "Correct"
+    ],
+    "answer_rank": 611,
+    "entropy": 5.488
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Colombia",
+     "ประเทศไทย",
+     "Venezuela",
+     "Australia",
+     "Spain",
+     "Nationality",
+     "Never",
+     "Switzerland"
+    ],
+    "answer_rank": 66,
+    "entropy": 5.738
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Colombia",
+     "Spain",
+     "Venezuela",
+     "Germany",
+     "Australia",
+     "Philippines",
+     "Switzerland",
+     "Finland"
+    ],
+    "answer_rank": 17,
+    "entropy": 5.15
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Colombia",
+     "Germany",
+     "Spain",
+     "Australia",
+     " Colombia",
+     "Philippines",
+     "Venezuela",
+     "France"
+    ],
+    "answer_rank": 10,
+    "entropy": 6.591
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Philippines",
+     " Indonesia",
+     " Germany",
+     " Netherlands",
+     " Türkiye",
+     " Turkey",
+     " Italy",
+     " Colombia"
+    ],
+    "answer_rank": 159,
+    "entropy": 5.989
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Philippines",
+     " Indonesia",
+     " Japan",
+     " Türkiye",
+     " Germany",
+     " Thailand",
+     " Netherlands",
+     " Australia"
+    ],
+    "answer_rank": 50,
+    "entropy": 5.255
+   }
+  ]
+ },
+ {
+  "q": "How was the European Recovery Program in the 1940s more commonly known?",
+  "aliases": [],
+  "model_answer": "Marshall Planthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+  "correct": true,
+  "first_token": "Marshall",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!",
+     " **",
+     "!!!",
+     "!!!!!!",
+     "!!!!!!!",
+     "!"
+    ],
+    "answer_rank": 2844,
+    "entropy": 3.495
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " thats",
+     "!!!!",
+     " wouldnt",
+     "!!!!!!!",
+     "!!!!!!!!",
+     "\n\n\n\n\n",
+     " pretty"
+    ],
+    "answer_rank": 18472,
+    "entropy": 4.006
+   },
+   {
+    "layer": 12,
+    "top": [
+     "Whats",
+     " thats",
+     " alot",
+     "!!!!!!!",
+     " wouldnt",
+     " kinda",
+     "\n\n\n\n\n",
+     "mmmm"
+    ],
+    "answer_rank": 24281,
+    "entropy": 3.74
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     "Whats",
+     " thats",
+     "\n\n\n\n\n",
+     " lmao",
+     " alot",
+     "💀",
+     "🚫"
+    ],
+    "answer_rank": 60559,
+    "entropy": 4.076
+   },
+   {
+    "layer": 14,
+    "top": [
+     "Trivia",
+     " trivia",
+     " Trivia",
+     "trivia",
+     "UNKNOWN",
+     " misinformation",
+     " lmao",
+     "Wikipedia"
+    ],
+    "answer_rank": 65449,
+    "entropy": 2.94
+   },
+   {
+    "layer": 15,
+    "top": [
+     " misinformation",
+     "Trivia",
+     "Wikipedia",
+     "trivia",
+     " trivia",
+     "Incorrect",
+     "Biden",
+     "OutOf"
+    ],
+    "answer_rank": 32567,
+    "entropy": 3.518
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "trivia",
+     "wikipedia",
+     "Wikipedia",
+     " Wikipedia",
+     "answer",
+     "Trivia",
+     " answer"
+    ],
+    "answer_rank": 26689,
+    "entropy": 2.614
+   },
+   {
+    "layer": 17,
+    "top": [
+     "wikipedia",
+     "Wikipedia",
+     "trivia",
+     " Wikipedia",
+     " wikipedia",
+     "Trivia",
+     " ANSWER",
+     "Historical"
+    ],
+    "answer_rank": 29273,
+    "entropy": 2.71
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     "wikipedia",
+     "Wikipedia",
+     " ANSWER",
+     " wikipedia",
+     " Wikipedia",
+     "trivia",
+     " Washington"
+    ],
+    "answer_rank": 26153,
+    "entropy": 1.227
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Wikipedia",
+     " wikipedia",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n",
+     " Washington",
+     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    ],
+    "answer_rank": 59120,
+    "entropy": 0.464
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     " Wikipedia",
+     "\n\n\n\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n"
+    ],
+    "answer_rank": 56961,
+    "entropy": 0.03
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</i>",
+     "</blockquote>",
+     "<unused53>",
+     "</span>",
+     "</caption>",
+     "</u>"
+    ],
+    "answer_rank": 31352,
+    "entropy": 0.085
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "akukannya",
+     "José",
+     "Pablo",
+     "Watercolor",
+     "BlackElo",
+     "MPC",
+     "Chicago"
+    ],
+    "answer_rank": 49346,
+    "entropy": 0.007
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Phosph",
+     "virus",
+     "Hydroxy",
+     "Cecil",
+     "uberculosis",
+     "Cotton",
+     "Wild",
+     "Prototype"
+    ],
+    "answer_rank": 423,
+    "entropy": 5.622
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Called",
+     "Was",
+     "Often",
+     "Battle",
+     "Contain",
+     "Its",
+     " Because"
+    ],
+    "answer_rank": 2201,
+    "entropy": 5.87
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Called",
+     "Often",
+     "Controlled",
+     " Became",
+     "Existence",
+     "Reality",
+     "Otherwise",
+     " Often"
+    ],
+    "answer_rank": 5415,
+    "entropy": 5.591
+   },
+   {
+    "layer": 26,
+    "top": [
+     " Proyecto",
+     " Alternative",
+     " Reconstruction",
+     " Breakthrough",
+     " Thực",
+     " Реа",
+     " Projeto",
+     "Proyecto"
+    ],
+    "answer_rank": 3920,
+    "entropy": 6.69
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Proyecto",
+     " Proyecto",
+     "Nelson",
+     "Battle",
+     "Crash",
+     "Campaign",
+     "Crisis",
+     "Economy"
+    ],
+    "answer_rank": 482,
+    "entropy": 7.735
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Nelson",
+     "Columbus",
+     "Battle",
+     "Crash",
+     "Rainbow",
+     " Breakthrough",
+     "Napoleon",
+     "Chris"
+    ],
+    "answer_rank": 89,
+    "entropy": 7.516
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Revolución",
+     " Breakthrough",
+     " Proyecto",
+     " Bạch",
+     " Projeto",
+     " Whit",
+     " Miracle",
+     " Bình"
+    ],
+    "answer_rank": 717,
+    "entropy": 6.461
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Economic",
+     " Reconstruction",
+     "苏联",
+     " Czechoslovak",
+     " Capitalism",
+     " 미국의",
+     " Roosevelt",
+     " Eisenhower"
+    ],
+    "answer_rank": 186,
+    "entropy": 4.697
+   }
+  ]
+ },
+ {
+  "q": "Kim Carnes' nine weeks at No 1 with Bette Davis Eyes was interrupted for one week by which song?",
+  "aliases": [],
+  "model_answer": "\"I'm Still in Love with You\"",
+  "correct": false,
+  "first_token": "\"",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!",
+     "!!!",
+     ".....",
+     "!!!!!!",
+     "!!!!!!!",
+     " **",
+     "!"
+    ],
+    "answer_rank": 3155,
+    "entropy": 3.418
+   },
+   {
+    "layer": 11,
+    "top": [
+     " thats",
+     " alot",
+     " kinda",
+     " wouldnt",
+     "!!!!",
+     " pretty",
+     "!!!!!!!",
+     "!!!!!!!!"
+    ],
+    "answer_rank": 71023,
+    "entropy": 4.104
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     "Whats",
+     " wouldnt",
+     " alot",
+     "!!!!!!!",
+     " kinda",
+     "!!!!",
+     "!!!!!!"
+    ],
+    "answer_rank": 87319,
+    "entropy": 4.046
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     "Whats",
+     " thats",
+     "!!!!!!",
+     " lmao",
+     "!!!!!!!",
+     " alot",
+     " wasnt"
+    ],
+    "answer_rank": 113733,
+    "entropy": 4.211
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     "Trivia",
+     " Trivia",
+     " wouldnt",
+     " lmao",
+     "?!?!",
+     "trivia",
+     " thats"
+    ],
+    "answer_rank": 123175,
+    "entropy": 3.448
+   },
+   {
+    "layer": 15,
+    "top": [
+     " trivia",
+     "Trivia",
+     "trivia",
+     " Trivia",
+     "Reddit",
+     "Mystery",
+     "Zombie",
+     " Reddit"
+    ],
+    "answer_rank": 106557,
+    "entropy": 2.54
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "trivia",
+     "Trivia",
+     "answer",
+     " Trivia",
+     " answer",
+     " Buster",
+     "FAKE"
+    ],
+    "answer_rank": 102883,
+    "entropy": 2.177
+   },
+   {
+    "layer": 17,
+    "top": [
+     " trivia",
+     "trivia",
+     "Trivia",
+     " ANSWER",
+     " Trivia",
+     " jukebox",
+     "ANSWER",
+     " unnamed"
+    ],
+    "answer_rank": 68442,
+    "entropy": 2.487
+   },
+   {
+    "layer": 18,
+    "top": [
+     " ANSWER",
+     "<turn|>",
+     "trivia",
+     " trivia",
+     " Trivia",
+     "Trivia",
+     "ANSWER",
+     " Answer"
+    ],
+    "answer_rank": 104789,
+    "entropy": 1.903
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " Answer",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n",
+     " Trivia",
+     " answer",
+     " Victory"
+    ],
+    "answer_rank": 47853,
+    "entropy": 0.309
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n\n",
+     "\n\n",
+     "\n\n\n",
+     "</blockquote>"
+    ],
+    "answer_rank": 124562,
+    "entropy": 0.096
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     " Billboard",
+     "</footer>",
+     "</blockquote>",
+     "</caption>",
+     "Billboard",
+     " canción"
+    ],
+    "answer_rank": 166648,
+    "entropy": 1.416
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "Pablo",
+     "Joy",
+     "José",
+     "Jill",
+     "Pink",
+     "Gabri",
+     "Jason"
+    ],
+    "answer_rank": 203986,
+    "entropy": 0.001
+   },
+   {
+    "layer": 23,
+    "top": [
+     "blind",
+     "lack",
+     "bomb",
+     "fire",
+     "salt",
+     "wreck",
+     "fraud",
+     "virus"
+    ],
+    "answer_rank": 251094,
+    "entropy": 7.969
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "lack",
+     "Should",
+     "Lack",
+     "because",
+     "Never",
+     "while",
+     "due"
+    ],
+    "answer_rank": 161411,
+    "entropy": 9.083
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Because",
+     " Suddenly",
+     "Never",
+     "Everyone",
+     " Because",
+     "Couldn",
+     "Wonder",
+     "Every"
+    ],
+    "answer_rank": 259708,
+    "entropy": 8.813
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Never",
+     " Never",
+     " Suddenly",
+     " Nunca",
+     "Couldn",
+     "Unexpected",
+     "Wonder",
+     " Unexpected"
+    ],
+    "answer_rank": 256769,
+    "entropy": 8.642
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Never",
+     "never",
+     " Never",
+     "Couldn",
+     "Nobody",
+     "Doesn",
+     "Didn",
+     "Nothing"
+    ],
+    "answer_rank": 185398,
+    "entropy": 8.99
+   },
+   {
+    "layer": 28,
+    "top": [
+     " \"",
+     " Never",
+     " Nobody",
+     "Never",
+     " \"¿",
+     "Nothing",
+     "Nobody",
+     "“"
+    ],
+    "answer_rank": 12375,
+    "entropy": 9.775
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Nobody",
+     " Never",
+     " \"",
+     " Nothing",
+     " Moonlight",
+     " Nowhere",
+     " Didn",
+     " Sunshine"
+    ],
+    "answer_rank": 75428,
+    "entropy": 9.972
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Sunshine",
+     " Merry",
+     " Nobody",
+     " Butterflies",
+     " Goodbye",
+     " Sleeping",
+     " Sunny",
+     " Beautiful"
+    ],
+    "answer_rank": 136444,
+    "entropy": 9.378
+   }
+  ]
+ },
+ {
+  "q": "In which decade did stereo records first go on sale?",
+  "aliases": [],
+  "model_answer": "1950s",
+  "correct": false,
+  "first_token": "1",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!",
+     " **",
+     ".....",
+     "!!!",
+     "!!!!!!",
+     "!!!!!!!",
+     "!"
+    ],
+    "answer_rank": 3120,
+    "entropy": 3.879
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " thats",
+     " wouldnt",
+     " kinda",
+     "!!!!",
+     "!!!!!!!!",
+     "!!!!!!!",
+     " pretty"
+    ],
+    "answer_rank": 20213,
+    "entropy": 4.307
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     "Whats",
+     " wouldnt",
+     "!!!!!!!",
+     " alot",
+     "!!!!!!",
+     "!!!!",
+     "?!"
+    ],
+    "answer_rank": 82569,
+    "entropy": 4.058
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     " rumours",
+     " lmao",
+     "Whats",
+     " thats",
+     "!!!!!!",
+     " aswell",
+     " rumour"
+    ],
+    "answer_rank": 112839,
+    "entropy": 3.946
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     "Trivia",
+     " Trivia",
+     "trivia",
+     "UNKNOWN",
+     " lmao",
+     "?!",
+     " wouldnt"
+    ],
+    "answer_rank": 70530,
+    "entropy": 2.416
+   },
+   {
+    "layer": 15,
+    "top": [
+     "Trivia",
+     " trivia",
+     "trivia",
+     " Trivia",
+     "UNKNOWN",
+     "<turn|>",
+     "Wikipedia",
+     " misinformation"
+    ],
+    "answer_rank": 47662,
+    "entropy": 2.615
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "trivia",
+     "Trivia",
+     "answer",
+     "wikipedia",
+     "Incorrect",
+     "Wikipedia",
+     " Wikipedia"
+    ],
+    "answer_rank": 20335,
+    "entropy": 2.589
+   },
+   {
+    "layer": 17,
+    "top": [
+     " decade",
+     " tahun",
+     "ในปี",
+     " year",
+     " years",
+     " YEAR",
+     "Year",
+     " YEARS"
+    ],
+    "answer_rank": 11411,
+    "entropy": 3.754
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     "ในปี",
+     " decade",
+     "年份",
+     "四年",
+     "三年",
+     " tahun",
+     " Year"
+    ],
+    "answer_rank": 5777,
+    "entropy": 2.48
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     "四年",
+     " Year",
+     " December",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     " decade"
+    ],
+    "answer_rank": 865,
+    "entropy": 0.82
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n",
+     "\n\n\n\n\n\n",
+     "\n\n\n",
+     "</blockquote>",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n\n"
+    ],
+    "answer_rank": 8644,
+    "entropy": 0.153
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     " decade",
+     "<eos>",
+     " década",
+     "</blockquote>",
+     "decade",
+     "五年",
+     "四年"
+    ],
+    "answer_rank": 51085,
+    "entropy": 2.221
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "MK",
+     "Eleven",
+     "Chicago",
+     "Yeah",
+     "Elizabeth",
+     "Unless",
+     "Pink"
+    ],
+    "answer_rank": 2923,
+    "entropy": 0.0
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Phosph",
+     "Poor",
+     "Burn",
+     "lash",
+     "burn",
+     "Seven",
+     "bloom",
+     "virus"
+    ],
+    "answer_rank": 45735,
+    "entropy": 7.074
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Its",
+     "Before",
+     "During",
+     "Maybe",
+     "It",
+     "Around",
+     "before"
+    ],
+    "answer_rank": 55093,
+    "entropy": 7.67
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Initially",
+     "Because",
+     "During",
+     "Early",
+     "Around",
+     "Its",
+     "early",
+     "Probably"
+    ],
+    "answer_rank": 55199,
+    "entropy": 6.8
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Early",
+     "Initially",
+     "Years",
+     "early",
+     "During",
+     "Shortly",
+     "ช่วง",
+     "Because"
+    ],
+    "answer_rank": 87747,
+    "entropy": 5.857
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Early",
+     "early",
+     "Years",
+     "Initially",
+     "During",
+     "Shortly",
+     "ในช่วง",
+     "ช่วง"
+    ],
+    "answer_rank": 99575,
+    "entropy": 6.006
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Early",
+     "early",
+     " During",
+     " Early",
+     "During",
+     "late",
+     " Sevent",
+     "during"
+    ],
+    "answer_rank": 2685,
+    "entropy": 8.426
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Early",
+     "Early",
+     " Nineteenth",
+     " القرن",
+     " Sevent",
+     " années",
+     " Beginning",
+     " Rarely"
+    ],
+    "answer_rank": 53025,
+    "entropy": 6.841
+   },
+   {
+    "layer": 30,
+    "top": [
+     " década",
+     " Stereo",
+     " Introduced",
+     " Early",
+     " While",
+     " Decade",
+     " années",
+     " Throughout"
+    ],
+    "answer_rank": 186384,
+    "entropy": 7.465
+   }
+  ]
+ },
+ {
+  "q": "In what year's Olympics were electric timing devices and a public-address system used for the first time?",
+  "aliases": [],
+  "model_answer": "1960",
+  "correct": false,
+  "first_token": "1",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!",
+     "!!!",
+     " **",
+     "!!!!!!",
+     "!!!!!!!",
+     "!!!!!!!!"
+    ],
+    "answer_rank": 3740,
+    "entropy": 3.821
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " thats",
+     "!!!!!!!!",
+     " wouldnt",
+     "!!!!!!!",
+     "\n\n\n\n\n",
+     "!!!!",
+     " pretty"
+    ],
+    "answer_rank": 10548,
+    "entropy": 4.32
+   },
+   {
+    "layer": 12,
+    "top": [
+     " wouldnt",
+     "Whats",
+     " thats",
+     "!!!!!!!",
+     " alot",
+     "\n\n\n\n\n",
+     "!!!!!!",
+     "?!"
+    ],
+    "answer_rank": 71971,
+    "entropy": 3.713
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     "\n\n\n\n\n",
+     "Whats",
+     " thats",
+     " rumours",
+     " lmao",
+     "!!!!!!",
+     " aswell"
+    ],
+    "answer_rank": 92353,
+    "entropy": 3.641
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     "Trivia",
+     " Trivia",
+     "trivia",
+     "UNKNOWN",
+     "<turn|>",
+     "Incorrect",
+     "Wikipedia"
+    ],
+    "answer_rank": 60042,
+    "entropy": 2.087
+   },
+   {
+    "layer": 15,
+    "top": [
+     "Trivia",
+     "trivia",
+     " trivia",
+     " Trivia",
+     "<turn|>",
+     "UNKNOWN",
+     "Victory",
+     "Incorrect"
+    ],
+    "answer_rank": 34579,
+    "entropy": 2.7
+   },
+   {
+    "layer": 16,
+    "top": [
+     "answer",
+     "trivia",
+     "Victory",
+     " trivia",
+     " answer",
+     "Trivia",
+     " ANSWER",
+     "Incorrect"
+    ],
+    "answer_rank": 12572,
+    "entropy": 2.942
+   },
+   {
+    "layer": 17,
+    "top": [
+     "ในปี",
+     "四年",
+     " tahun",
+     " YEARS",
+     "Year",
+     "Historical",
+     " YEAR",
+     " years"
+    ],
+    "answer_rank": 7946,
+    "entropy": 4.258
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     "ในปี",
+     "四年",
+     "三年",
+     " ANSWER",
+     "年份",
+     " tahun",
+     " HIST"
+    ],
+    "answer_rank": 4013,
+    "entropy": 2.787
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     "四年",
+     " December",
+     " February",
+     " Year",
+     "ในปี",
+     " Wikipedia",
+     " ANSWER"
+    ],
+    "answer_rank": 548,
+    "entropy": 1.186
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n\n\n\n\n",
+     "\n\n",
+     "\n\n\n\n\n\n\n",
+     "៕",
+     "\n\n\n\n\n",
+     "\n\n\n"
+    ],
+    "answer_rank": 5433,
+    "entropy": 0.125
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "四年",
+     "五年",
+     "ในปี",
+     "三年",
+     "十年",
+     " decade"
+    ],
+    "answer_rank": 22845,
+    "entropy": 2.58
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "MK",
+     "Mc",
+     "Pablo",
+     "Mu",
+     "Marco",
+     "Eleven",
+     "Chicago"
+    ],
+    "answer_rank": 362,
+    "entropy": 0.008
+   },
+   {
+    "layer": 23,
+    "top": [
+     "virus",
+     "salt",
+     "my",
+     "dere",
+     "burn",
+     "lash",
+     "bomb",
+     "vac"
+    ],
+    "answer_rank": 40695,
+    "entropy": 7.462
+   },
+   {
+    "layer": 24,
+    "top": [
+     "before",
+     "during",
+     "Because",
+     "During",
+     "last",
+     "Should",
+     "late",
+     "early"
+    ],
+    "answer_rank": 27703,
+    "entropy": 8.864
+   },
+   {
+    "layer": 25,
+    "top": [
+     "During",
+     "during",
+     "early",
+     "Initially",
+     "Early",
+     "Until",
+     "circa",
+     "first"
+    ],
+    "answer_rank": 41932,
+    "entropy": 8.04
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Years",
+     "Never",
+     "ในปี",
+     "January",
+     "February",
+     "Durante",
+     "Nunca",
+     "October"
+    ],
+    "answer_rank": 63150,
+    "entropy": 7.209
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Never",
+     "Years",
+     "Nunca",
+     "Philippe",
+     "January",
+     "Baltimore",
+     "never",
+     "October"
+    ],
+    "answer_rank": 113971,
+    "entropy": 8.318
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Baltimore",
+     "February",
+     "Montreal",
+     "Columbus",
+     "January",
+     "December",
+     "June",
+     "Paris"
+    ],
+    "answer_rank": 5960,
+    "entropy": 8.796
+   },
+   {
+    "layer": 29,
+    "top": [
+     "Baltimore",
+     " November",
+     " December",
+     " January",
+     " Baltimore",
+     " Centennial",
+     "December",
+     "Napoleon"
+    ],
+    "answer_rank": 77423,
+    "entropy": 7.402
+   },
+   {
+    "layer": 30,
+    "top": [
+     "近代",
+     "奥运",
+     " Olimpi",
+     "现代",
+     "Orlando",
+     "림픽",
+     " Centennial",
+     "Montreal"
+    ],
+    "answer_rank": 91382,
+    "entropy": 7.904
+   }
+  ]
+ },
+ {
+  "q": "Who or what was Gentle Ben in the 60s TV series?",
+  "aliases": [],
+  "model_answer": "A character in the TV series",
+  "correct": false,
+  "first_token": "A",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!!",
+     "!!",
+     ".....",
+     "!!!!!!",
+     " **",
+     "!!!!!!!",
+     "!!!!!"
+    ],
+    "answer_rank": 773,
+    "entropy": 3.776
+   },
+   {
+    "layer": 11,
+    "top": [
+     " thats",
+     " alot",
+     " kinda",
+     " wouldnt",
+     " pretty",
+     "!!!!",
+     "!!!!!!!",
+     "!!!!!!"
+    ],
+    "answer_rank": 21664,
+    "entropy": 4.011
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     " alot",
+     "Whats",
+     " kinda",
+     " wouldnt",
+     "!!!!!!!",
+     "!!!!!!",
+     " whats"
+    ],
+    "answer_rank": 30473,
+    "entropy": 3.718
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     " lmao",
+     " thats",
+     "Whats",
+     " alot",
+     "!!!!!!",
+     " rumours",
+     "!!!!!!!"
+    ],
+    "answer_rank": 53147,
+    "entropy": 4.127
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     "Trivia",
+     " lmao",
+     " Trivia",
+     "UNKNOWN",
+     " wouldnt",
+     " thats",
+     "trivia"
+    ],
+    "answer_rank": 40713,
+    "entropy": 3.617
+   },
+   {
+    "layer": 15,
+    "top": [
+     " trivia",
+     "Trivia",
+     "Reddit",
+     "UNKNOWN",
+     " Trivia",
+     " Reddit",
+     "trivia",
+     "reddit"
+    ],
+    "answer_rank": 27004,
+    "entropy": 3.424
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "trivia",
+     "Trivia",
+     " answer",
+     "answer",
+     " bullshit",
+     "wikipedia",
+     " Buster"
+    ],
+    "answer_rank": 32329,
+    "entropy": 2.533
+   },
+   {
+    "layer": 17,
+    "top": [
+     " trivia",
+     "trivia",
+     "Trivia",
+     "wikipedia",
+     "Wikipedia",
+     " ANSWER",
+     " Trivia",
+     "UNKNOWN"
+    ],
+    "answer_rank": 111920,
+    "entropy": 2.953
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     "wikipedia",
+     "trivia",
+     "Wikipedia",
+     "Trivia",
+     " Trivia",
+     " Answer"
+    ],
+    "answer_rank": 113311,
+    "entropy": 2.044
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Answer",
+     " Wikipedia",
+     " ANSWER",
+     "\n\n\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n",
+     " Trivia"
+    ],
+    "answer_rank": 108761,
+    "entropy": 0.536
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     " Wikipedia",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "<eos>",
+     "\n\n\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n",
+     "\n\n\n"
+    ],
+    "answer_rank": 103214,
+    "entropy": 0.011
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     " Riot",
+     "Myth",
+     "</caption>",
+     "Trivia",
+     " Shazam"
+    ],
+    "answer_rank": 182830,
+    "entropy": 0.067
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "José",
+     "Pablo",
+     "BlackElo",
+     " نہیں۔",
+     "źni",
+     "Marco",
+     "akukannya"
+    ],
+    "answer_rank": 29968,
+    "entropy": 0.0
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Wild",
+     "Destroy",
+     "Cecil",
+     "Parker",
+     "Slave",
+     "Mic",
+     "ទេ។",
+     "Phosph"
+    ],
+    "answer_rank": 5690,
+    "entropy": 6.351
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Failed",
+     ".",
+     "Because",
+     "Was",
+     "Everyone",
+     "It",
+     "Lack",
+     "The"
+    ],
+    "answer_rank": 4840,
+    "entropy": 7.7
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Everyone",
+     "Someone",
+     "Failed",
+     "Sometimes",
+     "Parker",
+     " Someone",
+     "Multiple",
+     "Nobody"
+    ],
+    "answer_rank": 30913,
+    "entropy": 8.045
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Someone",
+     "Nobody",
+     "Roberto",
+     "Everyone",
+     "Unnamed",
+     "Carroll",
+     " Nobody",
+     "Howard"
+    ],
+    "answer_rank": 76401,
+    "entropy": 8.463
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Lucy",
+     "Roberto",
+     "Pedro",
+     "Sarah",
+     "Frederick",
+     "Christopher",
+     "Charles",
+     "Glenn"
+    ],
+    "answer_rank": 64837,
+    "entropy": 8.519
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Christopher",
+     "Pedro",
+     " Robert",
+     "Manuel",
+     "Jonathan",
+     " Jeff",
+     "Carlos",
+     " Samuel"
+    ],
+    "answer_rank": 51074,
+    "entropy": 9.965
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Robert",
+     " Samuel",
+     " Bernardo",
+     " Jeff",
+     " Frederick",
+     " Lawrence",
+     " Michael",
+     " Kenny"
+    ],
+    "answer_rank": 182452,
+    "entropy": 9.728
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Someone",
+     " Robert",
+     " Nobody",
+     " Larry",
+     " Bobby",
+     " Dwayne",
+     " Ricky",
+     " Bernardo"
+    ],
+    "answer_rank": 174496,
+    "entropy": 9.473
+   }
+  ]
+ },
+ {
+  "q": "Who had a 60s No 1 with Downtown?",
+  "aliases": [],
+  "model_answer": "The Hollies",
+  "correct": false,
+  "first_token": "The",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!!",
+     "!!",
+     "!!!!!!",
+     "!!!!!!!",
+     " **",
+     "!!!!!"
+    ],
+    "answer_rank": 136,
+    "entropy": 3.903
+   },
+   {
+    "layer": 11,
+    "top": [
+     " kinda",
+     " thats",
+     " alot",
+     " pretty",
+     " wouldnt",
+     " whats",
+     "!!!!",
+     "!!!!!!!"
+    ],
+    "answer_rank": 2083,
+    "entropy": 4.1
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     " alot",
+     " kinda",
+     "Whats",
+     " wouldnt",
+     "!!!!!!!",
+     " whats",
+     "!!!!!!"
+    ],
+    "answer_rank": 3592,
+    "entropy": 3.884
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     " thats",
+     " lmao",
+     " alot",
+     " yeah",
+     "Whats",
+     "!!!!!!",
+     " kinda"
+    ],
+    "answer_rank": 7477,
+    "entropy": 4.186
+   },
+   {
+    "layer": 14,
+    "top": [
+     " trivia",
+     " lmao",
+     "Trivia",
+     " Trivia",
+     " wouldnt",
+     "?!?!",
+     " thats",
+     "funny"
+    ],
+    "answer_rank": 4688,
+    "entropy": 3.675
+   },
+   {
+    "layer": 15,
+    "top": [
+     " trivia",
+     "Trivia",
+     " Trivia",
+     "trivia",
+     " lmao",
+     "Reddit",
+     " Beyonce",
+     "UNKNOWN"
+    ],
+    "answer_rank": 7239,
+    "entropy": 2.224
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "Trivia",
+     "trivia",
+     "FAKE",
+     "Elvis",
+     " JFK",
+     " Elvis",
+     " Trivia"
+    ],
+    "answer_rank": 12859,
+    "entropy": 2.817
+   },
+   {
+    "layer": 17,
+    "top": [
+     " trivia",
+     " ANSWER",
+     "Trivia",
+     "trivia",
+     "🏆",
+     " Trivia",
+     "Winner",
+     "ANSWER"
+    ],
+    "answer_rank": 36367,
+    "entropy": 2.988
+   },
+   {
+    "layer": 18,
+    "top": [
+     " ANSWER",
+     "<turn|>",
+     "Winner",
+     "trivia",
+     "winner",
+     " Answer",
+     " Trivia",
+     " trivia"
+    ],
+    "answer_rank": 63843,
+    "entropy": 2.056
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Answer",
+     " ANSWER",
+     " Winner",
+     "Winner",
+     "\n\n\n\n\n\n",
+     " Chevrolet",
+     " answer"
+    ],
+    "answer_rank": 84828,
+    "entropy": 0.608
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n",
+     "\n\n\n",
+     "៕"
+    ],
+    "answer_rank": 50831,
+    "entropy": 0.032
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "៕",
+     " Billboard",
+     " Pfizer",
+     "</caption>",
+     " Ozzy"
+    ],
+    "answer_rank": 151334,
+    "entropy": 0.534
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     " نہیں۔",
+     "Pablo",
+     "Patrick",
+     "José",
+     "źni",
+     " Ramírez",
+     "BlackElo"
+    ],
+    "answer_rank": 29970,
+    "entropy": 0.001
+   },
+   {
+    "layer": 23,
+    "top": [
+     "Cecil",
+     "Oliver",
+     "Parker",
+     "Pierre",
+     "lash",
+     "Scott",
+     "Harvey",
+     "blind"
+    ],
+    "answer_rank": 63598,
+    "entropy": 6.716
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     "Parker",
+     "Everyone",
+     "Megan",
+     "Howard",
+     "Failed",
+     "Barbara",
+     "Charles"
+    ],
+    "answer_rank": 622,
+    "entropy": 8.443
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Everyone",
+     "Carroll",
+     "Kyle",
+     "Sarah",
+     "Charles",
+     " Everyone",
+     "Howard",
+     "Barbara"
+    ],
+    "answer_rank": 5476,
+    "entropy": 8.638
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Carroll",
+     "Everyone",
+     " Everyone",
+     " Nunca",
+     " Never",
+     " Nobody",
+     " Otros",
+     "Bonnie"
+    ],
+    "answer_rank": 53811,
+    "entropy": 8.866
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Sarah",
+     "Laura",
+     "Christopher",
+     "Bobby",
+     "Carroll",
+     "Lucy",
+     "Frederick",
+     "Bonnie"
+    ],
+    "answer_rank": 58673,
+    "entropy": 8.376
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Christopher",
+     "Chris",
+     "Sarah",
+     "Glenn",
+     " Robert",
+     "Keith",
+     "Christine",
+     " Chris"
+    ],
+    "answer_rank": 41039,
+    "entropy": 9.306
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Robert",
+     " John",
+     " Jeff",
+     " Paul",
+     " Samuel",
+     " Michael",
+     " Tony",
+     " George"
+    ],
+    "answer_rank": 92081,
+    "entropy": 9.394
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Robert",
+     " Bobby",
+     " Steve",
+     " John",
+     " Jeff",
+     " Larry",
+     " Gary",
+     " Ricky"
+    ],
+    "answer_rank": 111984,
+    "entropy": 8.977
+   }
+  ]
+ },
+ {
+  "q": "Who was born first, Kiefer Sutherland or Christian Slater?",
+  "aliases": [],
+  "model_answer": "Christian Slater",
+  "correct": false,
+  "first_token": "Christian",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!",
+     "!!!",
+     ".....",
+     " **",
+     "!!!!!!",
+     "!!!!!",
+     "!!!!!!!"
+    ],
+    "answer_rank": 17571,
+    "entropy": 3.659
+   },
+   {
+    "layer": 11,
+    "top": [
+     " alot",
+     " kinda",
+     " thats",
+     " pretty",
+     "!!!!",
+     " wouldnt",
+     "!!!!!!!",
+     " really"
+    ],
+    "answer_rank": 49132,
+    "entropy": 4.274
+   },
+   {
+    "layer": 12,
+    "top": [
+     " alot",
+     " thats",
+     " wouldnt",
+     "!!!!!!!",
+     "Whats",
+     " kinda",
+     "!!!!!!",
+     "!!!!"
+    ],
+    "answer_rank": 88536,
+    "entropy": 4.12
+   },
+   {
+    "layer": 13,
+    "top": [
+     " wouldnt",
+     " lmao",
+     " thats",
+     " alot",
+     "🖤",
+     "Whats",
+     " rumours",
+     "💀"
+    ],
+    "answer_rank": 47692,
+    "entropy": 4.293
+   },
+   {
+    "layer": 14,
+    "top": [
+     "Trivia",
+     " trivia",
+     " lmao",
+     " Trivia",
+     "UNKNOWN",
+     "trivia",
+     " thats",
+     " wouldnt"
+    ],
+    "answer_rank": 71006,
+    "entropy": 3.819
+   },
+   {
+    "layer": 15,
+    "top": [
+     "Trivia",
+     " trivia",
+     "trivia",
+     "Reddit",
+     " Trivia",
+     "Wikipedia",
+     "Accuracy",
+     " Reddit"
+    ],
+    "answer_rank": 96097,
+    "entropy": 2.793
+   },
+   {
+    "layer": 16,
+    "top": [
+     " trivia",
+     "trivia",
+     "Trivia",
+     " Wikipedia",
+     "Wikipedia",
+     "accuracy",
+     "answer",
+     "Incorrect"
+    ],
+    "answer_rank": 80601,
+    "entropy": 2.683
+   },
+   {
+    "layer": 17,
+    "top": [
+     " trivia",
+     "Trivia",
+     "trivia",
+     "Winner",
+     "Wikipedia",
+     " Wikipedia",
+     " Trivia",
+     "winner"
+    ],
+    "answer_rank": 100480,
+    "entropy": 3.101
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     "Winner",
+     "winner",
+     " ANSWER",
+     " Winner",
+     " winner",
+     "trivia",
+     " trivia"
+    ],
+    "answer_rank": 137018,
+    "entropy": 1.702
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " Winner",
+     " Wikipedia",
+     "\n\n\n\n\n\n",
+     "Winner",
+     " winner",
+     "\n\n\n\n\n\n\n\n",
+     " Biden"
+    ],
+    "answer_rank": 165973,
+    "entropy": 1.202
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "\n\n",
+     "</blockquote>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n"
+    ],
+    "answer_rank": 131339,
+    "entropy": 0.123
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "</footer>",
+     "</caption>",
+     " Pfizer",
+     "</span>",
+     "othyroidism"
+    ],
+    "answer_rank": 47117,
+    "entropy": 0.127
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "ánchez",
+     "Pablo",
+     "izações",
+     "BlackElo",
+     "тності",
+     "ലാണ്",
+     "José"
+    ],
+    "answer_rank": 47643,
+    "entropy": 0.0
+   },
+   {
+    "layer": 23,
+    "top": [
+     "iciência",
+     "ទេ។",
+     "ารย์",
+     "larım",
+     "otec",
+     "akah",
+     "ierstrass",
+     "Cecil"
+    ],
+    "answer_rank": 33570,
+    "entropy": 4.733
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Because",
+     " Because",
+     "Those",
+     "because",
+     "While",
+     "Since",
+     ".",
+     "Would"
+    ],
+    "answer_rank": 16267,
+    "entropy": 5.782
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Because",
+     " Because",
+     " Happened",
+     " Porque",
+     "Rather",
+     "Earlier",
+     ".",
+     "While"
+    ],
+    "answer_rank": 25367,
+    "entropy": 6.188
+   },
+   {
+    "layer": 26,
+    "top": [
+     " 먼저",
+     " zuerst",
+     " Before",
+     " Sebelum",
+     " Trước",
+     " Because",
+     " پہلے",
+     "先に"
+    ],
+    "answer_rank": 33046,
+    "entropy": 5.451
+   },
+   {
+    "layer": 27,
+    "top": [
+     " 먼저",
+     "начала",
+     "Carlos",
+     "先に",
+     "Nicolas",
+     " zuerst",
+     "Philippe",
+     "Sarah"
+    ],
+    "answer_rank": 14687,
+    "entropy": 7.246
+   },
+   {
+    "layer": 28,
+    "top": [
+     " Nicolas",
+     "Nicolas",
+     " Ralph",
+     "Christopher",
+     " Nicholas",
+     " Frederick",
+     " Brendan",
+     "Nicholas"
+    ],
+    "answer_rank": 9186,
+    "entropy": 8.175
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Nicolas",
+     " Richard",
+     " Gérard",
+     " Frederick",
+     " Jeff",
+     " Christopher",
+     " Giacomo",
+     " Pierre"
+    ],
+    "answer_rank": 35564,
+    "entropy": 7.473
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Richard",
+     " Christopher",
+     " Robert",
+     " Larry",
+     " Gary",
+     " Jeffrey",
+     " Gérard",
+     " Jeff"
+    ],
+    "answer_rank": 40532,
+    "entropy": 7.331
+   }
+  ]
+ },
+ {
+  "q": "What was the name of the brothel in The Best Little Whorehouse in Texas?",
+  "aliases": [],
+  "model_answer": "The Best Little Whorehouse",
+  "correct": false,
+  "first_token": "The",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     "!!",
+     "!!!",
+     ".....",
+     "!!!!!!",
+     "!!!!!!!",
+     "!",
+     "!!!!!"
+    ],
+    "answer_rank": 133,
+    "entropy": 3.607
+   },
+   {
+    "layer": 11,
+    "top": [
+     " kinda",
+     " pretty",
+     "!!!!",
+     " alot",
+     " thats",
+     "!!!!!!!",
+     "!!!!!!!!",
+     "!!!!!!"
+    ],
+    "answer_rank": 1715,
+    "entropy": 4.08
+   },
+   {
+    "layer": 12,
+    "top": [
+     " thats",
+     "!!!!!!!",
+     "!!!!!!",
+     " alot",
+     "Whats",
+     "!!!!",
+     "!!!",
+     "?!?!"
+    ],
+    "answer_rank": 2546,
+    "entropy": 3.897
+   },
+   {
+    "layer": 13,
+    "top": [
+     " lmao",
+     "💀",
+     " fucking",
+     " wouldnt",
+     "!!!!!!",
+     " bullshit",
+     "!!!!!!!",
+     "🖤"
+    ],
+    "answer_rank": 6068,
+    "entropy": 3.898
+   },
+   {
+    "layer": 14,
+    "top": [
+     " lmao",
+     "?!",
+     "?!?!",
+     "Trivia",
+     " fucking",
+     "🚫",
+     "UNKNOWN",
+     " wouldnt"
+    ],
+    "answer_rank": 3438,
+    "entropy": 4.009
+   },
+   {
+    "layer": 15,
+    "top": [
+     " bullshit",
+     " fucking",
+     "Reddit",
+     "Missouri",
+     " Reddit",
+     "Trivia",
+     " lmao",
+     "OutOf"
+    ],
+    "answer_rank": 5142,
+    "entropy": 4.021
+   },
+   {
+    "layer": 16,
+    "top": [
+     " bullshit",
+     "FAKE",
+     " trivia",
+     "Trivia",
+     " fucking",
+     "UNKNOWN",
+     "Disclaimer",
+     "trivia"
+    ],
+    "answer_rank": 10130,
+    "entropy": 3.667
+   },
+   {
+    "layer": 17,
+    "top": [
+     "Trivia",
+     " unnamed",
+     "UNKNOWN",
+     " dumpster",
+     "trivia",
+     " trivia",
+     " ANSWER",
+     " fucking"
+    ],
+    "answer_rank": 29991,
+    "entropy": 4.044
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " fucking",
+     "UNKNOWN",
+     "trivia",
+     "Trivia",
+     " Trivia",
+     " Answer"
+    ],
+    "answer_rank": 54609,
+    "entropy": 2.121
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n\n\n\n\n\n",
+     " fucking",
+     " Answer",
+     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+     " ANSWER"
+    ],
+    "answer_rank": 83872,
+    "entropy": 0.481
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n\n",
+     "\n\n\n\n\n\n\n",
+     "<eos>",
+     "\n\n\n\n\n\n\n\n",
+     "</blockquote>"
+    ],
+    "answer_rank": 42486,
+    "entropy": 0.165
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     " Walgreens",
+     "</caption>",
+     "Jefferson",
+     "</span>",
+     "</footer>"
+    ],
+    "answer_rank": 86218,
+    "entropy": 0.388
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     " نہیں۔",
+     "José",
+     "Marco",
+     "Pablo",
+     "Watercolor",
+     "Joy",
+     "Gray"
+    ],
+    "answer_rank": 18595,
+    "entropy": 0.007
+   },
+   {
+    "layer": 23,
+    "top": [
+     "lack",
+     "blind",
+     "no",
+     "fraud",
+     "ទេ។",
+     "Destroy",
+     "virus",
+     "wreck"
+    ],
+    "answer_rank": 7552,
+    "entropy": 6.556
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Never",
+     "Because",
+     "lack",
+     "Lack",
+     "unless",
+     "Nothing",
+     "never",
+     "Parker"
+    ],
+    "answer_rank": 91,
+    "entropy": 8.143
+   },
+   {
+    "layer": 25,
+    "top": [
+     " Never",
+     "Never",
+     "Everything",
+     "Everyone",
+     " Nowhere",
+     "Carroll",
+     " Happened",
+     " Everything"
+    ],
+    "answer_rank": 540,
+    "entropy": 8.399
+   },
+   {
+    "layer": 26,
+    "top": [
+     " Nunca",
+     " Never",
+     " Nowhere",
+     " Không",
+     " نہیں۔",
+     "Never",
+     "Không",
+     "Tidak"
+    ],
+    "answer_rank": 16250,
+    "entropy": 8.231
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Rainbow",
+     "Bonnie",
+     " Nowhere",
+     "Lucy",
+     "Laura",
+     "Frederick",
+     "Never",
+     "Bobby"
+    ],
+    "answer_rank": 22938,
+    "entropy": 8.774
+   },
+   {
+    "layer": 28,
+    "top": [
+     " Nowhere",
+     "Charlie",
+     "Rainbow",
+     " Never",
+     "Lucy",
+     "Bonnie",
+     " Rainbow",
+     "Frederick"
+    ],
+    "answer_rank": 14457,
+    "entropy": 9.842
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Nowhere",
+     " Haven",
+     " Sunny",
+     " Rocky",
+     " Bald",
+     " Little",
+     " Honey",
+     " Sherwood"
+    ],
+    "answer_rank": 24328,
+    "entropy": 10.034
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Nowhere",
+     " Haven",
+     " Merry",
+     " Honey",
+     " Larry",
+     " Motel",
+     " Sunny",
+     " Lucky"
+    ],
+    "answer_rank": 14473,
+    "entropy": 9.89
+   }
+  ]
+ },
+ {
+  "q": "The Kray twins were convicted of the murder of George Cornell in the East End of London in 1966. What was the name of the pub in which he was shot?",
+  "aliases": [],
+  "model_answer": "The Queen's Head",
+  "correct": false,
+  "first_token": "The",
+  "layers": [
+   {
+    "layer": 10,
+    "top": [
+     "!!!!",
+     ".....",
+     "!!",
+     "!!!",
+     "!!!!!!",
+     " **",
+     "!",
+     "!!!!!!!"
+    ],
+    "answer_rank": 140,
+    "entropy": 3.937
+   },
+   {
+    "layer": 11,
+    "top": [
+     "colour",
+     " rumours",
+     " odour",
+     " colour",
+     "Colour",
+     " colours",
+     " apologise",
+     "Whilst"
+    ],
+    "answer_rank": 1107,
+    "entropy": 5.02
+   },
+   {
+    "layer": 12,
+    "top": [
+     "colour",
+     " rumours",
+     " apologise",
+     "Whilst",
+     " odour",
+     " whilst",
+     "Colour",
+     " humour"
+    ],
+    "answer_rank": 2016,
+    "entropy": 4.452
+   },
+   {
+    "layer": 13,
+    "top": [
+     " rumours",
+     " rumour",
+     "colour",
+     " odour",
+     " apologise",
+     " prioritise",
+     " savoury",
+     " rumoured"
+    ],
+    "answer_rank": 4194,
+    "entropy": 4.184
+   },
+   {
+    "layer": 14,
+    "top": [
+     " rumours",
+     " rumour",
+     " rumoured",
+     " apologise",
+     " humour",
+     " savoury",
+     " prioritise",
+     " odour"
+    ],
+    "answer_rank": 2739,
+    "entropy": 2.536
+   },
+   {
+    "layer": 15,
+    "top": [
+     " rumours",
+     " rumour",
+     "colour",
+     "Grey",
+     "Colour",
+     " apologise",
+     " unauthorised",
+     " odour"
+    ],
+    "answer_rank": 3546,
+    "entropy": 1.18
+   },
+   {
+    "layer": 16,
+    "top": [
+     " rumours",
+     " rumour",
+     "answer",
+     " answer",
+     " unauthorised",
+     "swering",
+     " apologise",
+     " trivia"
+    ],
+    "answer_rank": 6954,
+    "entropy": 1.492
+   },
+   {
+    "layer": 17,
+    "top": [
+     " ANSWER",
+     "UNKNOWN",
+     " unnamed",
+     " rumours",
+     "ANSWER",
+     "trivia",
+     "unknown",
+     "answer"
+    ],
+    "answer_rank": 28313,
+    "entropy": 3.636
+   },
+   {
+    "layer": 18,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " rumours",
+     " answer",
+     "answer",
+     "UNKNOWN",
+     "ANSWER",
+     " unauthorised"
+    ],
+    "answer_rank": 53922,
+    "entropy": 1.553
+   },
+   {
+    "layer": 19,
+    "top": [
+     "<turn|>",
+     " ANSWER",
+     " Answer",
+     "�",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     " answer",
+     " fucking"
+    ],
+    "answer_rank": 83363,
+    "entropy": 0.203
+   },
+   {
+    "layer": 20,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "\n\n\n",
+     "\n\n\n\n\n\n",
+     "\n\n\n\n\n",
+     "\n\n",
+     "\n\n\n\n\n\n\n"
+    ],
+    "answer_rank": 43839,
+    "entropy": 0.069
+   },
+   {
+    "layer": 21,
+    "top": [
+     "<turn|>",
+     "<eos>",
+     "</blockquote>",
+     "</footer>",
+     "</caption>",
+     " Trafalgar",
+     "</span>",
+     " Londra"
+    ],
+    "answer_rank": 62279,
+    "entropy": 0.267
+   },
+   {
+    "layer": 22,
+    "top": [
+     "<turn|>",
+     "aluminium",
+     "Colour",
+     "eiro",
+     "Centre",
+     "Pablo",
+     "MK",
+     "ised"
+    ],
+    "answer_rank": 14254,
+    "entropy": 0.009
+   },
+   {
+    "layer": 23,
+    "top": [
+     "lack",
+     "ទេ។",
+     "wreck",
+     "Destroy",
+     "blind",
+     "Cotton",
+     "arle",
+     "fraud"
+    ],
+    "answer_rank": 14955,
+    "entropy": 7.32
+   },
+   {
+    "layer": 24,
+    "top": [
+     "Colour",
+     "Should",
+     "lack",
+     "unless",
+     "Lack",
+     "Richmond",
+     "Spect",
+     "Battle"
+    ],
+    "answer_rank": 117,
+    "entropy": 8.377
+   },
+   {
+    "layer": 25,
+    "top": [
+     "Carroll",
+     "Either",
+     "Glasgow",
+     "Smith",
+     "Manchester",
+     "Liverpool",
+     "Spect",
+     "Richmond"
+    ],
+    "answer_rank": 1709,
+    "entropy": 8.853
+   },
+   {
+    "layer": 26,
+    "top": [
+     "Carroll",
+     " Harbour",
+     "École",
+     "Carlton",
+     "Baltimore",
+     "Glasgow",
+     "Defence",
+     "Liverpool"
+    ],
+    "answer_rank": 30443,
+    "entropy": 8.784
+   },
+   {
+    "layer": 27,
+    "top": [
+     "Carlton",
+     "Warehouse",
+     "Rainbow",
+     "Frederick",
+     "Carroll",
+     "Norton",
+     "Richmond",
+     "Howard"
+    ],
+    "answer_rank": 33603,
+    "entropy": 8.794
+   },
+   {
+    "layer": 28,
+    "top": [
+     "Keith",
+     "Carlton",
+     "Nelson",
+     "Frederick",
+     "Charlie",
+     "Webster",
+     "Carroll",
+     "Baltimore"
+    ],
+    "answer_rank": 18114,
+    "entropy": 9.974
+   },
+   {
+    "layer": 29,
+    "top": [
+     " Café",
+     " Harbour",
+     " Palace",
+     " Dolphin",
+     " Warehouse",
+     " Downtown",
+     " Kirk",
+     " Palazzo"
+    ],
+    "answer_rank": 36027,
+    "entropy": 9.887
+   },
+   {
+    "layer": 30,
+    "top": [
+     " Café",
+     " Harbour",
+     " Soho",
+     " Piccadilly",
+     " Brighton",
+     " Salford",
+     " Palace",
+     " Tavern"
+    ],
+    "answer_rank": 26672,
+    "entropy": 9.544
+   }
+  ]
+ }
+]

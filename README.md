@@ -171,13 +171,13 @@ digits (4.547 vs 4.543 on prompt 1).
 
 ## Fitted lenses
 
-| Model | Status | Corpus |
-|---|---|---|
-| google/gemma-4-E4B-it | ✅ fitted (100 prompts) | WikiText-103 |
-| google/gemma-4-12B-it | ✅ fitted (75 prompts) | 〃 |
-| google/gemma-4-26B-A4B-it (MoE) | ✅ fitted (100 prompts) | 〃 |
-| Qwen/Qwen3.6-27B | ✅ fitted (100 prompts) | 〃 |
-| huihui-ai/Huihui-gemma-4-12B-it-abliterated | ✅ fitted (75 prompts) | 〃 |
+| Model | Status | Corpus | HF revision (at fit time) |
+|---|---|---|---|
+| google/gemma-4-E4B-it | ✅ fitted (100 prompts) | WikiText-103 | `fee6332c1aba` |
+| google/gemma-4-12B-it | ✅ fitted (75 prompts) | 〃 | `5926caa4ec0c` |
+| google/gemma-4-26B-A4B-it (MoE) | ✅ fitted (100 prompts) | 〃 | `20da991ab4af` |
+| Qwen/Qwen3.6-27B | ✅ fitted (100 prompts) | 〃 | `6a9e13bd6fc8` |
+| huihui-ai/Huihui-gemma-4-12B-it-abliterated | ✅ fitted (75 prompts) | 〃 | `060ea173c4d1` |
 
 Lens weights will be published on HuggingFace
 (`JacobianLens.from_pretrained`-compatible). The abliterated 12B pairs with the

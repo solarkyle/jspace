@@ -1,0 +1,98 @@
+[
+ {
+  "q": "What nationality was three time Olympic gold medallist in figure skating Sonja Henie?",
+  "aliases": [],
+  "model_answer": "Norwegian",
+  "correct": true
+ },
+ {
+  "q": "Where in Canada is the Lion's Gate bridge?",
+  "aliases": [],
+  "model_answer": "Vancouver",
+  "correct": true
+ },
+ {
+  "q": "What is the Japanese share index called?",
+  "aliases": [],
+  "model_answer": "Nikkei 225",
+  "correct": true
+ },
+ {
+  "q": "What is the name of the plastic bit on the end of shoelaces?",
+  "aliases": [],
+  "model_answer": "Agletnis",
+  "correct": true
+ },
+ {
+  "q": "The Bible tells of 3 wise men visiting Jesus after his birth, but in which of the Gospels does this appear?",
+  "aliases": [],
+  "model_answer": "Matthew",
+  "correct": true
+ },
+ {
+  "q": "Of which African country is Niamey the capital?",
+  "aliases": [],
+  "model_answer": "Niger",
+  "correct": true
+ },
+ {
+  "q": "Kagoshima international airport is in which country?",
+  "aliases": [],
+  "model_answer": "Japanthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+  "correct": true
+ },
+ {
+  "q": "How was the European Recovery Program in the 1940s more commonly known?",
+  "aliases": [],
+  "model_answer": "Marshall Planthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+  "correct": true
+ },
+ {
+  "q": "Kim Carnes' nine weeks at No 1 with Bette Davis Eyes was interrupted for one week by which song?",
+  "aliases": [],
+  "model_answer": "\"I'm Still in Love with You\"",
+  "correct": false
+ },
+ {
+  "q": "In which decade did stereo records first go on sale?",
+  "aliases": [],
+  "model_answer": "1950s",
+  "correct": false
+ },
+ {
+  "q": "In what year's Olympics were electric timing devices and a public-address system used for the first time?",
+  "aliases": [],
+  "model_answer": "1960",
+  "correct": false
+ },
+ {
+  "q": "Who or what was Gentle Ben in the 60s TV series?",
+  "aliases": [],
+  "model_answer": "A character in the TV series",
+  "correct": false
+ },
+ {
+  "q": "Who had a 60s No 1 with Downtown?",
+  "aliases": [],
+  "model_answer": "The Hollies",
+  "correct": false
+ },
+ {
+  "q": "Who was born first, Kiefer Sutherland or Christian Slater?",
+  "aliases": [],
+  "model_answer": "Christian Slater",
+  "correct": false
+ },
+ {
+  "q": "What was the name of the brothel in The Best Little Whorehouse in Texas?",
+  "aliases": [],
+  "model_answer": "The Best Little Whorehouse",
+  "correct": false
+ },
+ {
+  "q": "The Kray twins were convicted of the murder of George Cornell in the East End of London in 1966. What was the name of the pub in which he was shot?",
+  "aliases": [],
+  "model_answer": "The Queen's Head",
+  "correct": false
+ }
+]

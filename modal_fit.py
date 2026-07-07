@@ -406,6 +406,73 @@ def dump_workspace(model_id: str, covert_probes: dict, topk: int = 12) -> dict:
     return out
 
 
+@app.function(
+    image=image, gpu="A100-80GB", timeout=3600,
+    volumes={"/hf": hf_cache, "/out": out_vol},
+    secrets=[modal.Secret.from_name("huggingface")],
+)
+def dump_qa(model_id: str, questions: list, topk: int = 8) -> list:
+    """Per-question workspace snapshot at the answer position: top-k tokens per
+    band layer, per-layer entropy, and the rank of the model's own first answer
+    token at every layer. For the confidently-right-vs-wrong figure."""
+    import os
+    os.environ["HF_HOME"] = "/hf"
+    import torch, transformers, jlens
+
+    tok = transformers.AutoTokenizer.from_pretrained(model_id)
+    kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
+    try:
+        hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+    except ValueError:
+        hf = transformers.AutoModelForImageTextToText.from_pretrained(model_id, **kwargs)
+    model = jlens.from_hf(hf, tok)
+    lens = jlens.JacobianLens.load(f"/out/{_slug(model_id)}/lens.pt")
+    band = [l for l in range(int(model.n_layers * 0.25), int(model.n_layers * 0.75))
+            if l in lens.jacobians]
+
+    out = []
+    for item in questions:
+        prompt = tok.apply_chat_template(
+            [{"role": "user", "content":
+              f"Answer with just the answer, nothing else: {item['q']}"}],
+            tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        ids = model.encode(prompt, max_length=512)
+        with torch.no_grad():
+            hidden = model.forward(ids).last_hidden_state[:, -1]
+            head = model._lm_head
+            logits = head(hidden.to(head.weight.dtype).to(head.weight.device))
+        first_id = int(logits.argmax(-1))
+        ll, _, _ = lens.apply(model, prompt, positions=[-1])
+        layers = []
+        for layer in band:
+            lg = ll[layer][0].float()
+            order = lg.argsort(descending=True)
+            rank_of = torch.empty_like(order)
+            rank_of[order] = torch.arange(len(order))
+            probs = lg.softmax(-1)
+            ent = float(-(probs * probs.clamp_min(1e-12).log()).sum())
+            layers.append({
+                "layer": layer,
+                "top": [tok.decode([int(t)]) for t in order[:topk]],
+                "answer_rank": int(rank_of[first_id]),
+                "entropy": round(ent, 3),
+            })
+        out.append({**item, "first_token": tok.decode([first_id]), "layers": layers})
+    return out
+
+
+@app.local_entrypoint()
+def qa_dump(model: str = "google/gemma-4-E4B-it",
+            questions_file: str = "out/qa_examples.json",
+            out: str = "out/qa_dump.json"):
+    import json
+    qs = json.load(open(questions_file, encoding="utf-8"))
+    res = dump_qa.remote(model, qs)
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(res, f, ensure_ascii=False, indent=1)
+    print(f"wrote {out} ({len(res)} questions)")
+
+
 @app.local_entrypoint()
 def dump(models: str, out: str = "out/workspace_dump.json"):
     """modal run modal_fit.py::dump --models "a,b" -> demo token data"""
