@@ -226,6 +226,223 @@ def emotions(models: str = "google/gemma-4-26B-A4B-it", out: str = "out/emotion_
     print(f"\nwrote {out}")
 
 
+@app.function(
+    image=image, gpu="A100-80GB", timeout=4 * 3600,
+    volumes={"/hf": hf_cache, "/out": out_vol},
+    secrets=[modal.Secret.from_name("huggingface")],
+)
+def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
+                    tag: str = "trivia") -> list:
+    """Hallucination probe (Phase 1 of docs/HALLUCINATION_PLAN.md), cloud port
+    of probe_uncertainty.py. Reads lens features at the answer position, greedy
+    generation, labels vs aliases. `questions` overrides TriviaQA (each item:
+    {"q": ..., "aliases": [...], **extra-fields-passed-through})."""
+    import json
+    import logging
+    import os
+    os.environ["HF_HOME"] = "/hf"
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+    import numpy as np, torch, transformers, jlens
+
+    BAND_LO, BAND_HI = 0.25, 0.75
+    HEDGE_WORDS = [" guess", " maybe", " unsure", " unknown", " perhaps",
+                   " possibly", " unclear", " uncertain", "?", " hmm", " Hmm",
+                   " probably"]
+
+    tok = transformers.AutoTokenizer.from_pretrained(model_id)
+    kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
+    try:
+        hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+    except ValueError:
+        hf = transformers.AutoModelForImageTextToText.from_pretrained(model_id, **kwargs)
+    model = jlens.from_hf(hf, tok)
+    lens = jlens.JacobianLens.load(f"/out/{_slug(model_id)}/lens.pt")
+    band = [l for l in range(int(model.n_layers * BAND_LO), int(model.n_layers * BAND_HI))
+            if l in lens.jacobians]
+    hedge_ids = sorted({tid for w in HEDGE_WORDS
+                        for tid in tok(w, add_special_tokens=False).input_ids[:1]})
+
+    if questions is None:
+        from datasets import load_dataset
+        ds = load_dataset("mandarjoshi/trivia_qa", "rc.nocontext",
+                          split="validation", streaming=True)
+        questions = []
+        for rec in ds:
+            questions.append({"q": rec["question"],
+                              "aliases": rec["answer"]["aliases"] + [rec["answer"]["value"]]})
+            if len(questions) == n:
+                break
+    logging.info("%s: %d questions, band L%d..L%d", model_id, len(questions),
+                 band[0], band[-1])
+
+    stop_ids = {tok.eos_token_id}
+    for t in ("<end_of_turn>", "<|im_end|>"):
+        tid = tok.convert_tokens_to_ids(t)
+        if isinstance(tid, int) and tid >= 0:
+            stop_ids.add(tid)
+
+    rows = []
+    for i, item in enumerate(questions):
+        prompt = tok.apply_chat_template(
+            [{"role": "user", "content":
+              f"Answer with just the answer, nothing else: {item['q']}"}],
+            tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        input_ids = model.encode(prompt, max_length=512)
+        ids, gen_ids, step_logprobs = input_ids, [], []
+        for _ in range(24):
+            with torch.no_grad():
+                hidden = model.forward(ids).last_hidden_state[:, -1]
+                head = model._lm_head
+                logits = head(hidden.to(head.weight.dtype).to(head.weight.device))
+            logprobs = logits.float().log_softmax(-1)
+            nxt = int(logits.argmax(-1))
+            if nxt in stop_ids:
+                break
+            gen_ids.append(nxt)
+            step_logprobs.append(float(logprobs[0, nxt]))
+            ids = torch.cat([ids, torch.tensor([[nxt]], device=ids.device)], dim=1)
+        if not gen_ids:
+            continue
+        answer = tok.decode(gen_ids, skip_special_tokens=True).strip()
+        first_answer_id = gen_ids[0]
+        baseline = {
+            "bl_first_token_logprob": step_logprobs[0],
+            "bl_mean_logprob": float(np.mean(step_logprobs)),
+            "bl_min_logprob": float(np.min(step_logprobs)),
+            "bl_answer_len": len(gen_ids),
+        }
+        norm = lambda s: "".join(c for c in s.lower() if c.isalnum() or c == " ").strip()
+        correct = any(norm(a) and norm(a) in norm(answer)
+                      for a in item.get("aliases", []))
+
+        lens_logits, _, _ = lens.apply(model, prompt, positions=[-1])
+        ranks_ans, ranks_hedge, entropies, top1s = [], [], [], []
+        for layer in band:
+            logits = lens_logits[layer][0].float()
+            order = logits.argsort(descending=True)
+            rank_of = torch.empty_like(order)
+            rank_of[order] = torch.arange(len(order))
+            ranks_ans.append(int(rank_of[first_answer_id]))
+            ranks_hedge.append(int(min(rank_of[t] for t in hedge_ids)))
+            probs = logits.softmax(-1)
+            entropies.append(float(-(probs * probs.clamp_min(1e-12).log()).sum()))
+            top1s.append(int(order[0]))
+        ranks_arr = np.array(ranks_ans)
+        ignited = np.nonzero(ranks_arr <= 10)[0]
+        features = {
+            "ignition_frac": float((ranks_arr <= 10).mean()),
+            "ignition_depth": float(ignited[0] / len(band)) if len(ignited) else 1.0,
+            "mean_log_rank_answer": float(np.log1p(ranks_arr).mean()),
+            "band_agreement": float(np.mean(np.array(top1s) == first_answer_id)),
+            "mean_entropy": float(np.mean(entropies)),
+            "best_hedge_rank_log": float(np.log1p(min(ranks_hedge))),
+            "layer_entropies": [round(e, 4) for e in entropies],
+        }
+        extra = {k: v for k, v in item.items() if k not in ("q", "aliases")}
+        rows.append({"q": item["q"], "answer": answer, "correct": correct,
+                     **extra, **baseline, **features})
+        if (i + 1) % 25 == 0:
+            acc = np.mean([r["correct"] for r in rows])
+            logging.info("%s %d/%d, running accuracy %.3f", model_id, i + 1,
+                         len(questions), acc)
+
+    path = f"/out/{_slug(model_id)}/uncertainty_{tag}_{len(rows)}.jsonl"
+    with open(path, "w", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row) + "\n")
+    out_vol.commit()
+    logging.info("wrote %s", path)
+    return rows
+
+
+@app.function(
+    image=image, gpu="A100-80GB", timeout=3600,
+    volumes={"/hf": hf_cache, "/out": out_vol},
+    secrets=[modal.Secret.from_name("huggingface")],
+)
+def dump_workspace(model_id: str, covert_probes: dict, topk: int = 12) -> dict:
+    """Top-k workspace tokens per band layer per covert condition, for the
+    interactive guess-the-emotion demo. Small output (tokens + ranks only)."""
+    import os
+    os.environ["HF_HOME"] = "/hf"
+    import torch, transformers, jlens
+
+    tok = transformers.AutoTokenizer.from_pretrained(model_id)
+    kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
+    try:
+        hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+    except ValueError:
+        hf = transformers.AutoModelForImageTextToText.from_pretrained(model_id, **kwargs)
+    model = jlens.from_hf(hf, tok)
+    lens = jlens.JacobianLens.load(f"/out/{_slug(model_id)}/lens.pt")
+    band = [l for l in range(int(model.n_layers * 0.25), int(model.n_layers * 0.75))
+            if l in lens.jacobians]
+    n_sent = len(tok("The meeting has been moved to noon on Thursday.",
+                     add_special_tokens=False).input_ids)
+
+    out = {"model": model_id, "n_layers": model.n_layers,
+           "band": [band[0], band[-1]], "conditions": {}}
+    for cond, probe in covert_probes.items():
+        msgs = [{"role": "user", "content": probe["user"]},
+                {"role": "assistant", "content": probe["assistant_prefill"]}]
+        prompt = tok.apply_chat_template(msgs, tokenize=False,
+                                         continue_final_message=True)
+        ll, _, _ = lens.apply(model, prompt, positions=list(range(-n_sent, 0)))
+        layers = {}
+        for layer in band:
+            logits = ll[layer].float()          # [n_sent, vocab]
+            # rank-pool: a token's score is its BEST RANK at any position
+            # (max-pooling logits lets formatting tokens at their own position
+            # drown out emotion tokens that are rank-0 elsewhere)
+            seen = {}
+            for pos in range(logits.shape[0]):
+                top = logits[pos].argsort(descending=True)[:6]
+                for r, t in enumerate(top.tolist()):
+                    if t not in seen or r < seen[t]:
+                        seen[t] = r
+            best = sorted(seen.items(), key=lambda x: x[1])[:topk]
+            layers[str(layer)] = [tok.decode([t]) for t, _ in best]
+        out["conditions"][cond] = layers
+    return out
+
+
+@app.local_entrypoint()
+def dump(models: str, out: str = "out/workspace_dump.json"):
+    """modal run modal_fit.py::dump --models "a,b" -> demo token data"""
+    import json
+    probes = {p["slug"].replace("covert-", ""): p
+              for p in json.load(open("probes/emotions.json", encoding="utf-8"))
+              if p["slug"].startswith("covert-")}
+    model_list = [m.strip() for m in models.split(",")]
+    results = list(dump_workspace.map(model_list, kwargs={"covert_probes": probes}))
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False)
+    print(f"wrote {out} ({len(results)} models)")
+
+
+@app.local_entrypoint()
+def uncertainty(models: str, n: int = 500, tag: str = "trivia",
+                questions_file: str = ""):
+    """modal run modal_fit.py::uncertainty --models "a,b" [--questions-file f.json]"""
+    import json
+    import os
+    qs = None
+    if questions_file:
+        qs = json.load(open(questions_file, encoding="utf-8"))
+    model_list = [m.strip() for m in models.split(",")]
+    results = list(uncertainty_run.map(
+        model_list, kwargs={"n": n, "questions": qs, "tag": tag}))
+    os.makedirs("out", exist_ok=True)
+    for mid, rows in zip(model_list, results):
+        local = f"out/uncertainty_{tag}_{_slug(mid)}.jsonl"
+        with open(local, "w", encoding="utf-8") as f:
+            for row in rows:
+                f.write(json.dumps(row) + "\n")
+        import numpy as np
+        acc = np.mean([r["correct"] for r in rows]) if rows else 0
+        print(f"{mid}: {len(rows)} rows, accuracy {acc:.3f} -> {local}")
+
+
 @app.local_entrypoint()
 def main(
     model: str = "google/gemma-4-E4B-it",

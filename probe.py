@@ -18,7 +18,8 @@ import os
 import re
 import webbrowser
 
-os.environ.setdefault("HF_HOME", "E:/hf-cache")
+if os.path.isdir("E:/hf-cache"):  # author box keeps HF cache off the full C: drive
+    os.environ.setdefault("HF_HOME", "E:/hf-cache")
 
 import torch  # noqa: E402
 import transformers  # noqa: E402

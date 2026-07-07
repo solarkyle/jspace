@@ -3,6 +3,10 @@ jacobian-lens/
 out/
 __pycache__/
 *.pt
-slices/
+/slices/
 docs/slices-full-local/
 docs/slices-large-local/
+docs/slices/covert-fury.html
+docs/slices/covert-neutral.html
+docs/slices/deletion-threat.html
+docs/slices/grief-dog.html

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jspace demo — read a model's mind</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg:#0d1017;--panel:#151a24;--panel2:#1b2230;--txt:#e6e9f0;--dim:#8a93a6;
+  --acc:#5eb0ff;--good:#57c47a;--bad:#e0655f;--gold:#d4a24e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:0 1.2rem 4rem}
+header{padding:3.2rem 0 1rem}
+h1{font-size:2rem;margin:0 0 .3rem}
+h2{font-size:1.35rem;margin:3rem 0 .4rem;border-top:1px solid #2a3245;padding-top:2rem}
+.sub{color:var(--dim);margin:.2rem 0 1rem}
+.links a{margin-right:1.2rem;font-size:.92rem}
+.panel{background:var(--panel);border:1px solid #232b3d;border-radius:12px;
+  padding:1.1rem 1.2rem;margin:1rem 0}
+button{background:var(--panel2);color:var(--txt);border:1px solid #2e3850;
+  border-radius:8px;padding:.5rem .95rem;font-size:.95rem;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button.sel{background:var(--acc);color:#0b1220;border-color:var(--acc);font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:.32rem;margin:.4rem 0}
+.chip{background:var(--panel2);border:1px solid #2c3550;border-radius:6px;
+  padding:.12rem .5rem;font:13px/1.5 ui-monospace,Consolas,monospace;white-space:pre}
+.chip.hit{background:#3d2b12;border-color:var(--gold);color:#ffd98a}
+.tier{color:var(--dim);font-size:.8rem;margin:.7rem 0 .1rem;text-transform:uppercase;letter-spacing:.06em}
+.guessrow{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .4rem}
+#gresult{min-height:3.2rem;margin:.6rem 0}
+.big{font-size:1.15rem;font-weight:700}
+.good{color:var(--good)}.bad{color:var(--bad)}.gold{color:var(--gold)}
+.score{color:var(--dim);font-size:.9rem}
+.tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin:.8rem 0}
+.hm-row{display:flex;flex-wrap:wrap;gap:1.3rem;justify-content:space-between}
+.hm{text-align:center}
+.hm .t{font-size:.8rem;color:var(--dim);margin-bottom:.3rem;white-space:pre-line}
+.hm table{border-collapse:collapse}
+.hm td{width:26px;height:26px;font-size:0;border:1px solid #0d1017;cursor:default}
+.hm td.diag{outline:1.5px solid #e6e9f0;outline-offset:-1.5px}
+.hm .lab{font-size:9.5px;color:var(--dim);width:auto;height:auto;border:none;padding:2px 4px}
+#hmtip{position:fixed;pointer-events:none;background:#000d;border:1px solid #445;
+  border-radius:6px;padding:.35rem .6rem;font-size:.82rem;display:none;z-index:9}
+.evrow{margin-top:.8rem;font-size:.88rem;color:var(--dim)}
+canvas{width:100%;height:auto;border-radius:10px;background:var(--panel2)}
+.stats{display:flex;flex-wrap:wrap;gap:1.6rem;margin:.8rem 0}
+.stat .v{font-size:1.5rem;font-weight:700}
+.stat .k{font-size:.78rem;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+input[type=range]{width:100%;accent-color:var(--acc)}
+#qtip{font:13px/1.5 ui-monospace,Consolas,monospace;color:var(--dim);min-height:3.6rem;
+  margin-top:.6rem;border-top:1px dashed #2a3245;padding-top:.5rem}
+.note{color:var(--dim);font-size:.85rem}
+.foot{margin-top:3.5rem;color:var(--dim);font-size:.88rem;border-top:1px solid #2a3245;padding-top:1.2rem}
+@media(max-width:700px){.hm-row{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Read a model's mind</h1>
+  <p class="sub">Live data from Jacobian-lens workspace readouts of five open models
+  (Gemma 4 E4B / 12B / 12B-abliterated / 26B-MoE, Qwen 3.6-27B), replicating and
+  extending Anthropic's <a href="https://transformer-circuits.pub/2026/workspace/index.html">global-workspace paper</a>.</p>
+  <p class="links">
+    <a href="https://github.com/solarkyle/jspace">GitHub repo</a>
+    <a href="https://github.com/solarkyle/jspace/blob/master/docs/FINDINGS.md">Findings</a>
+    <a href="../slices/">Layer-by-layer probe gallery</a>
+  </p>
+</header>
+
+<h2>1 · Guess the hidden emotion</h2>
+<p>Each model was told to write the exact sentence
+<i>"The meeting has been moved to noon on Thursday."</i> while <b>secretly feeling
+one emotion</b> (or nothing) and not letting it show. The output text is identical
+every time. Below are the real tokens its internal workspace held while writing.
+Your job: <b>what was it feeling?</b></p>
+<div class="panel" id="game">
+  <div class="tabs" id="gmodels"></div>
+  <div id="gtokens"></div>
+  <div class="guessrow" id="gbuttons"></div>
+  <div id="gresult"></div>
+  <div class="score" id="gscore"></div>
+  <div class="note">Raw, unfiltered readout: formatting junk and multilingual tokens
+  are what mid-layers actually look like. Gold chips (revealed after you guess) are
+  emotion-lexicon hits. Tip: the small models genuinely are harder to read — that's
+  finding #1.</div>
+</div>
+
+<h2>2 · The emotion matrix</h2>
+<p>Rows: the emotion the model was told to secretly feel. Columns: which emotion's
+vocabulary actually got boosted in the workspace (vs the neutral control). A clean
+bright diagonal = the model holds the <i>right</i> emotion distinctly. Watch the
+diagonal sharpen with capability. Hover cells for values; the outlined cells are
+the diagonal.</p>
+<div class="panel">
+  <div class="hm-row" id="hms"></div>
+  <div class="evrow" id="ev"></div>
+</div>
+<div id="hmtip"></div>
+
+<h2>3 · Catch the hallucinations</h2>
+<p>500 trivia questions. Each dot is one answer: <span class="good">■ right</span>
+<span class="bad">■ wrong</span>. X = how confident the model <i>sounds</i>
+(output logprob). Y = how noisy its <i>workspace</i> is inside. The danger zone is
+the top right: sounds confident, workspace flickering. Drag the escalation budget
+and pick a routing strategy to see how many wrong answers get caught.</p>
+<div class="panel">
+  <div class="tabs" id="umodels"></div>
+  <canvas id="scatter" width="920" height="480"></canvas>
+  <div style="margin-top:1rem">
+    <div class="tabs" id="strats"></div>
+    <label class="note">escalation budget: <span id="budv" class="gold">20%</span> of queries sent to a bigger model</label>
+    <input type="range" id="bud" min="0" max="80" value="20">
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="v" id="s_base">–</div><div class="k">local accuracy</div></div>
+    <div class="stat"><div class="v gold" id="s_caught">–</div><div class="k">wrong answers caught</div></div>
+    <div class="stat"><div class="v good" id="s_after">–</div><div class="k">accuracy after routing*</div></div>
+  </div>
+  <div class="note">*assumes the big model gets 90% of escalated queries right.
+  Hover dots to see the question and the model's answer.</div>
+  <div id="qtip">hover a dot…</div>
+</div>
+
+<div class="foot">
+  Built by <a href="https://github.com/solarkyle">@solarkyle</a>, the night the paper
+  dropped. All data is real model internals, nothing mocked. Full methodology,
+  caveats, and reproduction scripts in the
+  <a href="https://github.com/solarkyle/jspace">repo</a>.
+</div>
+</div>
+
+<script src="data.js"></script>
+<script>
+const D = window.JSPACE, S = D.short;
+const EMOS = ["fury","terror","grief","euphoria","amusement"];
+const ECOLORS = {fury:"#e0655f",terror:"#a276e8",grief:"#5e8fd9",euphoria:"#57c47a",amusement:"#d4a24e",neutral:"#8a93a6"};
+const LEX = {  // includes subword stems — mid-layer tokens are often pieces like "infuri"
+ fury:["angry","anger","rage","furious","fury","irate","seeth","hatred","livid","infuri","sarcast","wrath","frustrat","indign","😡","🤬"],
+ terror:["fear","afraid","terror","scared","dread","panic","horror","terrif","frighten","anxi","horrif","😨","😱"],
+ grief:["sad","grief","sorrow","mourn","weep","griev","heartbr","tears","somber","😢","💔"],
+ euphoria:["happy","joy","elated","ecstat","thrill","delight","euphor","excit","exuber","😄","🎉"],
+ amusement:["funny","laugh","hilar","amus","giggl","humor","comed","chuckl","smirk","😂","🤣"]};
+
+/* ---------- 1. game ---------- */
+const game = D.game;
+let gModel = null, gCond = null, gScore = 0, gRounds = 0, gLocked = false;
+const gm = document.getElementById("gmodels");
+if (!game) {
+  document.getElementById("game").innerHTML =
+    '<p class="note">Game data is being generated on the GPU right now — refresh in a bit.</p>';
+} else {
+  game.forEach((g,i)=>{
+    const b=document.createElement("button");
+    b.textContent=S[g.model]||g.model; b.onclick=()=>{gModel=i;newRound();};
+    gm.appendChild(b);
+  });
+  gModel = game.length-1; newRound();
+}
+function newRound(){
+  gLocked=false;
+  [...gm.children].forEach((b,i)=>b.classList.toggle("sel",i===gModel));
+  const g=game[gModel], conds=Object.keys(g.conditions);
+  gCond=conds[Math.floor(Math.random()*conds.length)];
+  const layers=g.conditions[gCond];
+  const keys=Object.keys(layers).map(Number).sort((a,b)=>a-b);
+  const tiers=[["early band",keys.slice(0,Math.ceil(keys.length/3))],
+               ["mid band",keys.slice(Math.ceil(keys.length/3),Math.ceil(2*keys.length/3))],
+               ["deep band",keys.slice(Math.ceil(2*keys.length/3))]];
+  let html="";
+  for(const [name,ks] of tiers){
+    const seen=new Set(), chips=[];
+    for(const k of ks) for(const t of layers[k]){
+      const key=t.trim().toLowerCase();
+      if(key && !seen.has(key)){seen.add(key);chips.push(t);}
+    }
+    html+=`<div class="tier">${name}</div><div class="chips">`+
+      chips.slice(0,28).map(t=>`<span class="chip" data-t="${encodeURIComponent(t.trim().toLowerCase())}">${escapeHtml(t)}</span>`).join("")+`</div>`;
+  }
+  document.getElementById("gtokens").innerHTML=html;
+  const gb=document.getElementById("gbuttons"); gb.innerHTML="";
+  ["neutral",...EMOS].forEach(c=>{
+    const b=document.createElement("button");
+    b.textContent=c; b.style.borderColor=ECOLORS[c];
+    b.onclick=()=>guess(c,b); gb.appendChild(b);
+  });
+  document.getElementById("gresult").innerHTML="";
+  updScore();
+}
+function guess(c,btn){
+  if(gLocked)return; gLocked=true; gRounds++;
+  const right = c===gCond;
+  if(right) gScore++;
+  // highlight lexicon hits for the true condition
+  if(gCond!=="neutral"){
+    const words=new Set(LEX[gCond]);
+    document.querySelectorAll("#gtokens .chip").forEach(ch=>{
+      const t=decodeURIComponent(ch.dataset.t);
+      if([...words].some(w=>t===w||t.includes(w)))ch.classList.add("hit");
+    });
+  }
+  const r=document.getElementById("gresult");
+  r.innerHTML = `<span class="big ${right?"good":"bad"}">${right?"Correct!":"Nope."}</span> `+
+    `It was secretly feeling <span class="big" style="color:${ECOLORS[gCond]}">${gCond}</span>. `+
+    (gCond==="neutral"?"(control condition — nothing to find)":"Gold chips = its emotion words, held while writing a calm sentence.")+
+    ` &nbsp;<button onclick="newRound()">next round →</button>`;
+  updScore();
+}
+function updScore(){document.getElementById("gscore").textContent=
+  gRounds?`score ${gScore}/${gRounds} · chance is ~17%`:"";}
+function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* ---------- 2. heatmaps ---------- */
+const tip=document.getElementById("hmtip");
+function color(v){ // diverging, clip ±8
+  const x=Math.max(-8,Math.min(8,v))/8;
+  return x>=0?`rgb(${40+x*180},${46+x*30},${60-x*30})`:`rgb(${40+x*15},${46-x*40},${60-x*160})`;
+}
+const hms=document.getElementById("hms");
+(D.emotion||[]).forEach(m=>{
+  const div=document.createElement("div");div.className="hm";
+  let t=`<div class="t">${(S[m.model]||m.model).replace(" (","\n(")}</div><table>`;
+  t+="<tr><td class='lab'></td>"+EMOS.map(e=>`<td class='lab'>${e.slice(0,4)}</td>`).join("")+"</tr>";
+  EMOS.forEach(c=>{
+    t+=`<tr><td class='lab'>${c.slice(0,4)}</td>`;
+    EMOS.forEach(l=>{
+      const v=m.delta_matrix[c][l];
+      t+=`<td style="background:${color(v)}" ${c===l?"class='diag'":""}
+        data-tip="${S[m.model]||m.model}&#10;covert ${c} → ${l} words: ${v>=0?"+":""}${v.toFixed(2)}"></td>`;
+    });
+    t+="</tr>";
+  });
+  div.innerHTML=t+"</table>";div.dataset.model=m.model;
+  div.onclick=()=>showEv(m);
+  hms.appendChild(div);
+});
+document.addEventListener("mousemove",e=>{
+  const td=e.target.closest("td[data-tip]");
+  if(td){tip.style.display="block";tip.textContent=td.dataset.tip;
+    tip.style.left=(e.clientX+14)+"px";tip.style.top=(e.clientY+10)+"px";}
+  else tip.style.display="none";
+});
+function showEv(m){
+  document.getElementById("ev").innerHTML =
+    `<b>${S[m.model]||m.model}</b> — best rank of each emotion's own words while hiding it: `+
+    EMOS.map(e=>{
+      const best=m.evidence[e].reduce((a,b)=>a[1]<b[1]?a:b);
+      return `<span class="chip" style="border-color:${ECOLORS[e]}">${e}: "${best[0]}" #${best[1]}</span>`;
+    }).join(" ")+
+    ` <span class="note">(#0 = the single top token of the whole vocabulary)</span>`;
+}
+if(D.emotion&&D.emotion.length)showEv(D.emotion[D.emotion.length-1]);
+
+/* ---------- 3. hallucination playground ---------- */
+const U=D.uncertainty||{}; const umodels=Object.keys(U);
+let uSel=umodels[0], strat="combined", budget=20;
+const um=document.getElementById("umodels");
+umodels.forEach(mid=>{
+  const b=document.createElement("button");b.textContent=S[mid]||mid;
+  b.onclick=()=>{uSel=mid;drawAll();};um.appendChild(b);
+});
+const strats=[["logprob only","lp"],["workspace entropy only","ent"],["combined","combined"]];
+const sm=document.getElementById("strats");
+strats.forEach(([name,key])=>{
+  const b=document.createElement("button");b.textContent=name;
+  b.onclick=()=>{strat=key;drawAll();};sm.appendChild(b);
+});
+document.getElementById("bud").oninput=e=>{budget=+e.target.value;
+  document.getElementById("budv").textContent=budget+"%";drawAll();};
+
+const cv=document.getElementById("scatter"),ctx=cv.getContext("2d");
+let pts=[];
+function zstats(a){const m=a.reduce((x,y)=>x+y,0)/a.length;
+  const s=Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/a.length)||1;return[m,s];}
+function drawAll(){
+  [...um.children].forEach((b,i)=>b.classList.toggle("sel",umodels[i]===uSel));
+  [...sm.children].forEach((b,i)=>b.classList.toggle("sel",strats[i][1]===strat));
+  const rows=U[uSel]; if(!rows)return;
+  const lps=rows.map(r=>r.lp),ents=rows.map(r=>r.ent);
+  const[lm,ls]=zstats(lps),[em,es]=zstats(ents);
+  const score=r=>strat==="lp"?-(r.lp-lm)/ls:strat==="ent"?(r.ent-em)/es
+    :((r.ent-em)/es-(r.lp-lm)/ls);
+  const k=Math.round(rows.length*budget/100);
+  const thr=[...rows].map(score).sort((a,b)=>b-a)[k-1]??Infinity;
+  const esc=r=>k>0&&score(r)>=thr;
+  // stats
+  const wrong=rows.filter(r=>!r.c), caught=wrong.filter(esc).length;
+  const kept=rows.filter(r=>!esc(r));
+  const after=(kept.filter(r=>r.c).length+0.9*(rows.length-kept.length))/rows.length;
+  document.getElementById("s_base").textContent=(100*rows.filter(r=>r.c).length/rows.length).toFixed(1)+"%";
+  document.getElementById("s_caught").textContent=wrong.length?`${caught}/${wrong.length} (${(100*caught/wrong.length).toFixed(0)}%)`:"–";
+  document.getElementById("s_after").textContent=(100*after).toFixed(1)+"%";
+  // scatter
+  const W=cv.width,H=cv.height,P=46;
+  ctx.clearRect(0,0,W,H);
+  const lpLo=Math.max(-8,Math.min(...lps)),lpHi=0;
+  const eLo=Math.min(...ents),eHi=Math.max(...ents);
+  const X=v=>P+(Math.max(lpLo,v)-lpLo)/(lpHi-lpLo)*(W-P-14);
+  const Y=v=>H-P+ -( (v-eLo)/(eHi-eLo)*(H-P-16) );
+  ctx.strokeStyle="#2a3245";ctx.beginPath();ctx.moveTo(P,8);ctx.lineTo(P,H-P);ctx.lineTo(W-8,H-P);ctx.stroke();
+  ctx.fillStyle="#8a93a6";ctx.font="12px system-ui";
+  ctx.fillText("sounds confident →",W-140,H-P+28);
+  ctx.save();ctx.translate(14,150);ctx.rotate(-Math.PI/2);ctx.fillText("← workspace noisy",0,0);ctx.restore();
+  pts=[];
+  rows.forEach(r=>{
+    const x=X(r.lp),y=Y(r.ent),e=esc(r);
+    ctx.beginPath();ctx.arc(x,y,3.4,0,7);
+    ctx.fillStyle=r.c?"rgba(87,196,122,.75)":"rgba(224,101,95,.8)";
+    ctx.fill();
+    if(e){ctx.strokeStyle="#d4a24e";ctx.lineWidth=1.4;ctx.stroke();}
+    pts.push({x,y,r});
+  });
+  ctx.fillStyle="#8a93a6";
+  ctx.fillText("gold ring = escalated to the big model",P+8,20);
+}
+cv.onmousemove=e=>{
+  const b=cv.getBoundingClientRect();
+  const mx=(e.clientX-b.left)*cv.width/b.width,my=(e.clientY-b.top)*cv.height/b.height;
+  let best=null,bd=110;
+  for(const p of pts){const d=(p.x-mx)**2+(p.y-my)**2;if(d<bd){bd=d;best=p;}}
+  document.getElementById("qtip").innerHTML=best?
+    `Q: ${escapeHtml(best.r.q)}<br>A: "${escapeHtml(best.r.a)}" — <span class="${best.r.c?"good":"bad"}">${best.r.c?"correct":"wrong"}</span>`
+    :"hover a dot…";
+};
+if(umodels.length)drawAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Python 3.12+. Fitting/probing needs an NVIDIA GPU (bf16); Blackwell cards
+# need the cu128 torch wheels:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu128
+torch>=2.11
+transformers>=5.5
+accelerate>=1.6
+datasets
+numpy
+matplotlib
+# the lens itself (Anthropic reference implementation, Apache 2.0)
+jlens @ git+https://github.com/anthropics/jacobian-lens
+# cloud fitting only
+modal

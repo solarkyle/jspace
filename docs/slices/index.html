@@ -1,0 +1,19 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>J-space probes — Gemma 4 E4B</title>
+<style>body{font-family:system-ui;max-width:720px;margin:3rem auto;line-height:1.5;padding:0 1rem}</style>
+<h1>J-space probes — Gemma 4 E4B</h1>
+<p>Interactive layer × position readouts of the model's global workspace
+(<a href="https://transformer-circuits.pub/2026/workspace/index.html">paper</a>).
+Click any cell to pin a token and get rank-tracking charts. Pages are heavy
+(20–50&nbsp;MB, fully self-contained).</p>
+<p><b><a href="../demo/">→ Start with the interactive demo</a></b> — guess the
+hidden emotion, explore the cross-model matrices, and play with the
+hallucination router. It's light and loads instantly.</p>
+<ul>
+  <li><a href="multihop.html">Multi-hop reasoning</a> — "country shaped like a boot" → <b>Italy</b> in mid-layers, <b>Euro</b> at the top. The paper's flagship result, replicated.</li>
+</ul>
+<p>The full layer × position deep-dive pages (covert fury/neutral, deletion
+threat, user grief, plus eight more probes) are 20–50&nbsp;MB each and are being
+re-rendered in a lighter fetch mode before publishing. Everything needed to
+regenerate them locally: <code>python probe.py --suite probes/emotions.json</code>.</p>

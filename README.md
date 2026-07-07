@@ -11,9 +11,28 @@ residual-stream activation into the final-layer basis and decodes it with the
 model's own unembedding - reading out what the model is "disposed to say" at every
 layer and position: its workspace.
 
-**[→ Interactive results gallery](https://solarkyle.github.io/jspace/slices/)**
-(click any cell to pin a token and get rank-tracking charts)
+**[→ Interactive demo](https://solarkyle.github.io/jspace/demo/)**
+(guess the hidden emotion, explore the matrices, route the hallucinations)
 &nbsp;·&nbsp; **[→ Cross-model findings report](docs/FINDINGS.md)**
+&nbsp;·&nbsp; **[→ Probe gallery](https://solarkyle.github.io/jspace/slices/)**
+
+## The one-line version for busy people
+
+A single-pass, label-free internal-state signal (workspace entropy) catches
+**overconfident hallucinations that output confidence cannot see by definition**:
+among confident-sounding answers, accuracy is 75% when the workspace is clean vs
+42% when it is noisy (n=500 TriviaQA, Gemma 4 E4B, confound-checked;
+cross-model replication running). No sampling, no trained probe, no labels -
+one forward pass and the model's own vocabulary space.
+
+## Claim ladder
+
+| Level | Claims |
+|---|---|
+| **Replicated** | The paper's multihop workspace result on Gemma 4 E4B; lens fits reproduce across local GPU / Modal to 3 digits |
+| **Strong evidence** (n=500, baselines + confounds run) | Workspace entropy adds hallucination signal beyond output-logit confidence, concentrated in its blind spot (AUC 0.73 vs 0.65 among high-confidence answers; quadrant 75%→42%) - single model so far |
+| **Suggestive** (n=1 prompt/condition) | Covert-emotion vividness and selectivity track capability; abliteration amplifies 4/5 covert emotions 1–2 orders; grief is the exception; MoE beats dense at matched active params |
+| **Hypothesis only** | Emotion bleed follows the human affect circumplex (perm-p 0.10–0.65, underpowered); "safety tuning dampens internal emotion" as mechanism |
 
 ## Headline cross-model findings
 
@@ -168,16 +187,22 @@ internal harm assessment, or just the refusal behavior?**
 ## Reproduce
 
 ```bash
-git clone https://github.com/anthropics/jacobian-lens
-python -m venv .venv && .venv/Scripts/pip install -e ./jacobian-lens datasets accelerate
+python -m venv .venv && .venv/Scripts/pip install -r requirements.txt
 # Blackwell GPUs need cu128 wheels:
 .venv/Scripts/pip install torch --index-url https://download.pytorch.org/whl/cu128
 
 python fit.py                      # fit a lens (resumable; ~3h for E4B on 16GB)
 python probe.py --example multihop # render an interactive slice page
 python probe.py --suite probes/emotions.json
-python probe_uncertainty.py --n 500
+python probe_uncertainty.py --n 500   # -> data/uncertainty_v2_500q.jsonl
 modal run modal_fit.py --model google/gemma-4-12B-it --n-prompts 100 --shards 4
+modal run modal_fit.py::uncertainty --models "google/gemma-4-12B-it" --n 500
+
+# regenerate every figure/table in this README and docs/FINDINGS.md:
+python analyze_deep.py             # all Part 2/3 numbers (stdout)
+python make_figures.py             # assets/figures.png
+python make_figures2.py            # assets/figures2.png
+python build_demo_data.py          # docs/demo/data.js for the interactive demo
 ```
 
 ### The 16GB-consumer-GPU recipe (the hard-won part)

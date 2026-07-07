@@ -18,7 +18,8 @@ import argparse
 import json
 import os
 
-os.environ.setdefault("HF_HOME", "E:/hf-cache")
+if os.path.isdir("E:/hf-cache"):  # author box keeps HF cache off the full C: drive
+    os.environ.setdefault("HF_HOME", "E:/hf-cache")
 
 import numpy as np  # noqa: E402
 import torch  # noqa: E402

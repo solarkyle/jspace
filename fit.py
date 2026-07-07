@@ -15,7 +15,8 @@ import os
 
 # New downloads go to E: (C: is nearly full). Existing C: cache still resolves
 # for models already downloaded there. Must be set before importing transformers.
-os.environ.setdefault("HF_HOME", "E:/hf-cache")
+if os.path.isdir("E:/hf-cache"):  # author box keeps HF cache off the full C: drive
+    os.environ.setdefault("HF_HOME", "E:/hf-cache")
 
 import json  # noqa: E402
 
