@@ -16,7 +16,11 @@ layer and position: its workspace.
 &nbsp;·&nbsp; **[→ Cross-model findings report](docs/FINDINGS.md)**
 &nbsp;·&nbsp; **[→ Probe gallery](https://solarkyle.github.io/jspace/slices/)**
 
-![demo](assets/demo.gif)
+![tour](assets/tour.gif)
+
+*(44-second tour rendered from the real trace data: the fog, one confidently
+wrong answer from the inside, the emotion diagonal, and the router. There is
+also a [clickable demo](https://solarkyle.github.io/jspace/demo/).)*
 
 ## The one-line version for busy people
 
