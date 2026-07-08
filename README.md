@@ -11,10 +11,15 @@ residual-stream activation into the final-layer basis and decodes it with the
 model's own unembedding - reading out what the model is "disposed to say" at every
 layer and position: its workspace.
 
+**[→ TLDR: the whole project in plain language](docs/TLDR.md)**
+&nbsp;·&nbsp; **[→ Hard rules: what we verified you can rely on](docs/HARD_RULES.md)**
+&nbsp;·&nbsp; **[→ Run the lie detector chat locally](sidecar/README.md)**
+
 **[→ Interactive demo](https://solarkyle.github.io/jspace/demo/)**
 (guess the hidden emotion, explore the matrices, route the hallucinations)
 &nbsp;·&nbsp; **[→ Cross-model findings report](docs/FINDINGS.md)**
 &nbsp;·&nbsp; **[→ Probe gallery](https://solarkyle.github.io/jspace/slices/)**
+&nbsp;·&nbsp; **[→ Fitted lenses + traces on HF](https://huggingface.co/solarkyle/jspace-lenses)**
 
 ![tour](assets/tour.gif)
 

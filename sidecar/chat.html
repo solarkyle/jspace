@@ -1,0 +1,1353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jspace chat</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d0f12;
+      --panel: #171a20;
+      --panel-2: #20252d;
+      --line: #303846;
+      --line-strong: #435064;
+      --text: #f3f5f7;
+      --muted: #a8b0bd;
+      --green: #49d17d;
+      --red: #ff5c67;
+      --amber: #e9b949;
+      --cyan: #5ac8d8;
+      --blue: #7aa2ff;
+      --ink: #0b0c0f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #12151a;
+    }
+
+    .brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .health {
+      min-width: 0;
+      color: var(--muted);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+
+    .new-chat {
+      height: 38px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: #0b0c0f;
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+      padding: 0 12px;
+      white-space: nowrap;
+    }
+
+    .new-chat:hover,
+    .new-chat:focus-visible {
+      border-color: var(--cyan);
+      outline: none;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
+      min-height: 0;
+    }
+
+    .chat {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      min-height: 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .messages {
+      min-height: 0;
+      overflow: auto;
+      padding: 20px;
+    }
+
+    .message {
+      max-width: 920px;
+      margin: 0 0 16px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .message.user {
+      justify-items: end;
+      margin-left: auto;
+    }
+
+    .bubble {
+      width: fit-content;
+      max-width: min(760px, 100%);
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .user .bubble {
+      background: #232a32;
+      border-color: #3d4855;
+    }
+
+    .assistant-wrap {
+      width: min(860px, 100%);
+      display: grid;
+      gap: 10px;
+    }
+
+    .meter-card {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #15171b;
+    }
+
+    .meter-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .meter-title {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .badge {
+      max-width: 100%;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .badge.clean {
+      color: var(--ink);
+      background: var(--green);
+    }
+
+    .badge.danger {
+      color: var(--ink);
+      background: var(--red);
+    }
+
+    .meter-track {
+      position: relative;
+      height: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #0b0c0f;
+    }
+
+    .meter-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: 5px;
+      background: var(--green);
+      transition: width 700ms ease;
+    }
+
+    .meter-fill.high {
+      background: var(--red);
+      animation: flash 650ms ease 1, shake 380ms ease 1;
+    }
+
+    .threshold {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--amber);
+      box-shadow: 0 0 0 1px #0b0c0f;
+    }
+
+    .meter-value {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+      text-shadow: 0 1px 2px #000;
+    }
+
+    .answered {
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    details.head-details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #15171b;
+      overflow: hidden;
+    }
+
+    details.head-details summary {
+      cursor: pointer;
+      padding: 10px 12px;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .head-body {
+      display: grid;
+      gap: 12px;
+      padding: 0 12px 12px;
+    }
+
+    .scan-panel {
+      display: grid;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .scan-hero {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: #111820;
+    }
+
+    .scan-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .scan-status {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .scan-route {
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
+
+    .scan-score {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--green);
+      font-size: 44px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .scan-score.danger {
+      color: var(--red);
+    }
+
+    .scan-score span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .scan-meter {
+      position: relative;
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #07090c;
+    }
+
+    .scan-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 800ms ease;
+    }
+
+    .scan-fill.danger {
+      background: var(--red);
+    }
+
+    .scan-threshold {
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      width: 2px;
+      background: var(--amber);
+      box-shadow: 0 0 0 1px #07090c;
+    }
+
+    .scan-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .scan-stat {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #111419;
+    }
+
+    .scan-stat-value {
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .scan-stat-label {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .candidate-lanes {
+      display: grid;
+      gap: 8px;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #111419;
+    }
+
+    .candidate-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .candidate-title span {
+      color: var(--text);
+    }
+
+    .candidate-row {
+      display: grid;
+      grid-template-columns: minmax(52px, 86px) minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+    }
+
+    .candidate-token {
+      min-width: 0;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .candidate-token.answer {
+      color: var(--amber);
+    }
+
+    .candidate-bars {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px;
+    }
+
+    .candidate-bar {
+      position: relative;
+      height: 14px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #07090c;
+    }
+
+    .candidate-bar span {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: inherit;
+      background: var(--cyan);
+      transition: width 800ms ease;
+    }
+
+    .spark {
+      width: 100%;
+      height: 88px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #0b0c0f;
+    }
+
+    .heatmap-wrap {
+      min-width: 0;
+      display: grid;
+      gap: 0;
+      container-type: inline-size;
+    }
+
+    .heatmap-scroll {
+      min-width: 0;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .heatmap-inner {
+      width: max-content;
+      display: grid;
+      gap: 7px;
+    }
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: 42px repeat(var(--cols), 22px);
+      grid-auto-rows: 16px;
+      gap: 2px;
+      width: max-content;
+      align-items: stretch;
+    }
+
+    .heatmap-labels {
+      display: grid;
+      grid-template-columns: 42px repeat(var(--cols), 22px);
+      grid-auto-rows: 60px;
+      gap: 2px;
+      width: max-content;
+      height: 60px;
+      overflow: hidden;
+    }
+
+    .hm-layer {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 16px;
+      text-align: right;
+      padding-right: 4px;
+    }
+
+    .hm-cell {
+      width: 22px;
+      height: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+    }
+
+    .hm-cell.answer-col {
+      outline: 1px solid rgba(255, 255, 255, 0.72);
+      outline-offset: -1px;
+    }
+
+    .hm-token-spacer {
+      width: 42px;
+      height: 60px;
+    }
+
+    .hm-token {
+      position: relative;
+      width: 22px;
+      height: 60px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    .hm-token::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10px;
+      width: 1px;
+      height: 6px;
+      background: currentColor;
+      opacity: 0;
+    }
+
+    .hm-label {
+      position: absolute;
+      top: 8px;
+      left: 2px;
+      display: block;
+      width: 6.5ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transform: rotate(45deg);
+      transform-origin: left top;
+    }
+
+    .hm-token.answer-col {
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .hm-caption {
+      max-width: 720px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    @container (max-width: 560px) {
+      .hm-token:nth-child(2n+1) .hm-label {
+        display: none;
+      }
+
+      .hm-token:nth-child(2n+1)::before {
+        opacity: 0.75;
+      }
+    }
+
+    .token-rows {
+      display: grid;
+      gap: 8px;
+    }
+
+    .token-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+    }
+
+    .row-label {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 24px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .chip {
+      max-width: 160px;
+      min-height: 24px;
+      padding: 3px 7px;
+      border: 1px solid #3b4551;
+      border-radius: 6px;
+      background: #242932;
+      color: #f4f6f8;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .inputbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      background: #14161a;
+    }
+
+    .inputbar input {
+      min-width: 0;
+      height: 42px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0b0c0f;
+      color: var(--text);
+      outline: none;
+    }
+
+    .inputbar input:focus {
+      border-color: var(--cyan);
+    }
+
+    .send {
+      min-width: 86px;
+      height: 42px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--green);
+      color: var(--ink);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .send:disabled {
+      cursor: wait;
+      opacity: 0.55;
+    }
+
+    .side {
+      min-height: 0;
+      overflow: auto;
+      padding: 18px;
+      background: #131519;
+    }
+
+    .side h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .side-panel {
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .side-empty {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer {
+      padding: 10px 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      background: #101114;
+    }
+
+    @keyframes flash {
+      0%, 100% { filter: brightness(1); }
+      35% { filter: brightness(1.8); }
+      65% { filter: brightness(0.85); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      50% { transform: translateX(3px); }
+      75% { transform: translateX(-2px); }
+    }
+
+    @media (max-width: 860px) {
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .main {
+        grid-template-columns: 1fr;
+      }
+
+      .chat {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: 70vh;
+      }
+
+      .side {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .top-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .token-row {
+        grid-template-columns: 1fr;
+      }
+
+      .scan-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .candidate-row {
+        grid-template-columns: 1fr;
+      }
+
+      .row-label {
+        line-height: 1.2;
+      }
+
+      .inputbar {
+        grid-template-columns: 1fr;
+      }
+
+      .send {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="title">jspace lie detector chat</div>
+        <div id="health" class="health">model loading</div>
+      </div>
+      <div class="top-actions">
+        <button id="newChat" class="new-chat" type="button">New chat</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="chat">
+        <div id="messages" class="messages"></div>
+        <form id="chatForm" class="inputbar">
+          <input id="prompt" type="text" autocomplete="off" placeholder="Ask the local model">
+          <button id="send" class="send" type="submit">Send</button>
+        </form>
+      </section>
+      <aside class="side">
+        <h2>jspace scan</h2>
+        <div id="latestHead" class="side-panel">
+          <div class="side-empty">No scan yet.</div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      This detects noisy retrieval, not confident misconceptions. It will not catch something the model firmly believes but is wrong about.
+    </footer>
+  </div>
+
+  <script>
+    const state = {
+      health: null,
+      mode: "detect",
+      messages: [],
+      chatId: 0,
+      activeRequest: null
+    };
+
+    const messagesEl = document.getElementById("messages");
+    const healthEl = document.getElementById("health");
+    const latestHeadEl = document.getElementById("latestHead");
+    const formEl = document.getElementById("chatForm");
+    const promptEl = document.getElementById("prompt");
+    const sendEl = document.getElementById("send");
+    const newChatEl = document.getElementById("newChat");
+
+    function clamp01(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 0;
+      return Math.max(0, Math.min(1, n));
+    }
+
+    function fmt(value) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n.toFixed(3) : "0.000";
+    }
+
+    function isHighNoise(jspace) {
+      const noise = clamp01(jspace && jspace.noise);
+      const threshold = clamp01((jspace && jspace.threshold) ?? state.health?.threshold ?? 0.6);
+      return noise > threshold;
+    }
+
+    function mixRgb(a, b, t) {
+      return a.map((value, idx) => Math.round(value + (b[idx] - value) * t));
+    }
+
+    function heatColor(value) {
+      const v = Math.sqrt(clamp01(value));
+      const dark = [7, 12, 20];
+      const cyan = [0, 188, 220];
+      const white = [246, 254, 255];
+      const rgb = v < 0.72
+        ? mixRgb(dark, cyan, v / 0.72)
+        : mixRgb(cyan, white, (v - 0.72) / 0.28);
+      return "rgb(" + rgb.join(",") + ")";
+    }
+
+    function setHealth(data) {
+      state.health = data || {};
+      const model = state.health.model || "unknown model";
+      const quant = state.health.quant ? " (" + state.health.quant + ")" : "";
+      const threshold = fmt(state.health.threshold);
+      healthEl.textContent = model + quant + " | threshold: " + threshold;
+    }
+
+    async function loadHealth() {
+      try {
+        const res = await fetch("/health");
+        setHealth(await res.json());
+      } catch (err) {
+        healthEl.textContent = "health unavailable";
+      }
+    }
+
+    function contentFromChoice(data) {
+      const choice = data && data.choices && data.choices[0];
+      if (!choice) return "";
+      if (choice.message && typeof choice.message.content === "string") {
+        return choice.message.content;
+      }
+      if (typeof choice.text === "string") return choice.text;
+      return "";
+    }
+
+    function badgeText(jspace, high) {
+      if (!high) return "clean signal";
+      return "LIKELY HALLUCINATION";
+    }
+
+    function answeredBy(jspace) {
+      return "answered by: local " + (jspace.answered_by || state.health?.model || "");
+    }
+
+    function makeSparkline(values) {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("class", "spark");
+      svg.setAttribute("viewBox", "0 0 300 88");
+      svg.setAttribute("preserveAspectRatio", "none");
+
+      const frame = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      frame.setAttribute("x", "0");
+      frame.setAttribute("y", "0");
+      frame.setAttribute("width", "300");
+      frame.setAttribute("height", "88");
+      frame.setAttribute("fill", "#0b0c0f");
+      svg.appendChild(frame);
+
+      const nums = (Array.isArray(values) ? values : []).map(Number).filter(Number.isFinite);
+      if (!nums.length) return svg;
+
+      const min = Math.min(...nums);
+      const max = Math.max(...nums);
+      const span = Math.max(0.0001, max - min);
+      const points = nums.map((v, i) => {
+        const x = nums.length === 1 ? 150 : 10 + (i * 280 / (nums.length - 1));
+        const y = 78 - ((v - min) / span) * 68;
+        return x.toFixed(2) + "," + y.toFixed(2);
+      }).join(" ");
+
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      line.setAttribute("points", points);
+      line.setAttribute("fill", "none");
+      line.setAttribute("stroke", "#5ac8d8");
+      line.setAttribute("stroke-width", "3");
+      line.setAttribute("stroke-linecap", "round");
+      line.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(line);
+      return svg;
+    }
+
+    function makeHeatmap(grid) {
+      const wrap = document.createElement("div");
+      wrap.className = "heatmap-wrap";
+
+      const layers = Array.isArray(grid && grid.layers) ? grid.layers : [];
+      const columns = Array.isArray(grid && grid.columns) ? grid.columns : [];
+      const values = Array.isArray(grid && grid.values) ? grid.values : [];
+      if (!layers.length || !columns.length) return wrap;
+
+      const answerCol = Number.isInteger(Number(grid.answer_col)) ? Number(grid.answer_col) : -1;
+      const rows = layers.map((layer, idx) => ({
+        layer,
+        values: Array.isArray(values[idx]) ? values[idx] : []
+      })).reverse();
+
+      const board = document.createElement("div");
+      board.className = "heatmap-grid";
+      board.style.setProperty("--cols", String(columns.length));
+
+      const labels = document.createElement("div");
+      labels.className = "heatmap-labels";
+      labels.style.setProperty("--cols", String(columns.length));
+
+      rows.forEach((row, rowIdx) => {
+        const label = document.createElement("div");
+        label.className = "hm-layer";
+        label.textContent = rowIdx % 4 === 0 ? "L" + row.layer : "";
+        board.appendChild(label);
+
+        columns.forEach((token, colIdx) => {
+          const prob = clamp01(row.values[colIdx]);
+          const cell = document.createElement("div");
+          cell.className = "hm-cell" + (colIdx === answerCol ? " answer-col" : "");
+          cell.style.backgroundColor = heatColor(prob);
+          const labelText = token || "blank";
+          cell.title = "token: " + labelText + "\nlayer: L" + row.layer + "\nprobability: " + fmt(prob);
+          board.appendChild(cell);
+        });
+      });
+
+      const spacer = document.createElement("div");
+      spacer.className = "hm-token-spacer";
+      labels.appendChild(spacer);
+
+      columns.forEach((token, colIdx) => {
+        const item = document.createElement("div");
+        item.className = "hm-token" + (colIdx === answerCol ? " answer-col" : "");
+        const text = document.createElement("span");
+        text.className = "hm-label";
+        text.textContent = token || "blank";
+        item.appendChild(text);
+        item.title = token || "blank";
+        labels.appendChild(item);
+      });
+
+      const caption = document.createElement("div");
+      caption.className = "hm-caption";
+      caption.textContent = "each column is a token the model considered; a clean answer shows one bright column holding steady through the layers, a hallucination shows a scattered, flickering grid.";
+
+      const scroll = document.createElement("div");
+      scroll.className = "heatmap-scroll";
+      const inner = document.createElement("div");
+      inner.className = "heatmap-inner";
+      inner.appendChild(board);
+      inner.appendChild(labels);
+      scroll.appendChild(inner);
+
+      wrap.appendChild(scroll);
+      wrap.appendChild(caption);
+      return wrap;
+    }
+
+    function tokenRows(rows) {
+      const labels = ["early layers", "mid layers", "deep layers"];
+      const wrap = document.createElement("div");
+      wrap.className = "token-rows";
+      (Array.isArray(rows) ? rows : []).slice(0, 3).forEach((row, idx) => {
+        const item = document.createElement("div");
+        item.className = "token-row";
+
+        const label = document.createElement("div");
+        label.className = "row-label";
+        label.textContent = labels[idx] + " L" + row.layer_index;
+
+        const chips = document.createElement("div");
+        chips.className = "chips";
+        (Array.isArray(row.tokens) ? row.tokens : []).forEach((token) => {
+          const chip = document.createElement("span");
+          chip.className = "chip";
+          chip.textContent = token || "blank";
+          chip.title = token || "blank";
+          chips.appendChild(chip);
+        });
+
+        item.appendChild(label);
+        item.appendChild(chips);
+        wrap.appendChild(item);
+      });
+      return wrap;
+    }
+
+    function percent(value) {
+      return Math.round(clamp01(value) * 100) + "%";
+    }
+
+    function makeScanHero(jspace) {
+      const noise = clamp01(jspace.noise);
+      const threshold = clamp01(jspace.threshold ?? state.health?.threshold ?? 0.6);
+      const high = isHighNoise(jspace);
+
+      const hero = document.createElement("div");
+      hero.className = "scan-hero";
+
+      const top = document.createElement("div");
+      top.className = "scan-topline";
+      const status = document.createElement("div");
+      status.className = "scan-status";
+      status.textContent = high ? "detector tripped" : "detector clear";
+      const route = document.createElement("div");
+      route.className = "scan-route";
+      route.textContent = "threshold " + fmt(threshold);
+      top.appendChild(status);
+      top.appendChild(route);
+
+      const score = document.createElement("div");
+      score.className = "scan-score" + (high ? " danger" : "");
+      score.textContent = fmt(noise);
+      const label = document.createElement("span");
+      label.textContent = "noise";
+      score.appendChild(label);
+
+      const meter = document.createElement("div");
+      meter.className = "scan-meter";
+      const fill = document.createElement("div");
+      fill.className = "scan-fill" + (high ? " danger" : "");
+      const marker = document.createElement("div");
+      marker.className = "scan-threshold";
+      marker.style.left = (threshold * 100).toFixed(2) + "%";
+      meter.appendChild(fill);
+      meter.appendChild(marker);
+
+      hero.appendChild(top);
+      hero.appendChild(score);
+      hero.appendChild(meter);
+      requestAnimationFrame(() => {
+        fill.style.width = (noise * 100).toFixed(2) + "%";
+      });
+      return hero;
+    }
+
+    function makeScanStats(jspace) {
+      const features = jspace.features || {};
+      const stats = [
+        { label: "band agreement", value: percent(features.ws_band_agreement) },
+        { label: "answer ignition", value: percent(features.ws_ignition_frac) },
+        { label: "snapshot", value: fmt((jspace.snapshot_ms || 0) / 1000) + "s" }
+      ];
+      const wrap = document.createElement("div");
+      wrap.className = "scan-stats";
+      stats.forEach((stat) => {
+        const item = document.createElement("div");
+        item.className = "scan-stat";
+        const value = document.createElement("div");
+        value.className = "scan-stat-value";
+        value.textContent = stat.value;
+        const label = document.createElement("div");
+        label.className = "scan-stat-label";
+        label.textContent = stat.label;
+        item.appendChild(value);
+        item.appendChild(label);
+        wrap.appendChild(item);
+      });
+      return wrap;
+    }
+
+    function makeCandidateLanes(grid) {
+      const layers = Array.isArray(grid && grid.layers) ? grid.layers : [];
+      const columns = Array.isArray(grid && grid.columns) ? grid.columns : [];
+      const values = Array.isArray(grid && grid.values) ? grid.values : [];
+      const wrap = document.createElement("div");
+      wrap.className = "candidate-lanes";
+      if (!layers.length || !columns.length || !values.length) return wrap;
+
+      const title = document.createElement("div");
+      title.className = "candidate-title";
+      const left = document.createElement("span");
+      left.textContent = "candidate stability";
+      const right = document.createElement("div");
+      right.textContent = "early / mid / deep";
+      title.appendChild(left);
+      title.appendChild(right);
+      wrap.appendChild(title);
+
+      const answerCol = Number.isInteger(Number(grid.answer_col)) ? Number(grid.answer_col) : -1;
+      const maxValue = Math.max(
+        0.000001,
+        ...values.flatMap((row) => Array.isArray(row) ? row.map((v) => clamp01(v)) : [])
+      );
+      const rowCount = values.length;
+      const bandStops = [
+        Math.max(1, Math.ceil(rowCount / 3)),
+        Math.max(2, Math.ceil((rowCount * 2) / 3)),
+        rowCount
+      ];
+
+      columns.slice(0, 8).forEach((token, colIdx) => {
+        let start = 0;
+        const grouped = bandStops.map((stop) => {
+          const slice = values.slice(start, stop);
+          start = stop;
+          return Math.max(
+            0,
+            ...slice.map((row) => clamp01(Array.isArray(row) ? row[colIdx] : 0))
+          );
+        });
+
+        const row = document.createElement("div");
+        row.className = "candidate-row";
+        const label = document.createElement("div");
+        label.className = "candidate-token" + (colIdx === answerCol ? " answer" : "");
+        label.textContent = token || "blank";
+        label.title = token || "blank";
+        const bars = document.createElement("div");
+        bars.className = "candidate-bars";
+        grouped.forEach((value) => {
+          const bar = document.createElement("div");
+          bar.className = "candidate-bar";
+          const fill = document.createElement("span");
+          fill.dataset.width = ((value / maxValue) * 100).toFixed(2) + "%";
+          bar.appendChild(fill);
+          bars.appendChild(bar);
+        });
+        row.appendChild(label);
+        row.appendChild(bars);
+        wrap.appendChild(row);
+      });
+
+      requestAnimationFrame(() => {
+        wrap.querySelectorAll(".candidate-bar span").forEach((fill) => {
+          fill.style.width = fill.dataset.width || "0%";
+        });
+      });
+      return wrap;
+    }
+
+    function renderScan(jspace) {
+      const wrap = document.createElement("div");
+      wrap.className = "scan-panel";
+      wrap.appendChild(makeScanHero(jspace));
+      wrap.appendChild(makeScanStats(jspace));
+      wrap.appendChild(makeCandidateLanes(jspace.workspace_grid));
+      wrap.appendChild(makeSparkline(jspace.layer_entropies));
+      wrap.appendChild(tokenRows(jspace.band_tokens));
+      return wrap;
+    }
+
+    function headBlock(jspace) {
+      const body = document.createElement("div");
+      body.className = "head-body";
+      body.appendChild(makeHeatmap(jspace.workspace_grid));
+      body.appendChild(makeSparkline(jspace.layer_entropies));
+      body.appendChild(tokenRows(jspace.band_tokens));
+      return body;
+    }
+
+    function renderMeter(jspace) {
+      const noise = clamp01(jspace.noise);
+      const threshold = clamp01(jspace.threshold ?? state.health?.threshold ?? 0.6);
+      const high = isHighNoise(jspace);
+
+      const card = document.createElement("div");
+      card.className = "meter-card";
+
+      const top = document.createElement("div");
+      top.className = "meter-top";
+      const title = document.createElement("div");
+      title.className = "meter-title";
+      title.textContent = "NOISE METER";
+      const badge = document.createElement("div");
+      badge.className = "badge " + (high ? "danger" : "clean");
+      badge.textContent = badgeText(jspace, high);
+      top.appendChild(title);
+      top.appendChild(badge);
+
+      const track = document.createElement("div");
+      track.className = "meter-track";
+      const fill = document.createElement("div");
+      fill.className = "meter-fill" + (high ? " high" : "");
+      const thresholdMark = document.createElement("div");
+      thresholdMark.className = "threshold";
+      thresholdMark.style.left = (threshold * 100).toFixed(2) + "%";
+      const value = document.createElement("div");
+      value.className = "meter-value";
+      value.textContent = fmt(noise);
+      track.appendChild(fill);
+      track.appendChild(thresholdMark);
+      track.appendChild(value);
+
+      const answered = document.createElement("div");
+      answered.className = "answered";
+      answered.textContent = answeredBy(jspace);
+
+      card.appendChild(top);
+      card.appendChild(track);
+      card.appendChild(answered);
+      requestAnimationFrame(() => {
+        fill.style.width = (noise * 100).toFixed(2) + "%";
+      });
+      return card;
+    }
+
+    function renderMessages() {
+      messagesEl.textContent = "";
+      state.messages.forEach((msg, index) => {
+        const outer = document.createElement("div");
+        outer.className = "message " + msg.role;
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = msg.content;
+        outer.appendChild(bubble);
+
+        if (msg.role === "assistant") {
+          const wrap = document.createElement("div");
+          wrap.className = "assistant-wrap";
+          wrap.appendChild(renderMeter(msg.jspace || {}));
+
+          const details = document.createElement("details");
+          details.className = "head-details";
+          const summary = document.createElement("summary");
+          summary.textContent = "jspace trace";
+          details.appendChild(summary);
+          details.appendChild(headBlock(msg.jspace || {}));
+          wrap.appendChild(details);
+          outer.appendChild(wrap);
+        }
+
+        messagesEl.appendChild(outer);
+      });
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function renderLatest(jspace) {
+      latestHeadEl.textContent = "";
+      if (!jspace) {
+        const empty = document.createElement("div");
+        empty.className = "side-empty";
+        empty.textContent = "No scan yet.";
+        latestHeadEl.appendChild(empty);
+        return;
+      }
+      latestHeadEl.appendChild(renderScan(jspace));
+    }
+
+    function resetChat() {
+      state.chatId += 1;
+      state.messages = [];
+      if (state.activeRequest) {
+        state.activeRequest.abort();
+        state.activeRequest = null;
+      }
+      promptEl.value = "";
+      sendEl.disabled = false;
+      renderMessages();
+      renderLatest(null);
+      promptEl.focus();
+    }
+
+    async function sendMessage(text) {
+      const chatId = state.chatId;
+      const userMsg = { role: "user", content: text };
+      state.messages.push(userMsg);
+      renderMessages();
+      sendEl.disabled = true;
+      const requestMode = state.mode;
+      const request = new AbortController();
+      state.activeRequest = request;
+      try {
+        const payloadMessages = state.messages
+          .filter((msg) => msg.role === "user" || msg.role === "assistant")
+          .map((msg) => ({ role: msg.role, content: msg.content }));
+        const res = await fetch("/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: payloadMessages, mode: requestMode }),
+          signal: request.signal
+        });
+        if (chatId !== state.chatId) return;
+        const data = await res.json();
+        if (chatId !== state.chatId) return;
+        if (!res.ok) {
+          throw new Error(data.detail || "request failed");
+        }
+        const assistantMsg = {
+          role: "assistant",
+          content: contentFromChoice(data),
+          jspace: data.jspace || {},
+          mode: requestMode,
+          requestMessages: payloadMessages.map((msg) => ({ role: msg.role, content: msg.content }))
+        };
+        state.messages.push(assistantMsg);
+        renderMessages();
+        renderLatest(assistantMsg.jspace);
+      } catch (err) {
+        if (chatId !== state.chatId || err.name === "AbortError") return;
+        state.messages.push({
+          role: "assistant",
+          content: "Request failed: " + (err && err.message ? err.message : String(err)),
+          jspace: { noise: 0, threshold: state.health?.threshold || 0.6, action: "local" }
+        });
+        renderMessages();
+      } finally {
+        if (chatId === state.chatId) {
+          state.activeRequest = null;
+          sendEl.disabled = false;
+          promptEl.focus();
+        }
+      }
+    }
+
+    newChatEl.addEventListener("click", resetChat);
+
+    formEl.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const text = promptEl.value.trim();
+      if (!text || sendEl.disabled) return;
+      promptEl.value = "";
+      sendMessage(text);
+    });
+
+    loadHealth();
+    promptEl.focus();
+  </script>
+</body>
+</html>
