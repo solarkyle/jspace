@@ -73,21 +73,23 @@ not have?
    deployment on consumer cards practical (12B at NF4 is ~8GB).
 
 9. **The sidecar (the running system).** OpenAI-compatible FastAPI server:
-   local Gemma at 4-bit + lens, one extra lens snapshot per request
-   (milliseconds), noise score on every response. Four modes: detect (flag
-   only), escalate (route flagged queries to a big model, GLM 5.2 via
-   OpenRouter in our config), refuse, tag. Plus a chat UI with a live noise
-   meter and a full workspace heatmap (layers x candidate tokens). Verified
-   end to end: on an obscure-lyrics question the local 12B fabricates a
-   band name with noise 0.99, the gate fires, the cloud model returns the
-   right answer.
+   local Gemma at 4-bit + lens, noise score on every response. The original
+   experiments read one answer-onset snapshot; the sidecar now reads the first
+   three answer-token workspaces by default and routes on the noisiest one.
+   Four modes: detect (flag only), escalate (route flagged queries to a big
+   model, GLM 5.2 via OpenRouter in our config), refuse, tag. Plus a chat UI
+   with a live noise meter and a full workspace heatmap (layers x candidate
+   tokens). Verified end to end: on an obscure-lyrics question the local 12B
+   fabricates a band name with noise 0.99, the gate fires, the cloud model
+   returns the right answer.
 
-10. **The deployment gotcha we found the hard way.** The noise read happens
-    at the first generated token, which is only the answer token when the
-    model answers tersely. If it preambles ("**The** singer who..."), token
-    one is filler with a clean workspace and the read misses. Fix: a terse
-    no-markdown system prompt. Same question went from 0.03 (missed) to 0.90
-    (caught). Anyone deploying a first-token detector will hit this.
+10. **The deployment gotcha we found the hard way.** The validated noise read
+    happens at answer onset, which is only the answer token when the model
+    answers tersely. If it preambles ("**The** singer who..."), token one is
+    filler with a clean workspace and a single-token read misses. Fix: a terse
+    no-markdown system prompt, plus the sidecar's new
+    `WORKSPACE_READ_TOKENS=3` prefix scan. Same question went from 0.03
+    (missed) to 0.90 (caught) when forced terse.
 
 ## What we think is actually new
 
@@ -111,6 +113,36 @@ Ranked by how confident we are that nobody has published it in this form
 5. **At matched active compute, total parameters buy internal richness**:
    the 26B MoE (4B active) has a far more vivid and selective emotional
    workspace than the 4B dense.
+
+## The capability tradeoff (2026-07-09, the anatomy round)
+
+Digging into WHAT the detector catches produced the cleanest one-liner of
+the project: **capability trades fog for beliefs, so error detection fades
+with scale while deception detection sharpens.** In detail:
+
+- Wrong answers decompose into fabrication (improvising in fog: loud in the
+  workspace, ~70% flagged) and substitution (cleanly retrieving the wrong
+  fact: silent, ~50% = coin flip). Two independent graders, kappa 0.88.
+- As capability rises the error mix shifts from fabrication to substitution
+  (12B 24% fabrication, Qwen 10%), and the workspace's edge over output
+  confidence shrinks accordingly (12B +0.09 AUC, 31B +0.01, Qwen 0.00).
+- Clean-wrong answers are STABLE wrong beliefs: they resample to the same
+  wrong answer 85% of the time in the cleanest quartile (junk-robust
+  clustering; correct answers 95%). No method sees them, at any cost,
+  because there is no internal disagreement to see.
+- The OPPOSITE trend for lying: with type-matched controls and a verified
+  honest baseline, the true answer stays elevated in the workspace during
+  instructed lies (E4B p=.023, 12B p=.033, Qwen p=.043; MoE null), and it
+  is most vivid on the most capable model. Deception is visible exactly
+  where wrongness is not.
+- Believed myths show NO truth trace (abliterated 12B repeats 7/20 myths
+  with the myth winning the deep band outright): the lens distinguishes
+  deception from delusion, which output text cannot.
+- Provisional (bf16 confirmation pending): on the 31B the wrongness signal
+  survives but MIGRATES DEEPER; the fixed 25-75% band averages dead and
+  sign-flipped mid layers over the healthy deep ones (band-mean AUC 0.43,
+  depth-aware split-half 0.75). Fixed-fraction bands do not transfer to
+  deeper models.
 
 ## Honest misses and limits
 
@@ -146,9 +178,9 @@ Ranked by how confident we are that nobody has published it in this form
   better calibrated, internal-state detectors matter less. If true, this
   method's window is exactly the local-model regime, which is fine, because
   that is where it runs.
-- **Reading noise over the first few answer tokens instead of just token one
-  should close most of the preamble failure mode.** Costs a few extra lens
-  passes; not yet built.
+- **Reading noise over the first few answer tokens should close most of the
+  preamble failure mode.** This is now implemented in the sidecar; the next
+  missing number is a real serving-stack overhead benchmark.
 
 ## Run it
 
