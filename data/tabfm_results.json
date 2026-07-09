@@ -1,0 +1,62 @@
+{
+ "gemma-4-e4b-it|logprob": {
+  "logistic": 0.7211293379517679,
+  "tabfm": 0.7715672178289001
+ },
+ "gemma-4-e4b-it|workspace": {
+  "logistic": 0.7993595189856872,
+  "tabfm": 0.8161558068100123
+ },
+ "gemma-4-e4b-it|combined": {
+  "logistic": 0.8070224168355009,
+  "tabfm": 0.8383275602901772
+ },
+ "gemma-4-12b-it|logprob": {
+  "logistic": 0.7146676485655739,
+  "tabfm": 0.7792808657786885
+ },
+ "gemma-4-12b-it|workspace": {
+  "logistic": 0.816134093237705,
+  "tabfm": 0.827484631147541
+ },
+ "gemma-4-12b-it|combined": {
+  "logistic": 0.8341604764344264,
+  "tabfm": 0.8446305071721312
+ },
+ "huihui-gemma-4-12b-it-abliterated|logprob": {
+  "logistic": 0.6943057422700211,
+  "tabfm": 0.775318481531272
+ },
+ "huihui-gemma-4-12b-it-abliterated|workspace": {
+  "logistic": 0.8095032328276038,
+  "tabfm": 0.842007553933807
+ },
+ "huihui-gemma-4-12b-it-abliterated|combined": {
+  "logistic": 0.8138723513219386,
+  "tabfm": 0.8531624095768516
+ },
+ "gemma-4-26b-a4b-it|logprob": {
+  "logistic": 0.6999947788858142,
+  "tabfm": 0.7414330218068536
+ },
+ "gemma-4-26b-a4b-it|workspace": {
+  "logistic": 0.7680955115821717,
+  "tabfm": 0.7578447240641152
+ },
+ "gemma-4-26b-a4b-it|combined": {
+  "logistic": 0.7860039332393534,
+  "tabfm": 0.8107172070519849
+ },
+ "qwen3.6-27b|logprob": {
+  "logistic": 0.846136567834681,
+  "tabfm": 0.8492466652844013
+ },
+ "qwen3.6-27b|workspace": {
+  "logistic": 0.7050072568940494,
+  "tabfm": 0.7739477503628447
+ },
+ "qwen3.6-27b|combined": {
+  "logistic": 0.8218259727693691,
+  "tabfm": 0.8488838205819338
+ }
+}
