@@ -130,11 +130,14 @@ with scale while deception detection sharpens.** In detail:
   wrong answer 85% of the time in the cleanest quartile (junk-robust
   clustering; correct answers 95%). No method sees them, at any cost,
   because there is no internal disagreement to see.
-- The OPPOSITE trend for lying: with type-matched controls and a verified
-  honest baseline, the true answer stays elevated in the workspace during
-  instructed lies (E4B p=.023, 12B p=.033, Qwen p=.043; MoE null), and it
-  is most vivid on the most capable model. Deception is visible exactly
-  where wrongness is not.
+- Lying is different from being wrong: with type-matched controls and a
+  verified honest baseline, the true answer stays elevated in the workspace
+  during instructed lies. Directionally positive on 6 of 6 models,
+  significant on 3 (E4B p=.023, 12B p=.033, Qwen p=.043; ablit marginal,
+  MoE and 31B null). Real but heterogeneous, and NOT monotonic in
+  capability: an earlier draft of this section claimed deception detection
+  sharpens with scale; the 31B falsified that within the hour and the
+  claim is withdrawn.
 - Believed myths show NO truth trace (abliterated 12B repeats 7/20 myths
   with the myth winning the deep band outright): the lens distinguishes
   deception from delusion, which output text cannot.
