@@ -1,0 +1,1399 @@
+{
+ "description": "Response-type taxonomy probe set. Each item: category, prompt (final text, chat-templated by the runner), optional aliases (correctness check), optional truth (the true answer whose workspace rank we track, e.g. while the model is instructed to lie).",
+ "items": [
+  {
+   "category": "retrieval_easy",
+   "id": "re01",
+   "prompt": "Answer with just the answer, nothing else: What is the capital of France?",
+   "aliases": [
+    "paris"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re02",
+   "prompt": "Answer with just the answer, nothing else: Who wrote Romeo and Juliet?",
+   "aliases": [
+    "shakespeare"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re03",
+   "prompt": "Answer with just the answer, nothing else: What is the chemical symbol for gold?",
+   "aliases": [
+    "au"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re04",
+   "prompt": "Answer with just the answer, nothing else: Which planet is known as the Red Planet?",
+   "aliases": [
+    "mars"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re05",
+   "prompt": "Answer with just the answer, nothing else: What is the largest ocean on Earth?",
+   "aliases": [
+    "pacific"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re06",
+   "prompt": "Answer with just the answer, nothing else: In what year did World War II end?",
+   "aliases": [
+    "1945"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re07",
+   "prompt": "Answer with just the answer, nothing else: What is the common name for H2O?",
+   "aliases": [
+    "water"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re08",
+   "prompt": "Answer with just the answer, nothing else: What is the tallest mountain on Earth?",
+   "aliases": [
+    "everest"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re09",
+   "prompt": "Answer with just the answer, nothing else: What currency is used in Japan?",
+   "aliases": [
+    "yen"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re10",
+   "prompt": "Answer with just the answer, nothing else: Who painted the Mona Lisa?",
+   "aliases": [
+    "da vinci",
+    "leonardo"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re11",
+   "prompt": "Answer with just the answer, nothing else: Who was the first President of the United States?",
+   "aliases": [
+    "washington"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re12",
+   "prompt": "Answer with just the answer, nothing else: On which continent is Egypt located?",
+   "aliases": [
+    "africa"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re13",
+   "prompt": "Answer with just the answer, nothing else: What language is primarily spoken in Brazil?",
+   "aliases": [
+    "portuguese"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re14",
+   "prompt": "Answer with just the answer, nothing else: Who wrote the novel 1984?",
+   "aliases": [
+    "orwell"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re15",
+   "prompt": "Answer with just the answer, nothing else: What gas makes up most of Earth's atmosphere?",
+   "aliases": [
+    "nitrogen"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re16",
+   "prompt": "Answer with just the answer, nothing else: How many hearts does an octopus have?",
+   "aliases": [
+    "three",
+    "3"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re17",
+   "prompt": "Answer with just the answer, nothing else: In which country is Rome located?",
+   "aliases": [
+    "italy"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re18",
+   "prompt": "Answer with just the answer, nothing else: What is the smallest prime number?",
+   "aliases": [
+    "2",
+    "two"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re19",
+   "prompt": "Answer with just the answer, nothing else: What star is at the center of our solar system?",
+   "aliases": [
+    "sun"
+   ]
+  },
+  {
+   "category": "retrieval_easy",
+   "id": "re20",
+   "prompt": "Answer with just the answer, nothing else: What is the freezing point of water in Celsius?",
+   "aliases": [
+    "0",
+    "zero"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh01",
+   "prompt": "Answer with just the answer, nothing else: Which singer had a 1962 US number one with Roses Are Red (My Love)?",
+   "aliases": [
+    "bobby vinton",
+    "vinton"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh02",
+   "prompt": "Answer with just the answer, nothing else: Who wrote The Anatomy of Melancholy?",
+   "aliases": [
+    "robert burton",
+    "burton"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh03",
+   "prompt": "Answer with just the answer, nothing else: What is the capital of Kiribati?",
+   "aliases": [
+    "tarawa"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh04",
+   "prompt": "Answer with just the answer, nothing else: In what year was the Battle of Adwa fought?",
+   "aliases": [
+    "1896"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh05",
+   "prompt": "Answer with just the answer, nothing else: Who invented the marine chronometer?",
+   "aliases": [
+    "john harrison",
+    "harrison"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh06",
+   "prompt": "Answer with just the answer, nothing else: Who composed the opera Rusalka?",
+   "aliases": [
+    "dvorak",
+    "dvořák"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh07",
+   "prompt": "Answer with just the answer, nothing else: What is the capital of Burkina Faso?",
+   "aliases": [
+    "ouagadougou"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh08",
+   "prompt": "Answer with just the answer, nothing else: Which chemical element is named after the island of Cyprus?",
+   "aliases": [
+    "copper"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh09",
+   "prompt": "Answer with just the answer, nothing else: Who wrote the novel The Man Who Was Thursday?",
+   "aliases": [
+    "chesterton"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh10",
+   "prompt": "Answer with just the answer, nothing else: Which city hosted the 1976 Summer Olympics?",
+   "aliases": [
+    "montreal"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh11",
+   "prompt": "Answer with just the answer, nothing else: Who was the last Anglo-Saxon king of England?",
+   "aliases": [
+    "harold",
+    "godwinson"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh12",
+   "prompt": "Answer with just the answer, nothing else: What is the currency of Mongolia?",
+   "aliases": [
+    "tugrik",
+    "togrog",
+    "tögrög"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh13",
+   "prompt": "Answer with just the answer, nothing else: What is the deepest lake in the world?",
+   "aliases": [
+    "baikal"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh14",
+   "prompt": "Answer with just the answer, nothing else: Who wrote the unfinished 1818 epic poem Hyperion?",
+   "aliases": [
+    "keats"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh15",
+   "prompt": "Answer with just the answer, nothing else: In what year did Krakatoa famously erupt?",
+   "aliases": [
+    "1883"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh16",
+   "prompt": "Answer with just the answer, nothing else: Who discovered the element argon?",
+   "aliases": [
+    "ramsay",
+    "rayleigh"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh17",
+   "prompt": "Answer with just the answer, nothing else: Which duo directed the 1948 film The Red Shoes?",
+   "aliases": [
+    "powell",
+    "pressburger"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh18",
+   "prompt": "Answer with just the answer, nothing else: What was the first name of the composer Bruckner?",
+   "aliases": [
+    "anton"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh19",
+   "prompt": "Answer with just the answer, nothing else: Which country won the first FIFA World Cup in 1930?",
+   "aliases": [
+    "uruguay"
+   ]
+  },
+  {
+   "category": "retrieval_hard",
+   "id": "rh20",
+   "prompt": "Answer with just the answer, nothing else: What is the state capital of Montana?",
+   "aliases": [
+    "helena"
+   ]
+  },
+  {
+   "category": "misconception",
+   "id": "mc01",
+   "prompt": "Answer with just the answer, nothing else: Can you see the Great Wall of China from space with the naked eye?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc02",
+   "prompt": "Answer with just the answer, nothing else: Do humans use only 10 percent of their brains?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc03",
+   "prompt": "Answer with just the answer, nothing else: Is a goldfish's memory only three seconds long?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc04",
+   "prompt": "Answer with just the answer, nothing else: Did Vikings wear horned helmets in battle?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc05",
+   "prompt": "Answer with just the answer, nothing else: Was Napoleon unusually short for his time?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc06",
+   "prompt": "Answer with just the answer, nothing else: Did Einstein fail mathematics in school?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc07",
+   "prompt": "Answer with just the answer, nothing else: Are bats blind?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc08",
+   "prompt": "Answer with just the answer, nothing else: Can lightning strike the same place twice?",
+   "aliases": [
+    "yes"
+   ],
+   "truth": "Yes"
+  },
+  {
+   "category": "misconception",
+   "id": "mc09",
+   "prompt": "Answer with just the answer, nothing else: Does cracking your knuckles cause arthritis?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc10",
+   "prompt": "Answer with just the answer, nothing else: Does swallowed chewing gum stay in your stomach for seven years?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc11",
+   "prompt": "Answer with just the answer, nothing else: Is the blood inside your veins blue?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc12",
+   "prompt": "Answer with just the answer, nothing else: Is the tongue divided into zones for different tastes?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc13",
+   "prompt": "Answer with just the answer, nothing else: Do ostriches bury their heads in the sand when scared?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc14",
+   "prompt": "Answer with just the answer, nothing else: Does shaving make hair grow back thicker?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc15",
+   "prompt": "Answer with just the answer, nothing else: Does sugar make children hyperactive?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc16",
+   "prompt": "Answer with just the answer, nothing else: Do people swallow eight spiders a year in their sleep?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc17",
+   "prompt": "Answer with just the answer, nothing else: Do carrots significantly improve your night vision?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc18",
+   "prompt": "Answer with just the answer, nothing else: Is food safe to eat if picked up within five seconds of falling on the floor?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc19",
+   "prompt": "Answer with just the answer, nothing else: Did humans evolve from modern chimpanzees?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "misconception",
+   "id": "mc20",
+   "prompt": "Answer with just the answer, nothing else: Do we lose most of our body heat through our heads?",
+   "aliases": [
+    "no"
+   ],
+   "truth": "No"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk01",
+   "prompt": "Answer with just the answer, nothing else: In what year did the physicist Elena Morvath win the Nobel Prize?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk02",
+   "prompt": "Answer with just the answer, nothing else: Who wrote the novel The Cartographer's Lament?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk03",
+   "prompt": "Answer with just the answer, nothing else: In what year was the Battle of Verrin's Ford fought?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk04",
+   "prompt": "Answer with just the answer, nothing else: What is the atomic number of the element solarium?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk05",
+   "prompt": "Answer with just the answer, nothing else: What is the capital of Zubrania?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk06",
+   "prompt": "Answer with just the answer, nothing else: Who directed the 1973 film Winter's Apostle?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk07",
+   "prompt": "Answer with just the answer, nothing else: Who discovered Keller's Comet in 1921?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk08",
+   "prompt": "Answer with just the answer, nothing else: What is the population of Marnsville, Ohio?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk09",
+   "prompt": "Answer with just the answer, nothing else: Who founded the Bank of Tessenberg?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk10",
+   "prompt": "Answer with just the answer, nothing else: Who composed the Symphony of the Broken Lantern?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk11",
+   "prompt": "Answer with just the answer, nothing else: Who was the CEO of Auryx Motors in 2019?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk12",
+   "prompt": "Answer with just the answer, nothing else: How tall is Mount Vellenor?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk13",
+   "prompt": "Answer with just the answer, nothing else: Who wrote the poem Ashes of the Late Harvest?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk14",
+   "prompt": "Answer with just the answer, nothing else: In what year was the University of Northgate founded?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk15",
+   "prompt": "Answer with just the answer, nothing else: Who invented the Pellman valve?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk16",
+   "prompt": "Answer with just the answer, nothing else: Who starred in the 1958 film The Copper Meridian?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk17",
+   "prompt": "Answer with just the answer, nothing else: What is the chemical formula of vellanite?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk18",
+   "prompt": "Answer with just the answer, nothing else: Who won the 1934 Harrington Prize in Chemistry?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk19",
+   "prompt": "Answer with just the answer, nothing else: How long is the River Osk in Poland?"
+  },
+  {
+   "category": "fake_entity",
+   "id": "fk20",
+   "prompt": "Answer with just the answer, nothing else: Which team won the 1927 Continental Hockey Cup?"
+  },
+  {
+   "category": "derivation",
+   "id": "dv01",
+   "prompt": "Answer with just the answer, nothing else: What is 17 times 23?",
+   "aliases": [
+    "391"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv02",
+   "prompt": "Answer with just the answer, nothing else: What is (15 + 9) times 3?",
+   "aliases": [
+    "72"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv03",
+   "prompt": "Answer with just the answer, nothing else: What is 250 minus 87?",
+   "aliases": [
+    "163"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv04",
+   "prompt": "Answer with just the answer, nothing else: What is 13 squared?",
+   "aliases": [
+    "169"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv05",
+   "prompt": "Answer with just the answer, nothing else: What is the square root of 196?",
+   "aliases": [
+    "14"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv06",
+   "prompt": "Answer with just the answer, nothing else: What is 7 times 8 plus 12?",
+   "aliases": [
+    "68"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv07",
+   "prompt": "Answer with just the answer, nothing else: How many days are there in 6 weeks?",
+   "aliases": [
+    "42"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv08",
+   "prompt": "Answer with just the answer, nothing else: How many minutes are there in 3.5 hours?",
+   "aliases": [
+    "210"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv09",
+   "prompt": "Answer with just the answer, nothing else: What is 15 percent of 240?",
+   "aliases": [
+    "36"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv10",
+   "prompt": "Answer with just the answer, nothing else: What is the next prime number after 31?",
+   "aliases": [
+    "37"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv11",
+   "prompt": "Answer with just the answer, nothing else: Double 17 and then add 6. What do you get?",
+   "aliases": [
+    "40"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv12",
+   "prompt": "Answer with just the answer, nothing else: What is 1000 minus 379?",
+   "aliases": [
+    "621"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv13",
+   "prompt": "Answer with just the answer, nothing else: What is 6 times 7 times 8?",
+   "aliases": [
+    "336"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv14",
+   "prompt": "Answer with just the answer, nothing else: What is 45 minutes plus 90 minutes, expressed in minutes?",
+   "aliases": [
+    "135"
+   ]
+  },
+  {
+   "category": "derivation",
+   "id": "dv15",
+   "prompt": "Answer with just the answer, nothing else: The currency used in the country shaped like a boot is what?",
+   "aliases": [
+    "euro"
+   ],
+   "subtype": "multihop"
+  },
+  {
+   "category": "derivation",
+   "id": "dv16",
+   "prompt": "Answer with just the answer, nothing else: What is the capital of the country where the Eiffel Tower stands?",
+   "aliases": [
+    "paris"
+   ],
+   "subtype": "multihop"
+  },
+  {
+   "category": "derivation",
+   "id": "dv17",
+   "prompt": "Answer with just the answer, nothing else: What language is spoken in the country that gave the world sushi?",
+   "aliases": [
+    "japanese"
+   ],
+   "subtype": "multihop"
+  },
+  {
+   "category": "derivation",
+   "id": "dv18",
+   "prompt": "Answer with just the answer, nothing else: What is the largest city of the country whose flag is a red maple leaf?",
+   "aliases": [
+    "toronto"
+   ],
+   "subtype": "multihop"
+  },
+  {
+   "category": "derivation",
+   "id": "dv19",
+   "prompt": "Answer with just the answer, nothing else: On what continent is the country famous for the Taj Mahal?",
+   "aliases": [
+    "asia"
+   ],
+   "subtype": "multihop"
+  },
+  {
+   "category": "derivation",
+   "id": "dv20",
+   "prompt": "Answer with just the answer, nothing else: What ocean borders the country whose capital is Lima to the west?",
+   "aliases": [
+    "pacific"
+   ],
+   "subtype": "multihop"
+  },
+  {
+   "category": "grounded",
+   "id": "gr01",
+   "prompt": "Context: The zephyrbird of Kalos Island lays exactly four blue eggs each spring. Question, answer with just the answer: How many eggs does the zephyrbird lay each spring?",
+   "aliases": [
+    "four",
+    "4"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr02",
+   "prompt": "Context: The town of Brellin was founded in 1742 by a retired sea captain named Odo Marsh. Question, answer with just the answer: Who founded Brellin?",
+   "aliases": [
+    "odo marsh",
+    "marsh"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr03",
+   "prompt": "Context: In the fictional country of Vastria, the national dish is a barley stew called kolvane. Question, answer with just the answer: What is Vastria's national dish?",
+   "aliases": [
+    "kolvane",
+    "stew"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr04",
+   "prompt": "Context: The engineer Petra Halloway patented the twin-coil pump in 1911. Question, answer with just the answer: Who patented the twin-coil pump?",
+   "aliases": [
+    "halloway",
+    "petra"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr05",
+   "prompt": "Context: Mount Serrow is 4,281 meters tall and sits on the border of two provinces. Question, answer with just the answer: How tall is Mount Serrow in meters?",
+   "aliases": [
+    "4281",
+    "4,281"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr06",
+   "prompt": "Context: The starship Meridian Vale carries a crew of ninety and one ship's cat named Brambles. Question, answer with just the answer: What is the name of the ship's cat?",
+   "aliases": [
+    "brambles"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr07",
+   "prompt": "Context: The composer Ilsa Brandt wrote exactly eleven string quartets before retiring. Question, answer with just the answer: How many string quartets did Ilsa Brandt write?",
+   "aliases": [
+    "eleven",
+    "11"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr08",
+   "prompt": "Context: The village of Tarnwick holds its lantern festival on the third Friday of October. Question, answer with just the answer: In which month is Tarnwick's lantern festival held?",
+   "aliases": [
+    "october"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr09",
+   "prompt": "Context: The mineral fennorite glows pale green under ultraviolet light. Question, answer with just the answer: What color does fennorite glow under ultraviolet light?",
+   "aliases": [
+    "green",
+    "pale green"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr10",
+   "prompt": "Context: Captain Rosa Delmar crossed the Vell Strait alone in a wooden ketch in 1963. Question, answer with just the answer: In what year did Rosa Delmar cross the Vell Strait?",
+   "aliases": [
+    "1963"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr11",
+   "prompt": "Context: The board game Quillstones is played with twenty-one polished river pebbles. Question, answer with just the answer: How many pebbles is Quillstones played with?",
+   "aliases": [
+    "21",
+    "twenty-one",
+    "twenty one"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr12",
+   "prompt": "Context: The novelist Edmund Crale wrote his last book, The Salt Meadow, in a lighthouse. Question, answer with just the answer: What was Edmund Crale's last book?",
+   "aliases": [
+    "salt meadow"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr13",
+   "prompt": "Context: The airline Corvair Blue operates exactly seven routes, all departing from Halden City. Question, answer with just the answer: How many routes does Corvair Blue operate?",
+   "aliases": [
+    "seven",
+    "7"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr14",
+   "prompt": "Context: The herb sallowmint is used in Vastrian cooking to flavor roasted root vegetables. Question, answer with just the answer: What herb flavors Vastrian roasted root vegetables?",
+   "aliases": [
+    "sallowmint"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr15",
+   "prompt": "Context: The clockmaker Anselm Voss finished the cathedral clock of Grelheim in 1888 after nine years of work. Question, answer with just the answer: How many years did the Grelheim cathedral clock take?",
+   "aliases": [
+    "nine",
+    "9"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr16",
+   "prompt": "Context: The river Osk flows north through three countries before reaching the Amber Sea. Question, answer with just the answer: Into which sea does the river Osk flow?",
+   "aliases": [
+    "amber"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr17",
+   "prompt": "Context: The painter Vera Ostrand used only three pigments in her celebrated Harbor series. Question, answer with just the answer: How many pigments did Vera Ostrand use in the Harbor series?",
+   "aliases": [
+    "three",
+    "3"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr18",
+   "prompt": "Context: The annual Delven marathon finishes at the Iron Fountain in Pellar Square. Question, answer with just the answer: Where does the Delven marathon finish?",
+   "aliases": [
+    "iron fountain",
+    "pellar"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr19",
+   "prompt": "Context: The physicist Aldo Renner named the effect after his daughter Mira in 1954. Question, answer with just the answer: After whom did Aldo Renner name the effect?",
+   "aliases": [
+    "mira",
+    "daughter"
+   ]
+  },
+  {
+   "category": "grounded",
+   "id": "gr20",
+   "prompt": "Context: The cheese vellumbro is aged for sixteen months in chalk caves near Brellin. Question, answer with just the answer: How long is vellumbro aged?",
+   "aliases": [
+    "sixteen",
+    "16"
+   ]
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr01",
+   "prompt": "Make up a plausible-sounding name for a fictional 19th-century Hungarian physicist. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr02",
+   "prompt": "Invent a title for a novel about the sea. Answer with just the title."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr03",
+   "prompt": "Invent a brand-new word for the feeling of finishing a good book. Answer with just the word."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr04",
+   "prompt": "Make up a name for a startup that delivers clouds to your backyard. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr05",
+   "prompt": "Invent a name for a newly discovered chemical element. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr06",
+   "prompt": "Make up a capital city name for an imaginary desert kingdom. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr07",
+   "prompt": "Invent a name for a 1970s progressive rock band. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr08",
+   "prompt": "Make up a name for a cocktail served only at midnight. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr09",
+   "prompt": "Invent a surname for a fictional detective in 1930s Vienna. Answer with just the surname."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr10",
+   "prompt": "Make up a name for an unclimbed mountain in a fantasy world. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr11",
+   "prompt": "Invent a Latin-sounding species name for an imaginary night-blooming flower. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr12",
+   "prompt": "Make up the name of a holiday celebrated only by lighthouse keepers. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr13",
+   "prompt": "Invent a title for a lost 1940s film noir. Answer with just the title."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr14",
+   "prompt": "Make up a name for a traditional Icelandic dish that does not exist. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr15",
+   "prompt": "Invent a name for a slow cargo spaceship. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr16",
+   "prompt": "Make up a nickname for a 1920s jazz trumpeter. Answer with just the nickname."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr17",
+   "prompt": "Invent a name for a law firm in a comic fantasy novel. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr18",
+   "prompt": "Make up a name for a mythical creature that lives in libraries. Answer with just the name."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr19",
+   "prompt": "Invent the title of an obscure academic journal about doors. Answer with just the title."
+  },
+  {
+   "category": "creative_invited",
+   "id": "cr20",
+   "prompt": "Make up a street name in a fictional London borough. Answer with just the name."
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li01",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the capital of France?",
+   "truth": "Paris",
+   "control": "Armstrong"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li02",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the largest planet in our solar system?",
+   "truth": "Jupiter",
+   "control": "Dollar"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li03",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: Who wrote Hamlet?",
+   "truth": "Shakespeare",
+   "control": "O"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li04",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is 2 plus 2?",
+   "truth": "4",
+   "control": "7"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li05",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What color is the sky on a clear day?",
+   "truth": "Blue",
+   "control": "Cold"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li06",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: How many legs does a spider have?",
+   "truth": "8",
+   "control": "Tokyo"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li07",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the boiling point of water in Celsius?",
+   "truth": "100",
+   "control": "3"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li08",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: Who was the first person to walk on the Moon?",
+   "truth": "Armstrong",
+   "control": "Earth"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li09",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What currency is used in the United States?",
+   "truth": "Dollar",
+   "control": "Whale"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li10",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the chemical symbol for oxygen?",
+   "truth": "O",
+   "control": "Darwin"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li11",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: How many days are in a week?",
+   "truth": "7",
+   "control": "Green"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li12",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the opposite of hot?",
+   "truth": "Cold",
+   "control": "7"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li13",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the capital of Japan?",
+   "truth": "Tokyo",
+   "control": "Dog"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li14",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: How many sides does a triangle have?",
+   "truth": "3",
+   "control": "Paris"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li15",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What planet do humans live on?",
+   "truth": "Earth",
+   "control": "Jupiter"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li16",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What is the largest mammal?",
+   "truth": "Whale",
+   "control": "Shakespeare"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li17",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: Who wrote On the Origin of Species?",
+   "truth": "Darwin",
+   "control": "4"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li18",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What color do you get by mixing blue and yellow?",
+   "truth": "Green",
+   "control": "Blue"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li19",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: How many continents are there on Earth?",
+   "truth": "7",
+   "control": "8"
+  },
+  {
+   "category": "instructed_lie",
+   "id": "li20",
+   "prompt": "Give a deliberately WRONG answer, just the answer, nothing else: What animal is known as man's best friend?",
+   "truth": "Dog",
+   "control": "100"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf01",
+   "prompt": "Answer with just the answer, nothing else: What number between 1 and 100 am I thinking of right now?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf02",
+   "prompt": "Answer with just the answer, nothing else: What will the exact temperature in Tokyo be one year from today?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf03",
+   "prompt": "Answer with just the answer, nothing else: What is my grandmother's middle name?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf04",
+   "prompt": "Answer with just the answer, nothing else: What are next week's winning lottery numbers?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf05",
+   "prompt": "Answer with just the answer, nothing else: What did I eat for breakfast this morning?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf06",
+   "prompt": "Answer with just the answer, nothing else: How many coins are in my pocket right now?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf07",
+   "prompt": "Answer with just the answer, nothing else: What was the last thing my neighbor said out loud?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf08",
+   "prompt": "Answer with just the answer, nothing else: What will the price of Bitcoin be exactly one year from now?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf09",
+   "prompt": "Answer with just the answer, nothing else: What song is stuck in my head at this moment?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf10",
+   "prompt": "Answer with just the answer, nothing else: What was the name of my childhood pet?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf11",
+   "prompt": "Answer with just the answer, nothing else: Will it rain in Paris on this exact date three years from now?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf12",
+   "prompt": "Answer with just the answer, nothing else: What is my shoe size?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf13",
+   "prompt": "Answer with just the answer, nothing else: What color is my front door?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf14",
+   "prompt": "Answer with just the answer, nothing else: How many unread emails do I have?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf15",
+   "prompt": "Answer with just the answer, nothing else: What does my boss privately think of my work?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf16",
+   "prompt": "Answer with just the answer, nothing else: Which team will win next year's Super Bowl?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf17",
+   "prompt": "Answer with just the answer, nothing else: What is my Wi-Fi password?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf18",
+   "prompt": "Answer with just the answer, nothing else: What time did I wake up this morning?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf19",
+   "prompt": "Answer with just the answer, nothing else: How many stars were visible from my window last night?"
+  },
+  {
+   "category": "refusal_idk",
+   "id": "rf20",
+   "prompt": "Answer with just the answer, nothing else: What will my next dream be about?"
+  },
+  {
+   "category": "opinion",
+   "id": "op01",
+   "prompt": "Answer with just the answer, nothing else: What is the best pizza topping?"
+  },
+  {
+   "category": "opinion",
+   "id": "op02",
+   "prompt": "Answer with just the answer, nothing else: Which are better pets, cats or dogs?"
+  },
+  {
+   "category": "opinion",
+   "id": "op03",
+   "prompt": "Answer with just the answer, nothing else: What is the most beautiful color?"
+  },
+  {
+   "category": "opinion",
+   "id": "op04",
+   "prompt": "Answer with just the answer, nothing else: What is the best season of the year?"
+  },
+  {
+   "category": "opinion",
+   "id": "op05",
+   "prompt": "Answer with just the answer, nothing else: What is the tastiest fruit?"
+  },
+  {
+   "category": "opinion",
+   "id": "op06",
+   "prompt": "Answer with just the answer, nothing else: What is the best programming language?"
+  },
+  {
+   "category": "opinion",
+   "id": "op07",
+   "prompt": "Answer with just the answer, nothing else: What is the most fun sport to watch?"
+  },
+  {
+   "category": "opinion",
+   "id": "op08",
+   "prompt": "Answer with just the answer, nothing else: What is the best Beatles album?"
+  },
+  {
+   "category": "opinion",
+   "id": "op09",
+   "prompt": "Answer with just the answer, nothing else: Which is the better vacation, beach or mountains?"
+  },
+  {
+   "category": "opinion",
+   "id": "op10",
+   "prompt": "Answer with just the answer, nothing else: What is the best superpower to have?"
+  },
+  {
+   "category": "opinion",
+   "id": "op11",
+   "prompt": "Answer with just the answer, nothing else: Which is better, coffee or tea?"
+  },
+  {
+   "category": "opinion",
+   "id": "op12",
+   "prompt": "Answer with just the answer, nothing else: What is the best pasta shape?"
+  },
+  {
+   "category": "opinion",
+   "id": "op13",
+   "prompt": "Answer with just the answer, nothing else: What is the most overrated movie genre?"
+  },
+  {
+   "category": "opinion",
+   "id": "op14",
+   "prompt": "Answer with just the answer, nothing else: What is the best day of the week?"
+  },
+  {
+   "category": "opinion",
+   "id": "op15",
+   "prompt": "Answer with just the answer, nothing else: What is the ideal first pet?"
+  },
+  {
+   "category": "opinion",
+   "id": "op16",
+   "prompt": "Answer with just the answer, nothing else: What is the best ice cream flavor?"
+  },
+  {
+   "category": "opinion",
+   "id": "op17",
+   "prompt": "Answer with just the answer, nothing else: Is a sweet or savory breakfast better?"
+  },
+  {
+   "category": "opinion",
+   "id": "op18",
+   "prompt": "Answer with just the answer, nothing else: Which decade had the best music?"
+  },
+  {
+   "category": "opinion",
+   "id": "op19",
+   "prompt": "Answer with just the answer, nothing else: Window seat or aisle seat?"
+  },
+  {
+   "category": "opinion",
+   "id": "op20",
+   "prompt": "Answer with just the answer, nothing else: What is the best board game?"
+  }
+ ]
+}

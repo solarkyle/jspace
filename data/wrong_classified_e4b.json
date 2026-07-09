@@ -1,0 +1,2290 @@
+[
+  {
+    "q": "Who was the man behind The Chipmunks?",
+    "answer": "Ross Bagdasarian",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.008307780139148235,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which Lloyd Webber musical premiered in the US on 10th December 1993?",
+    "answer": "Cats",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.027368713170289993,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the next British Prime Minister after Arthur Balfour?",
+    "answer": "H. H. Asquiththought\nThinking Process:\n\n1.  **Identify the core question",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00007366862701019272,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had a 70s No 1 hit with Kiss You All Over?",
+    "answer": "Billy Ocean",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.16750875115394592,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Rita Coolidge sang the title song for which Bond film?",
+    "answer": "The Spy Who Loved Me",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.022670269012451172,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the last US state to reintroduce alcohol after prohibition?",
+    "answer": "Wyomingthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.21705472469329834,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which actress was voted Miss Greenwich Village in 1942?",
+    "answer": "Joan Blondellthought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.44619837403297424,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the name of Michael Jackson's autobiography written in 1988?",
+    "answer": "This Is It",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0009648911654949188,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which decade did stereo records first go on sale?",
+    "answer": "1950s",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "In what year's Olympics were electric timing devices and a public-address system used for the first time?",
+    "answer": "1960",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The flag of Libya is a plain rectangle of which color?",
+    "answer": "Red",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.000028609820219571702,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the director of the CIA from 1976-81?",
+    "answer": "William J. Caseythought\nThinking Process:\n\n1.  **Identify the core question:** The",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.000004291525328881107,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"Who was the target of the failed \"\"Bomb Plot\"\" of 1944?\"",
+    "answer": "The German government",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.000003814689989667386,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had an 80s No 1 hit with Hold On To The Nights?",
+    "answer": "Bonnie Tyler",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.40191614627838135,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which was the only eastern bloc country to participate in the 1984 LA Olympics?",
+    "answer": "East Germany",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.006558559834957123,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which 90s sci fi series with James Belushi was based on Bruce Wagner's comic strip of the same name?",
+    "answer": "The Adventures of Pete & Petethought\nThinking Process:\n\n1.  **Analyze the Request:** The",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.183729887008667,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "If I Were A Rich Man Was a big hit from which stage show?",
+    "answer": "The Phantom of the Opera",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.5922316312789917,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Men Against the Sea and Pitcairn's Island were two sequels to what famous novel?",
+    "answer": "Moby Dick",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.5780056715011597,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was Truman Capote's last name before he was adopted by his stepfather?",
+    "answer": "Capote",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.2779405117034912,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In Lewis Carroll's poem The Hunting of the Snark, what did the elusive, troublesome snark turn into to fool hunters?",
+    "answer": "A hare",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0015023384476080537,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In the Bible, who did the sun and moon stand still before?",
+    "answer": "Abraham",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.11138347536325455,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was President Gerald Ford's middle name?",
+    "answer": "Gerald",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0003455280384514481,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Art Garfunkel trained for which profession although he didn't qualify?",
+    "answer": "Lawyer",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.002141327131539583,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the last inmate of Spandau jail in Berlin?",
+    "answer": "Hans-Georg von der Heydethought\nThinking Process:\n\n1.  **Identify the core",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.722439169883728,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What was Eddie Murphy's first movie?",
+    "answer": "Trading Placesthought\nThinking Process:\n\n1.  **Identify the core question:** The user",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.10884308069944382,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In the 80s who wrote the novel Empire of The Sun?",
+    "answer": "Mao Dun",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.8054133653640747,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Kim Carnes' nine weeks at No 1 with Bette Davis Eyes was interrupted for one week by which song?",
+    "answer": "\"I'm Still in Love with You\"",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was Walter Matthau's first movie?",
+    "answer": "The Fortune Cookie",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.000010609570381348021,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Otis Barton was a pioneer in exploring where?",
+    "answer": "the human body",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.07889150828123093,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Where in England was actor Nigel Hawthorne born?",
+    "answer": "London",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.21492967009544373,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What mythological beast has the head of a man, the body of a lion, and the tail and feet of a dragon?",
+    "answer": "Manticore",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.6117730140686035,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "In Greek mythology, who were Arges, Brontes and Steropes?",
+    "answer": "Gods of war, thunder, and storms",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.6231435537338257,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which musician founded the Red Hot Peppers?",
+    "answer": "John Frusciante",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.7713465094566345,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Where did the Shinning Path terrorists operate?",
+    "answer": "I do not have information about a group called \"Shinning Path terrorists.\"",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": -0.0012528197839856148,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which Brit broke the land speed record in 1990 in Thrust 2?",
+    "answer": "Andy Green",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.995173990726471,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which state was Gene Vincent born?",
+    "answer": "New York",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.565237820148468,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had a 70s No 1 hit with Let's Do It Again?",
+    "answer": "The Carpenters",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0029179160483181477,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"According to Rudyard Kipling what were the \"\"two imposters\"\" to meet and treat the same day?\"",
+    "answer": "The trumpet and the drum",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.3822149336338043,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who is the most successful UK solo artist in the USA?",
+    "answer": "Adelethought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -0.001567802974022925,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "River Phoenix died during the making of which movie?",
+    "answer": "Willful Waiting",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.005742955021560192,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which artist David was born in Bradford UK?",
+    "answer": "David Bowiethought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -1.1920928244535389e-7,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is Mel Gibson's middle name?",
+    "answer": "John",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.9599747061729431,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"In which movie did Garbo say, \"\"I want to be alone\"\".\"",
+    "answer": "Gildathought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.1020803451538086,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is Osbert Lancaster best known for producing?",
+    "answer": "Plays",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.21078599989414215,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the first US-born winner of golf's British Open?",
+    "answer": "Arnold Palmerthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.1468057483434677,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which country is the Sky Train Rail bridge?",
+    "answer": "United States",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": -0.9766038656234741,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the Paramount Film Company originally called?",
+    "answer": "Famous Players-Lasky",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.005985312629491091,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Who was the first person after Scott to reach the South Pole overland?",
+    "answer": "Amundsenthought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.702094554901123,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the name of Terence and Shirley Conran's dress designer son?",
+    "answer": "Liam Conranthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.15691567957401276,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which drink did The Spice Girls promote?",
+    "answer": "Victoria's Secret",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.633111298084259,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who was the youngest brother in the Beach Boys?",
+    "answer": "Brian Wilsonthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0027593416161835194,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who first hosted Family Feud?",
+    "answer": "Dick Clark",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.6759410500526428,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What did the Lone Ranger's title Kemo Sabe mean in Apache?",
+    "answer": "\"Friend of the people\"",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.41350996494293213,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who or what was Gentle Ben in the 60s TV series?",
+    "answer": "A character in the TV series",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which 70s show was based on the British show Till Death Us Do Part?",
+    "answer": "The Partridge Familythought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.3815416991710663,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had a 60s No 1 with Downtown?",
+    "answer": "The Hollies",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was born first, Kiefer Sutherland or Christian Slater?",
+    "answer": "Christian Slater",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "To the nearest two, how many tennis Grand Slam titles did Jimmy Connors win?",
+    "answer": "21",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.3868837356567383,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Della Street was whose secretary?",
+    "answer": "Mr. Jones",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.3268062174320221,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "In music, who was Sweet and Innocent and Too Young?",
+    "answer": "The Beach Boys",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.00007486063259420916,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who is featured on Puff Daddy's Can't Hold Me Down?",
+    "answer": "The Notorious B.I.G.",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.5324320793151855,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What had Edmond Hillary worked at before taking up mountain climbing?",
+    "answer": "Surveyor",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.05300305783748627,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Benina international airport is in which country?",
+    "answer": "Nigeriathought\nThinking Process:\n\n1.  **Identify the core question:** The user is",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": -0.00796913169324398,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Beloved in 1999 was whose first movie since The Color Purple in 1985?",
+    "answer": "Whoopi Goldbergthought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.481586754322052,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Star Trek star directed Three Men and a Baby?",
+    "answer": "William Shatnerthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.01729150488972664,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which sitcom star appeared on the big screening The Object of My Affection?",
+    "answer": "Julia Louis-Dreyfus",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.040709227323532104,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"Which character did Julia \"\"Roberts play in Steven Spielberg's Hook?\"",
+    "answer": "Wendy",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.8516315817832947,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which US president did Anthony Hopkins play in a film whose title was simply his name?",
+    "answer": "George Washingtonthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking for",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.8122227787971497,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which movie was a biopic about the life of David Helfgott?",
+    "answer": "None",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.15861958265304565,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which film director guested as the FBI Director in The Silence of the Lambs?",
+    "answer": "Jonathan Demme",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.061113230884075165,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Nigel Hawthorne was Oscar nominated for The Madness of which King?",
+    "answer": "Richard III",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.25561487674713135,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Oscar-nominated film had You Sexy Thing as its theme song?",
+    "answer": "Body Heat",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.4235161542892456,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which much-loved actor won the Best Actor Oscar for The Philadelphia Story?",
+    "answer": "Cary Grantthought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.000002264974000354414,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which legendary dancer was Oscar-nominated for The Towering Inferno?",
+    "answer": "Marlene Dietrichthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.9024053812026978,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the name of the brothel in The Best Little Whorehouse in Texas?",
+    "answer": "The Best Little Whorehouse",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the male star of the movie The Man of La Mancha?",
+    "answer": "Fernando Cayothought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.03965729847550392,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What relation is Joey Richardson to Vanessa Redgrave?",
+    "answer": "None",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.00013779645087197423,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Melanie Molitor is the mom of which tennis world NO 1?",
+    "answer": "Naomi Osakathought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.3006216585636139,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which sports event was first held at Worcester, Massachusetts in 1927?",
+    "answer": "Boston Marathon",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.4750267267227173,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which European city is the Belvederen Gallery?",
+    "answer": "Brussels",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.024079490453004837,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How old was Woody Herman when he founded his own orchestra?",
+    "answer": "21",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.014166975393891335,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "For which movie did Katharine Hepburn win her second Oscar?",
+    "answer": "The Lion in Winter",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.035274866968393326,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had a 60s No 1 hit with This Diamond Ring?",
+    "answer": "Tiffanynis",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.9145731925964355,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "The world was first aware of the Chernobyl disaster after detectors were triggered at a nuclear plant in which country?",
+    "answer": "Soviet Union",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.12849079072475433,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In the late 60s Owen Finlay MacLaren pioneered what useful item for parents of small chldren?",
+    "answer": "Baby monitor",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.042704109102487564,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which female singer was born on exactly the same day as impressionist Rich Little?",
+    "answer": "None",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.2125770002603531,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who's home runs record did Mark McGwire break in the 1998 season?",
+    "answer": "Sammy Sosathought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0374404676258564,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who won baseball's first World Series of the 80s?",
+    "answer": "New York Yankees",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.7957178950309753,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was Pete Sampras seeded when he won his first US Open?",
+    "answer": "1",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0005321278586052358,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"Which boxer famously said,\"\" If I can't beat this bum take my name off the record books?\"\"\"",
+    "answer": "Muhammad Ali",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.7791340351104736,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Where did Jonathan Edwards set his 1995 triple jump world record?",
+    "answer": "Not applicable",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.40076398849487305,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which cartoon and film character is the nickname of super athlete Michael Johnson?",
+    "answer": "Lightning Bolt",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.6873111128807068,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "For which team did Babe Ruth blast his last Major League home run?",
+    "answer": "New York Yankeesthought\nThinking Process:\n\n1.  **Identify the core question:** The",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.002706676023080945,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was Warren Beatty's first movie?",
+    "answer": "The Apartmentthought\nThinking Process:\n\n1.  **Identify the core question:** The user",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.3344584703445435,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which future Hollywood star got her break as Wonder Girl, Wonder Woman's sister Drusilla?",
+    "answer": "Gal Gadotthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.016827186569571495,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Mickey Braddock in the 50s series Circus Boy found fame with which surname in which pop band?",
+    "answer": "Braddock in The Ventures",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.6145533323287964,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which war veteran was Director of News & Special Events for ABC before find fame as a TV cop?",
+    "answer": "Robert Stackthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.5554927587509155,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What US sitcom was the first exported to Britain?",
+    "answer": "The Mary Tyler Moore Show",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.49075186252593994,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In Hanna and Barbera's TV cartoons base on The Addams Family who was the voice of Gomez?",
+    "answer": "Vincent Price",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.410644769668579,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the only female victim to be killed off in the opening credit sequence in Police Squad?",
+    "answer": "Carol",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.019665241241455,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which US president won the Nobel Peace Prize in 1920?",
+    "answer": "No US president won the Nobel Peace Prize in 1920.",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.768300473690033,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Who beat Tim Henman in his first Wimbledon singles semifinal?",
+    "answer": "Andy Roddick",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.04213258996605873,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What relation was Flo Jo to Jackie Joyner Kersee?",
+    "answer": "Mother",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.11755550652742386,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How long was swimmer Michelle Smith-de Bruin banned for attempting to manipulate a drugs test?",
+    "answer": "I do not have information about a swimmer named Michelle Smith-de Bruin and any associated doping ban.",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Yuan Yuan was caught carrying drugs for which Chinese team?",
+    "answer": "No information provided",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.03640337288379669,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which grand slam did Pete Sampras not win in the 20th century?",
+    "answer": "Wimbledon",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.16183112561702728,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which events did Gert Fredriksson win six Olympic gold medals?",
+    "answer": "None",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.011359302327036858,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "How many of his 45 races did Mike Hawthorn, a former Formula One motor racing world champion, win?",
+    "answer": "1",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.05856762081384659,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "On the Internet what is Spam?",
+    "answer": "Unsolicited and often unwanted electronic messages sent in bulk, typically for advertising or malicious purposes.",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "In which year was the Juilliard School founded in New York?",
+    "answer": "1917",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who wrote My Life and Loves in 1926, originally banned in the US?",
+    "answer": "Anaïs Ninnis",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.6486459970474243,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What was Blondie's last UK No 1 of the 80s?",
+    "answer": "\"Don't Dream It's Over\"thought\nThinking Process:\n\n1.  **",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -2.3841855067985307e-7,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the largest city in Ohio?",
+    "answer": "Columbus",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.029750416055321693,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which rock star did Cindy Crawford name her first son after?",
+    "answer": "Kurt Cobain",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.8898817300796509,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who designed the dress which made the most at Diana's dress auction?",
+    "answer": "Unknown",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.8696925640106201,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "In which country was Earl Spencer's acrimonious divorce settlement heard?",
+    "answer": "United Kingdomthought\nThinking Process:\n\n1.  **Identify the core question:** The user",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.002477197675034404,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In La Cage Aux Folles, what was La Cage Aux Folles?",
+    "answer": "A cabaret for gay men",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "What percentage of the earth's surface is covered by Europe?",
+    "answer": "0.7%",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.007154558785259724,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which European town gave its name to a Treaty which symbolizes closer economic links between European countries?",
+    "answer": "Brussels",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.1618395447731018,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which was the first European city this century to open an underground railway system?",
+    "answer": "London",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.00010191874753218144,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who first drew Mickey Mouse when ?Disney first supplied the voice?",
+    "answer": "Walt Disney, 1928",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.18229268491268158,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which actress wrote the novel The Last of the Really Great Whangdoodles?",
+    "answer": "None",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.176234170794487,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who was the star of the film based on the record Harper Valley PTA by Jeannie C Riley?",
+    "answer": "Jeannie C. Rileythought\nThinking Process:\n\n1.  **Analyze the Request:**",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.024728642776608467,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What color golf balls are used on the golf course in Antarctica?",
+    "answer": "White",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.000020265373677830212,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Throughout the 80s and 90s Phil Collins recorded on which record label?",
+    "answer": "WEA Records",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.22881221771240234,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the name of Michael Jackson's second wife?",
+    "answer": "Lisa Marie Presleythought\nThinking Process:\n\n1.  **Identify the core question:** The user is",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.18157069385051727,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which US city was named after a British Prime Minister?",
+    "answer": "London",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.006716296076774597,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"Who said, To err is human but it feels divine?\"\"\"",
+    "answer": "Alexander Pope",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.23511894047260284,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which singer had a big 60s No 1 with Roses Are Red?",
+    "answer": "Bobby Darin",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.24765658378601074,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had the most expensive presidential inauguration ceremony of the 20th century?",
+    "answer": "Ronald Reaganthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.06599350273609161,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who became Israel's head of state in 1993?",
+    "answer": "Yitzhak Rabinnis",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.398501992225647,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "In WWII, who was the head of the Nazi party's security service?",
+    "answer": "Heinrich Himmlerthought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.061992377042770386,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Truax Field international airport is in which US state?",
+    "answer": "Texas",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": -0.11437366902828217,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who did Dr. Crippen murder?",
+    "answer": "Kitty Crippen",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0794915184378624,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "In the 1904 Olympics, how many of the 23 track and field titles were won by Americans?",
+    "answer": "11",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.000005722029527532868,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The Black Hills lie between which two rivers?",
+    "answer": "Missouri and Rapid Creek",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.37105587124824524,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In what year was the first in-flight movie shown on an internal flight in the USA.",
+    "answer": "1937",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the first US president Barbara Walters interviewed?",
+    "answer": "Dwight D. Eisenhowerthought\nThinking Process:\n\n1.  **Analyze the Request:**",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.17342528700828552,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which orchestral conductor was married to one of the subjects of the film Hillary and Jackie?",
+    "answer": "Sir Simon Rattle",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.00003981510963058099,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which writer and politician became Lord Tweedsmuir?",
+    "answer": "John Macleanthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.13771554827690125,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In what year was the first Tarzan novel published?",
+    "answer": "1912",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "In which country were motorized ambulances first used?",
+    "answer": "United Statesthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00007819823804311454,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "What is the name of the group of 1,196 islands in the North Indian Ocean, none bigger than five square miles?",
+    "answer": "Lakshadweep",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.12522025406360626,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Syrian city is said to be the oldest continually inhabited city in the world?",
+    "answer": "Palmyrathought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.016051122918725014,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which wife of Henry VIII had already married twice before she became queen, and married for a fourth time after Henry's death?",
+    "answer": "Catherine Howard",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0005532164941541851,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which country is the castle that gives the Habsburg dynasty its name?",
+    "answer": "Austria",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which parliament has the UK 87 seats for members who are elected for a five0-year term?",
+    "answer": "House of Lordsthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.005241462029516697,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the former name of the British Green Party?",
+    "answer": "Green Party of England and Walesthought\nThinking Process:\n\n1.  **Analyze the Request:**",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.1246451810002327,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "\"What is the more common name of the \"\"simple plurality\"\" system of voting?\"",
+    "answer": "Plurality voting",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.018150312826037407,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What word for unthinking patriotism is derived from the name of one of Napoleon's admirers?",
+    "answer": "Jingoism",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.3985427916049957,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the nickname of the French singer Edith Piaf?",
+    "answer": "La Môme Piaf",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "What raw material is used for making glass?",
+    "answer": "Silicanis",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.16022653877735138,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What name is given to the change of state from liquid to gas?",
+    "answer": "Vaporization",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0010336062405258417,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which branch of science has four fundamental principles: addition, subtraction, multiplication, and division.",
+    "answer": "Mathematics",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.000380324519937858,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Where in a vertebrate would you find the protein myoglobin?",
+    "answer": "Muscle",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.09437266737222672,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which family of insects has species named 'drivers', 'weavers', 'and even individuals called 'soldiers'?",
+    "answer": "Termites",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.22675706446170807,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Mosses are classified as belonging to which part of the plant kingdom?",
+    "answer": "Bryophytesnis",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0004880429187323898,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What is the generic word for plants that grow in water or water-logged conditions?",
+    "answer": "Aquatic",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.014164506457746029,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "When the egg is released from the ovary, what is left behind?",
+    "answer": "Follicle remnants",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.001897679059766233,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Five-legged creatures have damaged which 1250 mile long wonder of the world?",
+    "answer": "Great Wall of China",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.07140076160430908,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the approximate circumference of the earth?",
+    "answer": "40,075 km",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "What is the Milky Way?",
+    "answer": "A barred spiral galaxy that contains our solar system.",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00003218599158572033,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "What are the three primary colours of light?",
+    "answer": "Red, green, blue",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "What colour is the number 10 on the door of 10 Downing Street? White, Yellow or Brown?",
+    "answer": "Blackthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking a specific",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.7441061735153198,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was advertised with Eva Herzagovia using the slogan hello boys?",
+    "answer": "Eva Herzagovia was advertised with the slogan \"hello boys\" for a line of men's grooming products.",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.5738141536712646,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What number in Bingo is sometimes referred to as Heinz varieties?",
+    "answer": "75",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.000010251946150674485,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "As at March 2001, who holds the record for scoring the most league goals for the soccer team Arsenal?",
+    "answer": "Thierry Henry",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.009054788388311863,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the American President when the Berlin Wall was constructed?",
+    "answer": "Richard Nixon",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00027807659353129566,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the minimum number of darts a person needs to throw to complete a leg from 501?",
+    "answer": "3",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.039177004247903824,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the first British football team to win the European Cup?",
+    "answer": "Real Madridthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.00011705666838679463,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What were Benjy and Laska, which were sent into space in 1958?",
+    "answer": "Dogs",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.3475266396999359,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "On the London Underground, which is the only line to connect at some point with every other line on the system?",
+    "answer": "Central Line",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0022452878765761852,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Thomas Edison, who invented the lightbulb, was afraid of the dark?",
+    "answer": "No",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -4.768370445162873e-7,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Taphephobia is the fear of losing your teeth?",
+    "answer": "No",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00006270212179515511,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "The letter t is the second most common letter used in the English language?",
+    "answer": "False",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": -0.024759693071246147,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What are the only two musical notes which have no flats?",
+    "answer": "C and G",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.000017762025890988298,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "From which country do French fries originate? France, Belgium or Switzerland?",
+    "answer": "Belgium",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -2.3841855067985307e-7,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "For what novel did J. K. Rowling win the 1999 Whitbread Children's book of the year award?",
+    "answer": "Harry Potter and the Sorcerer's Stone",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.1920928244535389e-7,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In which 1993 film does a boy called Jonah write to a woman called Annie, asking her to meet his father at the Empire State building on St. Valentine's Day?",
+    "answer": "The Cider House Rules",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.20450259745121002,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had a top ten hit in 1988 with Valentine?",
+    "answer": "Poison",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.6736528873443604,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the second most common word in written English?",
+    "answer": "the",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which ITV magazine style show ran from 1968 to 1980 and featured presenters including Jenny Hanley, Mick Robertson and Tommy Boyd?",
+    "answer": "The Beeb's Worldthought\nThinking Process:\n\n1.  **Analyze the Request:** The user",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.4383605718612671,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who provided the voice for Bob The Builder on his number one hit Can We Fix It?",
+    "answer": "Paul Williams",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.399924635887146,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which actor received 4 million dollars for his 10 minutes on screen in the film Superman?",
+    "answer": "Brandon Routh",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.5879611968994141,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In cricket, what is the score of 111 known as?",
+    "answer": "Century",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.024928072467446327,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "With which game would you use a squidger, a circular disc between 25mm and 51 mm?",
+    "answer": "Squidger",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.09717094898223877,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What is the most common pub name in the UK?",
+    "answer": "The King's Headthought\nThinking Process:\n\n1.  **Analyze the Request:** The",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -1.1920928244535389e-7,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the name of Kevin the teenager's friend played by Kathy Burke in a series of sketches with Harry Enfield?",
+    "answer": "Paul",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.27579835057258606,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What seven letter word, beginning with the letters 'Ra' is a palindrome?",
+    "answer": "Radar",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.02362099289894104,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How many scottish football league teams names end in United?",
+    "answer": "11",
+    "mode": "mode2",
+    "clean_wrong": false,
+    "conf": -0.2003895491361618,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who had a top ten hit in the UK with Cupid in 1961?",
+    "answer": "The Shirelles",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0002455409849062562,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The theme tune to which TV show starts with the line Stick a pony in me pocket?",
+    "answer": "The Golden Girls",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.056163493543863297,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What word is given to a point in tennis which has to be replayed?",
+    "answer": "Deucethought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking for",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.6588594317436218,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How many episodes of Prisoner: Cell Block H were made?",
+    "answer": "12",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.6043611168861389,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who is the last English-born player to win the men's singles title at Wimbledon?",
+    "answer": "Andy Murraythought\nThinking Process:\n\n1.  **Identify the core question:** The user wants",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.41425785422325134,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In years and days, how old was Luigina Giavotti when she won a silver medal in gymnastics in 1928, and is still the youngest medal winner today?",
+    "answer": "I do not have the specific personal details or historical records required to answer this question.You are asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.03240013122558594,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which Eastenders actor has played the policeman Nick Rowan on TV?",
+    "answer": "Pauline Collinsthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -1.4089198112487793,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What type of animal was Boris, the subject of a song by The Who?",
+    "answer": "Bear",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0015736351488158107,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Pop Idol had a number one hit in 2004 called All This Time?",
+    "answer": "Kelly Clarkson",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.059141963720321655,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Channel 4 TV show's presenters included Mark Lamarr, Amanda De Cadenet and Terry Christian?",
+    "answer": "The Great British Bake Off",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.0002748588449321687,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who won the Ladies singles title at Wimbledon in 2004?",
+    "answer": "Justine Henin",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.6326730847358704,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What are the names of the Four Horseman of the Apocalypse?",
+    "answer": "Conquest, War, Famine, Deaththought\nThinking Process:\n\n1.  **Analyze the",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0006522196927107871,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which film sees Clint Eastwood, Tommy Lee Jones, James Garner and Donald Sutherland as retired astronauts?",
+    "answer": "The Martianthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.7059564590454102,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In a standard deck of cards, how many Kings have a moustache?",
+    "answer": "0",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.006736662704497576,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The Canary Islands are named after what animal?",
+    "answer": "Canary",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the surname of the woman who was the inspiration behind the Rolling Stones song Angie?",
+    "answer": "Angie",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.06276741623878479,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What is the final event in a decathlon?",
+    "answer": "1500 meters",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00975850597023964,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Peter Simple, Jack Horner and Ben Nevis have all won which famous sporting event?",
+    "answer": "None",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.48548948764801025,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which film features the characters Sally Albright and Harry Burns?",
+    "answer": "The Secret Life of Walter Mitty",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.00003766942609217949,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which act won the Eurovision Song Contest for the United Kingdom singing Love Shine A Light?",
+    "answer": "Westlife",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -0.16601140797138214,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which English word comes from an old French word meaning sour wine?",
+    "answer": "sour",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.08809264749288559,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which team beat American Samoa 31-0 in a qualifying match for the 2002 World Cup, but still failed to qualify?",
+    "answer": "New Zealand",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0020049961749464273,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the name of Roland Rat's gerbil friend?",
+    "answer": "Squeaky",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.14189700782299042,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which animal has the longest gestation period at around 22 months?",
+    "answer": "Elephant",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.15316914021968842,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Who dated actress Elizabeth Hurley between 2000 and 2001 and denied he was the father of her son born in 2002 before a DNA test proved otherwise?",
+    "answer": "Hugh Grant",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.009092118591070175,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Scottish newspaper features the Broons and Oor Wullie?",
+    "answer": "The Daily Expressthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.00011240804451517761,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which act has had more Christmas number one singles than any other?",
+    "answer": "Wham!thought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.03413817659020424,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Christmas song includes the line It seems so long since I could say 'sister Susie sitting on a thistle'?",
+    "answer": "Sister Susie",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.00041714549297466874,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which British footballer has the most number of International caps?",
+    "answer": "Bobby Charltonthought\nThinking Process:\n\n1.  **Identify the core question:** The user wants",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -0.04732822626829147,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who holds a trumpet on the album cover of Sgt. Pepper's Lonely Hearts Club Band by The Beatles?",
+    "answer": "Billy Shears",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.8193383812904358,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which song begins with the line The taxman's taken all my dough?",
+    "answer": "The Taxman",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.011638481169939041,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The Kray twins were convicted of the murder of George Cornell in the East End of London in 1966. What was the name of the pub in which he was shot?",
+    "answer": "The Queen's Head",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": 0,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the cartoon adversary of Pixie and Dixie, who would often say I hate those meeces to pieces?",
+    "answer": "The Cat",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.3514792919158936,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which actress married Dennis Quaid on Valentine's Day in 1991?",
+    "answer": "Kim Basinger",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.7124242186546326,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "During Margaret Thatcher's years as Prime Minister, there were three Chancellors of the Exchequer. Geoffrey Howe and Nigel Lawson were two, but who was the other one?",
+    "answer": "Norman Lamont",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0131518030539155,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Buddy Holly and the Big Bopper were two of the three musicians who died in a plane crash in February 1959. Who was the other one?",
+    "answer": "J.P. \"The Big Bopper\" Richardson(Note: The question states \"Buddy Holly and the Big",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.22546172142028809,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Fruit, cricket and horseshoe are varieties of what type of animal?",
+    "answer": "Beetle",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.0593042373657227,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Apart from being warm blooded and giving birth to live young, what do mammals produce to differentiate them from other families of animals?",
+    "answer": "Mammary glands",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0005541696446016431,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the nickname given to premiership footballer Neil Ruddock?",
+    "answer": "The Rock",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.8911237716674805,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Name the game show, presented by Leslie Grantham and Melinda Messenger, where contestants were set physical and mental challenges?",
+    "answer": "The Big Showthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.00039772229501977563,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who presented Family Fortunes in the two years between Bob Monkhouse and Les Dennis?",
+    "answer": "Les Dawson",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.557336151599884,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which planet has moons named after Shakespearean characters?",
+    "answer": "Jupiterthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.001749057904817164,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who dubbed Miss Piggy's singing voice in The Muppet Movie?",
+    "answer": "Kathy Stafford",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.1204262971878052,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Wayne Rooney scored his first senior goal against which club?",
+    "answer": "Wigan Athletic",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.014500359073281288,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How meny times have Liverpool won the Europion Cup?",
+    "answer": "6",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.1683252900838852,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "In which sport or pastime can you see nose walking?",
+    "answer": "Nose divingthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.28731903433799744,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What sport or pastime would you be playing if your balls were black and blue and your opponent's were red and yellow?",
+    "answer": "Bocce",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.004047061316668987,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who was the first person to sell one million records?",
+    "answer": "Elvis Presleythought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.00012087091454304755,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In the 1999 film Stuart Little, who plays the part of Mrs Eleanor Little?",
+    "answer": "Carol Burnett",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.170807957649231,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Suger Mice was a 1987 single for which British rock band?",
+    "answer": "The Cult",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.000007629365427419543,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which film features the Dawes Tomes Mousley Grubbs Fidelity Fiduciary Bank?",
+    "answer": "None",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.32160550355911255,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What is Robin Williams character called in Good Morning Vietnam?",
+    "answer": "Harmon Koppel",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.1359738111495972,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who plays Cruella de Vil in the 1996 live action version of 101 Dalmations?",
+    "answer": "Pamela Andersonthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.4040067493915558,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Marilyn Monroe starred in the Seven Year Itch. Who directed it?",
+    "answer": "Stanley Donen",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.019240180030465126,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "On Red Nose Day 2001 who won Celebrity Big Brother?",
+    "answer": "Holly Willoughbythought\nThinking Process:\n\n1.  **Identify the core question:** The user is",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -0.4037519693374634,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the name of the London Underground station in EastEnders?",
+    "answer": "Whitechapel",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.29695987701416016,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How many runs did Donald Bradman score in his last ever test match innings?",
+    "answer": "4",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -0.000007271740287251305,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Nicknamed the cannibal, who is the only rider to have won all three jerseys in the same year in the Tour de France?",
+    "answer": "Bernard Hinault",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.8611178994178772,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "answer": "Captain America",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": 0,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "By what name is comic book villain Oswald Chesterfield Cobblepot better known?",
+    "answer": "Penguin",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.25223883986473083,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "First appearing on TV in 1967, which detective solved all of his crimes sitting down?",
+    "answer": "Columbo",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.0004997196956537664,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "How many times was Wyatt Earp shot?",
+    "answer": "Zero",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.9228149652481079,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which famous cowboy was created by George W. Trendle?",
+    "answer": "Roy Rogers",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.7921667098999023,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The pub with the longest name in the UK has how many letters in it? 55, 75 or 95?",
+    "answer": "75",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.00033539868309162557,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which movie starred Michael Caine as a murderous transvestite psychiatrist?",
+    "answer": "The Talented Mr. Ripleythought\nThinking Process:\n\n1.  **Analyze the Request:** The",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.017471222206950188,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In 1961, who famously scored six goals in a match but still ended up on the losing team in a FA Cup tie?",
+    "answer": "Bobby Charlton",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.0022526620887219906,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Macbeth belonged to which royal house or dynasty?",
+    "answer": "House of Macbeth",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.5759459733963013,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Was James II known as: James The Bald, Fiery Face, or The Red King?",
+    "answer": "The Red Kingthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0000014305104514278355,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What is the full name of the train robber played by Phil Collins in a 1988 movie?",
+    "answer": "The Train Robber",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0338917151093483,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "What was the surname of the butler played by Gordon Jackson in Upstairs Downstairs?",
+    "answer": "MacBeth",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.5843238830566406,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which Jackson appeared in Celebrity Big Brother in January 2009?",
+    "answer": "Katy Jacksonthought\nThinking Process:\n\n1.  **Analyze the Request:** The user is",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.1996663808822632,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "The 1955 comedy movie We're No Angels centred on three escaped convicts. Peter Ustinov and Aldo Ray were two, but who played the third?",
+    "answer": "Robert Morley>",
+    "mode": "mode0",
+    "clean_wrong": true,
+    "conf": -0.7802127003669739,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who played King Arthur in the 1967 musical film Camelot?",
+    "answer": "Richard Burtonnis",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.0519452095031738,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "In 2009, who was convicted of the murder of Lana Clarkson?",
+    "answer": "No one was convicted of the murder of Lana Clarkson in 2009.",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.20721885561943054,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Which serial killer hanged himself in Wakefield Prison in January 2004, four years after being found guilty of 15 murders?",
+    "answer": "Ian Bradythought\nThinking Process:\n\n1.  **Analyze the Request:** The user is asking",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.4087512195110321,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What public school did the Duke of Edinburgh and Prince Charles attend?",
+    "answer": "St. Peter's Schoolthought\nThinking Process:\n\n1.  **Identify the core question",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.873633623123169,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "If it was Phil Mickelson in 2006, Zach Johnson in 2007, and Trevor Immelman in 2008, who was it in 2009?",
+    "answer": "Tiger Woods",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.005237311124801636,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which architect was known as the Wizard of the Dome?",
+    "answer": "Brunelleschi",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.8339220881462097,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "In what year did Edward Vlll abdicate?",
+    "answer": "1702",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0006910558440722525,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which well known couple live at Bagshot Park in Surrey?",
+    "answer": "Kate and WilliamWhile I have access to a vast amount of information, I do not have specific, real-",
+    "mode": "mode0",
+    "clean_wrong": false,
+    "conf": -0.29096126556396484,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which notorious murderer lived at 10 Rillington Place?",
+    "answer": "Jack the Ripperthought\nThinking Process:\n\n1.  **Analyze the Request:** The",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0013369916705414653,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What was the name of the kangaroo often mistaken by Sylvester the cat to be a giant mouse?",
+    "answer": "Roger",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.45577841997146606,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Gjetost is the national cheese of which country?",
+    "answer": "Albania",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.03919912502169609,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Which 1986 Peter Weir movie and based on a Paul Theroux novel starred Harrison Ford, Helen Mirren and River Phoenix?",
+    "answer": "Witness",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.1291472613811493,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "All children except one grow up.",
+    "answer": "One child does not grow up.Your prompt is a riddle or a statement that requires interpretation. The most direct",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -8.344646857949556e-7,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Scarlett O'Hara was not beautiful, but men seldom realised it when caught by her charm as the Tarleton twins were",
+    "answer": "true",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.0019288521725684404,
+    "cls": "ACTUALLY_RIGHT"
+  },
+  {
+    "q": "Which horse racing jockey was sometimes referred to as the long fellow?",
+    "answer": "Frankie Dettorithought\nThinking Process:\n\n1.  **Analyze the Request:**",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.4651246666908264,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "The American legal drama Shark ran from Sept 06 to May 08. Who starred in the title role, playing Sebastian Stark?",
+    "answer": "Michael Madsen",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -1.001328945159912,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who designed Madonna's wedding dress for her marriage to Guy Ritchie?",
+    "answer": "Nicola Formichettithought\nThinking Process:\n\n1.  **Identify the core question:** The",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -1.1683940887451172,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Meryl Streep's character, Miranda, in the 2006 film The Devil Wears Prada was based on the editor-in-chief of which fashion magazine?",
+    "answer": "Runway",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.00012337400403339416,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "In the TV show Camberwick Green, who lived in Colly's Mill?",
+    "answer": "Colly",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.004260511137545109,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "Who played Dr. Doug Ross on the TV show E.R.?",
+    "answer": "Michael Chiklis",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.040632423013448715,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who played the role of Kate Flax in the 1990 film Mermaids?",
+    "answer": "Jennifer Jason Leigh",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.06916895508766174,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "Who played the character Mrs. Merton on TV?",
+    "answer": "Pam Ferrisnis",
+    "mode": "mode1",
+    "clean_wrong": true,
+    "conf": -0.948403537273407,
+    "cls": "FABRICATION"
+  },
+  {
+    "q": "At which Winter Olympic host city would you find the Cresta Run?",
+    "answer": "Vancouver",
+    "mode": "mode1",
+    "clean_wrong": false,
+    "conf": -0.01225077360868454,
+    "cls": "SUBSTITUTION"
+  },
+  {
+    "q": "What kind of an animal is a wireworm?",
+    "answer": "Insect",
+    "mode": "mode2",
+    "clean_wrong": true,
+    "conf": -0.0009919252479448915,
+    "cls": "ACTUALLY_RIGHT"
+  }
+]

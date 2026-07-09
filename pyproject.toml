@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jspace-lens"
+version = "0.1.0"
+description = "Easy local workspace heatmaps for fitted Jacobian lenses"
+readme = "jspace/README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "accelerate>=1.6",
+  "huggingface-hub>=0.23",
+  "torch>=2.11",
+  "transformers>=5.5",
+]
+
+[project.optional-dependencies]
+4bit = ["bitsandbytes>=0.43"]
+jlens = ["jlens @ git+https://github.com/anthropics/jacobian-lens"]
+
+[project.scripts]
+jspace = "jspace.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["jspace*"]
+
+[tool.setuptools.package-data]
+jspace = ["norm_stats.json", "README.md"]

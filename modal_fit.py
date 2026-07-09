@@ -485,6 +485,158 @@ def dump_qa(model_id: str, questions: list, topk: int = 8) -> list:
     return out
 
 
+@app.function(
+    image=image, gpu="A100-80GB", timeout=2 * 3600,
+    volumes={"/hf": hf_cache, "/out": out_vol},
+    secrets=[modal.Secret.from_name("huggingface")],
+)
+def categories_run(model_id: str, items: list, quant: str = "") -> list:
+    """Cloud port of probe_categories.py: response-type taxonomy snapshots.
+    3 workspace snapshots per answer (onset + next 2 tokens), per band layer:
+    entropy, top-20 ids+probs, rival/tail mass, rank of generated token, rank
+    of `truth`/`control` first tokens where the item carries them."""
+    import json
+    import logging
+    import os
+    os.environ["HF_HOME"] = "/hf"
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+    import numpy as np, torch, transformers, jlens
+    from jlens.hooks import ActivationRecorder
+
+    BAND_LO, BAND_HI = 0.25, 0.75
+    TOPK, N_SNAPSHOTS, MAX_GEN = 20, 3, 16
+
+    tok = transformers.AutoTokenizer.from_pretrained(model_id)
+    kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
+    if quant == "4bit":
+        kwargs = dict(
+            quantization_config=transformers.BitsAndBytesConfig(
+                load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.bfloat16),
+            device_map="cuda")
+    try:
+        hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+    except ValueError:
+        hf = transformers.AutoModelForImageTextToText.from_pretrained(model_id, **kwargs)
+    model = jlens.from_hf(hf, tok)
+    lens = jlens.JacobianLens.load(f"/out/{_slug(model_id)}/lens.pt")
+    band = [l for l in range(int(model.n_layers * BAND_LO), int(model.n_layers * BAND_HI))
+            if l in lens.jacobians]
+
+    def snapshot(input_ids):
+        final_layer = model.n_layers - 1
+        record_at = sorted({*band, final_layer})
+        with ActivationRecorder(model.layers, at=record_at) as rec:
+            model.forward(input_ids)
+            acts = {i: rec.activations[i].detach() for i in record_at}
+        out = {}
+        for layer in band:
+            residual = lens.transport(acts[layer][0, -1:].float(), layer)
+            out[layer] = model.unembed(residual).float().cpu()[0]
+        return out
+
+    def layer_stats(logits, gen_id, truth_ids, control_ids):
+        probs = logits.softmax(-1)
+        order = logits.argsort(descending=True)
+        rank_of = torch.empty_like(order)
+        rank_of[order] = torch.arange(len(order))
+        top = order[:TOPK]
+        top_p = probs[top]
+        ent = float(-(probs * probs.clamp_min(1e-12).log()).sum())
+        return {
+            "entropy": round(ent, 4),
+            "top_ids": [int(t) for t in top],
+            "top_probs": [round(float(p), 5) for p in top_p],
+            "rank_gen": int(rank_of[gen_id]),
+            "rank_truth": int(min(rank_of[t] for t in truth_ids)) if truth_ids else None,
+            "rank_control": int(min(rank_of[t] for t in control_ids)) if control_ids else None,
+            "rival_mass": round(float(top_p[1:5].sum()), 5),
+            "tail_mass": round(float(1.0 - top_p.sum()), 5),
+        }
+
+    def first_ids(text):
+        ids = set()
+        for v in (text, " " + text, text.lower(), " " + text.lower()):
+            t = tok(v, add_special_tokens=False).input_ids
+            if t:
+                ids.add(t[0])
+        return sorted(ids)
+
+    stop_ids = {tok.eos_token_id}
+    for t in ("<end_of_turn>", "<|im_end|>"):
+        tid = tok.convert_tokens_to_ids(t)
+        if isinstance(tid, int) and tid >= 0:
+            stop_ids.add(tid)
+
+    rows = []
+    for i, item in enumerate(items):
+        prompt = tok.apply_chat_template(
+            [{"role": "user", "content": item["prompt"]}],
+            tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        input_ids = model.encode(prompt, max_length=512)
+        truth_ids = first_ids(item["truth"]) if item.get("truth") else []
+        control_ids = first_ids(item["control"]) if item.get("control") else []
+
+        ids, gen_ids, step_logprobs, snaps = input_ids, [], [], []
+        for step in range(MAX_GEN):
+            with torch.no_grad():
+                hidden = model.forward(ids).last_hidden_state[:, -1]
+                head = model._lm_head
+                logits = head(hidden.to(head.weight.dtype).to(head.weight.device))
+            logprobs = logits.float().log_softmax(-1)
+            nxt = int(logits.argmax(-1))
+            if nxt in stop_ids:
+                break
+            if step < N_SNAPSHOTS:
+                lens_logits = snapshot(ids)
+                snaps.append({
+                    "step": step,
+                    "token": tok.decode([nxt]),
+                    "layers": {str(l): layer_stats(lens_logits[l], nxt, truth_ids, control_ids)
+                               for l in band},
+                })
+            gen_ids.append(nxt)
+            step_logprobs.append(float(logprobs[0, nxt]))
+            ids = torch.cat([ids, torch.tensor([[nxt]], device=ids.device)], dim=1)
+        if not gen_ids:
+            continue
+        answer = tok.decode(gen_ids, skip_special_tokens=True).strip()
+        norm = lambda s: "".join(c for c in s.lower() if c.isalnum() or c == " ").strip()
+        correct = None
+        if item.get("aliases"):
+            correct = any(norm(a) and norm(a) in norm(answer) for a in item["aliases"])
+        rows.append({
+            "id": item["id"], "category": item["category"],
+            "subtype": item.get("subtype"), "q": item["prompt"],
+            "answer": answer, "correct": correct, "truth": item.get("truth"),
+            "bl_first_token_logprob": step_logprobs[0],
+            "bl_mean_logprob": float(np.mean(step_logprobs)),
+            "bl_answer_len": len(gen_ids),
+            "snapshots": snaps,
+        })
+        if (i + 1) % 20 == 0:
+            logging.info("%d/%d done", i + 1, len(items))
+    return rows
+
+
+@app.local_entrypoint()
+def categories(models: str, probes_file: str = "probes/categories.json",
+               quant: str = ""):
+    """modal run modal_fit.py::categories --models "google/gemma-4-26B-A4B-it,Qwen/Qwen3.6-27B" """
+    import json
+    import os
+    items = json.load(open(probes_file, encoding="utf-8"))["items"]
+    model_list = [m.strip() for m in models.split(",")]
+    results = list(categories_run.map(model_list, kwargs={"items": items, "quant": quant}))
+    os.makedirs("out", exist_ok=True)
+    for mid, rows in zip(model_list, results):
+        local = f"out/categories_{_slug(mid)}.jsonl"
+        with open(local, "w", encoding="utf-8") as f:
+            for row in rows:
+                f.write(json.dumps(row) + "\n")
+        print(f"{mid}: {len(rows)} rows -> {local}")
+
+
 @app.local_entrypoint()
 def qa_dump(model: str = "google/gemma-4-E4B-it",
             questions_file: str = "out/qa_examples.json",
