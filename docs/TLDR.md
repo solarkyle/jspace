@@ -116,9 +116,10 @@ Ranked by how confident we are that nobody has published it in this form
 
 ## The capability tradeoff (2026-07-09, the anatomy round)
 
-Digging into WHAT the detector catches produced the cleanest one-liner of
-the project: **capability trades fog for beliefs, so error detection fades
-with scale while deception detection sharpens.** In detail:
+Digging into WHAT the detector catches produced the project's cleanest
+one-liner: **capability trades fog for beliefs.** Small models fail by
+improvising (loud); capable models fail by believing wrong things
+(silent). In detail, corrections included where we got ahead of the data:
 
 - Wrong answers decompose into fabrication (improvising in fog: loud in the
   workspace, ~70% flagged) and substitution (cleanly retrieving the wrong
