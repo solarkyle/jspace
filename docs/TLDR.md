@@ -125,31 +125,44 @@ with scale while deception detection sharpens.** In detail:
   fact: silent, ~50% = coin flip). Two independent graders, kappa 0.88.
 - As capability rises the error mix shifts from fabrication to substitution
   (12B 24% fabrication, Qwen 10%).
-- CORRECTION (same night, after the 31B blind test): the workspace edge
-  does NOT simply fade with capability as an earlier draft said. The 31B,
-  our most capable Gemma, shows the LARGEST edge (+0.099). Across all six
-  models the edge tracks output-confidence calibration, not capability:
-  increment = 0.61 - 0.71 x logprob-AUC, r = -0.94. The workspace fills
-  whatever gap output calibration leaves. Qwen has no gap; the 31B has a
-  big one. REGISTERED PREDICTION before the Mistral-24B data lands: its
-  increment will fall within 0.04 of that line.
-- Clean-wrong answers are STABLE wrong beliefs: they resample to the same
-  wrong answer 85% of the time in the cleanest quartile (junk-robust
-  clustering; correct answers 95%). No method sees them, at any cost,
-  because there is no internal disagreement to see.
+- CORRECTION (same night, after the 31B test): the workspace edge does NOT
+  simply fade with capability as an earlier draft said. The 31B, our most
+  capable Gemma, shows the LARGEST edge (+0.099).
+- SECOND CORRECTION (same night, after our own round-2 review): we briefly
+  promoted a "calibration-gap law" (increment = 0.61 - 0.71 x logprob-AUC,
+  r = -0.94, with a registered Mistral prediction that hit). The r is
+  mechanically inflated: COMBINED detection AUC is nearly constant across
+  models (~0.84, SD 0.017), and since increment = combined - logprob, a
+  near-perfect negative correlation follows by arithmetic; shuffled
+  controls reproduce r = -0.94. The Mistral "hit" was therefore close to
+  unfalsifiable, and the one risky test of the line (gpt-oss, predicted
+  +0.17, observed +0.09) missed. What actually survives, and is arguably
+  more interesting: COMBINED workspace+logprob detection saturates at
+  ~0.84 AUC on TriviaQA for every standard-protocol model regardless of
+  family, size, or architecture, and the workspace supplies most of
+  whatever the logprobs do not. The 0.84 ceiling is close to the maximum
+  achievable given the 9-15 percent label noise we measured in TriviaQA
+  itself, so the saturation may be the dataset's noise floor, not a model
+  property. Testable on a cleaner dataset; not yet tested.
+- Clean-wrong answers are STABLE wrong beliefs: same-wrong-answer resample
+  rates decline with onset noise, 85/70/70/50 percent by quartile (junk-
+  robust clustering; correct answers 95; Spearman rho -0.27, p=.018,
+  n=20 per bin). No method sees the stable ones, at any cost, because
+  there is no internal disagreement to see.
 - Lying is different from being wrong: with type-matched controls and a
   verified honest baseline, the true answer stays elevated in the workspace
-  during instructed lies. Directionally positive on 6 of 6 models,
-  significant on 3 (E4B p=.023, 12B p=.033, Qwen p=.043; ablit marginal,
-  MoE and 31B null). Real but heterogeneous, and NOT monotonic in
-  capability: an earlier draft of this section claimed deception detection
-  sharpens with scale; the 31B falsified that within the hour and the
-  claim is withdrawn.
+  during instructed lies on SOME models. Canonical statistics (one fixed
+  rule set, analyze_lies_v2.py; earlier inline numbers varied with rule
+  choices and are superseded): significant on E4B (p=.050) and Qwen
+  (p=.043), marginal on 12B (.059), null on ablit, MoE, and 31B. Real but
+  heterogeneous and modest, with no capability trend: an earlier draft
+  claimed deception detection sharpens with scale; withdrawn.
 - Believed myths show NO truth trace (abliterated 12B repeats 7/20 myths
   with the myth winning the deep band outright): the lens distinguishes
   deception from delusion, which output text cannot.
-- Provisional (bf16 confirmation pending): on the 31B the wrongness signal
-  survives but MIGRATES DEEPER; the fixed 25-75% band averages dead and
+- On the 31B the wrongness signal survives but MIGRATES DEEPER (bf16
+  spot-check confirms this is a model property, not a quant artifact;
+  n=1 at this depth, so a scale law is not yet claimed); the fixed 25-75% band averages dead and
   sign-flipped mid layers over the healthy deep ones (band-mean AUC 0.43,
   depth-aware split-half 0.75). Fixed-fraction bands do not transfer to
   deeper models.

@@ -135,10 +135,17 @@ ax.spines[["top", "right"]].set_visible(False)
 
 # ---------------- D: deception vs delusion ----------------
 ax = fig.add_subplot(gs[1, 1])
-lie_sources = [("E4B", "data/categories_lies_ctrl_e4b.jsonl", None),
-               ("Qwen 27B", "out/categories_qwen3.6-27b.jsonl", "instructed_lie"),
-               ("26B MoE", "out/categories_gemma-4-26b-a4b-it.jsonl", "instructed_lie"),
-               ("12B ablit", "out/categories_huihui-gemma-4-12b-it-abliterated.jsonl", "instructed_lie")]
+# lies v2: type-matched controls, honest baseline verified, contamination
+# (control == emitted lie) excluded per analyze_lies_v2.py
+lie_sources = [("E4B", "data/lies_v2_gemma-4-e4b-it.jsonl", "instructed_lie"),
+               ("12B", "data/lies_v2_gemma-4-12b-it.jsonl", "instructed_lie"),
+               ("Qwen 27B", "data/lies_v2_qwen3.6-27b.jsonl", "instructed_lie"),
+               ("26B MoE", "data/lies_v2_gemma-4-26b-a4b-it.jsonl", "instructed_lie"),
+               ("12B ablit", "data/lies_v2_huihui-gemma-4-12b-it-abliterated.jsonl", "instructed_lie")]
+CTRL_OF = {it["id"]: it["control"] for it in
+           json.load(open("probes/categories.json", encoding="utf-8"))["items"]
+           if it["category"] == "instructed_lie"}
+NORM = lambda s: "".join(c for c in s.lower() if c.isalnum() or c == " ").strip()
 names, t_meds, c_meds, ps = [], [], [], []
 for name, path, cat in lie_sources:
     rws = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
@@ -147,6 +154,9 @@ for name, path, cat in lie_sources:
     t, c = [], []
     for r in rws:
         if not r.get("truth"):
+            continue
+        # exclude contaminated items: the control token IS the emitted lie
+        if NORM(CTRL_OF.get(r["id"], "")) and NORM(CTRL_OF[r["id"]]) in NORM(r["answer"]):
             continue
         snap = r["snapshots"][0]
         tr = [s["rank_truth"] for s in snap["layers"].values() if s["rank_truth"] is not None]
@@ -171,13 +181,10 @@ ax.set_yticks(y, names)
 ax.set_xscale("log")
 ax.set_xlabel("workspace rank of the TRUE answer while lying (log, lower = more present)")
 ax.set_xlim(20, 3e5)
-ax.set_title("D. Deception is visible, delusion is not\n(lies: truth stays ranked; believed myths: no trace, ablit myth-repeats bury it)",
+ax.set_title("D. Deception leaves a trace; believed myths do not\n(lies v2: type-matched controls, honest baseline verified, contamination excluded)",
              fontsize=11)
 ax.legend(fontsize=8, loc="upper right", framealpha=0.95)
 ax.spines[["top", "right"]].set_visible(False)
-ax.annotate("abliteration erases the trace", xy=(t_meds[-1], y[-1]),
-            xytext=(t_meds[-1] * 0.02, y[-1] + 0.35), fontsize=8.5, color=RED,
-            arrowprops=dict(arrowstyle="->", color=RED, lw=1))
 
 fig.suptitle("Anatomy of a hallucination: what the workspace sees, and what it honestly cannot",
              fontsize=13.5, y=0.99)

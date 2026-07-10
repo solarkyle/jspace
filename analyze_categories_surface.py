@@ -23,10 +23,10 @@ import numpy as np
 from analyze_categories import FEATURES, row_features
 
 TRACES = {
-    "e4b": "out/categories_gemma-4-e4b-it.jsonl",
-    "12b": "out/categories_gemma-4-12b-it.jsonl",
-    "moe": "out/categories_gemma-4-26b-a4b-it.jsonl",
-    "qwen": "out/categories_qwen3.6-27b.jsonl",
+    "e4b": "data/categories_gemma-4-e4b-it.jsonl",
+    "12b": "data/categories_gemma-4-12b-it.jsonl",
+    "moe": "data/categories_gemma-4-26b-a4b-it.jsonl",
+    "qwen": "data/categories_qwen3.6-27b.jsonl",
 }
 
 YESNO = {"yes", "no"}
