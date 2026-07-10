@@ -124,8 +124,15 @@ with scale while deception detection sharpens.** In detail:
   workspace, ~70% flagged) and substitution (cleanly retrieving the wrong
   fact: silent, ~50% = coin flip). Two independent graders, kappa 0.88.
 - As capability rises the error mix shifts from fabrication to substitution
-  (12B 24% fabrication, Qwen 10%), and the workspace's edge over output
-  confidence shrinks accordingly (12B +0.09 AUC, 31B +0.01, Qwen 0.00).
+  (12B 24% fabrication, Qwen 10%).
+- CORRECTION (same night, after the 31B blind test): the workspace edge
+  does NOT simply fade with capability as an earlier draft said. The 31B,
+  our most capable Gemma, shows the LARGEST edge (+0.099). Across all six
+  models the edge tracks output-confidence calibration, not capability:
+  increment = 0.61 - 0.71 x logprob-AUC, r = -0.94. The workspace fills
+  whatever gap output calibration leaves. Qwen has no gap; the 31B has a
+  big one. REGISTERED PREDICTION before the Mistral-24B data lands: its
+  increment will fall within 0.04 of that line.
 - Clean-wrong answers are STABLE wrong beliefs: they resample to the same
   wrong answer 85% of the time in the cleanest quartile (junk-robust
   clustering; correct answers 95%). No method sees them, at any cost,
