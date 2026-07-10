@@ -47,3 +47,21 @@ or falls.
 Each prediction is scored HIT / MISS / PARTIAL in an update to this file,
 whatever the outcome. Analysis script: analyze_popqa.py (to be committed
 with the exact rule set before analysis runs).
+
+## VERDICTS (2026-07-10, analyze_popqa.py on the committed traces)
+
+- P1: HIT. Mean combined 0.920 (predicted >0.86); 7/7 beat their TriviaQA
+  combined. The 0.84 saturation was TriviaQA's label-noise floor.
+- P2: MISS on both clauses. Logprob AUC ROSE on 7/7 (+0.02 to +0.11);
+  workspace rose too (+0.08 to +0.18), so "held within 0.05" also failed
+  in the good direction. Interpretation: PopQA errors are dominated by
+  unfamiliar entities, which models detect well (consistent with our own
+  fake-entity result, which we should have weighted over the literature
+  when registering). The logprob blind spot lives in familiar-but-wrong
+  substitutions, which TriviaQA is rich in and PopQA is not.
+- Unregistered observation, flagged as such: workspace-over-logprob
+  increment is positive on ALL 7 models on PopQA, including Qwen (+0.02)
+  and Mistral (+0.03); the earlier "edge only on Gemmas" conclusion was
+  dataset-dependent. Cross-dataset AUC comparisons carry a base-rate
+  caveat (PopQA accuracy 14-25% vs TriviaQA 43-67%).
+- P3 pending LLM grading of wrong-answer samples.

@@ -1,0 +1,37 @@
+{
+ "gemma-4-e4b-it": {
+  "logprob": 0.855334890965732,
+  "workspace": 0.8975856697819314,
+  "combined": 0.9093977154724819
+ },
+ "gemma-4-12b-it": {
+  "logprob": 0.7998737183920142,
+  "workspace": 0.935265642382513,
+  "combined": 0.942181063772212
+ },
+ "huihui-gemma-4-12b-it-abliterated": {
+  "logprob": 0.8740733989549155,
+  "workspace": 0.930428970713331,
+  "combined": 0.9434013853445132
+ },
+ "gemma-4-26b-a4b-it": {
+  "logprob": 0.838611055321238,
+  "workspace": 0.8963200999754524,
+  "combined": 0.9151324451585547
+ },
+ "qwen3.6-27b": {
+  "logprob": 0.8795946666666665,
+  "workspace": 0.8957973333333333,
+  "combined": 0.9041279999999999
+ },
+ "gemma-4-31b-it": {
+  "logprob": 0.8329148971116169,
+  "workspace": 0.9064501748046646,
+  "combined": 0.917478120087285
+ },
+ "mistral-small-24b-instruct-2501": {
+  "logprob": 0.875521635312758,
+  "workspace": 0.871103077369396,
+  "combined": 0.9052241637098033
+ }
+}
