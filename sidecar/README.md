@@ -1,10 +1,11 @@
 # The lie detector sidecar
 
 An OpenAI-compatible chat server that reads its own model's mind. Every
-response includes a noise score from the model's internal workspace (read
-with a Jacobian lens in one extra pass, a few milliseconds) telling you
-whether the answer came from clean retrieval or from static. A chat UI with
-a live BS meter and a layer-by-layer heatmap is built in.
+response includes a noise score from the model's internal workspace telling
+you whether the answer came from clean retrieval or from static. By default
+the sidecar reads the first three answer-token workspaces and routes on the
+noisiest one, which patches the old "first token was just filler" failure
+mode. A chat UI with a live BS meter and a layer-by-layer heatmap is built in.
 
 It detects noisy retrieval, not confident misconceptions. Read
 [docs/HARD_RULES.md](../docs/HARD_RULES.md) before building on it.
@@ -71,11 +72,11 @@ curl -s http://127.0.0.1:8765/v1/chat/completions -H "Content-Type: application/
 ```
 
 ```jsonc
-"jspace": {
+  "jspace": {
   "noise": 0.90,            // 0..1, the score
   "action": "flagged",      // clean | flagged | escalated | refused | tagged
   "answered_by": "google/gemma-4-12B-it",
-  "snapshot_ms": 7,         // lens cost for this request
+  "snapshot_ms": 21,        // lens cost for this request
   "layer_entropies": [...], // per-band-layer entropy trajectory
   "band_tokens": [...],     // top tokens at 3 sampled layers
   "workspace_grid": {...},  // the full heatmap: layers x candidate tokens
@@ -96,12 +97,14 @@ re-running the local model (the "escalate this one" button in the UI).
 | `LENS_PATH` | auto | local lens.pt; otherwise auto-download |
 | `LENS_HUB_REPO` | `solarkyle/jspace-lenses` | where auto-download looks |
 | `RISK_THRESHOLD` | `0.6` | noise level that trips the gate |
-| `LOCAL_TERSE` | `1` | inject the terse system prompt. Do not turn this off casually: the read happens at the first generated token, and preamble/markdown hides the signal (hard rule 3) |
+| `LOCAL_TERSE` | `1` | inject the terse system prompt. Do not turn this off casually: the read is still calibrated for answer-leading generations, even though the sidecar now checks the first few tokens (hard rule 3) |
+| `WORKSPACE_READ_TOKENS` | `3` | score the first N generated answer-token workspaces and route on the highest-risk snapshot. Set `1` to reproduce the original answer-onset experiments |
 | `LENS_DEVICE` | gpu | set `cpu` under VRAM pressure |
 | `ESCALATE_URL` / `ESCALATE_MODEL` / `ESCALATE_KEY_ENV` | off | escalation target |
 
-`sidecar/norm_stats.json` is the frozen feature normalization. Ship it with
-the server; do not regenerate it per deployment (hard rule 5).
+The released router files now carry frozen per-model feature normalization
+stats. `sidecar/norm_stats.json` is kept as a legacy/default fallback. Do not
+use rolling traffic stats for scoring (hard rule 5).
 
 ## Batch demo
 

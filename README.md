@@ -13,6 +13,7 @@ layer and position: its workspace.
 
 **[→ TLDR: the whole project in plain language](docs/TLDR.md)**
 &nbsp;·&nbsp; **[→ Hard rules: what we verified you can rely on](docs/HARD_RULES.md)**
+&nbsp;·&nbsp; **[→ Hallucination writeup draft](docs/HALLUCINATION_WRITEUP.md)**
 &nbsp;·&nbsp; **[→ Run the lie detector chat locally](sidecar/README.md)**
 
 **[→ Interactive demo](https://solarkyle.github.io/jspace/demo/)**
@@ -71,6 +72,53 @@ the moment it answers fluently.
 | **Strong evidence** (n=500/model, baselines + confounds run, 3-of-4 gate passed) | Workspace features predict confident wrong answers beyond output-logit confidence on every Gemma tested (router AUC 0.75-0.82 vs logprob 0.71-0.74; quadrant 75%→42% on E4B; transfers zero-shot E4B→Gemmas). Fails on Qwen 27B, whose logprobs are already calibrated |
 | **Suggestive** (n=1 prompt/condition) | Covert-emotion vividness and selectivity track capability; abliteration amplifies 4/5 covert emotions 1–2 orders; grief is the exception; MoE beats dense at matched active params |
 | **Hypothesis only** | Emotion bleed follows the human affect circumplex (perm-p 0.10–0.65, underpowered); "safety tuning dampens internal emotion" as mechanism |
+
+## The hallucination campaign (pre-registered, adversarially reviewed)
+
+The router result above graduated into a staged campaign on Gemma-4-12B:
+25,340 prompts across 13 public benchmarks and 6 domains, with blind
+pre-registration before each stage, frozen judge prompts, SHA-256-frozen
+classifiers, an external adversarial review that reproduced the numbers, and
+a prospective zero-shot test designed so we could not fool ourselves. Code in
+[`campaign/`](campaign/), reports in [`campaign/reports/`](campaign/reports/),
+pre-registrations in [`campaign/PREREG_STAGE1.md`](campaign/PREREG_STAGE1.md)
+and [`campaign/PREREG_STAGE2.md`](campaign/PREREG_STAGE2.md). All 24.5k graded
+traces and features: [campaign dataset on HF](https://huggingface.co/datasets/solarkyle/jspace-hallucination-campaign).
+The frozen classifiers: [jspace-lenses/classifiers](https://huggingface.co/solarkyle/jspace-lenses/tree/main/classifiers/gemma-4-12b-it).
+
+What survived every test (including an external reproduction with dedup,
+label-confidence, and upstream-split controls):
+
+- Workspace features beat output confidence for predicting Gemma's wrong
+  answers across datasets: +0.065 mean AUROC under leave-one-dataset-out,
+  positive on 6 of 7 evaluable held-out sources (Gate A, pre-registered, HIT).
+- Workspace-only generalizes across datasets better than logprob-only (0.789
+  vs 0.731 LODO): output confidence is dataset-specific, the internal signal
+  transfers.
+- Zero-shot transfer of the frozen detector to a never-seen dataset of the
+  same task style is nearly free: 0.768 on NQ-Open vs an 0.783 in-domain
+  ceiling.
+
+What failed, measured and reported per the same pre-registrations:
+
+- The universal zero-shot detector: the prospective transfer gate (Gate D)
+  formally MISSED. The fog-to-error mapping inverts on veracity and
+  abstention tasks: internal fog accompanies correctly rejecting a fake legal
+  case, so a detector trained on retrieval tasks scores below chance there.
+- Tool-call errors (BFCL wrong-argument calls) carry little workspace signal
+  even in-domain (AUC 0.55): structural errors are not epistemic fog.
+- A methodological trap we found in our own favorable numbers: on any slice
+  where the correct answer is constant (case existence, unanswerable
+  detection), an internal-features probe hits AUC ~1.0 by reading which
+  answer the model is about to emit, not by detecting error. Probe results
+  on fixed-truth slices measure answer readout. Decompose before trusting.
+
+Honest bottom line: a ~300 KB classifier over Jacobian-lens reads gives real,
+transferable error detection within a task family and beats logprobs there,
+but it is a per-task-family monitor, not a universal hallucination detector.
+Full narrative: [STAGE1_REPORT](campaign/reports/STAGE1_REPORT.md),
+[STAGE2_REPORT](campaign/reports/STAGE2_REPORT.md),
+[peer review](campaign/PEER_REVIEW_CODEX.md).
 
 ## Headline cross-model findings
 
@@ -198,7 +246,9 @@ zero-shot-transfer artifact) and
 [`data/workspace_routers_all5.json`](data/workspace_routers_all5.json)
 (per-model), mirrored on HF under
 [`router/`](https://huggingface.co/solarkyle/jspace-lenses/tree/main/router).
-It's an 11-number logistic regression you can read by eye. The application:
+Each router ships with frozen normalization statistics; do not score it against
+a rolling traffic window. It's an 11-number logistic regression you can read by
+eye. The application:
 an escalation router for local-model cascades that watches the small model's
 *workspace* and hands off to a bigger model when the internals flicker -
 routing on thoughts, not outputs.
@@ -255,6 +305,12 @@ python analyze_deep.py             # all Part 2/3 numbers (stdout)
 python make_figures.py             # assets/figures.png
 python make_figures2.py            # assets/figures2.png
 python build_demo_data.py          # docs/demo/data.js for the interactive demo
+python benchmark_baselines.py      # trace-only baseline/cost table
+python score_expensive_baselines.py --n 100
+python benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
+
+# first causal bridge; needs a GPU/model weights and TriviaQA aliases
+python causal_hint_patch.py --n 24
 ```
 
 ### The 16GB-consumer-GPU recipe (the hard-won part)
@@ -285,9 +341,14 @@ tables, and embeddings never see a gradient and live happily in system RAM.
 - [x] Censored vs abliterated: belief vs behavior (Findings 2, 8; fabrication result in Part 4)
 - [x] Classifier/router proof layer + published router weights (Part 5)
 - [x] HuggingFace lens + trace + router releases ([solarkyle/jspace-lenses](https://huggingface.co/solarkyle/jspace-lenses))
-- [ ] Escalation sidecar: OpenAI-compatible endpoint with `workspace_confidence` + auto-handoff
-- [ ] Live visualizer: watch the workspace while the model generates
+- [x] Escalation sidecar: OpenAI-compatible endpoint with `workspace_confidence` + auto-handoff
+- [x] Prefix-read deployment guardrail (`WORKSPACE_READ_TOKENS=3`) for preamble/filler failures
+- [x] Baseline/cost benchmark scaffold (`benchmark_baselines.py`, optional score import)
+- [x] P(True)-style and sampled-answer-entropy scorer (`score_expensive_baselines.py`)
+- [x] First causal bridge experiment scaffold (`causal_hint_patch.py`)
+- [ ] Live streaming visualizer: watch the workspace while the model generates
 - [ ] Real inference-overhead measurement in a local serving stack
+- [ ] Run and report the causal hint-patch result; then upgrade to sparse J-space coordinate swaps
 - [ ] Harder datasets where output confidence is miscalibrated; more model families
 
 ## Credits

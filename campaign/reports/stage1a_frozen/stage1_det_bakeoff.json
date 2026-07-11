@@ -1,0 +1,81 @@
+{
+ "n_labeled": 14106,
+ "pooled": {
+  "logistic:logprob": 0.8214,
+  "logistic:workspace": 0.881,
+  "logistic:combined": 0.89,
+  "lightgbm:logprob": 0.8619,
+  "lightgbm:workspace": 0.8984,
+  "lightgbm:combined": 0.9107
+ },
+ "lodo": {
+  "logistic:logprob": 0.7024,
+  "logistic:workspace": 0.747,
+  "logistic:combined": 0.7615,
+  "lightgbm:logprob": 0.7226,
+  "lightgbm:workspace": 0.7232,
+  "lightgbm:combined": 0.7602
+ },
+ "lodo_per": {
+  "logistic:logprob": {
+   "drop": 0.567,
+   "halubench": NaN,
+   "hotpotqa": 0.689,
+   "medhallu": NaN,
+   "popqa": 0.688,
+   "squad_v2": 0.723,
+   "trivia_qa": 0.846
+  },
+  "logistic:workspace": {
+   "drop": 0.727,
+   "halubench": NaN,
+   "hotpotqa": 0.647,
+   "medhallu": NaN,
+   "popqa": 0.761,
+   "squad_v2": 0.832,
+   "trivia_qa": 0.769
+  },
+  "logistic:combined": {
+   "drop": 0.715,
+   "halubench": NaN,
+   "hotpotqa": 0.658,
+   "medhallu": NaN,
+   "popqa": 0.773,
+   "squad_v2": 0.841,
+   "trivia_qa": 0.82
+  },
+  "lightgbm:logprob": {
+   "drop": 0.657,
+   "halubench": NaN,
+   "hotpotqa": 0.674,
+   "medhallu": NaN,
+   "popqa": 0.671,
+   "squad_v2": 0.781,
+   "trivia_qa": 0.83
+  },
+  "lightgbm:workspace": {
+   "drop": 0.709,
+   "halubench": NaN,
+   "hotpotqa": 0.672,
+   "medhallu": NaN,
+   "popqa": 0.718,
+   "squad_v2": 0.744,
+   "trivia_qa": 0.772
+  },
+  "lightgbm:combined": {
+   "drop": 0.712,
+   "halubench": NaN,
+   "hotpotqa": 0.702,
+   "medhallu": NaN,
+   "popqa": 0.781,
+   "squad_v2": 0.755,
+   "trivia_qa": 0.851
+  }
+ },
+ "identity_leakage": {
+  "identity_acc": 0.858,
+  "majority_baseline": 0.213,
+  "n_datasets": 7,
+  "leak_margin": 0.645
+ }
+}

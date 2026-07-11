@@ -1,7 +1,7 @@
 {
  "trained_on": "google/gemma-4-E4B-it, 500 TriviaQA, 2026-07-07",
  "predicts": "P(answer is WRONG)",
- "usage": "z-score each feature over your own traffic (the transfer trick), then risk = sigmoid(w . z + b); escalate when risk > threshold (0.5 is reasonable; tune to your escalation budget)",
+ "usage": "E4B zero-shot-transfer router: z-score each feature with the frozen norm_stats embedded in this file, then risk = sigmoid(w . z + b); escalate when risk exceeds your budget threshold",
  "models": {
   "workspace_only": {
    "features": [
@@ -65,5 +65,63 @@
    ],
    "bias": 0.40705
   }
+ },
+ "norm_stats": {
+  "bl_first_token_logprob": [
+   -0.18680763472514308,
+   0.3334438307000124
+  ],
+  "bl_mean_logprob": [
+   -0.08812023260144558,
+   0.08640312725033589
+  ],
+  "bl_min_logprob": [
+   -0.49210601466965453,
+   0.3875959896361741
+  ],
+  "bl_answer_len": [
+   11.022,
+   7.747871707765946
+  ],
+  "ws_mean_entropy": [
+   4.289909333333333,
+   0.3814461947048876
+  ],
+  "ws_max_entropy": [
+   8.717844,
+   0.9332776294672448
+  ],
+  "ws_late_entropy": [
+   7.416372485714286,
+   1.0178450169852675
+  ],
+  "ws_entropy_slope": [
+   0.24511220545454546,
+   0.07354418372471581
+  ],
+  "ws_entropy_std": [
+   2.719658958797589,
+   0.4063920808899519
+  ],
+  "ws_ignition_frac": [
+   0.014952380952380951,
+   0.05394639146344672
+  ],
+  "ws_ignition_depth": [
+   0.9634285714285714,
+   0.11681890941269689
+  ],
+  "ws_mean_log_rank": [
+   8.74651351773166,
+   1.515822295487187
+  ],
+  "ws_band_agreement": [
+   0.0016190476190476191,
+   0.01285220363680857
+  ],
+  "ws_hedge_rank": [
+   4.973914688341347,
+   0.6352312059557577
+  ]
  }
 }

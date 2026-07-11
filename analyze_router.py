@@ -18,7 +18,10 @@ import os
 import sys
 
 import numpy as np
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    plt = None
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -166,67 +169,70 @@ for slug in ORDER:
     print(f"{NAME[slug]:<10} {res['lp-only']:>8.3f} {res['workspace']:>10.3f} "
           f"{res['combined']:>9.3f}   {int((1-ys).sum())}")
 
-# ---------------- figure 4 ----------------
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
-fig, axes = plt.subplots(1, 3, figsize=(15, 4.6))
-GREEN, RED, GOLD, BLUE = "#2e9e5b", "#cf4a42", "#b8860b", "#3f7fbf"
+if plt is None:
+    print("\nmatplotlib not installed; skipped assets/figure4_router.png")
+else:
+    # ---------------- figure 4 ----------------
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.6))
+    GREEN, RED, GOLD, BLUE = "#2e9e5b", "#cf4a42", "#b8860b", "#3f7fbf"
 
-# (a) fog terciles vs accuracy among confident answers, all models as grouped bars
-ax = axes[0]
-width = 0.15
-for mi, slug in enumerate(ORDER):
-    X, y, _ = load(slug)
+    # (a) fog terciles vs accuracy among confident answers, all models as grouped bars
+    ax = axes[0]
+    width = 0.15
+    for mi, slug in enumerate(ORDER):
+        X, y, _ = load(slug)
+        hc = X["bl_first_token_logprob"] > np.median(X["bl_first_token_logprob"])
+        ent = X["ws_mean_entropy"][hc]; yy = y[hc]
+        t1, t2 = np.percentile(ent, [33, 67])
+        accs = [yy[ent <= t1].mean(), yy[(ent > t1) & (ent <= t2)].mean(), yy[ent > t2].mean()]
+        ax.bar(np.arange(3) + (mi - 2) * width, accs, width * 0.92,
+               label=NAME[slug],
+               color=["#8891a6", "#c25a5a", "#b07ac2", "#7bc27b", "#d4a24e"][mi],
+               edgecolor="black", lw=0.4)
+    ax.set_xticks(range(3)); ax.set_xticklabels(["low fog", "medium fog", "high fog"])
+    ax.set_ylabel("accuracy among CONFIDENT answers")
+    ax.set_title("As internal fog rises, confident answers\nget less trustworthy", weight="bold", fontsize=11)
+    ax.legend(fontsize=7.5, frameon=False, ncol=2)
+    ax.spines[["top", "right"]].set_visible(False)
+
+    # (b) ROC curves, E4B, confident subset
+    ax = axes[1]
+    X, y, _ = load("gemma-4-e4b-it")
     hc = X["bl_first_token_logprob"] > np.median(X["bl_first_token_logprob"])
-    ent = X["ws_mean_entropy"][hc]; yy = y[hc]
-    t1, t2 = np.percentile(ent, [33, 67])
-    accs = [yy[ent <= t1].mean(), yy[(ent > t1) & (ent <= t2)].mean(), yy[ent > t2].mean()]
-    ax.bar(np.arange(3) + (mi - 2) * width, accs, width * 0.92,
-           label=NAME[slug],
-           color=["#8891a6", "#c25a5a", "#b07ac2", "#7bc27b", "#d4a24e"][mi],
-           edgecolor="black", lw=0.4)
-ax.set_xticks(range(3)); ax.set_xticklabels(["low fog", "medium fog", "high fog"])
-ax.set_ylabel("accuracy among CONFIDENT answers")
-ax.set_title("As internal fog rises, confident answers\nget less trustworthy", weight="bold", fontsize=11)
-ax.legend(fontsize=7.5, frameon=False, ncol=2)
-ax.spines[["top", "right"]].set_visible(False)
+    Xs = {k: v[hc] for k, v in X.items()}; wrong = (1 - y[hc])
+    for name, keys, c in [("logprob only", BASE, "#8891a6"),
+                          ("workspace only", SETS["workspace"], BLUE),
+                          ("combined", SETS["combined"], GOLD)]:
+        a, oof = cv_auc(zmat(Xs, keys), wrong)
+        order = np.argsort(-oof)
+        tpr = np.cumsum(wrong[order]) / wrong.sum()
+        fpr = np.cumsum(1 - wrong[order]) / (1 - wrong).sum()
+        ax.plot(fpr, tpr, color=c, lw=2.2, label=f"{name} (AUC {a:.2f})")
+    ax.plot([0, 1], [0, 1], "--", color="#555", lw=1)
+    ax.set_xlabel("false positive rate"); ax.set_ylabel("wrong answers caught")
+    ax.set_title("Catching overconfident wrong answers\n(E4B, confident subset, 5-fold OOF)", weight="bold", fontsize=11)
+    ax.legend(fontsize=8.5, frameon=False, loc="lower right")
+    ax.spines[["top", "right"]].set_visible(False)
 
-# (b) ROC curves, E4B, confident subset
-ax = axes[1]
-X, y, _ = load("gemma-4-e4b-it")
-hc = X["bl_first_token_logprob"] > np.median(X["bl_first_token_logprob"])
-Xs = {k: v[hc] for k, v in X.items()}; wrong = (1 - y[hc])
-for name, keys, c in [("logprob only", BASE, "#8891a6"),
-                      ("workspace only", SETS["workspace"], BLUE),
-                      ("combined", SETS["combined"], GOLD)]:
-    a, oof = cv_auc(zmat(Xs, keys), wrong)
-    order = np.argsort(-oof)
-    tpr = np.cumsum(wrong[order]) / wrong.sum()
-    fpr = np.cumsum(1 - wrong[order]) / (1 - wrong).sum()
-    ax.plot(fpr, tpr, color=c, lw=2.2, label=f"{name} (AUC {a:.2f})")
-ax.plot([0, 1], [0, 1], "--", color="#555", lw=1)
-ax.set_xlabel("false positive rate"); ax.set_ylabel("wrong answers caught")
-ax.set_title("Catching overconfident wrong answers\n(E4B, confident subset, 5-fold OOF)", weight="bold", fontsize=11)
-ax.legend(fontsize=8.5, frameon=False, loc="lower right")
-ax.spines[["top", "right"]].set_visible(False)
+    # (c) escalation curves, E4B all answers
+    ax = axes[2]
+    X, y, _ = load("gemma-4-e4b-it")
+    wrong = (1 - y).astype(bool)
+    budgets = np.linspace(0.02, 0.7, 35)
+    for name, keys, c in [("logprob only", BASE, "#8891a6"),
+                          ("workspace only", SETS["workspace"], BLUE),
+                          ("combined", SETS["combined"], GOLD)]:
+        _, oof = cv_auc(zmat(X, keys), 1 - y)
+        ax.plot(budgets, [catch_at(oof, wrong, b) for b in budgets], color=c, lw=2.2, label=name)
+    ax.plot(budgets, budgets, "--", color="#555", lw=1, label="random routing")
+    ax.set_xlabel("fraction of queries escalated to the big model")
+    ax.set_ylabel("fraction of wrong answers caught")
+    ax.set_title("The router curve (E4B, out-of-fold)", weight="bold", fontsize=11)
+    ax.legend(fontsize=8.5, frameon=False)
+    ax.spines[["top", "right"]].set_visible(False)
 
-# (c) escalation curves, E4B all answers
-ax = axes[2]
-X, y, _ = load("gemma-4-e4b-it")
-wrong = (1 - y).astype(bool)
-budgets = np.linspace(0.02, 0.7, 35)
-for name, keys, c in [("logprob only", BASE, "#8891a6"),
-                      ("workspace only", SETS["workspace"], BLUE),
-                      ("combined", SETS["combined"], GOLD)]:
-    _, oof = cv_auc(zmat(X, keys), 1 - y)
-    ax.plot(budgets, [catch_at(oof, wrong, b) for b in budgets], color=c, lw=2.2, label=name)
-ax.plot(budgets, budgets, "--", color="#555", lw=1, label="random routing")
-ax.set_xlabel("fraction of queries escalated to the big model")
-ax.set_ylabel("fraction of wrong answers caught")
-ax.set_title("The router curve (E4B, out-of-fold)", weight="bold", fontsize=11)
-ax.legend(fontsize=8.5, frameon=False)
-ax.spines[["top", "right"]].set_visible(False)
-
-plt.tight_layout()
-os.makedirs("assets", exist_ok=True)
-plt.savefig("assets/figure4_router.png", dpi=130, bbox_inches="tight")
-print("\nwrote assets/figure4_router.png")
+    plt.tight_layout()
+    os.makedirs("assets", exist_ok=True)
+    plt.savefig("assets/figure4_router.png", dpi=130, bbox_inches="tight")
+    print("\nwrote assets/figure4_router.png")

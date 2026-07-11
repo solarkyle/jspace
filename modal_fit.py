@@ -283,10 +283,29 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
                  band[0], band[-1])
 
     stop_ids = {tok.eos_token_id}
-    for t in ("<end_of_turn>", "<|im_end|>"):
+    for t in ("<end_of_turn>", "<|im_end|>", "<|return|>"):
         tid = tok.convert_tokens_to_ids(t)
         if isinstance(tid, int) and tid >= 0:
             stop_ids.add(tid)
+    # Harmony-format reasoning models (gpt-oss) emit an analysis channel
+    # before the answer; the workspace must be read at the FINAL-channel
+    # onset, not at prompt end (the token-position rule, hard rule 3).
+    harmony = "gpt-oss" in model_id.lower()
+    FINAL_MARK = "<|channel|>final<|message|>"
+
+    from jlens.hooks import ActivationRecorder
+
+    def snapshot_at(ids_):
+        final_layer = model.n_layers - 1
+        record_at = sorted({*band, final_layer})
+        with ActivationRecorder(model.layers, at=record_at) as rec:
+            model.forward(ids_)
+            acts = {j: rec.activations[j].detach() for j in record_at}
+        out = {}
+        for layer in band:
+            residual = lens.transport(acts[layer][0, -1:].float(), layer)
+            out[layer] = model.unembed(residual).float().cpu()
+        return out
 
     rows = []
     for i, item in enumerate(questions):
@@ -298,11 +317,16 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
         else:
             msgs = [{"role": "user", "content":
                      f"Answer with just the answer, nothing else: {item['q']}"}]
-        prompt = tok.apply_chat_template(
-            msgs, tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        tmpl_kw = dict(tokenize=False, add_generation_prompt=True)
+        if harmony:
+            tmpl_kw["reasoning_effort"] = "low"
+        else:
+            tmpl_kw["enable_thinking"] = False
+        prompt = tok.apply_chat_template(msgs, **tmpl_kw)
         input_ids = model.encode(prompt, max_length=1536)
         ids, gen_ids, step_logprobs = input_ids, [], []
-        for _ in range(max_new):
+        budget = max_new + (96 if harmony else 0)  # analysis channel headroom
+        for _ in range(budget):
             with torch.no_grad():
                 hidden = model.forward(ids).last_hidden_state[:, -1]
                 head = model._lm_head
@@ -316,19 +340,39 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
             ids = torch.cat([ids, torch.tensor([[nxt]], device=ids.device)], dim=1)
         if not gen_ids:
             continue
-        answer = tok.decode(gen_ids, skip_special_tokens=True).strip()
-        first_answer_id = gen_ids[0]
+        onset = 0  # index into gen_ids where the ANSWER starts
+        if harmony:
+            full = tok.decode(gen_ids)
+            if FINAL_MARK not in full:
+                continue  # never reached the final channel; skip
+            # find the generation step whose cumulative decode ends the marker
+            for k in range(1, len(gen_ids) + 1):
+                if tok.decode(gen_ids[:k]).endswith(FINAL_MARK):
+                    onset = k
+                    break
+            else:
+                continue
+            if onset >= len(gen_ids):
+                continue
+        answer = tok.decode(gen_ids[onset:], skip_special_tokens=True).strip()
+        first_answer_id = gen_ids[onset]
+        ans_logprobs = step_logprobs[onset:]
         baseline = {
-            "bl_first_token_logprob": step_logprobs[0],
-            "bl_mean_logprob": float(np.mean(step_logprobs)),
-            "bl_min_logprob": float(np.min(step_logprobs)),
-            "bl_answer_len": len(gen_ids),
+            "bl_first_token_logprob": ans_logprobs[0],
+            "bl_mean_logprob": float(np.mean(ans_logprobs)),
+            "bl_min_logprob": float(np.min(ans_logprobs)),
+            "bl_answer_len": len(gen_ids) - onset,
         }
         norm = lambda s: "".join(c for c in s.lower() if c.isalnum() or c == " ").strip()
         correct = any(norm(a) and norm(a) in norm(answer)
                       for a in item.get("aliases", []))
 
-        lens_logits, _, _ = lens.apply(model, prompt, positions=[-1])
+        if harmony:
+            read_ids = torch.cat(
+                [input_ids, torch.tensor([gen_ids[:onset]], device=input_ids.device)], dim=1)
+            lens_logits = snapshot_at(read_ids)
+        else:
+            lens_logits, _, _ = lens.apply(model, prompt, positions=[-1])
         ranks_ans, ranks_hedge, entropies, top1s = [], [], [], []
         shape = {"top1_p": [], "rival_mass": [], "tail_mass": [], "eff_k20": []}
         for layer in band:

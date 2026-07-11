@@ -6,7 +6,13 @@
 > for workspace-vs-logprob on fake entities, with a striking behavioral finding:
 > abliteration converts refusal into fabrication (17/50 -> 49/50). Full numbers
 > in [FINDINGS.md](FINDINGS.md) Part 4, `analyze_crossmodel.py` reproduces.
-> Next up: Phases 3-5 (trajectory features, cost-matched comparison, sidecar).
+> Update after repo hardening: Phase 3 trajectory features are done
+> (`analyze_router.py`), the sidecar is running with a prefix-read guardrail,
+> and `benchmark_baselines.py` now provides the trace-only cost/baseline table.
+> `score_expensive_baselines.py` can generate P(True)-style and sampled-answer
+> entropy scores for import. The remaining open item is to run those expensive
+> baselines at scale, add true semantic-entropy clustering if desired, and run
+> the new causal intervention script.
 
 Status after v2 (2026-07-07): on 500 TriviaQA questions through Gemma 4 E4B,
 workspace features predict correctness at CV-AUC 0.746 (baseline 0.713,
@@ -53,7 +59,7 @@ TriviaQA is the easy case. The money is where logprobs are miscalibrated:
    workspace distinguish "retrieving" from "improvising"?
 4. Keep 5-fold CV + report per-dataset AUCs, never pooled-only.
 
-## Phase 3: better features (free, local, data already collected)
+## Phase 3: better features (free, local, data already collected) - DONE
 
 Current features are hand-defined stats on the mid-band. Not yet tried:
 
@@ -67,7 +73,7 @@ Current features are hand-defined stats on the mid-band. Not yet tried:
 4. Small logistic on the full layerwise entropy vector (with CV) instead of
    hand-picked scalars, to see how much signal the hand-picking leaves behind.
 
-## Phase 4: cost-matched comparison against published methods
+## Phase 4: cost-matched comparison against published methods - SCAFFOLD DONE, EXPENSIVE BASELINES OPEN
 
 To be taken seriously this has to be positioned against the literature:
 
@@ -81,7 +87,14 @@ To be taken seriously this has to be positioned against the literature:
   no trained probe, no labels". If Phase 2 shows the fake-entity result, that
   plus cost is the paper/post.
 
-## Phase 5: ship the escalation sidecar (the demo people can run)
+`benchmark_baselines.py` now writes the trace-only table to
+`docs/BASELINE_BENCHMARK.md` and accepts optional JSONL scores for semantic
+entropy, P(True), verbalized confidence, or hidden-state probes.
+`score_expensive_baselines.py` generates two such files directly:
+P(True)-style self-evaluation and sampled-answer entropy. True semantic entropy
+still needs clustering/judging over sampled answers.
+
+## Phase 5: ship the escalation sidecar (the demo people can run) - DONE, OVERHEAD BENCHMARK OPEN
 
 MVP: FastAPI, OpenAI-compatible `/v1/chat/completions` wrapper around a local
 HF model + fitted lens. Every response includes
@@ -90,6 +103,19 @@ low-confidence queries to a bigger model (any OpenAI-compatible endpoint) and
 returns that answer instead, tagged with which model answered. A
 r/LocalLLaMA-ready demo: Gemma E4B answering with Qwen 27B (or a cloud model)
 as big brother, plus a live log showing which queries got escalated and why.
+
+The implemented sidecar returns the score in the response `jspace` block, with
+four modes (`detect`, `escalate`, `refuse`, `tag`) and a chat UI. It now reads
+the first `WORKSPACE_READ_TOKENS` answer-token workspaces by default and routes
+on the highest-risk one. Real serving-stack overhead still needs measurement.
+
+## Phase 6: causal bridge - SCAFFOLD DONE, RUN OPEN
+
+`causal_hint_patch.py` implements the first causal bridge: for noisy wrong
+cases, add a correct-answer hint, patch the hinted residual delta into the
+original answer-onset run across workspace layers, and measure whether the
+correct answer logit rises. This is not yet a sparse J-space coordinate swap,
+but it is the next concrete step from correlation toward causality.
 
 ## Decision gates (written before the runs so we stay honest)
 

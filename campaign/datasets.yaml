@@ -1,0 +1,207 @@
+# Campaign dataset manifest sources. Every entry pins a Hub revision so a
+# re-run cannot silently drift. Pilot sources are marked stage: 0; the rest
+# enter at stage 1 once Stage 0 throughput is measured.
+#
+# Revisions captured 2026-07-10.
+
+trivia_qa:
+  hub_id: mandarjoshi/trivia_qa
+  config: rc.nocontext
+  split: validation
+  revision: 0f7faf33a390
+  domain: general
+  task_type: closed_qa
+  grader_type: exact
+  license: Apache-2.0
+  commercial_train_allowed: true
+  upstream_group: trivia_qa
+  stage: 0
+  # first 500 of streamed validation already used; skip them
+  skip_first: 500
+  pilot_target: 100
+  stage1_target: 3000
+
+popqa:
+  hub_id: akariasai/PopQA
+  split: test
+  revision: 098765c79ea1
+  domain: general
+  task_type: closed_qa
+  grader_type: exact
+  license: MIT
+  commercial_train_allowed: true
+  upstream_group: popqa
+  stage: 0
+  # exclude the 500 in probes/popqa_500.json (seed-0 shuffle) by question text
+  exclude_probe: probes/popqa_500.json
+  pilot_target: 100
+  stage1_target: 3000
+
+squad_v2:
+  hub_id: rajpurkar/squad_v2
+  split: validation
+  revision: 3ffb306f725f
+  domain: general
+  task_type: unanswerable
+  grader_type: exact
+  license: CC BY-SA 4.0
+  commercial_train_allowed: true
+  upstream_group: squad_v2
+  stage: 0
+  pilot_target: 100          # balanced answerable/unanswerable
+  stage1_target: 3000
+  # Stage 2 regen with the FIXED interleaving adapter: stage 1 rows were all
+  # answerable (bug). Exclusion happens inside the adapter (by source_row_id)
+  # so the answerable/unanswerable interleave stays balanced after exclusion.
+  stage2_target: 1500
+  exclude_rows_manifest: campaign/manifests/stage1.jsonl
+  per_title_cap: 60           # validation has 35 titles; 20 caps the pool at ~700
+
+halubench:
+  hub_id: PatronusAI/HaluBench
+  split: test
+  revision: 5966a87929f5
+  domain: general
+  task_type: grounded_qa
+  grader_type: llm            # regenerate + judge; upstream label does not transfer
+  license: Apache-2.0
+  commercial_train_allowed: true
+  # upstream_group is taken per-row from source_ds (HaluBench aggregates others)
+  stage: 0
+  pilot_target: 80
+  stage1_target: 3000
+
+medhallu:
+  hub_id: UTAustin-AIHealth/MedHallu
+  config: pqa_labeled         # 1000 human-annotated rows first
+  split: train
+  revision: 515060458a94
+  domain: medical
+  task_type: grounded_qa
+  grader_type: llm
+  license: MIT
+  commercial_train_allowed: true
+  upstream_group: medhallu_pqa
+  stage: 0
+  pilot_target: 80
+  stage1_target: 1000
+
+esconv:
+  hub_id: thu-coai/esconv
+  split: train
+  revision: 32c54c15e765
+  domain: therapy
+  task_type: life_decision
+  grader_type: llm            # therapy rubric, NOT factual gold
+  license: CC BY-NC-4.0
+  commercial_train_allowed: false
+  upstream_group: esconv
+  stage: 0
+  pilot_target: 40
+  stage1_target: 800
+
+# ---- Stage 1 additions (verified schemas 2026-07-10) ----
+
+hotpotqa:
+  hub_id: hotpotqa/hotpot_qa
+  config: distractor
+  split: validation
+  revision: 1908d6afbbea
+  domain: reasoning
+  task_type: multi_hop
+  grader_type: exact          # short-answer, alias/containment gradeable
+  license: CC BY-SA 4.0
+  commercial_train_allowed: true
+  upstream_group: hotpotqa
+  stage: 1
+  pilot_target: 0
+  stage1_target: 2500
+
+drop:
+  hub_id: ucinlp/drop
+  split: validation
+  revision: 95cda593fae7
+  domain: reasoning
+  task_type: numeric
+  grader_type: exact          # numeric/span, deterministic
+  license: CC BY-SA 4.0
+  commercial_train_allowed: true
+  upstream_group: drop
+  stage: 1
+  pilot_target: 0
+  stage1_target: 2000
+
+# ---- Stage 2: prospective validation sources (verified schemas 2026-07-10).
+# The frozen Stage 1 classifiers are scored ZERO-SHOT on these; none of them
+# (or their upstreams) appear in Stage 1 training. Revisions pinned at prereg.
+
+truthfulqa:
+  hub_id: domenicrosati/TruthfulQA   # CSV mirror; canonical repo's loading script breaks on modern `datasets`
+  split: train
+  revision: 6a037f8d9403bbf12fb4cf6d0e91956df6a64e50
+  domain: general
+  task_type: false_premise    # adversarial misconceptions
+  grader_type: llm            # free-form vs correct/incorrect answer lists
+  license: Apache-2.0
+  commercial_train_allowed: true
+  upstream_group: truthfulqa
+  stage: 2
+  pilot_target: 0
+  stage2_target: 817          # the whole set
+
+nq_open:
+  hub_id: google-research-datasets/nq_open
+  split: validation
+  revision: 5dd9790a83002ad084ddeb7c420dc716852c6f28
+  domain: general
+  task_type: closed_qa        # real Google queries
+  grader_type: exact
+  license: CC BY-SA 3.0
+  commercial_train_allowed: true
+  upstream_group: natural_questions
+  stage: 2
+  pilot_target: 0
+  stage2_target: 2000
+
+facts_grounding:
+  hub_id: google/FACTS-grounding-public
+  split: public
+  revision: 11b6961370aa0ac73c91d58e35317e724b2ac765
+  domain: general
+  task_type: long_doc         # long-document grounded generation
+  grader_type: llm
+  license: Apache-2.0
+  commercial_train_allowed: true
+  upstream_group: facts_grounding
+  stage: 2
+  pilot_target: 0
+  stage2_target: 860          # the whole public split (long-context: cost tail)
+  max_context_chars: 24000    # skip longer docs; keeps Modal cost bounded
+
+legal_hallucinations:
+  hub_id: reglab/legal_hallucinations
+  split: train
+  revision: c1d87c069a3b49a564dc82323d93b276a34cb568
+  domain: legal
+  task_type: closed_qa        # real federal cases; affirm_reverse + case_existence
+  grader_type: exact          # both tasks have short categorical answers
+  license: CC BY-4.0
+  commercial_train_allowed: true
+  upstream_group: reglab_legal
+  stage: 2
+  pilot_target: 0
+  stage2_target: 1600         # balanced across the two tasks, dedup by query
+
+bfcl:
+  hub_id: minpeter/bfcl-v1-non-live-ast-parsed
+  split: train
+  revision: 81f12a3086e42f61a365b88e908b95e2179fc61e
+  domain: tools
+  task_type: tool_call
+  grader_type: tool           # structural match vs reference call
+  license: Apache-2.0
+  commercial_train_allowed: true
+  upstream_group: bfcl
+  stage: 2
+  pilot_target: 0
+  stage2_target: 400          # the whole simple (single-call) category

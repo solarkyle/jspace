@@ -1,0 +1,87 @@
+{
+ "n_labeled": 16577,
+ "pooled": {
+  "logistic:logprob": 0.7832,
+  "logistic:workspace": 0.874,
+  "logistic:combined": 0.8812,
+  "lightgbm:logprob": 0.8561,
+  "lightgbm:workspace": 0.8981,
+  "lightgbm:combined": 0.9084
+ },
+ "lodo": {
+  "logistic:logprob": 0.6891,
+  "logistic:workspace": 0.7783,
+  "logistic:combined": 0.7784,
+  "lightgbm:logprob": 0.7277,
+  "lightgbm:workspace": 0.7749,
+  "lightgbm:combined": 0.7867
+ },
+ "lodo_per": {
+  "logistic:logprob": {
+   "drop": 0.571,
+   "esconv": NaN,
+   "halubench": 0.548,
+   "hotpotqa": 0.694,
+   "medhallu": 0.748,
+   "popqa": 0.691,
+   "squad_v2": 0.724,
+   "trivia_qa": 0.846
+  },
+  "logistic:workspace": {
+   "drop": 0.722,
+   "esconv": NaN,
+   "halubench": 0.804,
+   "hotpotqa": 0.758,
+   "medhallu": 0.826,
+   "popqa": 0.747,
+   "squad_v2": 0.84,
+   "trivia_qa": 0.752
+  },
+  "logistic:combined": {
+   "drop": 0.715,
+   "esconv": NaN,
+   "halubench": 0.725,
+   "hotpotqa": 0.758,
+   "medhallu": 0.83,
+   "popqa": 0.77,
+   "squad_v2": 0.85,
+   "trivia_qa": 0.801
+  },
+  "lightgbm:logprob": {
+   "drop": 0.679,
+   "esconv": NaN,
+   "halubench": 0.693,
+   "hotpotqa": 0.715,
+   "medhallu": 0.698,
+   "popqa": 0.687,
+   "squad_v2": 0.789,
+   "trivia_qa": 0.833
+  },
+  "lightgbm:workspace": {
+   "drop": 0.731,
+   "esconv": NaN,
+   "halubench": 0.81,
+   "hotpotqa": 0.747,
+   "medhallu": 0.864,
+   "popqa": 0.728,
+   "squad_v2": 0.78,
+   "trivia_qa": 0.763
+  },
+  "lightgbm:combined": {
+   "drop": 0.726,
+   "esconv": NaN,
+   "halubench": 0.75,
+   "hotpotqa": 0.759,
+   "medhallu": 0.849,
+   "popqa": 0.778,
+   "squad_v2": 0.8,
+   "trivia_qa": 0.845
+  }
+ },
+ "identity_leakage": {
+  "identity_acc": 0.804,
+  "majority_baseline": 0.181,
+  "n_datasets": 8,
+  "leak_margin": 0.623
+ }
+}

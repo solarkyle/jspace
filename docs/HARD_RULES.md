@@ -24,15 +24,19 @@ not make a fabrication less of a fabrication, it just makes it repeatable.
 (Later tokens are conditioned on whatever was sampled, so scores past the
 first token can differ across samples. The gate reads the first.)
 
-## 3. The read only works at answer onset
+## 3. The validated read is answer-onset; deployment now checks a short prefix
 
-The snapshot happens at the first generated token. If the model preambles
-("**The** singer who had...") token one is filler with a clean workspace and
-the read misses. Measured: same question scored 0.03 with preamble, 0.90
-when forced terse. The sidecar therefore injects a terse no-markdown system
-prompt by default (`LOCAL_TERSE=1`). If you disable it, your noise scores
-mean nothing. The robust fix (max noise over the first few answer tokens)
-costs extra lens passes and is not built yet.
+The published AUC/quadrant numbers read the workspace at answer onset. If the
+model preambles ("**The** singer who had...") token one is filler with a clean
+workspace and the old single-token read can miss. Measured: same question
+scored 0.03 with preamble, 0.90 when forced terse.
+
+The sidecar now scores the first `WORKSPACE_READ_TOKENS` generated tokens
+(default 3) and routes on the highest-risk snapshot. Set
+`WORKSPACE_READ_TOKENS=1` to reproduce the original experiments exactly. Keep
+`LOCAL_TERSE=1` unless you are explicitly testing the prefix read: the router is
+still calibrated on answer-leading generations, and extra preamble tokens cost
+extra lens passes.
 
 ## 4. The danger signal is tail smear, not deliberation
 
@@ -45,10 +49,11 @@ miscalibrated; gate on the smear.
 
 ## 5. Normalization must be frozen
 
-Router features are z-scored against fixed stats shipped in
-`sidecar/norm_stats.json`. A rolling window drifts with traffic mix and
-makes the same question score differently depending on what was asked
-before it. Deterministic scores or no scores.
+Router features are z-scored against fixed stats shipped with the router
+artifact. The all-model router has per-model `norm_stats`; the single-model
+sidecar file `sidecar/norm_stats.json` is a legacy/default fallback. A rolling
+window drifts with traffic mix and makes the same question score differently
+depending on what was asked before it. Deterministic scores or no scores.
 
 ## 6. Thresholds transfer within a family, not across families
 

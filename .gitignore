@@ -22,3 +22,10 @@ sidecar/server.log
 sidecar/config.json
 hf_upload/
 review/
+build/
+catboost_info/
+*.egg-info/
+hf_upload/
+campaign/manifests/
+campaign/reports/stage1a_frozen/*.jsonl
+campaign/__pycache__/

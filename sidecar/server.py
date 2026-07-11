@@ -25,6 +25,7 @@ from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 
 import jlens
+from jlens.hooks import ActivationRecorder
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -65,6 +66,7 @@ class Config:
     escalate_timeout_s: float
     lens_device: str
     auto_fallback: bool
+    workspace_read_tokens: int
 
 
 @dataclass
@@ -73,7 +75,7 @@ class LocalAnswer:
     gen_ids: list[int]
     prompt_tokens: int
     finish_reason: str
-    features: dict[str, float | list[float]]
+    features: dict[str, Any]
     layer_entropies: list[float]
     band_tokens: list[dict[str, Any]]
     workspace_grid: dict[str, Any]
@@ -81,25 +83,45 @@ class LocalAnswer:
     snapshot_ms: float
 
 
+@dataclass
+class WorkspaceSnapshot:
+    step: int
+    token_id: int
+    token_text: str
+    token_logprob: float
+    lens_logits: dict[int, torch.Tensor]
+    risk: float
+    features: dict[str, Any]
+
+
 class RollingRouter:
-    def __init__(self, feature_names: list[str], weights: list[float], bias: float):
+    def __init__(
+        self,
+        feature_names: list[str],
+        weights: list[float],
+        bias: float,
+        norm_stats: dict[str, list[float]] | None = None,
+    ):
         self.feature_names = feature_names
         self.weights = np.array(weights, dtype=np.float64)
         self.bias = float(bias)
+        self.norm_stats = norm_stats
         self.history: deque[np.ndarray] = deque(maxlen=200)
 
     FROZEN = None  # {name: [mean, std]} loaded from sidecar/norm_stats.json
 
-    def score(self, raw_features: dict[str, float]) -> float:
+    def score(self, raw_features: dict[str, float], *, record: bool = True) -> float:
         x = np.array(
             [float(raw_features.get(name, 0.0)) for name in self.feature_names],
             dtype=np.float64,
         )
-        if RollingRouter.FROZEN:
-            mu = np.array([RollingRouter.FROZEN.get(n, [0.0, 1.0])[0] for n in self.feature_names])
-            sd = np.array([RollingRouter.FROZEN.get(n, [0.0, 1.0])[1] for n in self.feature_names])
+        frozen = self.norm_stats or RollingRouter.FROZEN
+        if frozen:
+            mu = np.array([frozen.get(n, [0.0, 1.0])[0] for n in self.feature_names])
+            sd = np.array([frozen.get(n, [0.0, 1.0])[1] for n in self.feature_names])
             z = (x - mu) / np.where(sd < 1e-6, 1.0, sd)
-            self.history.append(x)
+            if record:
+                self.history.append(x)
             logit = float(z @ self.weights + self.bias)
             if logit >= 0:
                 return float(1.0 / (1.0 + math.exp(-logit)))
@@ -113,7 +135,8 @@ class RollingRouter:
             sd = samples.std(axis=0)
             sd = np.where(sd < 1e-6, 1.0, sd)
             z = (x - mu) / sd
-        self.history.append(x)
+        if record:
+            self.history.append(x)
         logit = float(z @ self.weights + self.bias)
         if logit >= 0:
             return float(1.0 / (1.0 + math.exp(-logit)))
@@ -219,24 +242,23 @@ class Runtime:
         )
 
     def local_completion(self, prompt: str, max_new: int) -> LocalAnswer:
-        start = time.perf_counter()
-        lens_logits, first_logits, input_ids = self.lens.apply(
-            self.model,
-            prompt,
-            layers=self.band,
-            positions=[-1],
-            max_seq_len=self.cfg.max_prompt_tokens,
-        )
-        snapshot_ms = (time.perf_counter() - start) * 1000.0
-
+        input_ids = self.model.encode(prompt, max_length=self.cfg.max_prompt_tokens)
         ids = input_ids
-        logits = first_logits[0].unsqueeze(0)
         gen_ids: list[int] = []
         step_logprobs: list[float] = []
+        snapshots: list[WorkspaceSnapshot] = []
+        snapshot_ms = 0.0
         finish_reason = "length"
+        read_tokens = max(1, int(self.cfg.workspace_read_tokens))
 
         for step in range(max_new):
-            if step > 0:
+            lens_logits: dict[int, torch.Tensor] | None = None
+            if step < read_tokens:
+                snap_start = time.perf_counter()
+                lens_logits, model_logits = self.lens_snapshot_from_ids(ids)
+                snapshot_ms += (time.perf_counter() - snap_start) * 1000.0
+                logits = model_logits
+            else:
                 logits = self.next_logits(ids)
             logprobs = logits.float().log_softmax(-1)
             nxt = int(logits.argmax(dim=-1).item())
@@ -244,7 +266,20 @@ class Runtime:
                 finish_reason = "stop"
                 break
             gen_ids.append(nxt)
-            step_logprobs.append(float(logprobs[0, nxt].item()))
+            token_logprob = float(logprobs[0, nxt].item())
+            step_logprobs.append(token_logprob)
+            if lens_logits is not None:
+                snapshots.append(
+                    WorkspaceSnapshot(
+                        step=step,
+                        token_id=nxt,
+                        token_text=sanitize_band_token(self.tokenizer.decode([nxt])),
+                        token_logprob=token_logprob,
+                        lens_logits=lens_logits,
+                        risk=0.0,
+                        features={},
+                    )
+                )
             token = torch.tensor([[nxt]], device=ids.device, dtype=ids.dtype)
             ids = torch.cat([ids, token], dim=1)
         else:
@@ -257,17 +292,57 @@ class Runtime:
         if gen_ids:
             first_answer_id = gen_ids[0]
         else:
-            first_answer_id = int(first_logits.argmax(dim=-1).item())
-        features = self.features_from_snapshot(
-            lens_logits=lens_logits,
-            first_answer_id=first_answer_id,
-            step_logprobs=step_logprobs,
-            answer_len=len(gen_ids),
+            first_answer_id = snapshots[0].token_id if snapshots else 0
+        if not snapshots:
+            snap_start = time.perf_counter()
+            lens_logits, model_logits = self.lens_snapshot_from_ids(input_ids)
+            snapshot_ms += (time.perf_counter() - snap_start) * 1000.0
+            fallback_token = int(model_logits.argmax(dim=-1).item())
+            snapshots.append(
+                WorkspaceSnapshot(
+                    step=0,
+                    token_id=fallback_token,
+                    token_text=sanitize_band_token(self.tokenizer.decode([fallback_token])),
+                    token_logprob=0.0,
+                    lens_logits=lens_logits,
+                    risk=0.0,
+                    features={},
+                )
+            )
+
+        for snap in snapshots:
+            snap.features = self.features_from_snapshot(
+                lens_logits=snap.lens_logits,
+                answer_token_id=snap.token_id,
+                first_answer_logprob=step_logprobs[0] if step_logprobs else 0.0,
+                step_logprobs=step_logprobs,
+                answer_len=len(gen_ids),
+                read_step=snap.step,
+                read_token=snap.token_text,
+            )
+            snap.risk = self.router.score(
+                {k: v for k, v in snap.features.items() if isinstance(v, float)},
+                record=False,
+            )
+        selected = max(snapshots, key=lambda snap: snap.risk)
+        risk = self.router.score(
+            {k: v for k, v in selected.features.items() if isinstance(v, float)}
         )
+        features = dict(selected.features)
+        features["ws_selected_risk"] = float(risk)
+        features["ws_read_tokens"] = float(len(snapshots))
+        features["ws_configured_read_tokens"] = float(read_tokens)
+        features["ws_per_token_risk"] = [
+            {
+                "step": int(snap.step),
+                "token": snap.token_text,
+                "risk": round(float(snap.risk), 6),
+            }
+            for snap in snapshots
+        ]
         layer_entropies = features.get("layer_entropies", [])
         if not isinstance(layer_entropies, list):
             layer_entropies = []
-        risk = self.router.score({k: v for k, v in features.items() if isinstance(v, float)})
         return LocalAnswer(
             answer=answer,
             gen_ids=gen_ids,
@@ -275,14 +350,35 @@ class Runtime:
             finish_reason=finish_reason,
             features=features,
             layer_entropies=[float(v) for v in layer_entropies],
-            band_tokens=self.band_tokens_from_snapshot(lens_logits),
+            band_tokens=self.band_tokens_from_snapshot(selected.lens_logits),
             workspace_grid=self.workspace_grid_from_snapshot(
-                lens_logits,
-                first_answer_id,
+                selected.lens_logits,
+                selected.token_id,
             ),
             risk=risk,
             snapshot_ms=snapshot_ms,
         )
+
+    @torch.no_grad()
+    def lens_snapshot_from_ids(
+        self, input_ids: torch.Tensor
+    ) -> tuple[dict[int, torch.Tensor], torch.Tensor]:
+        final_layer = self.model.n_layers - 1
+        record_at = sorted({*self.band, final_layer})
+        with ActivationRecorder(self.model.layers, at=record_at) as recorder:
+            self.model.forward(input_ids)
+            activations = {i: recorder.activations[i].detach() for i in record_at}
+
+        def select(layer: int) -> torch.Tensor:
+            return activations[layer][0, -1:].float()
+
+        lens_logits: dict[int, torch.Tensor] = {}
+        for layer in self.band:
+            residual = self.lens.transport(select(layer), layer)
+            lens_logits[layer] = self.model.unembed(residual).float().cpu()
+
+        model_logits = self.model.unembed(select(final_layer)).float().cpu()
+        return lens_logits, model_logits
 
     @torch.no_grad()
     def next_logits(self, ids: torch.Tensor) -> torch.Tensor:
@@ -297,10 +393,13 @@ class Runtime:
     def features_from_snapshot(
         self,
         lens_logits: dict[int, torch.Tensor],
-        first_answer_id: int,
+        answer_token_id: int,
+        first_answer_logprob: float,
         step_logprobs: list[float],
         answer_len: int,
-    ) -> dict[str, float | list[float]]:
+        read_step: int,
+        read_token: str,
+    ) -> dict[str, Any]:
         ranks_ans: list[int] = []
         ranks_hedge: list[int] = []
         entropies: list[float] = []
@@ -311,7 +410,7 @@ class Runtime:
             order = logits.argsort(descending=True)
             rank_of = torch.empty_like(order)
             rank_of[order] = torch.arange(len(order), device=order.device)
-            ranks_ans.append(int(rank_of[first_answer_id].item()))
+            ranks_ans.append(int(rank_of[answer_token_id].item()))
             if self.hedge_ids:
                 ranks_hedge.append(int(min(rank_of[t].item() for t in self.hedge_ids)))
             probs = logits.softmax(-1)
@@ -329,10 +428,11 @@ class Runtime:
         hedge_rank = min(ranks_hedge) if ranks_hedge else 0
 
         return {
-            "bl_first_token_logprob": float(step_logprobs[0]),
+            "bl_first_token_logprob": float(first_answer_logprob),
             "bl_mean_logprob": float(np.mean(step_logprobs)),
             "bl_min_logprob": float(np.min(step_logprobs)),
             "bl_answer_len": float(answer_len),
+            "ws_read_step": float(read_step),
             "ws_mean_entropy": float(e.mean()),
             "ws_max_entropy": float(e.max()),
             "ws_late_entropy": float(e[2 * n // 3 :].mean()),
@@ -341,8 +441,9 @@ class Runtime:
             "ws_ignition_frac": float((ranks <= 10).mean()),
             "ws_ignition_depth": float(ignited[0] / n) if len(ignited) else 1.0,
             "ws_mean_log_rank": float(np.log1p(ranks).mean()),
-            "ws_band_agreement": float(np.mean(np.array(top1s) == first_answer_id)),
+            "ws_band_agreement": float(np.mean(np.array(top1s) == answer_token_id)),
             "ws_hedge_rank": float(np.log1p(hedge_rank)),
+            "ws_read_token": read_token,
             "layer_entropies": [round(float(v), 4) for v in entropies],
         }
 
@@ -509,6 +610,7 @@ def load_config() -> Config:
         "ESCALATE_TIMEOUT_S": 600,
         "LENS_DEVICE": "auto",
         "AUTO_FALLBACK": "1",
+        "WORKSPACE_READ_TOKENS": 3,
     }
     cfg_path = SIDECAR / "config.json"
     if cfg_path.exists():
@@ -536,6 +638,7 @@ def load_config() -> Config:
         escalate_timeout_s=float(defaults["ESCALATE_TIMEOUT_S"]),
         lens_device=str(defaults["LENS_DEVICE"]).lower(),
         auto_fallback=str(defaults["AUTO_FALLBACK"]).lower() not in {"0", "false", "no"},
+        workspace_read_tokens=max(1, int(defaults["WORKSPACE_READ_TOKENS"])),
     )
 
 
@@ -691,10 +794,16 @@ def load_router(path: Path, model_id: str) -> RollingRouter:
     if slug not in routers:
         raise RuntimeError(f"router weights for {slug!r} not found in {path}")
     combined = routers[slug]["combined"]
+    norm_stats = (
+        combined.get("norm_stats")
+        or routers[slug].get("norm_stats")
+        or (data.get("norm_stats") or {}).get(slug)
+    )
     return RollingRouter(
         feature_names=list(combined["features"]),
         weights=list(combined["weights"]),
         bias=float(combined["bias"]),
+        norm_stats=norm_stats,
     )
 
 
@@ -736,11 +845,10 @@ def sanitize_band_token(token: str) -> str:
     return token
 
 
-# The noise signal is defined at answer-onset. When the model preambles
-# ("The singer who had...") the first generated token is filler with a clean
-# workspace, so the detector reads that instead of the answer. Forcing a terse
-# answer makes token-1 == the answer token, which is the setting the signal was
-# validated in. Set LOCAL_TERSE=0 to disable.
+# The research signal was validated at answer onset. The sidecar now scans the
+# first WORKSPACE_READ_TOKENS answer-token workspaces, but terse answers still
+# keep the read aligned with the calibrated setting and avoid paying for filler.
+# Set LOCAL_TERSE=0 to disable.
 TERSE_SYSTEM = ("Answer directly and concisely in plain text. Lead with the answer itself. "
                 "No markdown, no bold, no asterisks, no preamble, no restating the question.")
 
@@ -911,6 +1019,7 @@ def health() -> dict[str, Any]:
         "quant": runtime.quant,
         "escalate_model": runtime.cfg.escalate_model or None,
         "threshold": runtime.cfg.risk_threshold,
+        "workspace_read_tokens": runtime.cfg.workspace_read_tokens,
         "band": [runtime.band[0], runtime.band[-1]],
         "fallback": runtime.fallback_reason,
     }
