@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+type: software
+title: "jspace: Jacobian-lens workspace readouts and a pre-registered hallucination-detection campaign on Gemma-4-12B"
+authors:
+  - family-names: "B."
+    given-names: "Kyle"
+    email: "fintechkyle@gmail.com"
+date-released: 2026-07-13
+url: "https://github.com/solarkyle/jspace"
+repository-code: "https://github.com/solarkyle/jspace"
+license: MIT
+keywords:
+  - interpretability
+  - hallucination detection
+  - Jacobian lens
+  - global workspace
+  - Gemma
+  - pre-registration
+references:
+  - type: data
+    title: "jspace hallucination campaign: graded traces, features, and judge verdicts"
+    authors:
+      - family-names: "B."
+        given-names: "Kyle"
+    url: "https://huggingface.co/datasets/solarkyle/jspace-hallucination-campaign"
+  - type: software
+    title: "jspace-lenses: fitted Jacobian lenses, routers, and frozen classifiers"
+    authors:
+      - family-names: "B."
+        given-names: "Kyle"
+    url: "https://huggingface.co/solarkyle/jspace-lenses"
+  - type: article
+    title: "Verbalizable Representations Form a Global Workspace in Language Models"
+    authors:
+      - name: "Anthropic"
+    url: "https://transformer-circuits.pub/2026/workspace/index.html"
+    year: 2026
+  - type: software
+    title: "jacobian-lens (reference implementation)"
+    authors:
+      - name: "Anthropic"
+    url: "https://github.com/anthropics/jacobian-lens"
