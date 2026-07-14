@@ -7,8 +7,9 @@ immutable). This report supersedes the original Stage 1 report, which is frozen
 verbatim with its artifacts in campaign/reports/stage1a_frozen/.
 
 What changed between Stage 1a and this report:
-1. An external adversarial review (campaign/PEER_REVIEW_CODEX.md) reproduced the
-   headline and found two real bugs plus several overclaims. All conceded.
+1. An independent adversarial audit and reproduction (Codex / GPT-5.5;
+   campaign/PEER_REVIEW_CODEX.md) reproduced the headline and found two real
+   bugs plus several overclaims. All conceded.
 2. Bug fix: the judge confidence rule (frozen prompt: verdicts below 0.7 are
    ambiguous) was not enforced at ingestion; 399 low-confidence labels leaked
    into training. Now enforced; all numbers below are on the corrected labels.
@@ -42,7 +43,7 @@ For the record, the pre-fix Stage 1a numbers were +0.0590 with 7/7 breadth;
 enforcing the confidence rule strengthened the mean and moved squad_v2 from
 +0.011 to -0.003. The gate holds under both labelings.
 
-## Robustness (from the external review, on pre-fix labels)
+## Robustness (from the independent audit, on pre-fix labels)
 
 The reviewer independently reproduced +0.0590 (7/7) and stress-tested it:
 - excluding low-confidence judge labels: +0.065 (6/7)

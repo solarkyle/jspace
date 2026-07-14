@@ -1,10 +1,9 @@
-# Stage 2 report: prospective zero-shot validation (2026-07-11, PRELIMINARY)
+# Stage 2 report: prospective zero-shot validation (final, 2026-07-13)
 
-STATUS: preliminary. The three deterministic new sources (nq_open,
-legal_hallucinations, bfcl) and the squad_v2 regen are final. truthfulqa and
-facts_grounding await Codex judging (quota-limited, resumable driver running);
-their rows will complete the table but CANNOT change the Gate D verdict, which
-is already decided on breadth (see below).
+STATUS: final. All six sources are scored on complete labels. The Codex judge
+pass over truthfulqa and facts_grounding finished (1469/1469 verdicts); their
+rows are filled in below. The Gate D verdict was already decided on breadth
+when the deterministic sources landed and is unchanged by the judged rows.
 
 ## Design recap
 
@@ -18,23 +17,27 @@ as Stage 1. Generation cost ~$14 Modal.
 Gate D (registered): mean frozen-combined-minus-frozen-logprob AUROC increment
 over the five NEW sources >= +0.02 AND positive on >= 4 of 5.
 
-## Verdict: GATE D MISS (registered criteria; decided on final data)
+## Verdict: GATE D MISS (registered criteria, final data)
 
-Frozen-model zero-shot per source (deterministic sources final):
+Frozen-model zero-shot per source (campaign/score_gate_d.py on the complete
+labeled table, 7,113 labeled of 7,120 rows):
 
 | source | n | err% | AUC lp | AUC ws | AUC comb | increment |
 |---|---:|---:|---:|---:|---:|---:|
+| facts_grounding | 803 | 68% | 0.605 | 0.633 | 0.668 | +0.063 |
 | nq_open | 2000 | 66% | 0.746 | 0.739 | 0.768 | +0.023 |
-| legal_hallucinations | 1600 | 47% | 0.555 | 0.419 | 0.448 | -0.107 |
+| truthfulqa | 810 | 37% | 0.620 | 0.592 | 0.581 | -0.038 |
 | bfcl | 400 | 22% | 0.572 | 0.499 | 0.552 | -0.020 |
-| truthfulqa | 817 | pending judge | | | | |
-| facts_grounding | 803 | pending judge | | | | |
+| legal_hallucinations | 1600 | 47% | 0.555 | 0.419 | 0.448 | -0.107 |
 | squad_v2 (regen, scored separately) | 1500 | 29% | 0.363 | 0.425 | 0.419 | +0.056 |
 
-With legal and bfcl negative, breadth can reach at most 3/5, below the
-registered 4/5. Per the prereg's pre-committed interpretation, the honest
-conclusion is that the Stage 1 mapping does not transfer universally beyond
-its training pool's task style.
+Mean increment over the five new sources: -0.016 (needed >= +0.02). Breadth:
+2/5 positive (needed 4/5). Verdict: MISS on both registered criteria. Per the
+prereg's pre-committed interpretation, the honest conclusion is that the
+Stage 1 mapping does not transfer universally beyond its training pool's task
+style. Where it does transfer, it transfers well: the two grounded/retrieval
+sources (facts_grounding +0.063, nq_open +0.023) both clear the per-source
+bar; the veracity, misconception, and tool-call sources go negative.
 
 ## The mechanism: the signal transfers, the mapping does not
 
@@ -70,8 +73,12 @@ is nearly free there), and what fails elsewhere is the frozen signal-to-error
 MAPPING plus, on fixed-truth veracity tasks, the structure of the task itself.
 Three regimes:
 
-- Task style matches Stage 1 (closed-book answer retrieval, nq_open): the
-  frozen mapping transfers (+0.023, above the registered per-source bar).
+- Task style matches Stage 1 (closed-book retrieval, nq_open +0.023; grounded
+  long-document generation, facts_grounding +0.063): the frozen mapping
+  transfers, above the registered per-source bar on both. truthfulqa
+  (false-premise and misconception questions) sits between regimes and comes
+  out slightly negative (-0.038): misconception errors are fluent and
+  confident, not foggy.
 - Veracity/abstention tasks (legal case existence, squad unanswerable): the
   mapping INVERTS. Frozen workspace AUC 0.419 on legal means the score ranks
   errors BELOW non-errors: flipping it yields ~0.58. Interpretation: Stage 1
@@ -95,8 +102,9 @@ workspace features are less wrong than logprobs under the flip.
 
 ## What survives, restated
 
-- Stage 1 (adversarially reproduced): workspace features beat output
-  confidence across 7 held-out-dataset wrappers, ~+0.06 under every control.
+- Stage 1 (independently audited and reproduced, Codex / GPT-5.5): workspace
+  features beat output confidence across 7 held-out-dataset wrappers, ~+0.06
+  under every control.
 - Stage 2 adds: on genuinely new varying-truth domains the signal is real but
   moderate (nq_open 0.783 in-domain, 0.768 frozen zero-shot - transfer nearly
   free within task style); the polarity of the fog-error relationship is
@@ -107,11 +115,13 @@ workspace features are less wrong than logprobs under the flip.
   classifier (~300 KB, microsecond inference) + a few hundred labeled
   examples from the target distribution.
 
-## Caveats and pending items
+## Caveats
 
-- truthfulqa / facts_grounding rows pending Codex quota; judged by Codex
-  (GPT-5.5) per prereg. Judge validated against Sonnet at kappa 0.818 on 120
-  identical-prompt rows (Sonnet-vs-Fable pilot kappa 0.84): three judges, two
-  providers, substantial agreement.
+- Judging is complete: 1469/1469 Codex (GPT-5.5) verdicts ingested for
+  truthfulqa and facts_grounding, per prereg, confidence rule >= 0.7 enforced.
+  Judge validated against Sonnet at kappa 0.818 on 120 identical-prompt rows
+  (Sonnet-vs-Fable pilot kappa 0.84): three judges, two providers, substantial
+  agreement. 7 of 7,120 rows remain unlabeled (ambiguous or below the judge
+  confidence threshold) and are excluded.
 - Single model (Gemma-4-12B), greedy decoding, no comparison yet against
   dedicated trained hallucination probes.
