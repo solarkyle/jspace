@@ -37,3 +37,24 @@ python analyze_extension.py   # nested-CV AUROC comparison
 Numbers are a single 500-question sample; treat AUROC differences as indicative,
 not intervals. Part of the full reproduction logbook:
 https://huggingface.co/spaces/solarkyle/fufl3hBXMq
+
+## Update: PopQA replication + per-layer analysis
+
+Ran a second labeled set (PopQA, 500 Q) storing **per-layer** curvature, and found
+the band-average was hiding real structure:
+
+- **Layer-localized with a sign flip (~L22→L23).** Per-layer AUROC for flagging a
+  wrong answer: L10–22 sit below 0.5, **L23–29 jump to 0.62–0.74** (L24 = 0.743,
+  comparable to logprob's 0.68). The naive L10–30 **mean averages the opposing
+  halves to 0.55** — standard mid-band averaging *destroys* the signal.
+  Upper-band curvature (L23–26) alone = **0.731 AUROC**. See `fig_perlayer_auroc.png`.
+- **Still redundant, though.** Nested CV: logprob+entropy 0.822 → +upper-band
+  curvature 0.823 (+0.001). Even well-localized, curvature adds ~nothing over
+  output-logprob + workspace entropy.
+- The earlier confident-slice hint (+0.010 on trivia alone) did **not** replicate
+  when pooled with PopQA (−0.026) — it was noise.
+
+**Takeaway:** contextual curvature is a genuine, substantial uncertainty readout
+*when read at the right layers* (a caution for band-averaging in this literature),
+but it indexes the same latent uncertainty as logprob/JSpace rather than adding a
+complementary factual-error signal. `analyze_extension_v2.py` reproduces this.

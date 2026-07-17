@@ -28,8 +28,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 MODEL_ID = os.environ.get("MODEL_ID", "google/gemma-4-E4B-it")
 N = int(os.environ.get("N_Q", "500"))
 OUT_REPO = os.environ.get("OUT_REPO", "solarkyle/curvature-repro-results")
+DATASET = os.environ.get("DATASET", "trivia")  # trivia | popqa
 BAND_LO, BAND_HI = 0.25, 0.75
-JSPACE_URL = "https://raw.githubusercontent.com/solarkyle/jspace/master/data/uncertainty_trivia_gemma-4-e4b-it.jsonl"
+JSPACE_URL = (f"https://raw.githubusercontent.com/solarkyle/jspace/master/data/"
+              f"uncertainty_{DATASET}_gemma-4-e4b-it.jsonl")
 NORM_RTOL, COS_EPS = 1e-9, 1e-7
 
 
@@ -110,13 +112,17 @@ def main():
         curvs = [contextual_curvature_last(cap[li][0].float().cpu().numpy()) for li in band]
         rec = {"q": r["q"], "correct": str(r["correct"]).lower() == "true",
                "curv_band_mean_deg": float(np.degrees(np.nanmean(curvs))),
-               "curv_band_min_deg": float(np.degrees(np.nanmin(curvs))),
+               "curv_band_min_deg": float(np.degrees(np.nanmin(curvs))),}
+        # per-layer curvature for the mechanistic (which-layer) analysis
+        for li, cv in zip(band, curvs):
+            rec[f"curv_L{li}_deg"] = float(np.degrees(cv)) if not np.isnan(cv) else float("nan")
+        rec.update({
                "bl_first_token_logprob": float(r["bl_first_token_logprob"]),
                "bl_mean_logprob": float(r["bl_mean_logprob"]),
                "bl_min_logprob": float(r["bl_min_logprob"]),
                "ws_mean_entropy": float(r.get("mean_entropy", "nan")),
                "ws_ignition_frac": float(r.get("ignition_frac", "nan")),
-               "ws_band_agreement": float(r.get("band_agreement", "nan"))}
+               "ws_band_agreement": float(r.get("band_agreement", "nan"))})
         out_rows.append(rec)
         if (qi + 1) % 50 == 0:
             print(f"  {qi+1}/{len(rows_js)}")
@@ -125,7 +131,7 @@ def main():
     df = pd.DataFrame(out_rows)
     df.to_parquet("/tmp/gemma_curv.parquet")
     HfApi().upload_file(path_or_fileobj="/tmp/gemma_curv.parquet",
-                        path_in_repo="extension/gemma_curvature_trivia.parquet",
+                        path_in_repo=f"extension/gemma_curvature_{DATASET}.parquet",
                         repo_id=OUT_REPO, repo_type="dataset")
     # quick in-job AUROC sanity
     try:
