@@ -2,9 +2,20 @@
 
 **Finding:** a ~300 KB LightGBM classifier over Jacobian-lens workspace
 readouts predicts Gemma-4-12B's wrong answers better than the model's own
-output confidence, transfers across datasets within a task family, and fails a
-pre-registered universal-transfer test in an informative way: the
-uncertainty-to-error mapping inverts on veracity tasks.
+output confidence and transfers across datasets within a task family, but it
+missed a pre-registered universal-transfer test. The clearest current conclusion
+is narrower: workspace uncertainty is useful on some retrieval and grounded
+tasks, unreliable on others, and cannot yet be treated as a universal or
+sign-stable error signal.
+
+> **Correction — 2026-07-18:** Earlier README language described the negative
+> transfer on veracity tasks as a demonstrated operation-level sign inversion.
+> That exceeded the evidence. Several favorable or inverted veracity slices are
+> entangled with answer-identity / fixed-truth confounding, where the correct
+> label is determined by the answer class. The campaign establishes a prospective
+> transfer miss and task-conditional signal reliability; a clean within-model
+> sign reversal across cognitive operations remains a hypothesis requiring a
+> mixed-polarity, label-variant confirmatory test.
 
 ## Why it matters
 
@@ -13,10 +24,10 @@ dataset-specific: a confidence threshold tuned on one benchmark does not carry
 to the next. An internal signal read from the residual stream through the
 [Jacobian lens](https://github.com/anthropics/jacobian-lens) (Anthropic's
 [global workspace paper](https://transformer-circuits.pub/2026/workspace/index.html),
-July 2026) generalizes across datasets better than output confidence does, at
-one extra forward-pass read. Just as important, the campaign's prospective
-failure maps where such monitors stop working, and surfaces a confound that
-likely affects other published probe results.
+July 2026) generalizes across datasets better than output confidence does in
+some task families, at one extra forward-pass read. Just as important, the
+campaign's prospective failure maps where such monitors stop working and
+surfaces a confound that likely affects other published probe results.
 
 ## The campaign, in four pre-registered gates
 
@@ -30,19 +41,21 @@ generated.
 | A | Combined (workspace+logprob) beats logprob-only under leave-one-dataset-out: mean AUROC increment >= +0.02, breadth >= 70% | **HIT**: +0.065, positive 6/7 datasets. Workspace-only 0.789 vs logprob-only 0.731 LODO |
 | B | At a 20% routing budget, combined catches >= 5pp more errors, bootstrap CI > 0 | **Marginal HIT**: +5.1pp, CI [+3.2, +7.4]; concentration-driven (medhallu +20pp; +2.6pp without it) |
 | C | 50%-prefix early warning | **Not tested** (prefix features exist in the traces; open) |
-| D | Frozen classifiers, zero-shot on 5 never-seen datasets: mean increment >= +0.02, positive 4/5 | **MISS**: mean -0.016, 2/5. Transfers on grounded and retrieval QA (facts_grounding +0.063, nq_open +0.023), inverts on veracity tasks (legal -0.107) |
+| D | Frozen classifiers, zero-shot on 5 never-seen datasets: mean increment >= +0.02, positive 4/5 | **MISS**: mean -0.016, 2/5. Transfers on grounded and retrieval QA (facts_grounding +0.063, nq_open +0.023), negative on veracity tasks (legal -0.107) |
 
 Stage 1 numbers survived an independent adversarial audit and reproduction
 (Codex / GPT-5.5, [campaign/PEER_REVIEW_CODEX.md](campaign/PEER_REVIEW_CODEX.md)):
 the increment stayed at ~+0.06 under every control tried (judge-confidence
 filtering, cross-dataset dedup, upstream-source splits).
 
-Interpretation of the Gate D miss, kept separate from the numbers: in
-retrieval, internal fog accompanies error; in veracity judgment ("is this
-legal case real?"), fog accompanies correctly rejecting a fabrication, and
-confident fluency is what the errors look like. Same signal, opposite label.
-So this is a per-task-family monitor, not a universal detector, by our own
-registered test.
+The Gate D result says the frozen universal detector does not transfer. It was
+originally interpreted as “the same signal, opposite label” on veracity tasks.
+The answer-readout audit below shows why that mechanism is not established:
+some of the strongest apparent reversals occur where correctness is a
+deterministic function of the answer class. The defensible conclusion is that
+the signal's usefulness is task-conditional; identifying whether the remaining
+variation reflects cognitive operation, failure type, model family, or format
+requires matched, label-variant follow-up data.
 
 ## What failed, and the answer-readout confound
 
@@ -51,9 +64,9 @@ numbers. On any evaluation slice where the correct answer is constant (case
 existence: always yes; unanswerable detection: abstain is always right), an
 internal-features probe reaches AUC ~1.0 by reading which answer the model is
 about to emit, not by detecting error: the label is a deterministic function
-of the answer. Our in-domain probes hit 1.000/1.000/0.991 on three such
-slices; honest varying-truth numbers on the same datasets are 0.55-0.78. If
-you publish probe AUCs on fixed-truth slices, decompose them first. Details:
+of the answer. Our in-domain probes hit 1.000/1.000/0.991 on three such slices;
+honest varying-truth numbers on the same datasets are 0.55-0.78. If you publish
+probe AUCs on fixed-truth slices, decompose them first. Details:
 [STAGE2_REPORT](campaign/reports/STAGE2_REPORT.md).
 
 ## Reproduce in 90 seconds (CPU only)
@@ -87,10 +100,10 @@ column (tolerance 0.002).
 
 ## Earlier explorations
 
-The campaign grew out of a same-day replication of the workspace paper on
-open models plus a set of exploratory cross-model findings (covert-emotion
-readouts, abliteration effects, the original TriviaQA router, an interactive
-demo). Those results, at their varying evidence levels, are preserved in
+The campaign grew out of a same-day replication of the workspace paper on open
+models plus a set of exploratory cross-model findings (covert-emotion readouts,
+abliteration effects, the original TriviaQA router, an interactive demo). Those
+results, at their varying evidence levels, are preserved in
 [docs/EARLY_EXPLORATIONS.md](docs/EARLY_EXPLORATIONS.md), with the
 [16GB-consumer-GPU fitting recipe](docs/GPU_NOTES.md) and the
 [cross-model findings report](docs/FINDINGS.md). Interactive demo:
