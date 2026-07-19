@@ -1,0 +1,8 @@
+model,cv_auroc
+logprob only,0.7163235876378999
+logprob + curvature,0.7187248393638466
+JSpace only,0.7543101940898759
+JSpace + curvature,0.7543953106503226
+logprob + JSpace,0.7804036956866908
+logprob + JSpace + curvature (all),0.7837618303979677
+curvature only,0.6056114624974624

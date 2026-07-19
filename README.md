@@ -19,7 +19,8 @@ Preregistered reliability research on open models.**
 readouts predicts Gemma-4-12B's wrong answers better than the model's own
 output confidence, transfers across datasets within a task family, and fails a
 pre-registered universal-transfer test in an informative way: transfer holds
-on grounded and retrieval QA but breaks down on veracity-judgment tasks.
+on grounded and retrieval QA but breaks down on veracity-judgment tasks, so
+it cannot yet be treated as a universal or sign-stable error signal.
 
 ## Why it matters
 
@@ -28,10 +29,10 @@ dataset-specific: a confidence threshold tuned on one benchmark does not carry
 to the next. An internal signal read from the residual stream through the
 [Jacobian lens](https://github.com/anthropics/jacobian-lens) (Anthropic's
 [global workspace paper](https://transformer-circuits.pub/2026/workspace/index.html),
-July 2026) generalizes across datasets within a task family better than
-output confidence does, at one extra forward-pass read. Just as important, the campaign's prospective
-failure maps where such monitors stop working, and surfaces a confound that
-can affect other published probe results.
+July 2026) generalizes across datasets better than output confidence does in
+some task families, at one extra forward-pass read. Just as important, the
+campaign's prospective failure maps where such monitors stop working and
+surfaces a confound that can affect other published probe results.
 
 ## The campaign, in four pre-registered gates
 
@@ -66,7 +67,9 @@ within-model follow-up (in preparation) looked for this sign flip on a
 retrieve-vs-reason axis and did not find it — the signal collapses toward
 chance off retrieval rather than inverting — while the veracity-style axis
 was too degenerate to test. So the sign flip stays an open hypothesis; the
-per-task-family scoping is the result.
+per-task-family scoping is the result. Identifying whether the remaining
+variation reflects cognitive operation, failure type, model family, or format
+requires matched, label-variant follow-up data.
 
 ## What failed, and the answer-readout confound
 
@@ -75,9 +78,9 @@ numbers. On any evaluation slice where the correct answer is constant (case
 existence: always yes; unanswerable detection: abstain is always right), an
 internal-features probe reaches AUC ~1.0 by reading which answer the model is
 about to emit, not by detecting error: the label is a deterministic function
-of the answer. Our in-domain probes hit 1.000/1.000/0.991 on three such
-slices; honest varying-truth numbers on the same datasets are 0.55-0.78. If
-you publish probe AUCs on fixed-truth slices, decompose them first. Details:
+of the answer. Our in-domain probes hit 1.000/1.000/0.991 on three such slices;
+honest varying-truth numbers on the same datasets are 0.55-0.78. If you publish
+probe AUCs on fixed-truth slices, decompose them first. Details:
 [STAGE2_REPORT](campaign/reports/STAGE2_REPORT.md).
 
 ## Reproduce in 90 seconds (CPU only)
@@ -111,10 +114,10 @@ column (tolerance 0.002).
 
 ## Earlier explorations
 
-The campaign grew out of a same-day replication of the workspace paper on
-open models plus a set of exploratory cross-model findings (covert-emotion
-readouts, abliteration effects, the original TriviaQA router, an interactive
-demo). Those results, at their varying evidence levels, are preserved in
+The campaign grew out of a same-day replication of the workspace paper on open
+models plus a set of exploratory cross-model findings (covert-emotion readouts,
+abliteration effects, the original TriviaQA router, an interactive demo). Those
+results, at their varying evidence levels, are preserved in
 [docs/EARLY_EXPLORATIONS.md](docs/EARLY_EXPLORATIONS.md), with the
 [16GB-consumer-GPU fitting recipe](docs/GPU_NOTES.md) and the
 [cross-model findings report](docs/FINDINGS.md). Interactive demo:
