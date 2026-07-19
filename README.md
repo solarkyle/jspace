@@ -8,15 +8,6 @@ is narrower: workspace uncertainty is useful on some retrieval and grounded
 tasks, unreliable on others, and cannot yet be treated as a universal or
 sign-stable error signal.
 
-> **Correction — 2026-07-18:** Earlier README language described the negative
-> transfer on veracity tasks as a demonstrated operation-level sign inversion.
-> That exceeded the evidence. Several favorable or inverted veracity slices are
-> entangled with answer-identity / fixed-truth confounding, where the correct
-> label is determined by the answer class. The campaign establishes a prospective
-> transfer miss and task-conditional signal reliability; a clean within-model
-> sign reversal across cognitive operations remains a hypothesis requiring a
-> mixed-polarity, label-variant confirmatory test.
-
 ## Why it matters
 
 Output logprobs are the standard cheap hallucination signal, but they are
