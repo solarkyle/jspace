@@ -1,0 +1,25 @@
+name: reproduce
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: "17 6 * * 1" # weekly: re-verify the published table against frozen artifacts
+  workflow_dispatch:
+
+jobs:
+  gate-d-table:
+    name: Re-verify Gate D table (frozen classifiers, zero-shot)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install lightgbm numpy huggingface_hub
+      - name: Reproduce published numbers
+        run: python campaign/reproduce_mini.py

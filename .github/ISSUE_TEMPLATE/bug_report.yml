@@ -1,0 +1,29 @@
+name: Bug report
+description: Something in the code, data, or reproduction is broken or wrong
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Include the command you ran and the full error or wrong output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: OS, Python version, package versions (pip freeze | grep -E "lightgbm|numpy|huggingface")
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        If `campaign/reproduce_mini.py` prints **FAIL** rows on your machine, please paste
+        the whole table — a reproduction failure is a result we want to know about.

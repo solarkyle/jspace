@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question / discussion
+    url: https://github.com/solarkyle/jspace/discussions
+    about: For questions about the results, methods, or how to use the data — no template needed.

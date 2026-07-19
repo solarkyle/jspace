@@ -1,4 +1,19 @@
-# jspace: workspace readouts and a pre-registered hallucination-detection campaign
+<div align="center">
+
+# jspace
+
+**Do LLM internal signals actually detect errors?
+Preregistered reliability research on open models.**
+
+[![reproduce](https://github.com/solarkyle/jspace/actions/workflows/reproduce.yml/badge.svg)](https://github.com/solarkyle/jspace/actions/workflows/reproduce.yml)
+[![release](https://img.shields.io/github/v/release/solarkyle/jspace)](https://github.com/solarkyle/jspace/releases)
+[![license](https://img.shields.io/github/license/solarkyle/jspace)](LICENSE)
+[![data](https://img.shields.io/badge/%F0%9F%A4%97%20data-24.5k%20graded%20traces-yellow)](https://huggingface.co/datasets/solarkyle/jspace-hallucination-campaign)
+[![demo](https://img.shields.io/badge/demo-live-blue)](https://solarkyle.github.io/jspace/demo/)
+
+[Try the demo](https://solarkyle.github.io/jspace/demo/) · [Reproduce in 90s](#reproduce-in-90-seconds-cpu-only) · [Reports](campaign/reports/) · [Data](https://huggingface.co/datasets/solarkyle/jspace-hallucination-campaign) · [Contributing](CONTRIBUTING.md)
+
+</div>
 
 **Finding:** a ~300 KB LightGBM classifier over Jacobian-lens workspace
 readouts predicts Gemma-4-12B's wrong answers better than the model's own
@@ -104,6 +119,13 @@ Paper and reference implementation: Anthropic
 Apache 2.0). Models: Google (Gemma 4), Alibaba (Qwen3.6), huihui-ai
 (abliteration). Scripts in this repo: MIT.
 
+## Contributing
+
+Contributions welcome — and most need **no GPU**: all traces, features, and
+fitted lenses are public on HF, so analysis ideas run on a laptop. Start with
+[CONTRIBUTING.md](CONTRIBUTING.md), the
+[`analysis idea` issue template](https://github.com/solarkyle/jspace/issues/new?template=analysis-idea.yml),
+or [Discussions](https://github.com/solarkyle/jspace/discussions). CI reruns
+the full 90-second reproduction on every pull request.
+
 By [@solarkyle](https://github.com/solarkyle). Contact: fintechkyle@gmail.com.
-Contributions welcome; traces and fitted lenses are on HF, so most analysis
-ideas need no GPU.

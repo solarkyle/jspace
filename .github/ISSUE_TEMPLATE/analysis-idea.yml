@@ -1,0 +1,35 @@
+name: Analysis idea
+description: Propose a new analysis over the published traces, features, or lenses (no GPU needed)
+labels: ["analysis idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        All 24.5k graded traces, feature tables, and frozen classifiers are public —
+        most analyses run on a laptop in minutes. Sketch the idea here before building,
+        so we can sanity-check the framing (and warn you about known confounds).
+  - type: textarea
+    id: question
+    attributes:
+      label: The question
+      description: What would this analysis tell us that we don't already know?
+      placeholder: e.g., Does the workspace signal's lead over logprob survive controlling for answer length?
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data it would run on
+      description: Which published artifact — traces, stage2_features.jsonl, frozen classifiers?
+    validations:
+      required: true
+  - type: textarea
+    id: confounds
+    attributes:
+      label: Known confounds considered
+      description: |
+        The big one here is the answer-readout confound (see README): on fixed-truth
+        slices a probe can hit AUC ~1.0 without detecting error. How does your analysis
+        avoid or measure it?
+    validations:
+      required: false
