@@ -18,8 +18,8 @@ Preregistered reliability research on open models.**
 **Finding:** a ~300 KB LightGBM classifier over Jacobian-lens workspace
 readouts predicts Gemma-4-12B's wrong answers better than the model's own
 output confidence, transfers across datasets within a task family, and fails a
-pre-registered universal-transfer test in an informative way: the
-uncertainty-to-error mapping inverts on veracity tasks.
+pre-registered universal-transfer test in an informative way: transfer holds
+on grounded and retrieval QA but breaks down on veracity-judgment tasks.
 
 ## Why it matters
 
@@ -28,10 +28,10 @@ dataset-specific: a confidence threshold tuned on one benchmark does not carry
 to the next. An internal signal read from the residual stream through the
 [Jacobian lens](https://github.com/anthropics/jacobian-lens) (Anthropic's
 [global workspace paper](https://transformer-circuits.pub/2026/workspace/index.html),
-July 2026) generalizes across datasets better than output confidence does, at
-one extra forward-pass read. Just as important, the campaign's prospective
+July 2026) generalizes across datasets within a task family better than
+output confidence does, at one extra forward-pass read. Just as important, the campaign's prospective
 failure maps where such monitors stop working, and surfaces a confound that
-likely affects other published probe results.
+can affect other published probe results.
 
 ## The campaign, in four pre-registered gates
 
@@ -45,19 +45,28 @@ generated.
 | A | Combined (workspace+logprob) beats logprob-only under leave-one-dataset-out: mean AUROC increment >= +0.02, breadth >= 70% | **HIT**: +0.065, positive 6/7 datasets. Workspace-only 0.789 vs logprob-only 0.731 LODO |
 | B | At a 20% routing budget, combined catches >= 5pp more errors, bootstrap CI > 0 | **Marginal HIT**: +5.1pp, CI [+3.2, +7.4]; concentration-driven (medhallu +20pp; +2.6pp without it) |
 | C | 50%-prefix early warning | **Not tested** (prefix features exist in the traces; open) |
-| D | Frozen classifiers, zero-shot on 5 never-seen datasets: mean increment >= +0.02, positive 4/5 | **MISS**: mean -0.016, 2/5. Transfers on grounded and retrieval QA (facts_grounding +0.063, nq_open +0.023), inverts on veracity tasks (legal -0.107) |
+| D | Frozen classifiers, zero-shot on 5 never-seen datasets: mean increment >= +0.02, positive 4/5 | **MISS**: mean -0.016, 2/5. Transfers on grounded and retrieval QA (facts_grounding +0.063, nq_open +0.023); the increment goes negative on veracity and tool tasks (legal -0.107) |
 
 Stage 1 numbers survived an independent adversarial audit and reproduction
 (Codex / GPT-5.5, [campaign/PEER_REVIEW_CODEX.md](campaign/PEER_REVIEW_CODEX.md)):
 the increment stayed at ~+0.06 under every control tried (judge-confidence
 filtering, cross-dataset dedup, upstream-source splits).
 
-Interpretation of the Gate D miss, kept separate from the numbers: in
-retrieval, internal fog accompanies error; in veracity judgment ("is this
-legal case real?"), fog accompanies correctly rejecting a fabrication, and
-confident fluency is what the errors look like. Same signal, opposite label.
-So this is a per-task-family monitor, not a universal detector, by our own
-registered test.
+Interpretation of the Gate D miss, kept separate from the numbers: by our own
+registered test this is a per-task-family monitor, not a universal detector.
+Why it breaks on veracity tasks is not settled, and two readings compete. One
+is a genuine sign flip: in retrieval, internal fog accompanies error; in
+veracity judgment ("is this legal case real?"), fog may instead accompany
+correctly rejecting a fabrication, with confident fluency marking the errors
+(same signal, opposite label). The other is the answer-readout confound
+below: the legal inversion is concentrated on fixed-truth slices, where the
+score reads answer identity rather than error, and the one varying-truth
+legal slice is 0.582 in-domain — weakly aligned, not inverted. A powered
+within-model follow-up (in preparation) looked for this sign flip on a
+retrieve-vs-reason axis and did not find it — the signal collapses toward
+chance off retrieval rather than inverting — while the veracity-style axis
+was too degenerate to test. So the sign flip stays an open hypothesis; the
+per-task-family scoping is the result.
 
 ## What failed, and the answer-readout confound
 
