@@ -45,10 +45,10 @@ or falls.
 ## Scoring
 
 Each prediction is scored HIT / MISS / PARTIAL in an update to this file,
-whatever the outcome. Analysis script: analyze_popqa.py (to be committed
+whatever the outcome. Analysis script: analysis/analyze_popqa.py (to be committed
 with the exact rule set before analysis runs).
 
-## VERDICTS (2026-07-10, analyze_popqa.py on the committed traces)
+## VERDICTS (2026-07-10, analysis/analyze_popqa.py on the committed traces)
 
 - P1: HIT. Mean combined 0.920 (predicted >0.86); 7/7 beat their TriviaQA
   combined. The 0.84 saturation was TriviaQA's label-noise floor.

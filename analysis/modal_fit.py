@@ -4,9 +4,9 @@ The jlens fitter averages per-prompt Jacobians, so shards fit independently on
 disjoint prompt slices and JacobianLens.merge() combines them exactly.
 
 Usage:
-    modal run modal_fit.py --model google/gemma-4-E4B-it --n-prompts 8 --shards 2   # ~$1 validation
-    modal run modal_fit.py --model google/gemma-4-12B-it --n-prompts 100 --shards 4
-    modal run modal_fit.py --model Qwen/Qwen3.6-27B --n-prompts 100 --shards 4
+    modal run analysis/modal_fit.py --model google/gemma-4-E4B-it --n-prompts 8 --shards 2   # ~$1 validation
+    modal run analysis/modal_fit.py --model google/gemma-4-12B-it --n-prompts 100 --shards 4
+    modal run analysis/modal_fit.py --model Qwen/Qwen3.6-27B --n-prompts 100 --shards 4
 
 Download the merged lens:
     modal volume get jlens-out <model-slug>/lens.pt out/<model-slug>/lens.pt
@@ -20,7 +20,7 @@ app = modal.App("jlens-fit")
 
 # A100-80GB/H100 need a payment method on the account even with credits;
 # L40S (48GB) and below run on credits alone. Override per-run:
-#   JLENS_GPU=A100-80GB modal run modal_fit.py ...
+#   JLENS_GPU=A100-80GB modal run analysis/modal_fit.py ...
 GPU = os.environ.get("JLENS_GPU", "L40S")
 
 image = (
@@ -235,7 +235,7 @@ def emotions(models: str = "google/gemma-4-26B-A4B-it", out: str = "out/emotion_
 def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
                     tag: str = "trivia", max_new: int = 24, quant: str = "") -> list:
     """Hallucination probe (Phase 1 of docs/HALLUCINATION_PLAN.md), cloud port
-    of probe_uncertainty.py. Reads lens features at the answer position, greedy
+    of analysis/probe_uncertainty.py. Reads lens features at the answer position, greedy
     generation, labels vs aliases. `questions` overrides TriviaQA (each item:
     {"q": ..., "aliases": [...], **extra-fields-passed-through})."""
     import json
@@ -535,7 +535,7 @@ def dump_qa(model_id: str, questions: list, topk: int = 8) -> list:
     secrets=[modal.Secret.from_name("huggingface")],
 )
 def categories_run(model_id: str, items: list, quant: str = "") -> list:
-    """Cloud port of probe_categories.py: response-type taxonomy snapshots.
+    """Cloud port of analysis/probe_categories.py: response-type taxonomy snapshots.
     3 workspace snapshots per answer (onset + next 2 tokens), per band layer:
     entropy, top-20 ids+probs, rival/tail mass, rank of generated token, rank
     of `truth`/`control` first tokens where the item carries them."""
@@ -666,7 +666,7 @@ def categories_run(model_id: str, items: list, quant: str = "") -> list:
 @app.local_entrypoint()
 def categories(models: str, probes_file: str = "probes/categories.json",
                quant: str = ""):
-    """modal run modal_fit.py::categories --models "google/gemma-4-26B-A4B-it,Qwen/Qwen3.6-27B" """
+    """modal run analysis/modal_fit.py::categories --models "google/gemma-4-26B-A4B-it,Qwen/Qwen3.6-27B" """
     import json
     import os
     items = json.load(open(probes_file, encoding="utf-8"))["items"]
@@ -695,7 +695,7 @@ def qa_dump(model: str = "google/gemma-4-E4B-it",
 
 @app.local_entrypoint()
 def dump(models: str, out: str = "out/workspace_dump.json"):
-    """modal run modal_fit.py::dump --models "a,b" -> demo token data"""
+    """modal run analysis/modal_fit.py::dump --models "a,b" -> demo token data"""
     import json
     probes = {p["slug"].replace("covert-", ""): p
               for p in json.load(open("probes/emotions.json", encoding="utf-8"))
@@ -710,7 +710,7 @@ def dump(models: str, out: str = "out/workspace_dump.json"):
 @app.local_entrypoint()
 def uncertainty(models: str, n: int = 500, tag: str = "trivia",
                 questions_file: str = "", max_new: int = 24, quant: str = ""):
-    """modal run modal_fit.py::uncertainty --models "a,b" [--questions-file f.json]"""
+    """modal run analysis/modal_fit.py::uncertainty --models "a,b" [--questions-file f.json]"""
     import json
     import os
     qs = None

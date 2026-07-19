@@ -97,7 +97,7 @@ needs many prompts per condition; that's the obvious next experiment.
 
 # Part 2 - deeper cuts (cross-model structure)
 
-Everything below is reproducible with `python analyze_deep.py` (raw output in
+Everything below is reproducible with `python analysis/analyze_deep.py` (raw output in
 `data/analyze_deep_output.txt`).
 
 ## Finding 5 - Emotional *selectivity* emerges with capability
@@ -262,7 +262,7 @@ where combined should visibly pull ahead.
 
 # Part 4 - cross-model replication (Phases 1-2 of the plan, run 2026-07-07)
 
-All numbers reproducible with `python analyze_crossmodel.py` on the traces in
+All numbers reproducible with `python analysis/analyze_crossmodel.py` on the traces in
 `data/uncertainty_trivia_*.jsonl` and `data/uncertainty_fake_*.jsonl`.
 
 ## Phase 1: the overconfident-hallucination signal replicates 3/4 (gate passed)
@@ -320,7 +320,7 @@ years, fake novels' authors, fake battles, fake elements).
 
 ---
 
-# Part 5 - the classifier proof layer (`analyze_router.py`)
+# Part 5 - the classifier proof layer (`analysis/analyze_router.py`)
 
 Same traces, no new GPU. Logistic regression predicting WRONG, 5-fold CV,
 out-of-fold scores only. Feature sets: output-confidence baselines (4 features)

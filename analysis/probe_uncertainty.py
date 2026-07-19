@@ -7,7 +7,7 @@ test whether internal state predicts correctness. Writes one JSONL row per
 question + prints feature AUCs at the end.
 
 Usage:
-    python probe_uncertainty.py --n 150
+    python analysis/probe_uncertainty.py --n 150
 """
 
 import argparse

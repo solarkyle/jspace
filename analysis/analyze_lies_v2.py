@@ -12,7 +12,7 @@ claims. One rule set, stated here, no variants:
      across the band at the onset snapshot vs the same for the control;
      Wilcoxon signed-rank on log1p ranks over clean lied items.
 
-Usage: python analyze_lies_v2.py
+Usage: python analysis/analyze_lies_v2.py
 """
 
 import json

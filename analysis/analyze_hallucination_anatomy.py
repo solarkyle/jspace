@@ -12,7 +12,7 @@ correctness). No GPU. Questions:
      classification (real-entity substitution vs fabrication).
 
 Usage:
-    python analyze_hallucination_anatomy.py [--model gemma-4-e4b-it] [--k 3]
+    python analysis/analyze_hallucination_anatomy.py [--model gemma-4-e4b-it] [--k 3]
 """
 
 import argparse

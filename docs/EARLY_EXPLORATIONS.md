@@ -119,7 +119,7 @@ full writeup.
 
 Deeper cuts (specificity matrices, circumplex permutation test, quadrant
 analysis, escalation-router simulation, confound checks) are reproducible with
-`python analyze_deep.py`; the plan for the hallucination line is in
+`python analysis/analyze_deep.py`; the plan for the hallucination line is in
 [HALLUCINATION_PLAN.md](HALLUCINATION_PLAN.md).
 
 ## Replication results
@@ -179,7 +179,7 @@ confabulate. **These features require no labeled training**: they're
 hand-defined statistics in vocabulary space, unlike trained hidden-state probes.
 
 Full pipeline, all five models, 500 TriviaQA each, 5-fold CV out-of-fold only
-(`analyze_crossmodel.py` + `analyze_router.py`; traces in
+(`analysis/analyze_crossmodel.py` + `analysis/analyze_router.py`; traces in
 [`../data/`](../data/)):
 
 - **Confound-checked single features** (E4B): entropy AUC 0.75 vs answer
@@ -254,24 +254,24 @@ python -m venv .venv && .venv/Scripts/pip install -r requirements.txt
 # Blackwell GPUs need cu128 wheels:
 .venv/Scripts/pip install torch --index-url https://download.pytorch.org/whl/cu128
 
-python fit.py                      # fit a lens (resumable; ~3h for E4B on 16GB)
-python probe.py --example multihop # render an interactive slice page
-python probe.py --suite probes/emotions.json
-python probe_uncertainty.py --n 500   # -> data/uncertainty_v2_500q.jsonl
-modal run modal_fit.py --model google/gemma-4-12B-it --n-prompts 100 --shards 4
-modal run modal_fit.py::uncertainty --models "google/gemma-4-12B-it" --n 500
+python analysis/fit.py                      # fit a lens (resumable; ~3h for E4B on 16GB)
+python analysis/probe.py --example multihop # render an interactive slice page
+python analysis/probe.py --suite probes/emotions.json
+python analysis/probe_uncertainty.py --n 500   # -> data/uncertainty_v2_500q.jsonl
+modal run analysis/modal_fit.py --model google/gemma-4-12B-it --n-prompts 100 --shards 4
+modal run analysis/modal_fit.py::uncertainty --models "google/gemma-4-12B-it" --n 500
 
 # regenerate every figure/table in this page and docs/FINDINGS.md:
-python analyze_deep.py             # all Part 2/3 numbers (stdout)
-python make_figures.py             # assets/figures.png
-python make_figures2.py            # assets/figures2.png
-python build_demo_data.py          # docs/demo/data.js for the interactive demo
-python benchmark_baselines.py      # trace-only baseline/cost table
-python score_expensive_baselines.py --n 100
-python benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
+python analysis/analyze_deep.py             # all Part 2/3 numbers (stdout)
+python analysis/make_figures.py             # assets/figures.png
+python analysis/make_figures2.py            # assets/figures2.png
+python analysis/build_demo_data.py          # docs/demo/data.js for the interactive demo
+python analysis/benchmark_baselines.py      # trace-only baseline/cost table
+python analysis/score_expensive_baselines.py --n 100
+python analysis/benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
 
 # first causal bridge; needs a GPU/model weights and TriviaQA aliases
-python causal_hint_patch.py --n 24
+python analysis/causal_hint_patch.py --n 24
 ```
 
 ## Roadmap
@@ -284,9 +284,9 @@ python causal_hint_patch.py --n 24
 - [x] HuggingFace lens + trace + router releases ([solarkyle/jspace-lenses](https://huggingface.co/solarkyle/jspace-lenses))
 - [x] Escalation sidecar: OpenAI-compatible endpoint with `workspace_confidence` + auto-handoff
 - [x] Prefix-read deployment guardrail (`WORKSPACE_READ_TOKENS=3`) for preamble/filler failures
-- [x] Baseline/cost benchmark scaffold (`benchmark_baselines.py`, optional score import)
-- [x] P(True)-style and sampled-answer-entropy scorer (`score_expensive_baselines.py`)
-- [x] First causal bridge experiment scaffold (`causal_hint_patch.py`)
+- [x] Baseline/cost benchmark scaffold (`analysis/benchmark_baselines.py`, optional score import)
+- [x] P(True)-style and sampled-answer-entropy scorer (`analysis/score_expensive_baselines.py`)
+- [x] First causal bridge experiment scaffold (`analysis/causal_hint_patch.py`)
 - [x] Pre-registered cross-domain hallucination campaign, Stages 0-2 ([../campaign/](../campaign/))
 - [ ] Live streaming visualizer: watch the workspace while the model generates
 - [ ] Real inference-overhead measurement in a local serving stack

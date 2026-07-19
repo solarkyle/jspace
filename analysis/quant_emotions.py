@@ -10,8 +10,8 @@ A clean diagonal (covert-X most raises X's own lexicon) = the workspace encodes
 specific emotions, not a generic "affect" blob. That's the conclusion.
 
 Usage:
-    python quant_emotions.py --model google/gemma-4-E4B-it --lens out/gemma-4-e4b-it/lens.pt
-    python quant_emotions.py --model google/gemma-4-26B-A4B-it --lens out/gemma-4-26b-a4b-it/lens.pt --tag moe
+    python analysis/quant_emotions.py --model google/gemma-4-E4B-it --lens out/gemma-4-e4b-it/lens.pt
+    python analysis/quant_emotions.py --model google/gemma-4-26B-A4B-it --lens out/gemma-4-26b-a4b-it/lens.pt --tag moe
 """
 
 import argparse

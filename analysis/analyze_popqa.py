@@ -1,7 +1,7 @@
 """PopQA: scoring the registered predictions in docs/POPQA_PREREG.md.
 
 Rule set, fixed before any PopQA analysis ran:
-  - Features and CV identical to analyze_tabfm_31b_blind.py: logprob = 4
+  - Features and CV identical to analysis/analyze_tabfm_31b_blind.py: logprob = 4
     baselines; workspace = 6 scalars + native layer entropies; combined =
     both. StratifiedKFold(5, shuffle, seed 0), per-fold StandardScaler.
   - Models: TabFM frozen config (n_estimators=32) plus logistic reference.

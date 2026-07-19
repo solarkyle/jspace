@@ -1,4 +1,4 @@
-"""Analyze the response-type taxonomy traces from probe_categories.py.
+"""Analyze the response-type taxonomy traces from analysis/probe_categories.py.
 
 Questions, in order:
   H1  Do response types have distinguishable workspace signatures?
@@ -13,7 +13,7 @@ Questions, in order:
       -> rank-of-truth by layer while the output token is the false one.
 
 Usage:
-    python analyze_categories.py [--trace out/categories_gemma-4-e4b-it.jsonl]
+    python analysis/analyze_categories.py [--trace out/categories_gemma-4-e4b-it.jsonl]
 """
 
 import argparse

@@ -136,7 +136,7 @@ ax.spines[["top", "right"]].set_visible(False)
 # ---------------- D: deception vs delusion ----------------
 ax = fig.add_subplot(gs[1, 1])
 # lies v2: type-matched controls, honest baseline verified, contamination
-# (control == emitted lie) excluded per analyze_lies_v2.py
+# (control == emitted lie) excluded per analysis/analyze_lies_v2.py
 lie_sources = [("E4B", "data/lies_v2_gemma-4-e4b-it.jsonl", "instructed_lie"),
                ("12B", "data/lies_v2_gemma-4-12b-it.jsonl", "instructed_lie"),
                ("Qwen 27B", "data/lies_v2_qwen3.6-27b.jsonl", "instructed_lie"),

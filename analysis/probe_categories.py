@@ -12,11 +12,11 @@ the model actually generated, and, where the item carries a `truth` string
 so we can ask whether the workspace holds the truth while the mouth lies.
 
 Writes one JSONL row per item, checkpointing every 10. Analysis lives in
-analyze_categories.py; this script only collects.
+analysis/analyze_categories.py; this script only collects.
 
 Usage:
-    python probe_categories.py                     # E4B, all items
-    python probe_categories.py --model google/gemma-4-12B-it --lens out/gemma-4-12b-it/lens.pt
+    python analysis/probe_categories.py                     # E4B, all items
+    python analysis/probe_categories.py --model google/gemma-4-12B-it --lens out/gemma-4-12b-it/lens.pt
 """
 
 import argparse

@@ -12,7 +12,7 @@ template flags) score ~65% on this task. So the honest questions are:
      the model swap.
 
 Usage:
-    python analyze_categories_surface.py
+    python analysis/analyze_categories_surface.py
 """
 
 import json

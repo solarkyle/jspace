@@ -2,7 +2,7 @@
 
 You are generating evaluation data for a real interpretability project
 (github.com/solarkyle/jspace). Both outputs are JSON files consumed by
-`modal_fit.py::uncertainty` (each item: {"q": str, "aliases": [str], ...extra
+`analysis/modal_fit.py::uncertainty` (each item: {"q": str, "aliases": [str], ...extra
 fields passed through to result rows}). Work only inside `probes/`. Also write
 a validation script and RUN it before declaring done.
 

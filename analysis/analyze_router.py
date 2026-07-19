@@ -11,7 +11,7 @@ Protocol (pre-committed):
   - Confident-only variant for the blind-spot claim.
   - Chart: fog-tercile vs accuracy among confident answers (the layman chart).
 
-Run: python analyze_router.py   (writes assets/figure4_router.png too)
+Run: python analysis/analyze_router.py   (writes assets/figure4_router.png too)
 """
 import json
 import os

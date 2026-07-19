@@ -5,11 +5,10 @@ Feed TabFM the FULL layerwise entropy trajectory (resampled to 16 points) +
 baselines + workspace scalars, predict WRONG, 5-fold CV, compare against
 logistic regression on the same folds and feature sets.
 
-Run with the ufc_bet tabfm venv:
-    "C:/Users/18632/Desktop/stuff/ufc_bet/.venv-tabfm/Scripts/python.exe" analyze_tabfm.py
+Requires a venv with the TabFM dependencies installed:
+    python analysis/analyze_tabfm.py
 
-Loads TabFM from local safetensors using the working incantation from
-tabfm-ufc-benchmark/src/tabfm_benchmark.py.
+Loads TabFM from local safetensors.
 """
 
 import json

@@ -4,7 +4,7 @@ Matched pairs: each template is asked about real entities (answerable, aliases
 provided) and fabricated ones (unanswerable by construction). The question is
 whether the workspace flags fabrication while the output sounds fluent.
 
-Writes probes/fake_entities.json in the format modal_fit.py::uncertainty takes
+Writes probes/fake_entities.json in the format analysis/modal_fit.py::uncertainty takes
 via --questions-file (extra field `entity_real` is passed through to rows).
 """
 import json

@@ -5,11 +5,11 @@
 > threshold transfers across all Gemmas untuned. Phase 2 was a negative result
 > for workspace-vs-logprob on fake entities, with a striking behavioral finding:
 > abliteration converts refusal into fabrication (17/50 -> 49/50). Full numbers
-> in [FINDINGS.md](FINDINGS.md) Part 4, `analyze_crossmodel.py` reproduces.
+> in [FINDINGS.md](FINDINGS.md) Part 4, `analysis/analyze_crossmodel.py` reproduces.
 > Update after repo hardening: Phase 3 trajectory features are done
-> (`analyze_router.py`), the sidecar is running with a prefix-read guardrail,
-> and `benchmark_baselines.py` now provides the trace-only cost/baseline table.
-> `score_expensive_baselines.py` can generate P(True)-style and sampled-answer
+> (`analysis/analyze_router.py`), the sidecar is running with a prefix-read guardrail,
+> and `analysis/benchmark_baselines.py` now provides the trace-only cost/baseline table.
+> `analysis/score_expensive_baselines.py` can generate P(True)-style and sampled-answer
 > entropy scores for import. The remaining open item is to run those expensive
 > baselines at scale, add true semantic-entropy clustering if desired, and run
 > the new causal intervention script.
@@ -32,7 +32,7 @@ miscalibrated. So the plan is built around finding out if that is true.
 All 5 lenses are already fit. probe_uncertainty is forward-only, so this is
 cheap compared to fitting.
 
-1. Run `probe_uncertainty.py` (ported into modal_fit.py as a new entrypoint)
+1. Run `analysis/probe_uncertainty.py` (ported into analysis/modal_fit.py as a new entrypoint)
    for 12B, 12B-abliterated, 26B-MoE, Qwen-27B. 500 TriviaQA each.
    A10G for the 12Bs, A100-80GB for MoE and Qwen (bf16 inference).
 2. Report per-model: baseline AUC, workspace AUC, combined AUC, and the
@@ -87,10 +87,10 @@ To be taken seriously this has to be positioned against the literature:
   no trained probe, no labels". If Phase 2 shows the fake-entity result, that
   plus cost is the paper/post.
 
-`benchmark_baselines.py` now writes the trace-only table to
+`analysis/benchmark_baselines.py` now writes the trace-only table to
 `docs/BASELINE_BENCHMARK.md` and accepts optional JSONL scores for semantic
 entropy, P(True), verbalized confidence, or hidden-state probes.
-`score_expensive_baselines.py` generates two such files directly:
+`analysis/score_expensive_baselines.py` generates two such files directly:
 P(True)-style self-evaluation and sampled-answer entropy. True semantic entropy
 still needs clustering/judging over sampled answers.
 
@@ -111,7 +111,7 @@ on the highest-risk one. Real serving-stack overhead still needs measurement.
 
 ## Phase 6: causal bridge - SCAFFOLD DONE, RUN OPEN
 
-`causal_hint_patch.py` implements the first causal bridge: for noisy wrong
+`analysis/causal_hint_patch.py` implements the first causal bridge: for noisy wrong
 cases, add a correct-answer hint, patch the hinted residual delta into the
 original answer-onset run across workspace layers, and measure whether the
 correct answer logit rises. This is not yet a sparse J-space coordinate swap,

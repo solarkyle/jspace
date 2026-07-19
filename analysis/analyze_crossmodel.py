@@ -1,7 +1,7 @@
 """Phase 1 + 2 analysis: cross-model hallucination replication + fake entities.
 
 Reads out/uncertainty_trivia_<slug>.jsonl and out/uncertainty_fake_<slug>.jsonl
-(from modal_fit.py::uncertainty). Reports, per model:
+(from analysis/modal_fit.py::uncertainty). Reports, per model:
   - overall accuracy, entropy/baseline AUCs
   - the blind-spot head-to-head (entropy vs residual logprob among high-conf)
   - the quadrant table

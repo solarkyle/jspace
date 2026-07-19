@@ -1,4 +1,4 @@
-"""Generate optional expensive baseline scores for `benchmark_baselines.py`.
+"""Generate optional expensive baseline scores for `analysis/benchmark_baselines.py`.
 
 The default baselines are:
 
@@ -11,7 +11,7 @@ The default baselines are:
 
 Output JSONL rows can be passed to:
 
-    python benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
+    python analysis/benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
 """
 
 from __future__ import annotations

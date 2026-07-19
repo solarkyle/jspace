@@ -2,7 +2,7 @@
 
 Trace-only comparison on committed TriviaQA runs. Higher AUC/catch is better; cost is relative to one greedy local-model answer.
 
-`workspace/combined E4B zero-shot` uses the E4B-trained router weights with each target model's frozen normalization stats. `workspace/combined router` uses the per-model released router weights and is a deployment sanity check, not an out-of-fold estimate. For the 5-fold CV proof layer, use `python analyze_router.py`.
+`workspace/combined E4B zero-shot` uses the E4B-trained router weights with each target model's frozen normalization stats. `workspace/combined router` uses the per-model released router weights and is a deployment sanity check, not an out-of-fold estimate. For the 5-fold CV proof layer, use `python analysis/analyze_router.py`.
 
 | model | method | cost | AUC | wrong caught @30% | wrong caught @50% |
 |---|---:|---:|---:|---:|---:|

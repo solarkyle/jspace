@@ -13,7 +13,7 @@ prompt, sample K answers at temperature 1.0, cluster by normalized string,
 report cluster entropy + agreement with the original greedy answer.
 
 Usage:
-    python probe_stability.py --per_group 40 --k 6
+    python analysis/probe_stability.py --per_group 40 --k 6
 """
 
 import argparse

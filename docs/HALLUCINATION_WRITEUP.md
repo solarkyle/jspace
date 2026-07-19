@@ -62,22 +62,22 @@ concepts with probability smeared into the tail.
 Use:
 
 ```bash
-python analyze_router.py
-python benchmark_baselines.py
-python score_expensive_baselines.py --n 100
-python benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
+python analysis/analyze_router.py
+python analysis/benchmark_baselines.py
+python analysis/score_expensive_baselines.py --n 100
+python analysis/benchmark_baselines.py --extra-scores data/expensive_baselines.jsonl
 ```
 
-`analyze_router.py` is the proof layer: 5-fold CV, out-of-fold scores, output
+`analysis/analyze_router.py` is the proof layer: 5-fold CV, out-of-fold scores, output
 baselines vs workspace trajectory features vs combined.
 
-`benchmark_baselines.py` is the deployment/cost table. It uses committed traces,
+`analysis/benchmark_baselines.py` is the deployment/cost table. It uses committed traces,
 published router weights, and can import future semantic-entropy or P(True)
 scores as JSONL. The pitch to test next is not "best possible AUC"; it is
 "competitive signal at roughly 1x answer cost, while semantic entropy costs
 multiple sampled generations."
 
-`score_expensive_baselines.py` generates two optional baselines now:
+`analysis/score_expensive_baselines.py` generates two optional baselines now:
 P(True)-style self-evaluation and sampled-answer entropy. The latter is not full
 semantic entropy until sampled answers are clustered by meaning, but it is the
 runnable sampling baseline that lets the cost comparison start.
@@ -99,7 +99,7 @@ score long preambles as if they were the original experiment.
 Use:
 
 ```bash
-python causal_hint_patch.py --n 24
+python analysis/causal_hint_patch.py --n 24
 ```
 
 This script runs a first causal bridge experiment: take noisy wrong questions,

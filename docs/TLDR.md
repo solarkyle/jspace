@@ -153,7 +153,7 @@ improvising (loud); capable models fail by believing wrong things
 - Lying is different from being wrong: with type-matched controls and a
   verified honest baseline, the true answer stays elevated in the workspace
   during instructed lies on SOME models. Canonical statistics (one fixed
-  rule set, analyze_lies_v2.py; earlier inline numbers varied with rule
+  rule set, analysis/analyze_lies_v2.py; earlier inline numbers varied with rule
   choices and are superseded): significant on E4B (p=.050) and Qwen
   (p=.043), marginal on 12B (.059), null on ablit, MoE, and 31B. Real but
   heterogeneous and modest, with no capability trend: an earlier draft
@@ -216,6 +216,6 @@ HF_HOME=E:/hf-cache MODEL_ID=google/gemma-4-12B-it QUANT=4bit \
 http://localhost:8765/chat
 ```
 
-Analyses: `analyze_router.py`, `analyze_crossmodel.py`, `analyze_deep.py`,
+Analyses: `analysis/analyze_router.py`, `analysis/analyze_crossmodel.py`, `analysis/analyze_deep.py`,
 all off the committed traces in `data/`. No GPU needed to reproduce the
 numbers.

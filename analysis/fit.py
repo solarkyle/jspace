@@ -4,9 +4,9 @@ Resumable: fitting checkpoints to <out>/ckpt.pt and picks up where it left
 off if interrupted, so ctrl-c / crashes / overnight chunking are all safe.
 
 Usage:
-    python fit.py                          # Qwen3-4B-Instruct, 100 prompts
-    python fit.py --n-prompts 25           # quick low-quality lens (~30 min)
-    python fit.py --model Qwen/Qwen3-8B --dim-batch 4
+    python analysis/fit.py                          # Qwen3-4B-Instruct, 100 prompts
+    python analysis/fit.py --n-prompts 25           # quick low-quality lens (~30 min)
+    python analysis/fit.py --model Qwen/Qwen3-8B --dim-batch 4
 """
 
 import argparse

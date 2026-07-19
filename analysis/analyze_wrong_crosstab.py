@@ -7,7 +7,7 @@ the features, it is the nature of substitution errors: they ARE clean
 retrieval, of the wrong fact.
 
 Usage:
-    python analyze_wrong_crosstab.py [--file scratch/wrong_classified_e4b.json]
+    python analysis/analyze_wrong_crosstab.py [--file scratch/wrong_classified_e4b.json]
 """
 
 import argparse

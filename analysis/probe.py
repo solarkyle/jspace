@@ -1,11 +1,11 @@
 """Probe a model's J-space: render the interactive layer x position slice page.
 
 Usage:
-    python probe.py --prompt "Fact: The currency used in the country shaped like a boot is"
-    python probe.py --example multihop            # paper example by slug
-    python probe.py --list-examples
-    python probe.py --chat "Think about your greatest fear, but don't say it."
-    python probe.py --suite probes/emotions.json  # batch: one model load, index page
+    python analysis/probe.py --prompt "Fact: The currency used in the country shaped like a boot is"
+    python analysis/probe.py --example multihop            # paper example by slug
+    python analysis/probe.py --list-examples
+    python analysis/probe.py --chat "Think about your greatest fear, but don't say it."
+    python analysis/probe.py --suite probes/emotions.json  # batch: one model load, index page
 
 Output is a self-contained HTML file per prompt in slices/ (d3 inlined, no
 network needed); single-prompt mode opens it in the default browser.

@@ -11,9 +11,9 @@ checks this numerically on the first N prompts before the optimization is
 trusted (handoff 9.0).
 
 Local entrypoints:
-    modal run modal_campaign.py::run --manifest campaign/manifests/pilot.jsonl \
+    modal run analysis/modal_campaign.py::run --manifest campaign/manifests/pilot.jsonl \
         --model google/gemma-4-12B-it --tag pilot --verify 50
-    modal run modal_campaign.py::run --manifest campaign/manifests/stage1.jsonl \
+    modal run analysis/modal_campaign.py::run --manifest campaign/manifests/stage1.jsonl \
         --model google/gemma-4-12B-it --tag stage1 --shard 0 --n-shards 8
 
 Download traces:

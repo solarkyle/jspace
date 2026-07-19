@@ -72,7 +72,7 @@ These are useful but concentrate on factoid retrieval, controlled abstention, de
 
 ### Existing implementation constraints
 
-- `modal_fit.py::uncertainty_run` currently generates greedily and records the workspace mainly at answer onset.
+- `analysis/modal_fit.py::uncertainty_run` currently generates greedily and records the workspace mainly at answer onset.
 - `sidecar/server.py` can read the first few answer-token workspaces, but there is not yet a general campaign trace format for arbitrary prefixes.
 - The current analysis scripts are specialized by dataset and file naming convention.
 - The worktree is already dirty. Preserve existing changes. Add new campaign files rather than refactoring old experiments before the pilot passes.
@@ -367,7 +367,7 @@ Use stable content hashes so retries are idempotent and deduplication is auditab
 
 ## 9. Trace capture changes
 
-Do not destabilize the current `modal_fit.py::uncertainty_run` before the pilot. Add a new `modal_campaign.py` or `campaign/modal_runner.py` that reuses proven loading/lens code.
+Do not destabilize the current `analysis/modal_fit.py::uncertainty_run` before the pilot. Add a new `analysis/modal_campaign.py` or `campaign/modal_runner.py` that reuses proven loading/lens code.
 
 ### 9.0 Required performance redesign
 
@@ -874,7 +874,7 @@ campaign/
   reports/
 ```
 
-Root-level cloud entry point may be `modal_campaign.py` if that matches Modal's discovery rules better.
+Root-level cloud entry point may be `analysis/modal_campaign.py` if that matches Modal's discovery rules better.
 
 Do not add generated traces, API credentials, raw WildChat metadata, or large model artifacts to Git.
 
@@ -886,7 +886,7 @@ Claude should implement and document commands equivalent to:
 python -m campaign.build_manifest --stage pilot --out campaign/manifests/pilot.jsonl
 python -m campaign.validate_manifest campaign/manifests/pilot.jsonl
 
-modal run modal_campaign.py::run_manifest \
+modal run analysis/modal_campaign.py::run_manifest \
   --manifest campaign/manifests/pilot.jsonl \
   --model google/gemma-4-12B-it \
   --generation-config greedy_v1
@@ -980,12 +980,12 @@ The demo should not imply literal mind reading. Suggested language:
 
 ## 22. Immediate execution order for Claude
 
-1. Read `README.md`, `docs/TLDR.md`, `docs/HARD_RULES.md`, `docs/POPQA_PREREG.md`, `docs/HALLUCINATION_PLAN.md`, `analyze_router.py`, `analyze_tabfm.py`, `analyze_popqa.py`, `modal_fit.py`, and `sidecar/server.py`.
+1. Read `README.md`, `docs/TLDR.md`, `docs/HARD_RULES.md`, `docs/POPQA_PREREG.md`, `docs/HALLUCINATION_PLAN.md`, `analysis/analyze_router.py`, `analysis/analyze_tabfm.py`, `analysis/analyze_popqa.py`, `analysis/modal_fit.py`, and `sidecar/server.py`.
 2. Do not overwrite current dirty-worktree changes.
 3. Create the `campaign/` scaffold and dataset manifest schema.
 4. Implement adapters for six pilot sources first: PopQA/TriviaQA remainder, SQuAD 2.0, HaluBench, MedHallu, and ESConv/custom therapy prompts.
 5. Add stable IDs, provenance, license fields, grouping keys, and deduplication.
-6. Implement `modal_campaign.py` by extracting/reusing proven model/lens code without altering old outputs.
+6. Implement `analysis/modal_campaign.py` by extracting/reusing proven model/lens code without altering old outputs.
 7. Add answer-prefix capture and compact Parquet output.
 8. Implement deterministic graders and tests.
 9. Implement the frozen Claude judge calibration workflow.

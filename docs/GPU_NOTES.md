@@ -2,7 +2,7 @@
 
 Fitting a Jacobian lens needs backward passes, so GGUF/llama.cpp can't help.
 It's PyTorch, and a Gemma 4 E4B barely fits on a 16GB card (RTX 5060 Ti).
-Four failure modes solved in [`fit.py`](../fit.py):
+Four failure modes solved in [`analysis/fit.py`](../fit.py):
 
 1. **Windows sysmem fallback**: near the VRAM ceiling the NVIDIA driver silently
    pages to system RAM. nvidia-smi shows 100% util while running ~20× slow
