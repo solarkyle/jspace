@@ -6,7 +6,7 @@ TabFM's edge over LightGBM shrinks as rows grow; a clear TabFM LODO win at Stage
 1 scale is a reportable surprise, not a silent adoption.
 
 Must run from the TabFM venv:
-    C:/Users/18632/Desktop/stuff/ufc_bet/.venv-tabfm/Scripts/python.exe \
+    python \
         -m campaign.train_tabfm --input out/campaign/pilot_features.jsonl
 """
 
@@ -30,7 +30,7 @@ def make_tabfm():
     from tabfm.src.pytorch.tabfm_v1_0_0 import ClassificationConfig
     m = TabFM(**ClassificationConfig().to_dict())
     m.load_state_dict(load_file(
-        "C:/Users/18632/Desktop/tabfm/classification/model.safetensors"), strict=False)
+        "tabfm/classification/model.safetensors"), strict=False)
     m = m.to("cuda" if torch.cuda.is_available() else "cpu").eval()
     return lambda: TabFMClassifier(model=m, n_estimators=32, random_state=0)
 

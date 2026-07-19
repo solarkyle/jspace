@@ -26,7 +26,7 @@ from tabfm import TabFMClassifier
 from tabfm.src.pytorch.model import TabFM
 from tabfm.src.pytorch.tabfm_v1_0_0 import ClassificationConfig
 m = TabFM(**ClassificationConfig().to_dict())
-m.load_state_dict(load_file("C:/Users/18632/Desktop/tabfm/classification/model.safetensors"), strict=False)
+m.load_state_dict(load_file("tabfm/classification/model.safetensors"), strict=False)
 m = m.to("cuda" if torch.cuda.is_available() else "cpu").eval()
 
 def cv(X, y, model_kind):

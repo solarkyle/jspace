@@ -18,7 +18,7 @@ import time
 import numpy as np
 
 WEIGHTS = os.environ.get(
-    "TABFM_WEIGHTS", "C:/Users/18632/Desktop/tabfm/classification/model.safetensors")
+    "TABFM_WEIGHTS", "tabfm/classification/model.safetensors")
 TRACE = "data/uncertainty_trivia_{}.jsonl"
 MODELS = ["gemma-4-e4b-it", "gemma-4-12b-it", "huihui-gemma-4-12b-it-abliterated",
           "gemma-4-26b-a4b-it", "qwen3.6-27b"]

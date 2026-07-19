@@ -11,7 +11,7 @@ Protocol: 5-fold CV per model on the 5 existing models, combined feature set
 only (the deployment set). The winning config gets FROZEN before the 31B
 trace lands, which then serves as the untouched held-out model.
 
-Run with the ufc_bet tabfm venv.
+Requires a venv with the TabFM dependencies installed.
 """
 
 import itertools
@@ -21,7 +21,7 @@ import os
 import numpy as np
 
 WEIGHTS = os.environ.get(
-    "TABFM_WEIGHTS", "C:/Users/18632/Desktop/tabfm/classification/model.safetensors")
+    "TABFM_WEIGHTS", "tabfm/classification/model.safetensors")
 TRACE = "data/uncertainty_trivia_{}.jsonl"
 MODELS = ["gemma-4-e4b-it", "gemma-4-12b-it", "huihui-gemma-4-12b-it-abliterated",
           "gemma-4-26b-a4b-it", "qwen3.6-27b"]

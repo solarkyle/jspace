@@ -19,7 +19,7 @@ Tests:
   B. Leave-one-Gemma-out, question-disjoint
   C. All Gemmas -> Qwen, question-disjoint
 
-Run with the ufc_bet tabfm venv.
+Requires a venv with the TabFM dependencies installed.
 """
 
 import json
@@ -28,7 +28,7 @@ import os
 import numpy as np
 
 WEIGHTS = os.environ.get(
-    "TABFM_WEIGHTS", "C:/Users/18632/Desktop/tabfm/classification/model.safetensors")
+    "TABFM_WEIGHTS", "tabfm/classification/model.safetensors")
 TRACE = "data/uncertainty_trivia_{}.jsonl"
 GEMMAS = ["gemma-4-e4b-it", "gemma-4-12b-it", "huihui-gemma-4-12b-it-abliterated",
           "gemma-4-26b-a4b-it"]

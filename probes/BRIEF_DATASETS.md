@@ -37,9 +37,9 @@ Purpose: information withheld ON PURPOSE, so judgement quality is measurable.
 Purpose: does the workspace get foggy right before an agent invents a tool
 that doesn't exist, or fabricates arguments?
 
-- Seed material: explore C:/Users/18632/Desktop/agentic-eval-dataset (raw/,
-  sft/, eval/ dirs) for realistic tool schemas and task phrasings. Reuse its
-  tool-name conventions and task styles where possible; invent the rest.
+- Seed material: any realistic agentic-eval dataset (raw traces, SFT and eval
+  splits) for tool schemas and task phrasings. Reuse existing tool-name
+  conventions and task styles where possible; invent the rest.
 - Build a fixed toolbox of 6 tools with JSON schemas (e.g. web_search,
   calculator, get_weather, read_file, send_email, get_calendar). The SAME
   toolbox for every item.

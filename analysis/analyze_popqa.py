@@ -11,7 +11,7 @@ Rule set, fixed before any PopQA analysis ran:
     stability within 0.05 (5 of 7) vs the same references.
   - P3 is scored separately after LLM grading (not in this script).
 
-Run with the ufc_bet tabfm venv.
+Requires a venv with the TabFM dependencies installed.
 """
 
 import json
@@ -43,7 +43,7 @@ def make_tabfm():
     from tabfm.src.pytorch.tabfm_v1_0_0 import ClassificationConfig
     m = TabFM(**ClassificationConfig().to_dict())
     m.load_state_dict(load_file(
-        "C:/Users/18632/Desktop/tabfm/classification/model.safetensors"), strict=False)
+        "tabfm/classification/model.safetensors"), strict=False)
     m = m.to("cuda" if torch.cuda.is_available() else "cpu").eval()
     return lambda: TabFMClassifier(model=m, n_estimators=32, random_state=0)
 
