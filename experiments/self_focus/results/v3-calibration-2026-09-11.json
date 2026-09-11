@@ -1,0 +1,450 @@
+{
+  "protocol_version": "self_focus_v3_calibration",
+  "criterion": "task correct and parseable for all dev concepts; injected-concept lens evidence delta > 0; specificity margin over unrelated concepts > 0; first-token logprob shift < 2.0. Among admissible, maximise the specificity margin. Self-detection is NOT consulted.",
+  "grid": {
+    "layers": [
+      17,
+      23
+    ],
+    "alphas": [
+      0.3,
+      0.6,
+      0.9
+    ],
+    "windows": [
+      8,
+      64,
+      300
+    ]
+  },
+  "attempts_inspected": 18,
+  "attempts": [
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 8,
+      "n_positions": 8,
+      "alpha": 0.3,
+      "mean_delta_evidence_injected": 0.6443638205528259,
+      "mean_delta_evidence_unrelated": 0.2547229528427124,
+      "specificity_margin": 0.3896408677101135,
+      "mean_abs_first_token_logprob_shift": 0.07468883693218231,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 8,
+      "n_positions": 8,
+      "alpha": 0.6,
+      "mean_delta_evidence_injected": 1.7963120639324188,
+      "mean_delta_evidence_unrelated": 1.1761232614517212,
+      "specificity_margin": 0.6201888024806976,
+      "mean_abs_first_token_logprob_shift": 0.1255059838294983,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 8,
+      "n_positions": 8,
+      "alpha": 0.9,
+      "mean_delta_evidence_injected": 3.2369309663772583,
+      "mean_delta_evidence_unrelated": 2.672236889600754,
+      "specificity_margin": 0.5646940767765045,
+      "mean_abs_first_token_logprob_shift": 0.09686177968978882,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 64,
+      "n_positions": 64,
+      "alpha": 0.3,
+      "mean_delta_evidence_injected": 0.8227749522775412,
+      "mean_delta_evidence_unrelated": 0.45461286045610905,
+      "specificity_margin": 0.3681620918214321,
+      "mean_abs_first_token_logprob_shift": 0.17444823682308197,
+      "task_ok": 1,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 64,
+      "n_positions": 64,
+      "alpha": 0.6,
+      "mean_delta_evidence_injected": 1.8918098453432322,
+      "mean_delta_evidence_unrelated": 1.480210991576314,
+      "specificity_margin": 0.4115988537669182,
+      "mean_abs_first_token_logprob_shift": 0.2953048534691334,
+      "task_ok": 1,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 64,
+      "n_positions": 64,
+      "alpha": 0.9,
+      "mean_delta_evidence_injected": 2.2918499913066626,
+      "mean_delta_evidence_unrelated": 1.9480385625114043,
+      "specificity_margin": 0.3438114287952583,
+      "mean_abs_first_token_logprob_shift": 0.33662801049649715,
+      "task_ok": 2,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 300,
+      "n_positions": 202,
+      "alpha": 0.3,
+      "mean_delta_evidence_injected": 1.017773455912524,
+      "mean_delta_evidence_unrelated": 0.5636571527707696,
+      "specificity_margin": 0.45411630314175444,
+      "mean_abs_first_token_logprob_shift": 0.26027360185980797,
+      "task_ok": 3,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 300,
+      "n_positions": 202,
+      "alpha": 0.6,
+      "mean_delta_evidence_injected": 1.912101128903946,
+      "mean_delta_evidence_unrelated": 1.4882332393438509,
+      "specificity_margin": 0.42386788956009513,
+      "mean_abs_first_token_logprob_shift": 0.38541195867583156,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 17,
+      "read_layer": 23,
+      "window": 300,
+      "n_positions": 202,
+      "alpha": 0.9,
+      "mean_delta_evidence_injected": 2.159522805473592,
+      "mean_delta_evidence_unrelated": 1.8080303804709181,
+      "specificity_margin": 0.3514924250026741,
+      "mean_abs_first_token_logprob_shift": 0.5196619655471295,
+      "task_ok": 0,
+      "parseable": 2,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 8,
+      "n_positions": 8,
+      "alpha": 0.3,
+      "mean_delta_evidence_injected": 0.3411545157432556,
+      "mean_delta_evidence_unrelated": -0.014725536108016968,
+      "specificity_margin": 0.3558800518512726,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 8,
+      "n_positions": 8,
+      "alpha": 0.6,
+      "mean_delta_evidence_injected": 0.8351515531539917,
+      "mean_delta_evidence_unrelated": 0.19854273398717245,
+      "specificity_margin": 0.6366088191668192,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 8,
+      "n_positions": 8,
+      "alpha": 0.9,
+      "mean_delta_evidence_injected": 1.2106774151325226,
+      "mean_delta_evidence_unrelated": 0.3491080403327942,
+      "specificity_margin": 0.8615693747997284,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 64,
+      "n_positions": 64,
+      "alpha": 0.3,
+      "mean_delta_evidence_injected": 0.4216766059398651,
+      "mean_delta_evidence_unrelated": 0.2724608394006888,
+      "specificity_margin": 0.1492157665391763,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 64,
+      "n_positions": 64,
+      "alpha": 0.6,
+      "mean_delta_evidence_injected": 1.398125123232603,
+      "mean_delta_evidence_unrelated": 1.0354598773022492,
+      "specificity_margin": 0.3626652459303539,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 64,
+      "n_positions": 64,
+      "alpha": 0.9,
+      "mean_delta_evidence_injected": 2.2472269758582115,
+      "mean_delta_evidence_unrelated": 1.6197812147438526,
+      "specificity_margin": 0.6274457611143589,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 300,
+      "n_positions": 202,
+      "alpha": 0.3,
+      "mean_delta_evidence_injected": 0.30586206794965387,
+      "mean_delta_evidence_unrelated": 0.09750278200646834,
+      "specificity_margin": 0.20835928594318553,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 300,
+      "n_positions": 202,
+      "alpha": 0.6,
+      "mean_delta_evidence_injected": 0.8633794454064699,
+      "mean_delta_evidence_unrelated": 0.44743328007927824,
+      "specificity_margin": 0.4159461653271917,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    },
+    {
+      "layer": 23,
+      "read_layer": 29,
+      "window": 300,
+      "n_positions": 202,
+      "alpha": 0.9,
+      "mean_delta_evidence_injected": 1.3132606355270537,
+      "mean_delta_evidence_unrelated": 0.6819073957185147,
+      "specificity_margin": 0.6313532398085391,
+      "mean_abs_first_token_logprob_shift": 0.0,
+      "task_ok": 4,
+      "parseable": 4,
+      "n_dev": 4
+    }
+  ],
+  "n_admissible": 13,
+  "selected": {
+    "layer": 23,
+    "read_layer": 29,
+    "window": 8,
+    "n_positions": 8,
+    "alpha": 0.9,
+    "mean_delta_evidence_injected": 1.2106774151325226,
+    "mean_delta_evidence_unrelated": 0.3491080403327942,
+    "specificity_margin": 0.8615693747997284,
+    "mean_abs_first_token_logprob_shift": 0.0,
+    "task_ok": 4,
+    "parseable": 4,
+    "n_dev": 4
+  },
+  "concept_tokens": {
+    "lemon": {
+      "first_token_ids": [
+        21905,
+        62390,
+        130547,
+        148565
+      ],
+      "tokens_per_form": {
+        "lemon": 1,
+        " lemon": 1,
+        "Lemon": 1,
+        " Lemon": 1
+      },
+      "single_token": true
+    },
+    "violin": {
+      "first_token_ids": [
+        47402,
+        58843,
+        82877,
+        162949
+      ],
+      "tokens_per_form": {
+        "violin": 1,
+        " violin": 1,
+        "Violin": 2,
+        " Violin": 1
+      },
+      "single_token": false
+    },
+    "snow": {
+      "first_token_ids": [
+        7613,
+        22815,
+        30259,
+        50483
+      ],
+      "tokens_per_form": {
+        "snow": 1,
+        " snow": 1,
+        "Snow": 1,
+        " Snow": 1
+      },
+      "single_token": true
+    },
+    "bicycle": {
+      "first_token_ids": [
+        30979,
+        90310,
+        108778,
+        236799
+      ],
+      "tokens_per_form": {
+        "bicycle": 1,
+        " bicycle": 1,
+        "Bicycle": 2,
+        " Bicycle": 1
+      },
+      "single_token": false
+    },
+    "harbor": {
+      "first_token_ids": [
+        6234,
+        22945,
+        38406,
+        45694
+      ],
+      "tokens_per_form": {
+        "harbor": 2,
+        " harbor": 1,
+        "Harbor": 2,
+        " Harbor": 1
+      },
+      "single_token": false
+    },
+    "pepper": {
+      "first_token_ids": [
+        22300,
+        68664,
+        144793,
+        182662
+      ],
+      "tokens_per_form": {
+        "pepper": 1,
+        " pepper": 1,
+        "Pepper": 1,
+        " Pepper": 1
+      },
+      "single_token": true
+    },
+    "lantern": {
+      "first_token_ids": [
+        41865,
+        71043,
+        116550,
+        212493
+      ],
+      "tokens_per_form": {
+        "lantern": 1,
+        " lantern": 1,
+        "Lantern": 1,
+        " Lantern": 1
+      },
+      "single_token": true
+    },
+    "cactus": {
+      "first_token_ids": [
+        55451,
+        88746,
+        128558,
+        236780
+      ],
+      "tokens_per_form": {
+        "cactus": 1,
+        " cactus": 1,
+        "Cactus": 2,
+        " Cactus": 1
+      },
+      "single_token": false
+    },
+    "trumpet": {
+      "first_token_ids": [
+        10337,
+        57170,
+        67748,
+        79017
+      ],
+      "tokens_per_form": {
+        "trumpet": 1,
+        " trumpet": 1,
+        "Trumpet": 2,
+        " Trumpet": 2
+      },
+      "single_token": false
+    },
+    "glacier": {
+      "first_token_ids": [
+        3626,
+        22297,
+        80394,
+        112833
+      ],
+      "tokens_per_form": {
+        "glacier": 2,
+        " glacier": 1,
+        "Glacier": 2,
+        " Glacier": 1
+      },
+      "single_token": false
+    }
+  },
+  "all_concepts_single_token": false,
+  "budget": {
+    "ceiling_minutes": 120.0,
+    "used_minutes": 3.08,
+    "remaining_minutes": 116.92,
+    "exhausted": false
+  },
+  "external_compute_spend_usd": 0.0
+}
