@@ -1,5 +1,10 @@
 # Self-Focus Lab protocol, version `self_focus_v1`
 
+> Current state, next action and known traps:
+> [HANDOFF-2026-09-11.md](HANDOFF-2026-09-11.md). The shipped condition set is now
+> `self_focus_v2b` (`LENGTH_CONTROL` renamed `LONG_NEUTRAL_CONTROL`); see
+> `conditions.json` for the authoritative version.
+
 A local experiment on whether instructing a model to attend to its own processing
 changes anything measurable, and whether any such change is useful.
 

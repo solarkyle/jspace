@@ -1,5 +1,10 @@
 # Morning report, 2026-09-11
 
+> **RESUMING? Read
+> [experiments/self_focus/HANDOFF-2026-09-11.md](experiments/self_focus/HANDOFF-2026-09-11.md)
+> first.** It carries the next action, the frozen settings, and 21 traps that each
+> silently invalidate results.
+
 Session: seven-hour local authorization, started 00:48, deadline 07:48.
 All work local on Gemma-4-E4B-it NF4, one GPU worker.
 **External compute spend: $0.00.** No cloud, no paid judge, no new model, no lens fitting.
