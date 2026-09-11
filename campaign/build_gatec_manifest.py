@@ -14,9 +14,11 @@ before the answer finishes? Two facts from the saved traces shape the design:
 So we re-run generation. Greedy decoding is deterministic within a fixed
 environment, but MEASURED AGAINST THE JULY TRACES IT IS NOT: regenerating the
 same prompts on the same model id reproduced only 1 of 30 saved answers (fresh
-output adds markdown emphasis and different continuations). The Modal image pins
-neither transformers nor a model revision, and no environment was ever recorded,
-so the July generations cannot be recovered.
+output adds markdown emphasis and different continuations). The original
+environment was unpinned and recorded nothing, and the cause of the divergence
+has not been isolated. Ruled out so far: the hub commits since July touched
+README, tokenizer_config and the chat template rather than weights, and the
+rendered prompt is byte-identical across those revisions.
 
 Therefore the July labels cannot be reused -- a grade describes the answer it was
 given, and these are different answers. This manifest still carries the old

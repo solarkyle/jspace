@@ -27,9 +27,11 @@ export JLENS_GPU=${JLENS_GPU:-L40S}
 export JLENS_TIMEOUT_S=${JLENS_TIMEOUT_S:-1800}
 export JLENS_MAX_CONTAINERS=${JLENS_MAX_CONTAINERS:-$N_SHARDS}
 # Pin the model revision for anything you intend to reproduce later. Stage 1 and
-# Stage 2 ran unpinned on 2026-07-10/11 and google/gemma-4-12B-it was modified on
-# 2026-07-20, so those generations can no longer be recovered. The sha the cached
-# image resolves to today is recorded in out/campaign/environment.json.
+# Stage 2 ran unpinned on 2026-07-10/11, and their generations did not reproduce
+# in a September comparison. The cause has NOT been isolated: the hub commits since
+# then touched README, tokenizer_config and the chat template rather than weights,
+# and the rendered prompt is byte-identical across those revisions. Pinning removes
+# one variable; it is not a diagnosis. See campaign/reports/environment-2026-09-10.json.
 export JLENS_MODEL_REVISION=${JLENS_MODEL_REVISION:-}
 # Measured on this subset. Override if you have a better number for your shape.
 SEC_PER_PROMPT=${JLENS_SEC_PER_PROMPT:-10.0}

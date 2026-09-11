@@ -82,8 +82,10 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
     from jlens.hooks import ActivationRecorder
 
     # Pin the revision when one is given. Without it the hub serves whatever the
-    # branch currently points at, which is why the July generations cannot be
-    # reproduced: the model repo changed on 2026-07-20, after the campaign ran.
+    # branch currently points at, so a run cannot be reproduced once that moves.
+    # The July generations did not reproduce in a September comparison and the
+    # cause has not been isolated; an unpinned revision is one of the variables,
+    # not a demonstrated explanation.
     rev = {"revision": revision} if revision else {}
     tok = transformers.AutoTokenizer.from_pretrained(model_id, **rev)
     kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
@@ -332,12 +334,17 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
     secrets=[modal.Secret.from_name("huggingface")],
 )
 def env_report(model_id: str = "google/gemma-4-12B-it") -> dict:
-    """Record the environment the shards actually ran in. CPU only, no GPU cost.
+    """Snapshot this image's environment. CPU only, no GPU cost.
 
-    This does not make the run reproducible after the fact. It makes it
-    DESCRIBABLE, which is the part that was missing: the first campaign left no
-    record at all, so when its generations stopped reproducing there was nothing
-    to compare against.
+    SCOPE, because it is easy to overstate: this runs in a separate container and
+    reports what the cached image resolves to when called, plus the revision the
+    model id points at on the hub right now. It does NOT inspect which revision
+    each GPU worker loaded, so it is corroborating provenance, not proof of the
+    running job's inputs. Pass an explicit revision if you need that guarantee.
+
+    It does not make a run reproducible after the fact. It makes it describable,
+    which is the part that was missing: the first campaign recorded nothing, so
+    when its generations stopped reproducing there was nothing to compare against.
     """
     import hashlib
     import platform

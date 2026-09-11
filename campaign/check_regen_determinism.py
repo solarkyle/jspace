@@ -1,10 +1,15 @@
 """Report how often regeneration reproduced the original campaign answer.
 
-This is not a pass/fail gate, it is a measurement worth publishing. Greedy
-decoding is deterministic within a fixed environment, but the campaign's Modal
-image pinned neither transformers nor a model revision and recorded no
-environment, so "same model id, same decoding" does not imply the same output
-months later.
+This measures EXACT TEXT EQUALITY and answer length, and nothing else. It does
+not measure whether accuracy, detector performance or any published finding
+reproduces, and a low score here is not evidence that the original results were
+wrong: those runs were internally consistent against whatever environment existed
+at the time.
+
+Greedy decoding is deterministic within a fixed environment. The campaign's image
+pinned neither transformers nor a model revision and recorded no environment, so
+there is no way to re-create the original conditions and confirm what changed.
+The cause of the divergence has not been isolated.
 """
 
 import argparse
