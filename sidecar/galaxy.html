@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>J-Space Semantic Galaxy</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #02080d;
+      --panel: rgba(6, 18, 25, .88);
+      --panel-solid: #07141c;
+      --line: rgba(136, 211, 230, .2);
+      --line-strong: rgba(136, 230, 246, .42);
+      --text: #e6f6fb;
+      --muted: #7d9ba7;
+      --cyan: #69e8fa;
+      --green: #75e7a5;
+      --yellow: #f8ca66;
+      --red: #ff6f77;
+      --violet: #c98cff;
+      --blue: #62a9ff;
+      --radius: 14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 48% 22%, rgba(15, 88, 118, .11), transparent 34%),
+        linear-gradient(180deg, #01070b, #020a10 64%, #010609);
+    }
+    button, input, select, textarea { font: inherit; }
+    button, select, textarea {
+      color: var(--text);
+      background: rgba(11, 29, 39, .88);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+    }
+    button { cursor: pointer; }
+    button:hover, select:hover { border-color: var(--line-strong); }
+    button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    .app { height: 100vh; display: grid; grid-template-rows: 64px minmax(0, 1fr) 120px; gap: 8px; padding: 10px; }
+    .chrome {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      backdrop-filter: blur(14px);
+    }
+    .topbar { display: flex; align-items: center; gap: 16px; padding: 0 20px; }
+    .brand { min-width: 220px; }
+    .brand strong { display: block; letter-spacing: .16em; font-size: 20px; font-weight: 650; }
+    .brand span, .eyebrow { color: #75b6cc; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+    .model { margin-left: auto; text-align: right; }
+    .model strong { display: block; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 500; }
+    .status { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 10px currentColor; }
+    .status.ready .dot { background: var(--green); }
+    .status.error .dot { background: var(--red); }
+    .top-btn { padding: 9px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+
+    .main { min-height: 0; display: grid; grid-template-columns: 280px minmax(420px, 1fr) 260px; gap: 8px; }
+    .left, .right { min-height: 0; overflow: auto; padding: 17px; }
+    .left { display: flex; flex-direction: column; gap: 16px; }
+    .panel-title { margin: 0 0 9px; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .prompt-box { display: grid; gap: 9px; }
+    textarea { width: 100%; min-height: 92px; resize: vertical; padding: 12px; line-height: 1.45; }
+    .send { padding: 11px 14px; border-color: rgba(105, 232, 250, .48); color: var(--cyan); font-weight: 600; }
+    .send:disabled { opacity: .5; cursor: wait; }
+    .answer { font-size: 16px; line-height: 1.55; white-space: pre-wrap; min-height: 48px; }
+    .answer.empty { color: var(--muted); font-size: 13px; }
+    .metric-list { display: grid; gap: 9px; }
+    .metric { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; font-size: 12px; }
+    .metric span:first-child { color: var(--muted); }
+    .bar { grid-column: 1 / -1; height: 3px; background: rgba(255,255,255,.06); overflow: hidden; border-radius: 2px; }
+    .bar i { display: block; height: 100%; width: 0; background: var(--cyan); box-shadow: 0 0 8px currentColor; transition: width .2s ease; }
+    .truth-note { margin-top: auto; color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+    .space { position: relative; min-height: 0; overflow: hidden; border-color: rgba(94, 194, 226, .25); }
+    #galaxy { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; }
+    .space-head { position: absolute; z-index: 2; top: 15px; left: 17px; right: 17px; pointer-events: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+    .space-title strong { display: block; font-size: 13px; letter-spacing: .11em; text-transform: uppercase; }
+    .space-title span { color: var(--muted); font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .space-mode { pointer-events: auto; display: flex; gap: 7px; }
+    .space-mode select { padding: 7px 30px 7px 9px; font-size: 10px; }
+    .empty-galaxy { position: absolute; z-index: 2; inset: 0; display: grid; place-content: center; text-align: center; pointer-events: none; }
+    .empty-galaxy strong { color: #b8d8e3; font-size: 13px; letter-spacing: .08em; }
+    .empty-galaxy span { color: var(--muted); font-size: 11px; margin-top: 7px; }
+    .hover-tip { position: absolute; z-index: 4; display: none; pointer-events: none; transform: translate(12px, 12px); padding: 8px 10px; background: rgba(2, 10, 15, .95); border: 1px solid var(--line-strong); border-radius: 8px; font-size: 11px; }
+
+    .right section + section { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .concept-name { margin: 4px 0 3px; color: var(--cyan); font-size: 27px; font-weight: 500; overflow-wrap: anywhere; }
+    .concept-id { color: var(--muted); font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .spark { width: 100%; height: 70px; margin-top: 10px; display: block; }
+    .evidence { display: grid; gap: 10px; }
+    .evidence-row { display: grid; grid-template-columns: 10px 1fr; gap: 9px; font-size: 11px; line-height: 1.35; color: #bad0d8; }
+    .evidence-row i { width: 7px; height: 7px; margin-top: 4px; border-radius: 50%; background: var(--cyan); }
+    .evidence-row.neighbor i { background: var(--violet); }
+    .evidence-row.not-causal i { background: transparent; border: 1px solid var(--yellow); }
+    .legend { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 10px; color: var(--muted); }
+    .legend span { display: flex; align-items: center; gap: 7px; }
+    .swatch { width: 7px; height: 7px; border-radius: 50%; }
+
+    .transport { padding: 12px 16px; display: grid; grid-template-columns: 190px minmax(0, 1fr) 220px; gap: 18px; align-items: center; }
+    .playback { display: flex; align-items: center; gap: 8px; }
+    .playback button { width: 42px; height: 42px; font-size: 16px; }
+    .playback .play { width: 52px; height: 52px; border-radius: 50%; border-color: var(--line-strong); color: var(--cyan); }
+    .timeline { min-width: 0; }
+    .token-strip { display: flex; gap: 5px; min-width: 0; overflow-x: auto; padding: 2px 2px 7px; scrollbar-width: thin; }
+    .token { flex: 0 0 auto; min-width: 44px; padding: 7px 9px; color: #a9c3cd; font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+    .token.untraced { opacity: .36; }
+    .token.active { color: #061116; background: var(--cyan); border-color: var(--cyan); }
+    .layer-row { display: grid; grid-template-columns: auto minmax(80px, 1fr) auto; gap: 10px; align-items: center; }
+    .layer-row label, .layer-row output { font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+    input[type="range"] { width: 100%; accent-color: var(--cyan); }
+    .transport-status { text-align: right; }
+    .transport-status strong { display: block; color: var(--cyan); font: 18px ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 500; }
+    .transport-status span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+
+    @media (max-width: 1050px) {
+      body { overflow: auto; }
+      .app { height: auto; min-height: 100vh; grid-template-rows: auto auto auto; }
+      .main { grid-template-columns: 240px minmax(420px, 1fr); grid-template-rows: minmax(580px, 70vh) auto; }
+      .right { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .right section + section { margin: 0; padding: 0; border: 0; }
+      .transport { grid-template-columns: 170px minmax(300px, 1fr); }
+      .transport-status { display: none; }
+    }
+    @media (max-width: 720px) {
+      .app { padding: 6px; }
+      .topbar { flex-wrap: wrap; padding: 11px 14px; }
+      .brand { min-width: 0; }
+      .model { order: 3; width: 100%; text-align: left; }
+      .main { display: flex; flex-direction: column; }
+      .left { order: 2; }
+      .space { order: 1; min-height: 520px; }
+      .right { order: 3; display: block; }
+      .right section + section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+      .transport { display: flex; flex-direction: column; align-items: stretch; }
+      .playback { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar chrome">
+      <div class="brand"><strong>J-SPACE</strong><span>semantic galaxy</span></div>
+      <div id="serverStatus" class="status"><i class="dot"></i><span>Connecting</span></div>
+      <div class="model"><strong id="modelName">google/gemma-4-E4B-it</strong><span class="eyebrow" id="bandName">workspace band</span></div>
+      <a class="top-btn" href="/lab">Experiment lab</a>
+      <button class="top-btn" id="newTrace" type="button">New trace</button>
+    </header>
+
+    <div class="main">
+      <aside class="left chrome">
+        <section>
+          <h2 class="panel-title">Prompt</h2>
+          <form id="promptForm" class="prompt-box">
+            <textarea id="prompt" aria-label="Prompt">What is the currency of Italy?</textarea>
+            <button id="send" class="send" type="submit">Run Gemma + J-Lens</button>
+          </form>
+        </section>
+        <section>
+          <h2 class="panel-title">Generated text</h2>
+          <div id="answer" class="answer empty">The answer will appear here while its traced tokens become a galaxy.</div>
+        </section>
+        <section>
+          <h2 class="panel-title">Current read</h2>
+          <div class="metric-list">
+            <div class="metric"><span>Router risk</span><strong id="riskValue">--</strong><div class="bar"><i id="riskBar"></i></div></div>
+            <div class="metric"><span>Layer entropy</span><strong id="entropyValue">--</strong><div class="bar"><i id="entropyBar"></i></div></div>
+            <div class="metric"><span>Concepts observed</span><strong id="conceptCount">--</strong></div>
+            <div class="metric"><span>Trace overhead</span><strong id="traceMs">--</strong></div>
+          </div>
+        </section>
+        <p class="truth-note">Brightness is J-Lens probability. Position is a trace-specific PCA of activation trajectories. Lines show projection neighbors, not causal influence.</p>
+      </aside>
+
+      <section class="space chrome" aria-label="Interactive J-Lens semantic galaxy">
+        <canvas id="galaxy"></canvas>
+        <div class="space-head">
+          <div class="space-title"><strong id="spaceTitle">Waiting for a trace</strong><span id="spaceSub">canvas idle</span></div>
+          <div class="space-mode">
+            <select id="filterMode" aria-label="Concept filter">
+              <option value="all">All concepts</option>
+              <option value="active">Active at layer</option>
+              <option value="answer">Answer path</option>
+            </select>
+            <select id="colorMode" aria-label="Color signal">
+              <option value="sector">Trajectory sectors</option>
+              <option value="risk">Router risk</option>
+              <option value="entropy">Layer entropy</option>
+            </select>
+          </div>
+        </div>
+        <div id="emptyGalaxy" class="empty-galaxy"><strong>ASK GEMMA SOMETHING</strong><span>The first answer tokens will become an explorable trace.</span></div>
+        <div id="hoverTip" class="hover-tip"></div>
+      </section>
+
+      <aside class="right chrome">
+        <section>
+          <h2 class="panel-title">Selected concept</h2>
+          <div id="conceptName" class="concept-name">None</div>
+          <div id="conceptId" class="concept-id">Select a node in the galaxy</div>
+          <div class="metric-list" style="margin-top: 16px">
+            <div class="metric"><span>Current probability</span><strong id="conceptScore">--</strong></div>
+            <div class="metric"><span>Trace peak</span><strong id="conceptPeak">--</strong></div>
+            <div class="metric"><span>Trajectory sector</span><strong id="conceptSector">--</strong></div>
+            <div class="metric"><span>Answer token</span><strong id="conceptAnswer">--</strong></div>
+          </div>
+          <canvas id="spark" class="spark" aria-label="Selected concept trajectory"></canvas>
+        </section>
+        <section>
+          <h2 class="panel-title">Evidence types</h2>
+          <div class="evidence">
+            <div class="evidence-row"><i></i><span><strong>Activity</strong><br>J-Lens top-k probability</span></div>
+            <div class="evidence-row neighbor"><i></i><span><strong>Geometry</strong><br>Trace trajectory PCA</span></div>
+            <div class="evidence-row not-causal"><i></i><span><strong>Edges</strong><br>Nearest neighbors, not causal</span></div>
+          </div>
+        </section>
+        <section>
+          <h2 class="panel-title">Trajectory sectors</h2>
+          <div id="sectorLegend" class="legend"></div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="transport chrome">
+      <div class="playback">
+        <button id="rewind" type="button" aria-label="Rewind trace">|&lt;</button>
+        <button id="back" type="button" aria-label="Previous layer">&lt;</button>
+        <button id="play" class="play" type="button" aria-label="Play trace">&#9654;</button>
+        <button id="forward" type="button" aria-label="Next layer">&gt;</button>
+      </div>
+      <div class="timeline">
+        <div id="tokenStrip" class="token-strip" aria-label="Generated token timeline"></div>
+        <div class="layer-row">
+          <label for="layerSlider">LAYER</label>
+          <input id="layerSlider" type="range" min="0" max="0" value="0" disabled>
+          <output id="layerOutput" for="layerSlider">--</output>
+        </div>
+      </div>
+      <div class="transport-status"><strong id="readToken">NO TRACE</strong><span id="readStatus">answer-token read</span></div>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const canvas = $('galaxy');
+      const ctx = canvas.getContext('2d');
+      const spark = $('spark');
+      const sparkCtx = spark.getContext('2d');
+      const colors = ['#62d9ff', '#74e5a1', '#f5c860', '#ff7d72', '#c68cff', '#5b91ff'];
+      const state = {
+        trace: null,
+        step: 0,
+        layer: 0,
+        selected: null,
+        hover: null,
+        playing: false,
+        timer: null,
+        points: [],
+        stars: makeStars(260),
+        health: null
+      };
+
+      function makeStars(count) {
+        let seed = 94177;
+        const random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+        return Array.from({ length: count }, () => ({ x: random(), y: random(), r: .25 + random() * 1.1, a: .12 + random() * .42 }));
+      }
+
+      function resizeCanvas(target, context) {
+        const rect = target.getBoundingClientRect();
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        const width = Math.max(1, Math.round(rect.width * dpr));
+        const height = Math.max(1, Math.round(rect.height * dpr));
+        if (target.width !== width || target.height !== height) {
+          target.width = width;
+          target.height = height;
+        }
+        context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return rect;
+      }
+
+      function currentStep() { return state.trace?.steps[state.step] || null; }
+      function currentLayerNumber() { return state.trace?.layers[state.layer] ?? null; }
+      function conceptById(id) { return state.trace?.concepts.find((item) => item.id === id) || null; }
+      function scoreAt(concept, step = state.step, layer = state.layer) { return concept?.scores?.[step]?.[layer] ?? null; }
+      function probability(value) { return value == null ? 'below top-k' : `${(value * 100).toFixed(value >= .01 ? 2 : 3)}%`; }
+      function clamp(value, lo, hi) { return Math.max(lo, Math.min(hi, value)); }
+
+      function signalColor(concept) {
+        const mode = $('colorMode').value;
+        if (mode === 'risk') {
+          const risk = currentStep()?.risk || 0;
+          if (risk < .4) return '#74e5a1';
+          if (risk < .65) return '#f5c860';
+          return '#ff7474';
+        }
+        if (mode === 'entropy') {
+          const values = currentStep()?.entropies || [];
+          const value = values[state.layer] || 0;
+          const min = Math.min(...values, value);
+          const max = Math.max(...values, value + .0001);
+          const t = clamp((value - min) / (max - min), 0, 1);
+          return t < .5 ? '#62d9ff' : (t < .8 ? '#c68cff' : '#ff7474');
+        }
+        return colors[concept.sector % colors.length];
+      }
+
+      function visibleConcept(concept, maxScore) {
+        const mode = $('filterMode').value;
+        const score = scoreAt(concept) || 0;
+        if (mode === 'answer') return concept.answer_steps.length > 0;
+        if (mode === 'active') return score > Math.max(maxScore * .035, .00001);
+        return true;
+      }
+
+      function draw() {
+        const rect = resizeCanvas(canvas, ctx);
+        const width = rect.width;
+        const height = rect.height;
+        ctx.clearRect(0, 0, width, height);
+        drawBackground(width, height);
+        state.points = [];
+        if (!state.trace) return;
+
+        const concepts = state.trace.concepts;
+        const scores = concepts.map((concept) => scoreAt(concept) || 0);
+        const maxScore = Math.max(...scores, .000001);
+        const positions = new Map();
+        for (const concept of concepts) {
+          const x = 52 + concept.x * Math.max(1, width - 104);
+          const y = 58 + concept.y * Math.max(1, height - 116);
+          positions.set(concept.id, { x, y });
+        }
+
+        drawSectors(concepts, positions, width, height, maxScore);
+        ctx.save();
+        for (const edge of state.trace.edges) {
+          const source = conceptById(edge.source);
+          const target = conceptById(edge.target);
+          if (!source || !target || !visibleConcept(source, maxScore) || !visibleConcept(target, maxScore)) continue;
+          const a = positions.get(edge.source);
+          const b = positions.get(edge.target);
+          const activity = Math.max(scoreAt(source) || 0, scoreAt(target) || 0) / maxScore;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(116, 194, 215, ${.035 + activity * .18})`;
+          ctx.lineWidth = .55 + activity * .7;
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        const ranked = concepts
+          .filter((concept) => visibleConcept(concept, maxScore))
+          .sort((a, b) => (scoreAt(a) || 0) - (scoreAt(b) || 0));
+        for (const concept of ranked) drawConcept(concept, positions.get(concept.id), maxScore);
+      }
+
+      function drawBackground(width, height) {
+        const step = currentStep();
+        let tint = 'rgba(36, 154, 196, .055)';
+        if ($('colorMode').value === 'risk' && step) tint = step.risk > .65 ? 'rgba(255, 66, 86, .07)' : 'rgba(60, 220, 145, .045)';
+        const gradient = ctx.createRadialGradient(width * .5, height * .48, 0, width * .5, height * .48, Math.max(width, height) * .7);
+        gradient.addColorStop(0, tint);
+        gradient.addColorStop(.55, 'rgba(4, 21, 29, .09)');
+        gradient.addColorStop(1, 'rgba(0, 4, 7, .78)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+        for (const star of state.stars) {
+          ctx.fillStyle = `rgba(130, 214, 238, ${star.a})`;
+          ctx.fillRect(star.x * width, star.y * height, star.r, star.r);
+        }
+      }
+
+      function drawSectors(concepts, positions, width, height, maxScore) {
+        const leaders = new Map();
+        for (const concept of concepts) {
+          const score = scoreAt(concept) || 0;
+          const old = leaders.get(concept.sector);
+          if (!old || score > old.score) leaders.set(concept.sector, { concept, score });
+        }
+        for (const [sector, item] of leaders) {
+          if (!visibleConcept(item.concept, maxScore)) continue;
+          const p = positions.get(item.concept.id);
+          const radius = Math.min(width, height) * (.11 + .06 * item.score / maxScore);
+          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius);
+          const color = colors[sector % colors.length];
+          gradient.addColorStop(0, hexAlpha(color, .065));
+          gradient.addColorStop(1, hexAlpha(color, 0));
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawConcept(concept, p, maxScore) {
+        const score = scoreAt(concept);
+        const strength = score == null ? 0 : clamp(score / maxScore, 0, 1);
+        const selected = state.selected === concept.id;
+        const hovered = state.hover === concept.id;
+        const answer = concept.answer_steps.includes(currentStep()?.step);
+        const radius = 2.2 + Math.sqrt(strength) * 8 + (concept.peak / Math.max(...state.trace.concepts.map(c => c.peak), .000001)) * 2;
+        const color = signalColor(concept);
+
+        if (strength > .08 || selected || answer) {
+          const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 4.2);
+          glow.addColorStop(0, hexAlpha(color, .5 * Math.max(strength, .3)));
+          glow.addColorStop(1, hexAlpha(color, 0));
+          ctx.fillStyle = glow;
+          ctx.beginPath(); ctx.arc(p.x, p.y, radius * 4.2, 0, Math.PI * 2); ctx.fill();
+        }
+        if (selected || answer) {
+          ctx.strokeStyle = answer ? '#eaffff' : color;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.arc(p.x, p.y, radius + 6, 0, Math.PI * 2); ctx.stroke();
+        }
+        ctx.fillStyle = score == null ? 'rgba(117, 153, 164, .42)' : color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(1.6, radius), 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = strength > .35 ? '#f0ffff' : hexAlpha(color, .9);
+        ctx.beginPath(); ctx.arc(p.x - radius * .24, p.y - radius * .24, Math.max(1, radius * .25), 0, Math.PI * 2); ctx.fill();
+
+        const label = concept.token || `#${concept.id}`;
+        const showLabel = strength > .16 || selected || hovered || answer;
+        if (showLabel) {
+          ctx.font = `${answer || selected ? 600 : 500} ${answer || selected ? 14 : 11}px Inter, system-ui, sans-serif`;
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = answer || selected ? '#ecfdff' : 'rgba(199, 232, 241, .85)';
+          ctx.fillText(label, p.x + radius + 6, p.y);
+        }
+        state.points.push({ id: concept.id, x: p.x, y: p.y, r: Math.max(9, radius + 5) });
+      }
+
+      function hexAlpha(hex, alpha) {
+        const value = hex.replace('#', '');
+        const r = parseInt(value.slice(0, 2), 16);
+        const g = parseInt(value.slice(2, 4), 16);
+        const b = parseInt(value.slice(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      function pick(event) {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        let best = null;
+        let distance = Infinity;
+        for (const point of state.points) {
+          const d = Math.hypot(point.x - x, point.y - y);
+          if (d <= point.r && d < distance) { best = point.id; distance = d; }
+        }
+        return { id: best, x, y };
+      }
+
+      function drawSpark() {
+        const rect = resizeCanvas(spark, sparkCtx);
+        sparkCtx.clearRect(0, 0, rect.width, rect.height);
+        const concept = conceptById(state.selected);
+        if (!concept || !state.trace) return;
+        const values = concept.scores[state.step].map((value) => value || 0);
+        const max = Math.max(...values, .000001);
+        const pad = 5;
+        sparkCtx.strokeStyle = 'rgba(122, 176, 192, .2)';
+        sparkCtx.beginPath(); sparkCtx.moveTo(pad, rect.height - pad); sparkCtx.lineTo(rect.width - pad, rect.height - pad); sparkCtx.stroke();
+        sparkCtx.strokeStyle = signalColor(concept);
+        sparkCtx.lineWidth = 1.6;
+        sparkCtx.beginPath();
+        values.forEach((value, index) => {
+          const x = pad + index / Math.max(1, values.length - 1) * (rect.width - pad * 2);
+          const y = rect.height - pad - value / max * (rect.height - pad * 2);
+          if (index === 0) sparkCtx.moveTo(x, y); else sparkCtx.lineTo(x, y);
+        });
+        sparkCtx.stroke();
+        const x = pad + state.layer / Math.max(1, values.length - 1) * (rect.width - pad * 2);
+        const y = rect.height - pad - values[state.layer] / max * (rect.height - pad * 2);
+        sparkCtx.fillStyle = '#eaffff';
+        sparkCtx.beginPath(); sparkCtx.arc(x, y, 3, 0, Math.PI * 2); sparkCtx.fill();
+      }
+
+      function updateInspector() {
+        const concept = conceptById(state.selected);
+        if (!concept) {
+          $('conceptName').textContent = 'None';
+          $('conceptId').textContent = 'Select a node in the galaxy';
+          ['conceptScore', 'conceptPeak', 'conceptSector', 'conceptAnswer'].forEach((id) => $(id).textContent = '--');
+          drawSpark();
+          return;
+        }
+        $('conceptName').textContent = concept.token || `token ${concept.id}`;
+        $('conceptId').textContent = `TOKEN ID ${concept.id}`;
+        $('conceptScore').textContent = probability(scoreAt(concept));
+        $('conceptPeak').textContent = probability(concept.peak);
+        const labels = state.trace.sector_labels[String(concept.sector)] || [];
+        $('conceptSector').textContent = labels.join(' / ') || `S${concept.sector + 1}`;
+        $('conceptAnswer').textContent = concept.answer_steps.length ? `step ${concept.answer_steps.join(', ')}` : 'no';
+        drawSpark();
+      }
+
+      function updateUI() {
+        if (!state.trace) { draw(); return; }
+        const step = currentStep();
+        const layer = currentLayerNumber();
+        $('layerSlider').max = Math.max(0, state.trace.layers.length - 1);
+        $('layerSlider').value = state.layer;
+        $('layerSlider').disabled = false;
+        $('layerOutput').textContent = `L${layer}`;
+        $('spaceTitle').textContent = `READ ${step.step + 1} · ${step.token || `token ${step.token_id}`}`;
+        $('spaceSub').textContent = `workspace layer ${layer} · ${state.trace.concepts.length} concepts · trace PCA`;
+        $('readToken').textContent = step.token || `#${step.token_id}`;
+        $('riskValue').textContent = step.risk.toFixed(3);
+        $('riskBar').style.width = `${clamp(step.risk, 0, 1) * 100}%`;
+        $('riskBar').style.background = step.risk > .65 ? 'var(--red)' : (step.risk > .4 ? 'var(--yellow)' : 'var(--green)');
+        const entropy = step.entropies[state.layer] || 0;
+        const entropyMin = Math.min(...step.entropies, entropy);
+        const entropyMax = Math.max(...step.entropies, entropy + .001);
+        $('entropyValue').textContent = entropy.toFixed(2);
+        $('entropyBar').style.width = `${clamp((entropy - entropyMin) / (entropyMax - entropyMin), 0, 1) * 100}%`;
+        $('conceptCount').textContent = state.trace.concepts.length;
+        document.querySelectorAll('.token').forEach((button, index) => button.classList.toggle('active', index === step.step));
+        updateInspector();
+        draw();
+      }
+
+      function buildTimeline() {
+        const strip = $('tokenStrip');
+        strip.replaceChildren();
+        for (const item of state.trace.completion) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = `token${item.traced ? '' : ' untraced'}`;
+          button.textContent = item.token || `#${item.token_id}`;
+          button.disabled = !item.traced;
+          button.setAttribute('aria-label', item.traced ? `Open traced token ${item.step}: ${item.token}` : `Token ${item.step} was not traced`);
+          if (item.traced) button.addEventListener('click', () => { stop(); state.step = item.step; state.layer = 0; selectAnswer(); updateUI(); });
+          strip.appendChild(button);
+        }
+      }
+
+      function buildLegend() {
+        const legend = $('sectorLegend');
+        legend.replaceChildren();
+        for (let sector = 0; sector < 6; sector++) {
+          const labels = state.trace.sector_labels[String(sector)] || [];
+          if (!labels.length) continue;
+          const row = document.createElement('span');
+          const swatch = document.createElement('i');
+          swatch.className = 'swatch';
+          swatch.style.background = colors[sector];
+          row.append(swatch, document.createTextNode(labels.join(' · ')));
+          legend.appendChild(row);
+        }
+      }
+
+      function selectAnswer() {
+        const answerId = currentStep()?.token_id;
+        if (conceptById(answerId)) state.selected = answerId;
+      }
+
+      async function runTrace(prompt) {
+        $('send').disabled = true;
+        $('send').textContent = 'Tracing...';
+        $('serverStatus').className = 'status';
+        $('serverStatus').querySelector('span').textContent = 'Running inference';
+        stop();
+        try {
+          const response = await fetch('/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: state.health?.model || 'google/gemma-4-E4B-it', messages: [{ role: 'user', content: prompt }], mode: 'detect', max_tokens: 64 })
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.detail || `Server returned ${response.status}`);
+          const trace = data.jspace?.galaxy_trace;
+          if (!trace?.concepts?.length) throw new Error('The sidecar returned no galaxy trace');
+          state.trace = trace;
+          state.step = Math.max(0, trace.steps.findIndex((item) => item.step === trace.selected_step));
+          state.layer = 0;
+          state.selected = null;
+          $('answer').textContent = data.choices?.[0]?.message?.content || '(empty response)';
+          $('answer').classList.remove('empty');
+          $('traceMs').textContent = `${data.jspace.snapshot_ms.toFixed(0)} ms`;
+          $('emptyGalaxy').style.display = 'none';
+          buildTimeline();
+          buildLegend();
+          selectAnswer();
+          updateUI();
+          setServerStatus(true, 'Ready');
+        } catch (error) {
+          setServerStatus(false, error.message);
+          $('answer').textContent = error.message;
+          $('answer').classList.add('empty');
+        } finally {
+          $('send').disabled = false;
+          $('send').textContent = 'Run Gemma + J-Lens';
+        }
+      }
+
+      function setServerStatus(ok, label) {
+        const status = $('serverStatus');
+        status.className = `status ${ok ? 'ready' : 'error'}`;
+        status.querySelector('span').textContent = label;
+      }
+
+      async function loadHealth() {
+        try {
+          const response = await fetch('/health');
+          const health = await response.json();
+          if (!response.ok || !health.ok) throw new Error('Sidecar is not ready');
+          state.health = health;
+          $('modelName').textContent = health.model;
+          $('bandName').textContent = `layers ${health.band[0]}-${health.band[1]} · ${health.workspace_read_tokens} token reads`;
+          setServerStatus(true, 'Ready');
+        } catch (error) {
+          setServerStatus(false, error.message);
+        }
+      }
+
+      function advance(direction = 1) {
+        if (!state.trace) return;
+        state.layer += direction;
+        if (state.layer >= state.trace.layers.length) {
+          if (state.step < state.trace.steps.length - 1) { state.step += 1; state.layer = 0; selectAnswer(); }
+          else { state.layer = state.trace.layers.length - 1; stop(); }
+        }
+        if (state.layer < 0) {
+          if (state.step > 0) { state.step -= 1; state.layer = state.trace.layers.length - 1; selectAnswer(); }
+          else state.layer = 0;
+        }
+        updateUI();
+      }
+
+      function play() {
+        if (!state.trace) return;
+        if (state.playing) { stop(); return; }
+        if (state.step === state.trace.steps.length - 1 && state.layer === state.trace.layers.length - 1) { state.step = 0; state.layer = 0; }
+        state.playing = true;
+        $('play').innerHTML = '&#10074;&#10074;';
+        $('play').setAttribute('aria-label', 'Pause trace');
+        state.timer = setInterval(() => advance(1), 170);
+      }
+
+      function stop() {
+        state.playing = false;
+        if (state.timer) clearInterval(state.timer);
+        state.timer = null;
+        $('play').innerHTML = '&#9654;';
+        $('play').setAttribute('aria-label', 'Play trace');
+      }
+
+      $('promptForm').addEventListener('submit', (event) => { event.preventDefault(); const prompt = $('prompt').value.trim(); if (prompt) runTrace(prompt); });
+      $('newTrace').addEventListener('click', () => { stop(); state.trace = null; state.selected = null; $('answer').textContent = 'The answer will appear here while its traced tokens become a galaxy.'; $('answer').classList.add('empty'); $('emptyGalaxy').style.display = 'grid'; $('tokenStrip').replaceChildren(); $('layerSlider').disabled = true; $('layerOutput').textContent = '--'; updateInspector(); draw(); $('prompt').focus(); });
+      $('layerSlider').addEventListener('input', (event) => { stop(); state.layer = Number(event.target.value); updateUI(); });
+      $('filterMode').addEventListener('change', draw);
+      $('colorMode').addEventListener('change', () => { updateInspector(); draw(); });
+      $('rewind').addEventListener('click', () => { stop(); if (!state.trace) return; state.step = 0; state.layer = 0; selectAnswer(); updateUI(); });
+      $('back').addEventListener('click', () => { stop(); advance(-1); });
+      $('forward').addEventListener('click', () => { stop(); advance(1); });
+      $('play').addEventListener('click', play);
+      canvas.addEventListener('mousemove', (event) => {
+        const hit = pick(event);
+        if (state.hover !== hit.id) { state.hover = hit.id; draw(); }
+        const tip = $('hoverTip');
+        if (hit.id == null) { tip.style.display = 'none'; return; }
+        const concept = conceptById(hit.id);
+        tip.textContent = `${concept.token || '#' + concept.id} · ${probability(scoreAt(concept))}`;
+        tip.style.display = 'block'; tip.style.left = `${hit.x}px`; tip.style.top = `${hit.y}px`;
+      });
+      canvas.addEventListener('mouseleave', () => { state.hover = null; $('hoverTip').style.display = 'none'; draw(); });
+      canvas.addEventListener('click', (event) => { const hit = pick(event); if (hit.id != null) { state.selected = hit.id; updateInspector(); draw(); } });
+      window.addEventListener('resize', () => { draw(); drawSpark(); });
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.style.setProperty('scroll-behavior', 'auto');
+
+      loadHealth();
+      draw();
+    })();
+  </script>
+</body>
+</html>

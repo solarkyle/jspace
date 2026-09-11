@@ -18,7 +18,7 @@ REDDIT_POST.md
 HANDOFF.md
 PROGRESS.md
 scratch/
-sidecar/server.log
+sidecar/*.log
 sidecar/config.json
 hf_upload/
 review/

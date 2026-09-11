@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>J-Space Experiment Lab</title>
+  <style>
+    :root { color-scheme: dark; --bg:#04080d; --panel:#09131b; --panel2:#0d1b25; --line:#1d3b49; --text:#dff8ff; --muted:#7895a2; --cyan:#66efff; --blue:#51a8ff; --green:#77e68b; --amber:#ffc45c; --red:#ff6f78; --purple:#c889ff; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(circle at 72% 16%,#092130 0,transparent 32%),var(--bg); color:var(--text); font:14px/1.45 Inter,ui-sans-serif,system-ui,sans-serif; }
+    button,input,select,textarea { font:inherit; }
+    button,.button { border:1px solid var(--line); background:#0b1a23; color:var(--text); border-radius:8px; padding:9px 13px; cursor:pointer; text-decoration:none; }
+    button:hover,.button:hover { border-color:var(--cyan); }
+    button:disabled { opacity:.45; cursor:not-allowed; }
+    button.primary { background:var(--cyan); border-color:var(--cyan); color:#031014; font-weight:700; }
+    .app { width:min(1500px,100%); margin:auto; padding:12px; }
+    .chrome { border:1px solid var(--line); background:rgba(5,15,22,.88); box-shadow:0 15px 50px rgba(0,0,0,.22); }
+    .topbar { min-height:72px; border-radius:14px; padding:12px 18px; display:flex; align-items:center; gap:18px; }
+    .brand { margin-right:auto; }
+    .brand strong { display:block; letter-spacing:.22em; font-size:20px; }
+    .eyebrow { display:block; color:var(--cyan); letter-spacing:.15em; font-size:11px; text-transform:uppercase; }
+    .status { color:var(--muted); display:flex; align-items:center; gap:8px; }
+    .status i { width:8px; height:8px; border-radius:50%; background:var(--amber); box-shadow:0 0 12px currentColor; }
+    .status.ready i { background:var(--green); }
+    .status.error i { background:var(--red); }
+    .tabs { display:flex; gap:8px; margin:12px 0; padding:8px; border-radius:12px; }
+    .tab { flex:1; background:transparent; text-transform:uppercase; letter-spacing:.11em; color:var(--muted); }
+    .tab.active { color:var(--cyan); border-color:var(--cyan); background:rgba(102,239,255,.08); }
+    .panel { display:none; }
+    .panel.active { display:block; }
+    .grid { display:grid; grid-template-columns:minmax(280px,380px) minmax(0,1fr); gap:12px; }
+    .card { border-radius:14px; padding:16px; }
+    .stack { display:grid; gap:12px; align-content:start; }
+    h2,h3,p { margin-top:0; }
+    h2 { font-size:16px; letter-spacing:.12em; text-transform:uppercase; }
+    h3 { font-size:12px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
+    textarea,select,input[type=file] { width:100%; color:var(--text); background:#061018; border:1px solid var(--line); border-radius:8px; padding:10px; }
+    textarea { min-height:96px; resize:vertical; }
+    label { display:grid; gap:5px; color:var(--muted); }
+    input[type=range] { width:100%; accent-color:var(--cyan); }
+    .controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .controls .wide { grid-column:1/-1; }
+    .actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .metric-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+    .metric { background:var(--panel2); border:1px solid rgba(102,239,255,.12); border-radius:9px; padding:10px; min-width:0; }
+    .metric span { color:var(--muted); display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+    .metric strong { display:block; margin-top:4px; font-size:17px; overflow-wrap:anywhere; }
+    .answer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .answer { min-height:105px; border-left:3px solid var(--blue); background:#061018; padding:12px; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .answer.branch { border-color:var(--purple); }
+    .muted { color:var(--muted); }
+    .notice { border-left:3px solid var(--amber); padding:8px 10px; background:rgba(255,196,92,.06); color:#cbd9de; }
+    canvas { display:block; width:100%; height:310px; border-radius:10px; background:radial-gradient(circle at center,rgba(30,83,106,.16),transparent 65%),#050d13; }
+    .effect-list,.rows { display:grid; gap:6px; }
+    .effect { display:grid; grid-template-columns:95px 1fr 65px; gap:8px; align-items:center; }
+    .effect .bar { height:5px; background:#132731; position:relative; }
+    .effect .bar i { position:absolute; top:0; bottom:0; left:50%; background:var(--cyan); }
+    .effect.negative .bar i { right:50%; left:auto; background:var(--red); }
+    .effect code { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { padding:8px; border-bottom:1px solid var(--line); text-align:right; }
+    th:first-child,td:first-child,th:nth-child(2),td:nth-child(2) { text-align:left; }
+    th { color:var(--muted); font-size:11px; text-transform:uppercase; }
+    .pass { color:var(--green); }
+    .fail { color:var(--red); }
+    .busy { animation:pulse 1.1s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity:.55; } }
+    @media (max-width:850px) { .grid { grid-template-columns:1fr; } .topbar { flex-wrap:wrap; } .metric-grid { grid-template-columns:1fr; } }
+    @media (max-width:560px) { .answer-grid,.controls { grid-template-columns:1fr; } .controls .wide { grid-column:auto; } .tabs { flex-direction:column; } }
+    @media (prefers-reduced-motion:reduce) { .busy { animation:none; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar chrome">
+      <div class="brand"><strong>J-SPACE LAB</strong><span class="eyebrow">causal · overload · conformance</span></div>
+      <div id="serverStatus" class="status"><i></i><span>Connecting</span></div>
+      <a class="button" href="/galaxy">Galaxy</a>
+      <a class="button" href="/chat">Router</a>
+    </header>
+
+    <nav class="tabs chrome" aria-label="Experiments">
+      <button class="tab active" data-panel="branchPanel">Causal Branch</button>
+      <button class="tab" data-panel="overloadPanel">Overload Observatory</button>
+      <button class="tab" data-panel="conformancePanel">HF ↔ GGUF Conformance</button>
+    </nav>
+
+    <section id="branchPanel" class="panel active">
+      <div class="grid">
+        <aside class="card chrome stack">
+          <div><h2>Causal Branch Debugger</h2><p class="muted">Trace a response, choose an observed concept and layer, then fork the next-token computation with a one-step residual intervention.</p></div>
+          <label>Prompt<textarea id="branchPrompt">What is the currency of Italy?</textarea></label>
+          <button id="traceButton" class="primary">1. Trace response</button>
+          <div class="controls">
+            <label>Fork after<select id="forkStep" disabled><option>Run a trace first</option></select></label>
+            <label>Layer<select id="branchLayer" disabled><option>--</option></select></label>
+            <label class="wide">Concept<select id="branchConcept" disabled><option>--</option></select></label>
+            <label>Action<select id="branchMode" disabled><option value="boost">Boost</option><option value="suppress">Suppress</option></select></label>
+            <label>Strength <output id="strengthValue">1.0×</output><input id="branchStrength" type="range" min="0.1" max="4" step="0.1" value="1" disabled></label>
+          </div>
+          <button id="forkButton" disabled>2. Fork from here</button>
+          <div class="notice">“Causal” here means the next-token computation changed under a controlled activation patch. It does not mean the selected token is a human-readable thought.</div>
+        </aside>
+        <div class="stack">
+          <section class="card chrome">
+            <h3>Original traced answer</h3>
+            <div id="tracedAnswer" class="answer muted">No trace yet.</div>
+          </section>
+          <section class="card chrome">
+            <h3>Forked futures</h3>
+            <div class="answer-grid">
+              <div><span class="eyebrow">Unmodified</span><div id="baselineBranch" class="answer muted">Waiting for a fork.</div></div>
+              <div><span class="eyebrow">Intervention</span><div id="interventionBranch" class="answer branch muted">Waiting for a fork.</div></div>
+            </div>
+          </section>
+          <section class="card chrome">
+            <div class="metric-grid">
+              <div class="metric"><span>Concept before</span><strong id="conceptBefore">--</strong></div>
+              <div class="metric"><span>Concept after</span><strong id="conceptAfter">--</strong></div>
+              <div class="metric"><span>Patch / residual norm</span><strong id="patchNorm">--</strong></div>
+            </div>
+            <h3 style="margin-top:16px">Largest next-token effects</h3>
+            <div id="effectList" class="effect-list muted">No intervention yet.</div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="overloadPanel" class="panel">
+      <div class="grid">
+        <aside class="card chrome stack">
+          <div><h2>Overload Observatory</h2><p class="muted">Increase temporary name→value bindings and watch correctness, tail smear, family-aggregated entropy, and ignition depth change together.</p></div>
+          <label>Maximum bindings <output id="bindingValue">10</output><input id="bindingMax" type="range" min="4" max="16" step="2" value="10"></label>
+          <button id="overloadButton" class="primary">Run Gemma E4B sweep</button>
+          <div class="notice">This is an exploratory single-trial sweep. A publishable phase-transition test still needs prompt-balanced repetitions and a preregistered changepoint comparison.</div>
+          <div class="metric-grid">
+            <div class="metric"><span>Runs</span><strong id="overloadRuns">--</strong></div>
+            <div class="metric"><span>First failure</span><strong id="firstFailure">--</strong></div>
+            <div class="metric"><span>Elapsed</span><strong id="overloadElapsed">--</strong></div>
+          </div>
+        </aside>
+        <div class="stack">
+          <section class="card chrome"><canvas id="overloadChart" role="img" aria-label="Overload metrics by binding count"></canvas></section>
+          <section class="card chrome"><div style="overflow:auto"><table><thead><tr><th>Bindings</th><th>Answer</th><th>Correct</th><th>Tail</th><th>Family H</th><th>Ignition</th><th>Risk</th></tr></thead><tbody id="overloadRows"><tr><td colspan="7" class="muted">No sweep yet.</td></tr></tbody></table></div></section>
+        </div>
+      </div>
+    </section>
+
+    <section id="conformancePanel" class="panel">
+      <div class="grid">
+        <aside class="card chrome stack">
+          <div><h2>HF ↔ GGUF Conformance</h2><p class="muted">Export an exact Transformers fingerprint, load the same-schema llama.cpp capture, and gate every aligned layer.</p></div>
+          <label>Prompt<textarea id="conformancePrompt">What is the currency of Italy?</textarea></label>
+          <button id="captureButton" class="primary">Capture HF reference</button>
+          <div class="actions"><button id="saveCapture" disabled>Save reference JSON</button><button id="selfCheck" disabled>Self-check harness</button></div>
+          <label>GGUF capture JSON<input id="candidateFile" type="file" accept="application/json,.json"></label>
+          <button id="compareButton" disabled>Compare captures</button>
+          <div class="notice">Export the HF reference here, then run <code>python -m sidecar.export_gguf_capture</code> against jlens-server and load its JSON result below.</div>
+        </aside>
+        <div class="stack">
+          <section class="card chrome">
+            <div class="metric-grid">
+              <div class="metric"><span>Reference</span><strong id="referenceBackend">--</strong></div>
+              <div class="metric"><span>Aligned layers</span><strong id="alignedLayers">--</strong></div>
+              <div class="metric"><span>Gate</span><strong id="conformanceGate">--</strong></div>
+            </div>
+          </section>
+          <section class="card chrome"><canvas id="conformanceChart" role="img" aria-label="Per-layer conformance"></canvas></section>
+          <section class="card chrome"><div style="overflow:auto"><table><thead><tr><th>Layer</th><th>Residual cosine</th><th>Lens JSD</th><th>Top-k overlap</th><th>Gate</th></tr></thead><tbody id="conformanceRows"><tr><td colspan="5" class="muted">Capture a reference, then load a GGUF capture.</td></tr></tbody></table></div></section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const state = { health:null, trace:null, reference:null, candidate:null, overload:[], comparison:null };
+      const pct = (value) => `${(Number(value || 0) * 100).toFixed(2)}%`;
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+      function status(ok, text, busy=false) {
+        const el = $('serverStatus');
+        el.className = `status ${ok ? 'ready' : 'error'}${busy ? ' busy' : ''}`;
+        el.querySelector('span').textContent = text;
+      }
+
+      async function post(url, body) {
+        const response = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail || `Request failed (${response.status})`);
+        return data;
+      }
+
+      async function loadHealth() {
+        try {
+          const response = await fetch('/health');
+          state.health = await response.json();
+          if (!state.health.ok) throw new Error('Model is not ready');
+          status(true, `${state.health.model} · ${state.health.quant}`);
+        } catch (error) { status(false, error.message); }
+      }
+
+      document.querySelectorAll('.tab').forEach((button) => button.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach((item) => item.classList.toggle('active', item === button));
+        document.querySelectorAll('.panel').forEach((panel) => panel.classList.toggle('active', panel.id === button.dataset.panel));
+        if (button.dataset.panel === 'overloadPanel') drawOverload();
+        if (button.dataset.panel === 'conformancePanel') drawConformance();
+      }));
+
+      function enableBranchControls(enabled) {
+        ['forkStep','branchLayer','branchConcept','branchMode','branchStrength','forkButton'].forEach((id) => $(id).disabled = !enabled);
+      }
+
+      function populateTrace(trace) {
+        const layer = $('branchLayer'); layer.replaceChildren();
+        trace.layers.forEach((value) => layer.add(new Option(`Layer ${value}`, value)));
+        layer.value = trace.layers[Math.floor(trace.layers.length / 2)];
+        const concept = $('branchConcept'); concept.replaceChildren();
+        [...trace.concepts].sort((a,b) => b.peak-a.peak).forEach((item) => concept.add(new Option(`${item.token || '#'+item.id} · peak ${pct(item.peak)}`, item.id)));
+        const answerConcept = trace.steps?.[0]?.token_id;
+        if (answerConcept != null && trace.concepts.some((item) => item.id === answerConcept)) concept.value = String(answerConcept);
+        const fork = $('forkStep'); fork.replaceChildren();
+        fork.add(new Option('Before first answer token', 0));
+        trace.completion.forEach((item, index) => fork.add(new Option(`After ${index+1}: ${item.token || '#'+item.token_id}`, index+1)));
+        enableBranchControls(true);
+      }
+
+      $('traceButton').addEventListener('click', async () => {
+        const prompt = $('branchPrompt').value.trim(); if (!prompt) return;
+        $('traceButton').disabled = true; enableBranchControls(false); status(true, 'Tracing response', true);
+        try {
+          const data = await post('/v1/chat/completions', { model:state.health?.model, messages:[{role:'user',content:prompt}], mode:'detect', max_tokens:32 });
+          state.trace = data.jspace.galaxy_trace;
+          $('tracedAnswer').textContent = data.choices[0].message.content || '(empty)';
+          $('tracedAnswer').classList.remove('muted');
+          populateTrace(state.trace);
+          status(true, 'Trace ready');
+        } catch (error) { status(false, error.message); }
+        finally { $('traceButton').disabled = false; }
+      });
+
+      $('branchStrength').addEventListener('input', () => $('strengthValue').textContent = `${Number($('branchStrength').value).toFixed(1)}×`);
+
+      $('forkButton').addEventListener('click', async () => {
+        if (!state.trace) return;
+        $('forkButton').disabled = true; status(true, 'Running causal fork', true);
+        try {
+          const prefixCount = Number($('forkStep').value);
+          const prefixIds = state.trace.completion.slice(0, prefixCount).map((item) => item.token_id);
+          const data = await post('/experiments/branch', {
+            messages:[{role:'user',content:$('branchPrompt').value.trim()}],
+            prefix_token_ids:prefixIds,
+            layer:Number($('branchLayer').value),
+            concept_token_id:Number($('branchConcept').value),
+            intervention:$('branchMode').value,
+            strength:Number($('branchStrength').value),
+            max_tokens:24
+          });
+          $('baselineBranch').textContent = data.baseline.text || '(stopped)'; $('baselineBranch').classList.remove('muted');
+          $('interventionBranch').textContent = data.branch.text || '(stopped)'; $('interventionBranch').classList.remove('muted');
+          $('conceptBefore').textContent = pct(data.concept_probability.before);
+          $('conceptAfter').textContent = pct(data.concept_probability.after);
+          $('patchNorm').textContent = pct(data.patch.relative_norm);
+          const max = Math.max(...data.effects.map((item) => Math.abs(item.delta)), 1e-9);
+          $('effectList').innerHTML = data.effects.map((item) => {
+            const width = Math.abs(item.delta) / max * 50;
+            return `<div class="effect ${item.delta < 0 ? 'negative' : ''}"><code>${escapeHtml(item.token || '#'+item.token_id)}</code><span class="bar"><i style="width:${width}%"></i></span><span>${item.delta >= 0 ? '+' : ''}${pct(item.delta)}</span></div>`;
+          }).join('');
+          status(true, `Fork complete · ${data.concept}`);
+        } catch (error) { status(false, error.message); }
+        finally { $('forkButton').disabled = false; }
+      });
+
+      $('bindingMax').addEventListener('input', () => $('bindingValue').textContent = $('bindingMax').value);
+      $('overloadButton').addEventListener('click', async () => {
+        const maximum = Number($('bindingMax').value);
+        const levels = [1,2,4,6,8,10,12,14,16].filter((value) => value <= maximum);
+        if (levels[levels.length-1] !== maximum) levels.push(maximum);
+        $('overloadButton').disabled = true; status(true, `Running ${levels.length} overload trials`, true);
+        try {
+          const data = await post('/experiments/overload', {levels,max_tokens:4});
+          state.overload = data.rows;
+          $('overloadRuns').textContent = data.rows.length;
+          $('firstFailure').textContent = data.rows.find((row) => !row.correct)?.bindings ?? 'none';
+          $('overloadElapsed').textContent = `${(data.elapsed_ms/1000).toFixed(1)} s`;
+          $('overloadRows').innerHTML = data.rows.map((row) => `<tr><td>${row.bindings}</td><td>${escapeHtml(row.answer)}</td><td class="${row.correct?'pass':'fail'}">${row.correct?'yes':'no'}</td><td>${row.token_tail_mass.toFixed(3)}</td><td>${row.family_entropy.toFixed(3)}</td><td>${row.ignition_depth.toFixed(3)}</td><td>${row.risk.toFixed(3)}</td></tr>`).join('');
+          drawOverload(); status(true, 'Overload sweep complete');
+        } catch (error) { status(false, error.message); }
+        finally { $('overloadButton').disabled = false; }
+      });
+
+      function setupCanvas(canvas) {
+        const ratio = window.devicePixelRatio || 1; const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.round(rect.width*ratio)); canvas.height = Math.max(1, Math.round(rect.height*ratio));
+        const ctx = canvas.getContext('2d'); ctx.setTransform(ratio,0,0,ratio,0,0); return {ctx,width:rect.width,height:rect.height};
+      }
+
+      function drawOverload() {
+        const {ctx,width,height} = setupCanvas($('overloadChart')); ctx.clearRect(0,0,width,height);
+        ctx.font='12px system-ui'; ctx.fillStyle='#7895a2';
+        if (!state.overload.length) { ctx.fillText('Run a sweep to plot family entropy, tail smear, and correctness.',18,28); return; }
+        const pad={l:48,r:24,t:28,b:38}; const rows=state.overload; const maxH=Math.max(...rows.map(r=>r.family_entropy),1);
+        ctx.strokeStyle='#1d3b49'; ctx.lineWidth=1;
+        for(let i=0;i<=4;i++){const y=pad.t+(height-pad.t-pad.b)*i/4;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(width-pad.r,y);ctx.stroke();}
+        const x=(i)=>pad.l+i/Math.max(1,rows.length-1)*(width-pad.l-pad.r); const yH=(v)=>height-pad.b-v/maxH*(height-pad.t-pad.b); const yT=(v)=>height-pad.b-v*(height-pad.t-pad.b);
+        function line(key,color,y){ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();rows.forEach((r,i)=>i?ctx.lineTo(x(i),y(r[key])):ctx.moveTo(x(i),y(r[key])));ctx.stroke();}
+        line('family_entropy','#66efff',yH); line('token_tail_mass','#ffc45c',yT);
+        rows.forEach((r,i)=>{ctx.fillStyle=r.correct?'#77e68b':'#ff6f78';ctx.beginPath();ctx.arc(x(i),height-pad.b,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7895a2';ctx.textAlign='center';ctx.fillText(r.bindings,x(i),height-14);});
+        ctx.textAlign='left';ctx.fillStyle='#66efff';ctx.fillText('Family entropy',pad.l,16);ctx.fillStyle='#ffc45c';ctx.fillText('Tail mass',pad.l+105,16);ctx.fillStyle='#7895a2';ctx.fillText('● correct / ● wrong',pad.l+180,16);
+      }
+
+      $('captureButton').addEventListener('click', async () => {
+        const prompt=$('conformancePrompt').value.trim(); if(!prompt)return;
+        $('captureButton').disabled=true; status(true,'Capturing HF layer fingerprints',true);
+        try {
+          state.reference=await post('/experiments/conformance/capture',{messages:[{role:'user',content:prompt}]});
+          $('referenceBackend').textContent=`${state.reference.backend} · ${state.reference.quant}`;
+          $('saveCapture').disabled=false; $('selfCheck').disabled=false; $('compareButton').disabled=!state.candidate;
+          status(true,`Captured ${state.reference.layers.length} layers`);
+        } catch(error){status(false,error.message);} finally{$('captureButton').disabled=false;}
+      });
+
+      $('saveCapture').addEventListener('click',()=>{
+        const blob=new Blob([JSON.stringify(state.reference,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url;a.download='jspace-hf-reference.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+      });
+      $('candidateFile').addEventListener('change',async(event)=>{
+        try{state.candidate=JSON.parse(await event.target.files[0].text());$('compareButton').disabled=!state.reference;status(true,`Loaded ${state.candidate.backend||'candidate'} capture`);}catch(error){state.candidate=null;status(false,`Invalid capture: ${error.message}`);}
+      });
+      $('selfCheck').addEventListener('click',()=>runComparison(state.reference));
+      $('compareButton').addEventListener('click',()=>runComparison(state.candidate));
+
+      async function runComparison(candidate){
+        if(!state.reference||!candidate)return; status(true,'Comparing layer fingerprints',true);
+        try{state.comparison=await post('/experiments/conformance/compare',{reference:state.reference,candidate});renderComparison();status(state.comparison.passed,state.comparison.passed?'Conformance gate passed':'Conformance gate failed');}catch(error){status(false,error.message);}
+      }
+      function renderComparison(){const result=state.comparison;$('alignedLayers').textContent=result.aligned_layers;$('conformanceGate').textContent=result.passed?'PASS':'FAIL';$('conformanceGate').className=result.passed?'pass':'fail';$('conformanceRows').innerHTML=result.layers.map(r=>`<tr><td>${r.layer}</td><td>${r.residual_cosine==null?'n/a':r.residual_cosine.toFixed(6)}</td><td>${r.lens_jsd.toFixed(6)}</td><td>${pct(r.topk_overlap)}</td><td class="${r.passed?'pass':'fail'}">${r.passed?'pass':'fail'}</td></tr>`).join('');drawConformance();}
+
+      function drawConformance(){const {ctx,width,height}=setupCanvas($('conformanceChart'));ctx.clearRect(0,0,width,height);ctx.font='12px system-ui';ctx.fillStyle='#7895a2';if(!state.comparison){ctx.fillText('Per-layer residual cosine and J-Lens divergence will appear here.',18,28);return;}const rows=state.comparison.layers,p={l:48,r:24,t:28,b:38};ctx.strokeStyle='#1d3b49';for(let i=0;i<=4;i++){const y=p.t+(height-p.t-p.b)*i/4;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(width-p.r,y);ctx.stroke();}const x=i=>p.l+i/Math.max(1,rows.length-1)*(width-p.l-p.r);const y=v=>height-p.b-v*(height-p.t-p.b);ctx.strokeStyle='#66efff';ctx.lineWidth=2;ctx.beginPath();rows.forEach((r,i)=>i?ctx.lineTo(x(i),y(r.residual_cosine??0)):ctx.moveTo(x(i),y(r.residual_cosine??0)));ctx.stroke();rows.forEach((r,i)=>{ctx.fillStyle=r.passed?'#77e68b':'#ff6f78';ctx.beginPath();ctx.arc(x(i),y(r.residual_cosine??0),4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7895a2';ctx.textAlign='center';ctx.fillText(r.layer,x(i),height-14);});ctx.textAlign='left';ctx.fillStyle='#66efff';ctx.fillText('Residual cosine · green pass / red fail',p.l,16);}
+
+      window.addEventListener('resize',()=>{drawOverload();drawConformance();});
+      loadHealth(); drawOverload(); drawConformance();
+    })();
+  </script>
+</body>
+</html>
