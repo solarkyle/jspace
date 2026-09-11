@@ -526,8 +526,17 @@ class _Runtime:
                 read_step=snap.step,
                 read_token=snap.token_text,
             )
+            if self.router is None:
+                raise RuntimeError(
+                    "this workspace was opened with require_detector=False, so there "
+                    "is no error detector to score with; use the activation capture "
+                    "path instead of snapshot()/risk"
+                )
             snap.risk = self.router.score(_numeric_features(snap.features), record=False)
 
+        # NOTE: step_logprobs and answer_len above are WHOLE-ANSWER quantities, so
+        # these per-snapshot risks are retrospective, and this max() then picks the
+        # best of N correlated draws. Do not read the result as early warning.
         selected = max(snapshots, key=lambda snap: snap.risk)
         risk = self.router.score(_numeric_features(selected.features))
         features = dict(selected.features)
@@ -732,7 +741,17 @@ class Workspace:
         lens_device: str = "auto",
         max_prompt_tokens: int = 1536,
         read_tokens: int = 3,
+        require_lens: bool = True,
+        require_detector: bool = True,
     ) -> None:
+        # A model with no fitted lens and no trained error detector can still be
+        # worth opening -- inspecting and intervening on raw activations needs
+        # neither artifact. Previously __init__ could not express that: the
+        # runtime resolved a lens, raised if no fitted layers fell in the band,
+        # and then demanded bundled router weights, so any model outside the five
+        # shipped slugs was unopenable even for pure activation capture.
+        self.require_lens = bool(require_lens)
+        self.require_detector = bool(require_detector)
         self.model_id = model_id
         self.quant = normalize_quant(quant)
         self.lens_path = Path(lens_path) if lens_path is not None else None
@@ -778,18 +797,19 @@ class Workspace:
         tokenizer = transformers.AutoTokenizer.from_pretrained(self.model_id)
         model = jlens.from_hf(hf_model, tokenizer)
 
-        lens_path = resolve_lens_path(self.model_id, self.lens_path)
-        lens = jlens.JacobianLens.load(str(lens_path))
-        band = [
-            layer
-            for layer in range(int(model.n_layers * BAND_LO), int(model.n_layers * BAND_HI))
-            if layer in lens.jacobians
-        ]
-        if not band:
-            raise RuntimeError(f"no fitted lens layers found in band for {lens_path}")
+        lens = None
+        # Without a lens the band is still meaningful: it is the same depth
+        # fraction, just not filtered by which layers happen to be fitted.
+        band = list(range(int(model.n_layers * BAND_LO), int(model.n_layers * BAND_HI)))
+        if self.require_lens:
+            lens_path = resolve_lens_path(self.model_id, self.lens_path)
+            lens = jlens.JacobianLens.load(str(lens_path))
+            band = [layer for layer in band if layer in lens.jacobians]
+            if not band:
+                raise RuntimeError(f"no fitted lens layers found in band for {lens_path}")
+            lens = prepare_lens(lens, band, self.lens_device, self.quant, torch)
 
-        lens = prepare_lens(lens, band, self.lens_device, self.quant, torch)
-        router = load_router(self.model_id)
+        router = load_router(self.model_id) if self.require_detector else None
         self._runtime = _Runtime(
             model_id=self.model_id,
             quant=self.quant,
@@ -823,6 +843,10 @@ def model_slug(model_id: str) -> str:
     return model_id.split("/")[-1].lower()
 
 
+# Populated by resolve_lens_path so a run can record which lens it actually read.
+LENS_PROVENANCE: dict[str, Any] = {}
+
+
 def resolve_lens_path(
     model_id: str,
     explicit_path: Path | None,
@@ -838,7 +862,18 @@ def resolve_lens_path(
     from huggingface_hub import hf_hub_download
 
     repo = os.environ.get("LENS_HUB_REPO", "solarkyle/jspace-lenses")
-    return Path(hf_hub_download(repo_id=repo, filename=f"{slug}/lens.pt"))
+    # Pin the revision so a reproduction names the exact artifact it scored. An
+    # unpinned download silently follows the branch, so re-running the published
+    # numbers months later can read a different lens than the one they came from.
+    revision = os.environ.get("LENS_HUB_REVISION") or None
+    path = Path(hf_hub_download(repo_id=repo, filename=f"{slug}/lens.pt", revision=revision))
+    # huggingface_hub stores snapshots under .../snapshots/<commit sha>/..., so the
+    # resolved sha is recoverable even when the caller pinned nothing.
+    resolved = next((part for part in reversed(path.parts)
+                     if len(part) == 40 and all(c in "0123456789abcdef" for c in part)), None)
+    LENS_PROVENANCE.update({"repo": repo, "requested_revision": revision or "(unpinned)",
+                            "resolved_commit": resolved, "filename": f"{slug}/lens.pt"})
+    return path
 
 
 def load_hf(model_id: str, quant: str, torch: Any, transformers: Any) -> Any:
