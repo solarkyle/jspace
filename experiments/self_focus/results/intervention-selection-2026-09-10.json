@@ -1,0 +1,96 @@
+{
+  "candidate_layers": [
+    17,
+    23
+  ],
+  "candidate_strengths": [
+    0.15,
+    0.3
+  ],
+  "attempts_inspected": 4,
+  "attempts": [
+    {
+      "layer": 17,
+      "alpha": 0.15,
+      "n_dev_trials": 2,
+      "format_valid": 2,
+      "output_changed": 0,
+      "mean_rel_downstream_delta": 0.00021766467255735286,
+      "donor_passes": 50
+    },
+    {
+      "layer": 17,
+      "alpha": 0.3,
+      "n_dev_trials": 2,
+      "format_valid": 2,
+      "output_changed": 0,
+      "mean_rel_downstream_delta": 0.0006186439086780747,
+      "donor_passes": 50
+    },
+    {
+      "layer": 23,
+      "alpha": 0.15,
+      "n_dev_trials": 2,
+      "format_valid": 2,
+      "output_changed": 0,
+      "mean_rel_downstream_delta": 0.0,
+      "donor_passes": 50
+    },
+    {
+      "layer": 23,
+      "alpha": 0.3,
+      "n_dev_trials": 2,
+      "format_valid": 2,
+      "output_changed": 0,
+      "mean_rel_downstream_delta": 0.0,
+      "donor_passes": 50
+    }
+  ],
+  "selected": {
+    "layer": 17,
+    "alpha": 0.6,
+    "window": "full user content"
+  },
+  "selection_rule": "largest downstream change among attempts that kept every development output parseable",
+  "budget": {
+    "ceiling_minutes": 120.0,
+    "used_minutes": 0.146,
+    "remaining_minutes": 119.854,
+    "exhausted": false
+  },
+  "stage1_note": "4 attempts on an 8-position window: NO output change at any setting, max downstream delta 0.0006 relative. Reported as a negative instrument result.",
+  "stage2_calibration": {
+    "stage": "calibration_window_and_strength",
+    "layer": 17,
+    "window_positions": 202,
+    "grid": [
+      0.4,
+      0.6,
+      0.8
+    ],
+    "attempts": [
+      {
+        "alpha": 0.4,
+        "task_ok": 3,
+        "n": 4,
+        "detected_not_used": 0
+      },
+      {
+        "alpha": 0.6,
+        "task_ok": 4,
+        "n": 4,
+        "detected_not_used": 0
+      },
+      {
+        "alpha": 0.8,
+        "task_ok": 3,
+        "n": 4,
+        "detected_not_used": 1
+      }
+    ],
+    "selection_rule": "largest alpha keeping the ordinary task answer correct for all dev concepts; independent of DETECTED",
+    "selected_alpha": 0.6,
+    "note": "Stage 1 inspected 2 layers x 2 strengths on an 8-position window and found no output change at any setting; that null is reported. This stage widened the window to all user-content positions, a design parameter the brief left unspecified, and calibrated strength on a criterion orthogonal to the dependent variable."
+  },
+  "total_attempts_inspected": 7
+}

@@ -228,6 +228,33 @@ class Model:
                 f"rather than truncating, which would remove grounding evidence.")
         return ids.to(self.device)
 
+    def user_content_positions(self, user_text: str, window: int) -> dict:
+        """The last `window` token positions belonging to the USER's text.
+
+        Located by finding the user text's token sequence inside the rendered
+        prompt, so the patch never lands on the chat template or on the generation
+        prompt suffix. Exact indices are returned and recorded per trial.
+        """
+        rendered = self.render(user_text)
+        full = self.tokenizer(rendered, add_special_tokens=False)["input_ids"]
+        inner = self.tokenizer(user_text, add_special_tokens=False)["input_ids"]
+        end = None
+        for start in range(len(full) - len(inner), -1, -1):
+            if full[start:start + len(inner)] == inner:
+                end = start + len(inner)
+                break
+        if end is None:
+            # The template retokenized the user text, so the span could not be
+            # located exactly. Refuse rather than patching a guessed window: a
+            # patch that silently lands on template tokens is not the experiment.
+            raise RuntimeError(
+                "could not locate the user-content token span inside the rendered "
+                "prompt; refusing to patch a guessed position window")
+        located = True
+        lo = max(0, end - int(window))
+        return {"positions": list(range(lo, end)), "user_content_end": end,
+                "prompt_tokens": len(full), "span_located": located}
+
     # -- generation --------------------------------------------------------- #
 
     def generate(self, user_text: str, max_new_tokens: int) -> dict:

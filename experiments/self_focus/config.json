@@ -1,44 +1,34 @@
 {
-  "protocol_version": "self_focus_v1",
-
+  "protocol_version": "self_focus_v2",
   "model_id": "google/gemma-4-E4B-it",
   "_model_note": "The local path below is a 4-bit snapshot OF that id, produced by sidecar/save_nf4.py. preflight verifies the config identifies the same architecture before any run.",
   "local_model_path": "E:/hf-cache/nf4/gemma-4-e4b-it",
   "model_revision": "",
   "_revision_note": "Empty means unpinned. A local snapshot is fixed on disk, so its file hashes are the provenance; preflight records them.",
-
   "precision": "nf4",
   "_precision_note": "bitsandbytes NF4 weights with bf16 compute. Chosen because it is the configuration already verified to work on this machine, and because HARD_RULES #1 establishes that a bf16-fitted lens reads NF4 activations without refit. Precision is held CONSTANT within every comparison; NF4 and bf16 results are never pooled.",
-
   "lens_path": "F:/archive/jspace-out/gemma-4-e4b-it/lens.pt",
   "_lens_note": "Optional. Capture and intervention must work with lens_available=false, and any lens-derived measurement is marked unavailable rather than silently skipped.",
-
   "seed": 20260911,
   "do_sample": false,
   "_decoding_note": "Greedy. A seed does NOT create independent replicates of deterministic output; repeated identical trials are reuse, not evidence.",
-
   "max_new_tokens": {
     "qa": 48,
     "free_report": 128,
     "intervention_report": 32,
     "continuation": 0
   },
-
   "max_prompt_tokens": 768,
   "_prompt_limit_note": "Oversized prompts are REJECTED, never truncated: truncating a grounded passage silently removes the evidence the question depends on.",
-
   "max_recorded_layers": 4,
   "max_recorded_positions": 32,
   "layer_selection": "lens_band_evenly_spaced",
   "_layer_note": "Four evenly spaced layers inside the lens's fitted band when a lens is present, otherwise evenly spaced intermediate layers. Zero-based indices and module names are recorded. These are NOT called a validated workspace band for this model unless that is separately established.",
-
   "compute_ceiling_minutes": 120,
   "_ceiling_note": "Ceiling, not an expected runtime. Counts generation, teacher-forced replay, donor-vector construction and interventions. On reaching it the runner persists completed trials and stops cleanly.",
-
   "cloud_spend_authorization_usd": 0.0,
   "allow_remote": false,
   "allow_paid_judge": false,
-
   "qa": {
     "n_total": 100,
     "n_dev": 20,
@@ -48,19 +38,51 @@
     "family_seed_eval": 97,
     "_split_note": "Split BEFORE any model output. All counterfactual variants and all six conditions from one fact family stay in the same split. Evaluation families come from a separate seed."
   },
-
   "intervention": {
-    "dev_concepts": ["lemon", "violin", "snow", "bicycle"],
-    "conditions": ["NORMAL", "CHECK", "MEDITATE"],
-    "arms": ["sham", "concept", "random"],
+    "dev_concepts": [
+      "lemon",
+      "violin",
+      "snow",
+      "bicycle"
+    ],
+    "conditions": [
+      "NORMAL",
+      "CHECK",
+      "MEDITATE",
+      "J_FOCUS"
+    ],
+    "arms": [
+      "none",
+      "sham",
+      "concept",
+      "random",
+      "steer"
+    ],
     "contexts_per_concept": 2,
     "layer": null,
     "strength": null,
     "_selection_note": "layer and strength are null until chosen on development trials. At most two candidate layers and two strengths may be inspected; every attempt is counted and the selected values are frozen into this file with a new protocol_version.",
     "max_candidate_layers": 2,
-    "max_candidate_strengths": 2
+    "max_candidate_strengths": 2,
+    "concepts": [
+      "lemon",
+      "violin",
+      "snow",
+      "bicycle",
+      "harbor",
+      "pepper",
+      "lantern",
+      "cactus",
+      "trumpet",
+      "glacier"
+    ],
+    "n_contexts": 1,
+    "patch_window": 300,
+    "steer_bias": 30.0,
+    "_scope_note": "J_INFO and J_ROLEPLAY are omitted from the pilot to keep it small; they can be added without changing the mechanism. One recipient context is run, not two, to stay inside the compute ceiling. 'none' doubles as the unmodified observer baseline with identical visible context: under greedy decoding it is the same computation, so it is reuse and is never counted as independent evidence.",
+    "_window_note": "300 exceeds the user-content length, so the whole user-content span is patched. Stage 1 used 8 positions and produced NO output change at any of 4 inspected layer/strength settings, even at alpha 3.0: 8 of ~207 positions is diluted to nothing. Widening is a fix to an under-specified design parameter, and the strength was then calibrated on ordinary-task preservation only, a criterion independent of the detection outcome.",
+    "_steer_note": "Calibrated by a declared rule: the smallest bias that makes the concept word APPEAR in output. Criterion is concept mention only, never DETECTED. 6.0 and 15.0 produced no mention at all, making the control vacuous; 30.0 produces one."
   },
-
   "output_dir": "out/self_focus",
   "_output_note": "Ignored by git. Code, protocol, fixtures and small summaries are committed; raw traces and activations are not."
 }

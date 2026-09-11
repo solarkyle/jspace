@@ -228,6 +228,206 @@ def cmd_demo(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# hidden-intervention pilot
+# --------------------------------------------------------------------------- #
+
+CANDIDATE_LAYERS = [17, 23]
+CANDIDATE_STRENGTHS = [0.15, 0.30]
+
+
+def _pilot_setup(cfg, conds):
+    from experiments.self_focus import build_tasks as bt
+    ivc = cfg["intervention"]
+    cases = bt.pilot_cases(ivc["conditions"], ivc["arms"], int(ivc["n_contexts"]))
+    return ivc, cases
+
+
+def cmd_select(args) -> int:
+    """Inspect at most two layers and two strengths, count every attempt, freeze."""
+    import json as _json
+    from experiments.self_focus import build_tasks as bt, interventions as iv
+
+    cfg, conds = core.config(), core.conditions()
+    ivc = cfg["intervention"]
+    n_attempts = len(CANDIDATE_LAYERS) * len(CANDIDATE_STRENGTHS)
+    if args.dry_run:
+        return _dry_run("select-intervention", cfg, conds, n_attempts,
+                        f"{len(CANDIDATE_LAYERS)} layers x {len(CANDIDATE_STRENGTHS)} "
+                        f"strengths, inspected on development concepts only")
+
+    core.assert_local_only(cfg)
+    out_dir = _out_dir(cfg)
+    budget = core.Budget(cfg["compute_ceiling_minutes"])
+    model = core.Model(cfg)
+    dev = list(ivc["dev_concepts"])[:2]
+    context = bt.CONTEXTS[0]
+    yes, no = bt.yes_no_labels(dev[0], context["id"], "NORMAL")
+    task = bt.recipient_task_block(context, yes, no)
+    prompt = core.build_prompt("NORMAL", task, conds)
+    span = model.user_content_positions(prompt, int(ivc["patch_window"]))
+    observe = [30]   # downstream of both candidate layers
+
+    attempts = []
+    for layer in CANDIDATE_LAYERS:
+        donors = iv.donor_directions(model, ivc["concepts"], layer, budget)
+        for alpha in CANDIDATE_STRENGTHS:
+            valid, changed, deltas = 0, 0, []
+            for concept in dev:
+                if budget.exhausted():
+                    break
+                base = iv.run_trial(
+                    model, prompt, arm="none", layer=layer, alpha=0.0,
+                    direction=donors["directions"][concept]["direction"],
+                    positions=span["positions"],
+                    max_new_tokens=cfg["max_new_tokens"]["intervention_report"],
+                    observe_layers=observe)
+                with budget:
+                    pass
+                hit = iv.run_trial(
+                    model, prompt, arm="concept", layer=layer, alpha=alpha,
+                    direction=donors["directions"][concept]["direction"],
+                    positions=span["positions"],
+                    max_new_tokens=cfg["max_new_tokens"]["intervention_report"],
+                    observe_layers=observe)
+                parsed = bt.parse_report(hit["text"], yes, no)
+                valid += int(parsed["valid"])
+                a = base["observed_last_token_norms"].get("30")
+                b = hit["observed_last_token_norms"].get("30")
+                if a and b:
+                    deltas.append(abs(b - a) / a)
+                changed += int(hit["text"] != base["text"])
+            attempts.append({
+                "layer": layer, "alpha": alpha, "n_dev_trials": len(dev),
+                "format_valid": valid, "output_changed": changed,
+                "mean_rel_downstream_delta": (sum(deltas) / len(deltas)) if deltas else None,
+                "donor_passes": donors["donor_passes"],
+            })
+            print(f"  layer {layer} alpha {alpha:.2f}: format_valid {valid}/{len(dev)}, "
+                  f"output_changed {changed}/{len(dev)}, downstream delta "
+                  f"{attempts[-1]['mean_rel_downstream_delta']}")
+
+    # prefer an attempt that keeps the format AND moves the computation
+    usable = [a for a in attempts if a["format_valid"] == a["n_dev_trials"]
+              and (a["mean_rel_downstream_delta"] or 0) > 0]
+    choice = max(usable, key=lambda a: a["mean_rel_downstream_delta"]) if usable else None
+    payload = {"candidate_layers": CANDIDATE_LAYERS,
+               "candidate_strengths": CANDIDATE_STRENGTHS,
+               "attempts_inspected": len(attempts), "attempts": attempts,
+               "selected": {"layer": choice["layer"], "alpha": choice["alpha"]} if choice else None,
+               "selection_rule": "largest downstream change among attempts that kept "
+                                 "every development output parseable",
+               "budget": budget.summary()}
+    with io.open(out_dir / "intervention_selection.json", "w", encoding="utf-8") as fh:
+        _json.dump(payload, fh, indent=2)
+    print(f"\nattempts inspected: {len(attempts)} (ceiling 2 layers x 2 strengths)")
+    print(f"selected: {payload['selected']}")
+    print(f"wrote {out_dir / 'intervention_selection.json'}")
+    if choice is None:
+        print("NO usable setting found; the pilot must not run on an unfrozen value")
+        return 1
+    return 0
+
+
+def cmd_pilot(args) -> int:
+    from experiments.self_focus import build_tasks as bt, interventions as iv
+
+    cfg, conds = core.config(), core.conditions()
+    ivc, cases = _pilot_setup(cfg, conds)
+    if args.dry_run:
+        import collections
+        by_arm = collections.Counter(c["arm"] for c in cases)
+        return _dry_run("intervention-pilot", cfg, conds, len(cases),
+                        f"{len(ivc['concepts'])} concepts x {len(ivc['conditions'])} "
+                        f"conditions x {len(ivc['arms'])} arms x {ivc['n_contexts']} "
+                        f"context = {len(cases)}; by arm {dict(by_arm)}")
+
+    core.assert_local_only(cfg)
+    out_dir = _out_dir(cfg)
+    sel_path = out_dir / "intervention_selection.json"
+    if not sel_path.exists():
+        print("no frozen layer/strength; run select-intervention first")
+        return 1
+    selection = core.load_json(sel_path)
+    if not selection.get("selected"):
+        print("selection file contains no usable setting; refusing to run")
+        return 1
+    layer = int(selection["selected"]["layer"])
+    alpha = float(selection["selected"]["alpha"])
+
+    budget = core.Budget(cfg["compute_ceiling_minutes"])
+    model = core.Model(cfg)
+    prov = model.provenance()
+    fingerprint = _fingerprint(cfg, conds, prov)
+    store = core.TrialStore(out_dir / "intervention.jsonl", fingerprint)
+
+    donors = iv.donor_directions(model, ivc["concepts"], layer, budget)
+    print(f"donor directions: {len(donors['directions'])} concepts, "
+          f"{donors['donor_passes']} forward passes, layer {layer}, alpha {alpha}")
+    dim = next(iter(donors["directions"].values()))["direction"].shape[0]
+    observe = [min(model.n_layers - 1, layer + 6)]
+
+    done = 0
+    for case in cases:
+        trial_id = core.stable_id("intervention", cfg["protocol_version"],
+                                  case["concept"], case["context_id"],
+                                  case["condition"], case["arm"], layer, alpha,
+                                  fingerprint)
+        if store.has(trial_id):
+            continue
+        if budget.exhausted():
+            print("compute ceiling reached; persisting and stopping cleanly")
+            break
+        prompt = core.build_prompt(case["condition"], case["task_block"], conds)
+        span = model.user_content_positions(prompt, int(ivc["patch_window"]))
+        concept = case["concept"]
+        arm = case["arm"]
+        if arm == "concept":
+            direction = donors["directions"][concept]["direction"]
+        elif arm == "random":
+            direction = iv.random_direction(
+                model, dim, seed=int(core.stable_id("rand", concept, case["condition"])[:8], 16))
+        else:
+            direction = donors["directions"][concept]["direction"]
+        steerer = (iv.ConceptSteerer(model, concept, float(ivc["steer_bias"]))
+                   if arm == "steer" else None)
+        with budget:
+            result = iv.run_trial(
+                model, prompt, arm=arm, layer=layer, alpha=alpha,
+                direction=direction, positions=span["positions"],
+                max_new_tokens=cfg["max_new_tokens"]["intervention_report"],
+                steerer=steerer, observe_layers=observe)
+        parsed = bt.parse_report(result["text"], case["yes_label"], case["no_label"])
+        row = {
+            "trial_id": trial_id, "kind": "intervention",
+            "concept": concept, "context_id": case["context_id"],
+            "condition": case["condition"], "arm": arm,
+            "yes_label": case["yes_label"], "no_label": case["no_label"],
+            "expected_answer": case["expected_answer"],
+            "patch_span": span, "observe_layers": observe,
+            "parsed": parsed,
+            "identified": bt.identification_correct(parsed, concept),
+            "naive_substring_hit": bt.naive_substring_hit(result["text"], concept),
+            "task_correct": (parsed.get("answer") == case["expected_answer"]),
+            **{k: v for k, v in result.items() if k != "rendered_prompt"},
+        }
+        store.write(row)
+        done += 1
+        if done % 25 == 0:
+            print(f"  {done}/{len(cases)} trials, {budget.summary()['used_minutes']:.1f} min used")
+    store.close()
+
+    meta = {"protocol_version": cfg["protocol_version"], "provenance": prov,
+            "provenance_fingerprint": fingerprint, "selection": selection["selected"],
+            "donor_hash": donors.get("hash"), "donor_passes": donors["donor_passes"],
+            "arms": iv.ARM_NOTES, "budget": budget.summary(),
+            "external_compute_spend_usd": 0.0}
+    with io.open(out_dir / "intervention_meta.json", "w", encoding="utf-8") as fh:
+        json.dump(meta, fh, indent=2)
+    print(f"\n{done} new trials. budget {budget.summary()}")
+    return 0
+
+
+# --------------------------------------------------------------------------- #
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="self_focus")
@@ -236,7 +436,11 @@ def main(argv=None) -> int:
         p = sub.add_parser(name)
         p.add_argument("--dry-run", action="store_true")
         p.set_defaults(func=fn)
-    for name in ("qa-dev", "qa-eval", "intervention-pilot", "report"):
+    for name, fn in (("select-intervention", cmd_select), ("intervention-pilot", cmd_pilot)):
+        p = sub.add_parser(name)
+        p.add_argument("--dry-run", action="store_true")
+        p.set_defaults(func=fn)
+    for name in ("qa-dev", "qa-eval", "report"):
         p = sub.add_parser(name)
         p.add_argument("--dry-run", action="store_true")
         p.set_defaults(func=lambda a, n=name: _not_yet(n))
@@ -246,7 +450,8 @@ def main(argv=None) -> int:
 
 def _not_yet(name: str) -> int:
     print(f"{name}: not implemented in this commit. "
-          f"Implemented so far: preflight, demo.")
+          f"Implemented so far: preflight, demo, select-intervention, "
+          f"intervention-pilot.")
     return 2
 
 
