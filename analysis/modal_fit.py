@@ -22,6 +22,12 @@ app = modal.App("jlens-fit")
 # L40S (48GB) and below run on credits alone. Override per-run:
 #   JLENS_GPU=A100-80GB modal run analysis/modal_fit.py ...
 GPU = os.environ.get("JLENS_GPU", "L40S")
+# Probe/fit helpers below used to hardcode A100-80GB regardless of quant, so a
+# 4bit run still rented an 80GB card. Keep A100 as the default (these genuinely
+# need the memory for big models) but make it overridable, and bound the timeout
+# so a hung job cannot run for 8 GPU-hours.
+BIG_GPU = os.environ.get("JLENS_BIG_GPU", "A100-80GB")
+FIT_TIMEOUT_S = int(os.environ.get("JLENS_FIT_TIMEOUT_S", 3 * 3600))
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
@@ -48,7 +54,7 @@ def _slug(model_id: str) -> str:
 @app.function(
     image=image,
     gpu=GPU,
-    timeout=8 * 3600,
+    timeout=FIT_TIMEOUT_S,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )
@@ -136,7 +142,7 @@ def merge_shards(model_id: str, shard_paths: list[str]) -> str:
 
 
 @app.function(
-    image=image, gpu="A100-80GB", timeout=3600,
+    image=image, gpu=BIG_GPU, timeout=3600,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )
@@ -228,7 +234,7 @@ def emotions(models: str = "google/gemma-4-26B-A4B-it", out: str = "out/emotion_
 
 
 @app.function(
-    image=image, gpu="A100-80GB", timeout=4 * 3600,
+    image=image, gpu=BIG_GPU, timeout=4 * 3600,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )
@@ -424,7 +430,7 @@ def uncertainty_run(model_id: str, n: int = 500, questions: list | None = None,
 
 
 @app.function(
-    image=image, gpu="A100-80GB", timeout=3600,
+    image=image, gpu=BIG_GPU, timeout=3600,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )
@@ -475,7 +481,7 @@ def dump_workspace(model_id: str, covert_probes: dict, topk: int = 12) -> dict:
 
 
 @app.function(
-    image=image, gpu="A100-80GB", timeout=3600,
+    image=image, gpu=BIG_GPU, timeout=3600,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )
@@ -530,7 +536,7 @@ def dump_qa(model_id: str, questions: list, topk: int = 8) -> list:
 
 
 @app.function(
-    image=image, gpu="A100-80GB", timeout=2 * 3600,
+    image=image, gpu=BIG_GPU, timeout=2 * 3600,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )

@@ -25,9 +25,18 @@ import os
 
 import modal
 
+from campaign.online_features import prefix_lp
+
+NL = chr(10)
+
 app = modal.App("jlens-campaign")
 
 GPU = os.environ.get("JLENS_GPU", "L40S")
+# Money guards. A hung job costs (timeout x GPU rate); keep the ceiling tight and
+# explicit rather than inheriting a 6-hour default. Override per-run if a shard
+# legitimately needs longer.
+TIMEOUT_S = int(os.environ.get("JLENS_TIMEOUT_S", 90 * 60))
+MAX_CONTAINERS = int(os.environ.get("JLENS_MAX_CONTAINERS", 4))
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
@@ -35,6 +44,7 @@ image = (
     .pip_install("torch", "transformers>=5.5", "datasets", "accelerate",
                  "huggingface_hub", "bitsandbytes")
     .pip_install("git+https://github.com/anthropics/jacobian-lens")
+    .add_local_python_source("campaign")
 )
 
 hf_cache = modal.Volume.from_name("jlens-hf-cache", create_if_missing=True)
@@ -42,6 +52,10 @@ out_vol = modal.Volume.from_name("jlens-out", create_if_missing=True)
 
 BAND_LO, BAND_HI = 0.25, 0.75
 PREFIX_FRACS = [0.0, 0.5, 1.0]   # onset, mid-answer, last answer token
+# Fractional checkpoints need the eventual answer length, so they are offline/
+# oracle observations. These absolute token indices are what a live monitor could
+# actually read, and they are what Gate C needs to be a deployable stopping rule.
+FIXED_CHECKPOINTS = [0, 4, 8, 16, 32]
 HEDGE_WORDS = [" guess", " maybe", " unsure", " unknown", " perhaps", " possibly",
                " unclear", " uncertain", "?", " hmm", " Hmm", " probably"]
 
@@ -51,7 +65,8 @@ def _slug(model_id: str) -> str:
 
 
 @app.function(
-    image=image, gpu=GPU, timeout=6 * 3600,
+    image=image, gpu=GPU, timeout=TIMEOUT_S,
+    max_containers=MAX_CONTAINERS, retries=0,
     volumes={"/hf": hf_cache, "/out": out_vol},
     secrets=[modal.Secret.from_name("huggingface")],
 )
@@ -142,7 +157,35 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
     rows, t0, gen_tok_total, prompt_tok_total = [], time.time(), 0, 0
     max_verify_err = 0.0
     verify_feat_err = {}
+
+    # Checkpoint as we go. This used to accumulate every row in memory and write
+    # once at the very end, so a timeout, preemption or OOM discarded the whole
+    # shard along with all of its GPU spend. Now each row is appended, the volume
+    # is committed periodically, and a re-run skips example_ids already landed.
+    out_dir = f"/out/{_slug(model_id)}"
+    os.makedirs(out_dir, exist_ok=True)
+    path = f"{out_dir}/campaign_{tag}_shard{shard}.jsonl"
+    done = set()
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                if line.strip():
+                    try:
+                        done.add(json.loads(line)["example_id"])
+                    except Exception:
+                        continue
+        logging.info("resume: %d rows already present in %s", len(done), path)
+    sink = open(path, "a", encoding="utf-8")
+    CHECKPOINT_EVERY = 25
+
+    def flush():
+        sink.flush()
+        os.fsync(sink.fileno())
+        out_vol.commit()
+
     for i, p in enumerate(prompts):
+        if p["example_id"] in done:
+            continue
         msgs = []
         if p.get("system"):
             msgs.append({"role": "system", "content": p["system"]})
@@ -192,8 +235,20 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
             f = features(ll, gen_ids[k])
             f["frac"] = frac
             f["token_index"] = k
+            f.update(prefix_lp(step_logprobs, k))
             prefix_feats.append(f)
         onset = prefix_feats[0]
+
+        # Absolute-index checkpoints: deployable, no knowledge of final length.
+        fixed_feats = []
+        for k in FIXED_CHECKPOINTS:
+            if k >= L:
+                break
+            ll = lens_logits_at(acts, base_pos + k)
+            f = features(ll, gen_ids[k])
+            f["token_index"] = k
+            f.update(prefix_lp(step_logprobs, k))
+            fixed_feats.append(f)
 
         # equivalence check: onset from teacher-force vs autoregressive snapshot.
         # Raw logits differ by bf16 kernel noise; what matters is whether the
@@ -230,24 +285,31 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
             },
             "onset_workspace_features": onset,
             "prefix_workspace_features": prefix_feats,
+            "fixed_checkpoint_features": fixed_feats,
+            # Raw sequence + per-token logprobs. The first campaign saved only
+            # whole-answer aggregates and stripped answer text, which made every
+            # later prefix question require a fresh GPU run and left the original
+            # token IDs unrecoverable (decoded text re-tokenizes exactly 8% of
+            # the time). Never throw these away again.
+            "gen_token_ids": [int(t) for t in gen_ids],
+            "step_logprobs": [float(x) for x in step_logprobs],
             "metadata": p.get("metadata", {}),
         })
+        sink.write(json.dumps(rows[-1]) + NL)
+        if len(rows) % CHECKPOINT_EVERY == 0:
+            flush()
         if (i + 1) % 25 == 0:
             dt = time.time() - t0
             logging.info("%d/%d  %.1f prompts/s  gen_tok=%d", i + 1, len(prompts),
                          (i + 1) / dt, gen_tok_total)
 
     dt = time.time() - t0
-    out_dir = f"/out/{_slug(model_id)}"
-    os.makedirs(out_dir, exist_ok=True)
-    path = f"{out_dir}/campaign_{tag}_shard{shard}.jsonl"
-    with open(path, "w", encoding="utf-8") as f:
-        for r in rows:
-            f.write(json.dumps(r) + "\n")
-    out_vol.commit()
+    flush()
+    sink.close()
     stats = {
         "shard": shard, "n_in": len(prompts), "n_out": len(rows),
-        "seconds": round(dt, 1), "prompts_per_s": round(len(rows) / dt, 3),
+        "seconds": round(dt, 1), "prompts_per_s": round(len(rows) / dt, 3) if rows else 0.0,
+        "resumed_rows": len(done),
         "gen_tokens": gen_tok_total, "prompt_tokens": prompt_tok_total,
         "gen_tok_per_s": round(gen_tok_total / dt, 1),
         "max_verify_abs_err": max_verify_err, "verified": min(verify, len(rows)),
