@@ -10,6 +10,11 @@ N_SHARDS=${2:-4}
 MODEL_SLUG=${3:-gemma-4-12b-it}
 OUT=out/campaign
 export PYTHONIOENCODING=utf-8
+# Use the project interpreter. A bare `python` here silently dropped LightGBM from
+# the scorer, because lightgbm is installed in .venv and not globally, and the
+# scorer reports whichever models it can import rather than failing.
+PY=${PY:-.venv/Scripts/python.exe}
+[ -x "$PY" ] || PY=python
 
 mkdir -p "$OUT"
 echo "== download ${N_SHARDS} shard(s)"
@@ -23,12 +28,12 @@ cat "${OUT}/${TAG}_shard"*.jsonl > "${OUT}/${TAG}.jsonl"
 wc -l < "${OUT}/${TAG}.jsonl"
 
 echo "== grade (deterministic, free)"
-python -m campaign.grade_deterministic \
+"$PY" -m campaign.grade_deterministic \
   --input "${OUT}/${TAG}.jsonl" --out "${OUT}/${TAG}_graded.jsonl"
 
 echo "== determinism check against the July traces"
-python -m campaign.check_regen_determinism --input "${OUT}/${TAG}_graded.jsonl"
+"$PY" -m campaign.check_regen_determinism --input "${OUT}/${TAG}_graded.jsonl"
 
 echo "== score Gate C"
-python -m campaign.score_gate_c \
+"$PY" -m campaign.score_gate_c \
   --input "${OUT}/${TAG}_graded.jsonl" --out "${OUT}/gate_c.json"

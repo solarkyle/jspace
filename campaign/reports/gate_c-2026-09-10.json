@@ -1,0 +1,405 @@
+{
+  "gate": "C",
+  "scope": "reduced-scope follow-up; see module docstring for every deviation",
+  "criterion": "50%-prefix increment >= 90% of full-answer increment (LODO mean)",
+  "n_rows": 1706,
+  "dropped": {
+    "unlabeled_needs_judge": 139
+  },
+  "excluded_unresolved_by_source": {
+    "hotpotqa": 44,
+    "drop": 54,
+    "squad_v2": 41
+  },
+  "excluded_unresolved_by_method": {
+    "needs_judge": 139
+  },
+  "n_unresolved_kept_for_sensitivity": 139,
+  "rows_by_source": {
+    "popqa": 290,
+    "squad_v2": 314,
+    "hotpotqa": 556,
+    "drop": 546
+  },
+  "error_rate_by_source": {
+    "popqa": 0.9759,
+    "squad_v2": 0.2516,
+    "hotpotqa": 0.2338,
+    "drop": 0.1795
+  },
+  "models": {
+    "logistic": {
+      "full_lp": {
+        "mean": 0.5823850814869737,
+        "per_source": {
+          "drop": 0.6408755466472302,
+          "hotpotqa": 0.6366197183098592,
+          "popqa": 0.36850075719333675,
+          "squad_v2": 0.6835443037974683
+        },
+        "skipped": {}
+      },
+      "full_lp_ws": {
+        "mean": 0.5743591735911092,
+        "per_source": {
+          "drop": 0.6173924927113702,
+          "hotpotqa": 0.6345431563741423,
+          "popqa": 0.3488137304391721,
+          "squad_v2": 0.6966873148397522
+        },
+        "skipped": {}
+      },
+      "prefix_lp": {
+        "mean": 0.5629623592923171,
+        "per_source": {
+          "drop": 0.6221528790087465,
+          "hotpotqa": 0.6293607800650055,
+          "popqa": 0.3114588591620394,
+          "squad_v2": 0.688876918933477
+        },
+        "skipped": {}
+      },
+      "prefix_lp_ws": {
+        "mean": 0.5573689963544161,
+        "per_source": {
+          "drop": 0.6273915816326532,
+          "hotpotqa": 0.6270314192849404,
+          "popqa": 0.29328621908127206,
+          "squad_v2": 0.6817667654187988
+        },
+        "skipped": {}
+      },
+      "prefix_plus_lp": {
+        "mean": 0.5535062668977908,
+        "per_source": {
+          "drop": 0.6224945335276969,
+          "hotpotqa": 0.6291621524015891,
+          "popqa": 0.27359919232710755,
+          "squad_v2": 0.6887691893347697
+        },
+        "skipped": {}
+      },
+      "prefix_plus_lp_ws": {
+        "mean": 0.5498323629649912,
+        "per_source": {
+          "drop": 0.627186588921283,
+          "hotpotqa": 0.626832791621524,
+          "popqa": 0.26451287228672393,
+          "squad_v2": 0.6807971990304337
+        },
+        "skipped": {}
+      },
+      "fixed8_lp": {
+        "mean": 0.5876758132994548,
+        "per_source": {
+          "drop": 0.5244030498105282,
+          "hotpotqa": 0.6514150943396226,
+          "popqa": 0.7102473498233216,
+          "squad_v2": 0.4646377592243469
+        },
+        "skipped": {}
+      },
+      "fixed8_lp_ws": {
+        "mean": 0.5550287751024977,
+        "per_source": {
+          "drop": 0.5429164954572434,
+          "hotpotqa": 0.6094521044992743,
+          "popqa": 0.568904593639576,
+          "squad_v2": 0.4988419068138971
+        },
+        "skipped": {}
+      },
+      "fixed16_lp": {
+        "mean": 0.5762996073565094,
+        "per_source": {
+          "drop": 0.579955217614405,
+          "hotpotqa": 0.5960726351351351,
+          "popqa": 0.6193841494194852,
+          "squad_v2": 0.5097864272570123
+        },
+        "skipped": {}
+      },
+      "fixed16_lp_ws": {
+        "mean": 0.577887672732618,
+        "per_source": {
+          "drop": 0.5849932359938425,
+          "hotpotqa": 0.5639588452088452,
+          "popqa": 0.6527006562342251,
+          "squad_v2": 0.5098979534935593
+        },
+        "skipped": {}
+      },
+      "registered_primary": {
+        "increment": -0.005593362937901025,
+        "full_answer_increment": -0.008025907895864437,
+        "increment_p2.5": -0.018283347299958962,
+        "increment_p97.5": 0.0060356086848105655,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "verdict": "UNDECIDABLE",
+        "note": "full-answer increment is <= 0 on this subset, so the registered ratio has no denominator",
+        "scope": "labelled_subset_only"
+      },
+      "labelled_subset_verdict": "UNDECIDABLE",
+      "secondary_prefix_plus_last_token": {
+        "increment": -0.0036739039327996492,
+        "full_answer_increment": -0.008025907895864437,
+        "increment_p2.5": -0.014950637031803821,
+        "increment_p97.5": 0.008690329424086297,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "verdict": "UNDECIDABLE",
+        "note": "full-answer increment is <= 0 on this subset, so the registered ratio has no denominator"
+      },
+      "deployable_token8": {
+        "increment": -0.032647038196957134,
+        "full_answer_increment": -0.008025907895864437,
+        "increment_p2.5": -0.07495748461226724,
+        "increment_p97.5": 0.014834299487560999,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "verdict": "UNDECIDABLE",
+        "note": "full-answer increment is <= 0 on this subset, so the registered ratio has no denominator"
+      },
+      "deployable_token16": {
+        "increment": 0.0015880653761085606,
+        "full_answer_increment": -0.008025907895864437,
+        "increment_p2.5": -0.029818833035502472,
+        "increment_p97.5": 0.0287359434923206,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "verdict": "UNDECIDABLE",
+        "note": "full-answer increment is <= 0 on this subset, so the registered ratio has no denominator"
+      },
+      "unresolved_sensitivity": {
+        "all_unresolved_are_errors": {
+          "increment": 0.001495181457460859,
+          "full_answer_increment": -0.021349225091531143,
+          "verdict": "UNDECIDABLE"
+        },
+        "all_unresolved_are_correct": {
+          "increment": -0.009975080198171948,
+          "full_answer_increment": 0.0003598222094389758,
+          "retention_ratio": -27.72224708898542,
+          "verdict": "MISS"
+        },
+        "uniform_scenarios_agree": false,
+        "note": "Unresolved rows are those the deterministic grader routed to a judge, and no judge has adjudicated them. These two uniform assignments are SENSITIVITY SCENARIOS, NOT BOUNDS: a mixed assignment can fall outside both, so agreement here does not certify the gate. Only adjudication can."
+      },
+      "full_population_conclusion": "PROVISIONAL_UNADJUDICATED"
+    },
+    "lightgbm": {
+      "full_lp": {
+        "mean": 0.5287943443759142,
+        "per_source": {
+          "drop": 0.5763483965014577,
+          "hotpotqa": 0.5771939328277356,
+          "popqa": 0.34477536597677944,
+          "squad_v2": 0.616859682197684
+        },
+        "skipped": {}
+      },
+      "full_lp_ws": {
+        "mean": 0.53422095660194,
+        "per_source": {
+          "drop": 0.5304983600583091,
+          "hotpotqa": 0.5666305525460456,
+          "popqa": 0.39273094396769304,
+          "squad_v2": 0.6470239698357123
+        },
+        "skipped": {}
+      },
+      "prefix_lp": {
+        "mean": 0.5289018801247369,
+        "per_source": {
+          "drop": 0.5461916909620992,
+          "hotpotqa": 0.6026002166847237,
+          "popqa": 0.3735487127713277,
+          "squad_v2": 0.5932669000807972
+        },
+        "skipped": {}
+      },
+      "prefix_lp_ws": {
+        "mean": 0.5256098804126716,
+        "per_source": {
+          "drop": 0.6037490889212828,
+          "hotpotqa": 0.6028710725893826,
+          "popqa": 0.28924785461887936,
+          "squad_v2": 0.606571505521142
+        },
+        "skipped": {}
+      },
+      "prefix_plus_lp": {
+        "mean": 0.5183220901529872,
+        "per_source": {
+          "drop": 0.5431395772594753,
+          "hotpotqa": 0.5753882267966774,
+          "popqa": 0.36294800605754673,
+          "squad_v2": 0.5918125504982494
+        },
+        "skipped": {}
+      },
+      "prefix_plus_lp_ws": {
+        "mean": 0.5367772017538303,
+        "per_source": {
+          "drop": 0.5896501457725948,
+          "hotpotqa": 0.600993138317082,
+          "popqa": 0.3407370015143867,
+          "squad_v2": 0.6157285214112577
+        },
+        "skipped": {}
+      },
+      "fixed8_lp": {
+        "mean": 0.4981420290610848,
+        "per_source": {
+          "drop": 0.5774323152079623,
+          "hotpotqa": 0.6009706095791001,
+          "popqa": 0.3124684502776376,
+          "squad_v2": 0.5016967411796391
+        },
+        "skipped": {}
+      },
+      "fixed8_lp_ws": {
+        "mean": 0.5140055564686078,
+        "per_source": {
+          "drop": 0.5412272291466922,
+          "hotpotqa": 0.6040094339622641,
+          "popqa": 0.38414941948510856,
+          "squad_v2": 0.5266361432803663
+        },
+        "skipped": {}
+      },
+      "fixed16_lp": {
+        "mean": 0.5282928941674584,
+        "per_source": {
+          "drop": 0.5676400615757802,
+          "hotpotqa": 0.5509636056511056,
+          "popqa": 0.4719838465421504,
+          "squad_v2": 0.5225840629007974
+        },
+        "skipped": {}
+      },
+      "fixed16_lp_ws": {
+        "mean": 0.5771031706536555,
+        "per_source": {
+          "drop": 0.5903577926015766,
+          "hotpotqa": 0.6041922604422605,
+          "popqa": 0.585562847046946,
+          "squad_v2": 0.5282997825238387
+        },
+        "skipped": {}
+      },
+      "registered_primary": {
+        "increment": -0.0032919997120652855,
+        "full_answer_increment": 0.0054266122260258065,
+        "increment_p2.5": -0.05590518251988155,
+        "increment_p97.5": 0.04613768938055824,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "retention_ratio": -0.6066399394224249,
+        "verdict": "MISS",
+        "scope": "labelled_subset_only"
+      },
+      "labelled_subset_verdict": "MISS",
+      "secondary_prefix_plus_last_token": {
+        "increment": 0.01845511160084301,
+        "full_answer_increment": 0.0054266122260258065,
+        "increment_p2.5": -0.019060277476001038,
+        "increment_p97.5": 0.053499183156223616,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "retention_ratio": 3.4008532086249064,
+        "verdict": "HIT"
+      },
+      "deployable_token8": {
+        "increment": 0.015863527407523004,
+        "full_answer_increment": 0.0054266122260258065,
+        "increment_p2.5": -0.03356096644508719,
+        "increment_p97.5": 0.065502171910672,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "retention_ratio": 2.92328376283129,
+        "verdict": "HIT"
+      },
+      "deployable_token16": {
+        "increment": 0.04881027648619707,
+        "full_answer_increment": 0.0054266122260258065,
+        "increment_p2.5": 0.0004903115337788464,
+        "increment_p97.5": 0.1047353562932293,
+        "bootstrap_draws": 500,
+        "sources_in_ci": [
+          "drop",
+          "hotpotqa",
+          "popqa",
+          "squad_v2"
+        ],
+        "retention_ratio": 8.994612928505378,
+        "verdict": "HIT"
+      },
+      "unresolved_sensitivity": {
+        "all_unresolved_are_errors": {
+          "increment": 0.020320891580913325,
+          "full_answer_increment": 0.026366110719813318,
+          "retention_ratio": 0.7707201034259028,
+          "verdict": "MISS"
+        },
+        "all_unresolved_are_correct": {
+          "increment": 0.008989722344251105,
+          "full_answer_increment": 0.03033412437562466,
+          "retention_ratio": 0.2963567444021856,
+          "verdict": "MISS"
+        },
+        "uniform_scenarios_agree": true,
+        "note": "Unresolved rows are those the deterministic grader routed to a judge, and no judge has adjudicated them. These two uniform assignments are SENSITIVITY SCENARIOS, NOT BOUNDS: a mixed assignment can fall outside both, so agreement here does not certify the gate. Only adjudication can."
+      },
+      "full_population_conclusion": "PROVISIONAL_UNADJUDICATED"
+    }
+  },
+  "full_population_conclusion": "PROVISIONAL_UNADJUDICATED",
+  "caveats": [
+    "Reduced-scope follow-up, not the original Gate C plan executed unchanged.",
+    "LODO only; pooled numbers untrusted per the registered identity-leakage rule.",
+    "Logprob baselines are feature-matched one-to-one across prefix and full arms.",
+    "Bootstrap intervals resample rows within each held-out source and therefore exclude between-source variation; with three or four sources the mean is a small-sample estimate.",
+    "Labels are fresh deterministic grades of this run's own answers, produced by a grader whose numeric handling was corrected on 2026-09-10.",
+    "The 50% checkpoint needs the eventual answer length and is an oracle observation; token 8 and token 16 are the deployable ones.",
+    "Sources below the size or minority-class floor are skipped and listed.",
+    "Rows the grader routed to a judge have NOT been adjudicated. They are excluded from the primary result and counted by source and method. The two uniform imputations reported are sensitivity scenarios, NOT bounds: AUROC is not monotone in label flips and the statistic is a ratio of two AUROC differences, so a mixed assignment can fall outside both.",
+    "While any row is unadjudicated the full-population conclusion is PROVISIONAL_UNADJUDICATED, whatever the labelled subset says."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "out/campaign/gatec.jsonl": {
+    "sha256": "7e36f7854801d3567c4b7f130a0cecd0077b8883bad2112e8f75a53b43458772",
+    "bytes": 34173995
+  },
+  "out/campaign/gatec_graded.jsonl": {
+    "sha256": "d08dd434bebe8020cc7e1e5c1bb999aa05c8aac04dceded2463ea2ec2ed1a194",
+    "bytes": 34326693
+  },
+  "out/campaign/gate_c.json": {
+    "sha256": "dfb95b179d2939e05564794c9e0c22e5d74e0e0bb5510a94311d051df2d6cd16",
+    "bytes": 14127
+  },
+  "campaign/manifests/gatec_main.jsonl": {
+    "sha256": "c904da398589a416f4a743852baa1cbe9c9914d4f0278638dc10e7f33c7c8398",
+    "bytes": 5848798
+  },
+  "campaign/reports/environment-2026-09-10.json": {
+    "sha256": "e8d5431ddf3dcbd3cca06a0582a6dcb404dd344fc9d2de0102c1b276798b2da0",
+    "bytes": 3302
+  }
+}
