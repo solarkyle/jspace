@@ -16,12 +16,31 @@ CONCEPTS = ["lemon", "violin", "snow", "bicycle", "harbor",
 
 # Neutral recipient tasks with one mechanically checkable word each, chosen so no
 # answer collides with any concept above.
-CONTEXTS = [
+# DEVELOPMENT, already exposed. ctx_number was used by the v2 pilot and
+# ctx_opposite by the corrected v3 calibration, so neither is held out any more.
+DEV_CONTEXTS = [
     {"id": "ctx_number", "ask": "write the lowercase word for the number that comes after four",
      "answer": "five"},
     {"id": "ctx_opposite", "ask": "write the lowercase word for the opposite of hot",
      "answer": "cold"},
 ]
+
+# FRESH for the v3 pilot. No answer collides with any concept.
+EVAL_CONTEXTS = [
+    {"id": "ctx_weekdays", "ask": "write the lowercase word for the number of days in a week",
+     "answer": "seven"},
+    {"id": "ctx_updown", "ask": "write the lowercase word for the opposite of up",
+     "answer": "down"},
+    {"id": "ctx_firstmonth", "ask": "write the lowercase word for the first month of the year",
+     "answer": "january"},
+]
+
+CONTEXTS = DEV_CONTEXTS   # kept for the v2 code paths that still reference it
+
+# lemon and snow were the corrected calibration's concepts, so they are DEVELOPMENT.
+DEV_CONCEPTS = ["lemon", "snow"]
+EVAL_CONCEPTS = ["violin", "bicycle", "harbor", "pepper",
+                 "lantern", "cactus", "trumpet", "glacier"]
 
 ACCEPTED_NONE = {"none", "nothing", "no", "n/a", "na", "unknown"}
 

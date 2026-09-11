@@ -576,3 +576,71 @@ def lens_band_from(lens_path: str, n_layers: int) -> tuple[list[int] | None, dic
     except Exception as exc:
         info.update({"available": False, "reason": f"{type(exc).__name__}: {exc}"})
         return None, info
+
+
+# --------------------------------------------------------------------------- #
+# persisted session deadline
+# --------------------------------------------------------------------------- #
+
+SESSION_FILE = "out/self_focus/SESSION.json"
+STOP_FILE = "out/self_focus/STOP"
+
+
+def session_state() -> dict:
+    path = REPO / SESSION_FILE
+    if not path.exists():
+        raise RuntimeError(f"{SESSION_FILE} missing; the authorized deadline is not persisted")
+    return load_json(path)
+
+
+def deadline_status() -> dict:
+    """Remaining time against the persisted deadline, plus the STOP sentinel.
+
+    Enforcement does not rely on remembering to stop: the deadline lives on disk and
+    a watchdog writes STOP, which every loop polls.
+    """
+    import time
+
+    state = session_state()
+    now = time.time()
+    remaining = float(state["deadline_epoch"]) - now
+    elapsed_min = (now - float(state["start_epoch"])) / 60.0
+    return {
+        "elapsed_minutes": round(elapsed_min, 1),
+        "remaining_minutes": round(remaining / 60.0, 1),
+        "expired": remaining <= 0 or (REPO / STOP_FILE).exists(),
+        "stop_sentinel": (REPO / STOP_FILE).exists(),
+        "switch_to_qa_due": elapsed_min >= state["milestones"]["switch_to_qa_by_min"],
+        "reporting_window": remaining <= state["milestones"]["reserve_reporting_min"] * 60,
+    }
+
+
+class SessionBudget:
+    """Budget bounded by the persisted session deadline, not a local constant."""
+
+    def __init__(self, reserve_minutes: float = 30.0) -> None:
+        self.reserve_s = float(reserve_minutes) * 60.0
+        self.used_s = 0.0
+        self._mark = None
+
+    def __enter__(self):
+        import time
+        self._mark = time.perf_counter()
+        return self
+
+    def __exit__(self, *exc):
+        import time
+        if self._mark is not None:
+            self.used_s += time.perf_counter() - self._mark
+            self._mark = None
+
+    def exhausted(self) -> bool:
+        status = deadline_status()
+        if status["expired"]:
+            return True
+        return status["remaining_minutes"] * 60.0 <= self.reserve_s
+
+    def summary(self) -> dict:
+        out = deadline_status()
+        out["worker_minutes_used"] = round(self.used_s / 60.0, 3)
+        return out

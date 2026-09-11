@@ -1,0 +1,126 @@
+{
+  "protocol_version": "self_focus_v3_pilot",
+  "status": "amended exploratory protocol",
+  "frozen_settings": {
+    "primary": {
+      "layer": 17,
+      "window": 64,
+      "alpha": 0.6
+    },
+    "secondary": {
+      "layer": 10,
+      "window": 64,
+      "alpha": 0.3
+    }
+  },
+  "secondary_note": "different-layer robustness comparison, NOT a weaker intervention: its answer-checkpoint KL is larger than primary's (0.0030 vs 0.0001) despite the smaller alpha",
+  "superseded": "layer-23 settings; see v3_calibration.json and the corrected calibration report",
+  "development_data": {
+    "concepts": [
+      "lemon",
+      "snow"
+    ],
+    "contexts": [
+      "ctx_number",
+      "ctx_opposite"
+    ]
+  },
+  "pilot_data": {
+    "concepts": [
+      "violin",
+      "bicycle",
+      "harbor",
+      "pepper",
+      "lantern",
+      "cactus",
+      "trumpet",
+      "glacier"
+    ],
+    "contexts": [
+      "ctx_weekdays"
+    ]
+  },
+  "arms": [
+    "none",
+    "sham",
+    "concept",
+    "wrong_concept",
+    "random",
+    "steer"
+  ],
+  "conditions": [
+    "NORMAL",
+    "CHECK",
+    "MEDITATE",
+    "J_FOCUS",
+    "LONG_NEUTRAL_CONTROL"
+  ],
+  "score": "log P(present label) - log P(absent label), fixed orientation",
+  "provenance": {
+    "model_id": "google/gemma-4-E4B-it",
+    "loaded_from": "E:/hf-cache/nf4/gemma-4-e4b-it",
+    "tokenizer_source": "E:/hf-cache/nf4/gemma-4-e4b-it",
+    "precision": "nf4",
+    "model_revision": "(unpinned; local snapshot)",
+    "architecture": "Gemma4ForConditionalGeneration",
+    "block_path": "model.language_model.layers",
+    "n_layers": 42,
+    "device": "cuda:0",
+    "device_map_requested": "cuda",
+    "weight_files": [
+      "model.safetensors"
+    ],
+    "file_hashes": {
+      "config.json": {
+        "path": "E:\\hf-cache\\nf4\\gemma-4-e4b-it\\config.json",
+        "present": true,
+        "sha256": "479200bfd3bb93473c2e39a158e6301e248cad2262b43bc0c3ac4b1368daa25e",
+        "bytes": 5871,
+        "hashed_prefix_only": false
+      },
+      "tokenizer_config.json": {
+        "path": "E:\\hf-cache\\nf4\\gemma-4-e4b-it\\tokenizer_config.json",
+        "present": true,
+        "sha256": "8044bbbddaee8dc47e6b5660e013ba92224d4a5392b2939c59699aa0105f5c8b",
+        "bytes": 2838,
+        "hashed_prefix_only": false
+      },
+      "chat_template.jinja": {
+        "path": "E:\\hf-cache\\nf4\\gemma-4-e4b-it\\chat_template.jinja",
+        "present": true,
+        "sha256": "b16d3228a775c549ba97af41233a54e9de8dd2b65250f78346661d18b936a8b5",
+        "bytes": 17695,
+        "hashed_prefix_only": false
+      },
+      "model.safetensors": {
+        "path": "E:\\hf-cache\\nf4\\gemma-4-e4b-it\\model.safetensors",
+        "present": true,
+        "sha256": "5c74bc8ca7bc4275913fdd7b3c27e417e9e8d89fa066093fc1e0843cb33e1adb",
+        "bytes": 9507664460,
+        "hashed_prefix_only": true
+      }
+    },
+    "packages": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.13.0"
+    },
+    "python": "3.13.13",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 5060 Ti",
+      "total_gb": 17.1,
+      "free_gb": 6.35,
+      "peak_allocated_gb": 9.51
+    }
+  },
+  "provenance_fingerprint": "d0cf6fa66a5bee57284c",
+  "deadline": {
+    "elapsed_minutes": 12.7,
+    "remaining_minutes": 407.3,
+    "expired": false,
+    "stop_sentinel": false,
+    "switch_to_qa_due": false,
+    "reporting_window": false
+  },
+  "external_compute_spend_usd": 0.0
+}
