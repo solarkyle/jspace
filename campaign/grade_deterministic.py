@@ -40,29 +40,111 @@ def _num(s: str):
     return float(m.group()) if m else None
 
 
-def alias_match(answer: str, refs: list[str]) -> bool:
+# Numbers must be read from RAW text. normalize() deletes "." and "-", so running
+# _num() on a normalized string turned "3.14" into "3 14" and read it as 3.0,
+# which made 3.15 and 3.14 compare equal, and turned "-5" into "5".
+_NUMBER = re.compile(r"-?\d[\d,]*(?:\.\d+)?")
+_PURE_NUMBER = re.compile(r"^\s*-?\d[\d,]*(?:\.\d+)?\s*$")
+
+# A reference can appear inside an answer that denies it. Containment alone reads
+# "Not Paris; the answer is London." as a hit for "Paris". Rather than guess, such
+# rows are reported ambiguous and sent to a judge.
+_CONTRADICTION = re.compile(
+    r"\b(not|isn'?t|aren'?t|wasn'?t|weren'?t|doesn'?t|didn'?t|don'?t|cannot|"
+    r"rather than|instead of|incorrect|mistaken|false)\b", re.I)
+
+
+def _numbers(raw):
+    """Every number in raw text, signs and decimals intact."""
+    return [float(m.group().replace(",", "")) for m in _NUMBER.finditer(raw or "")]
+
+
+def _is_pure_number(raw):
+    return bool(_PURE_NUMBER.match(raw or ""))
+
+
+# How much text before a match can carry a contradiction that applies to it.
+_CUE_WINDOW = 48
+
+
+def _contradicted_near(raw: str, needle: str) -> bool:
+    """True if a contradiction cue sits just before `needle` in `raw`.
+
+    Scoped deliberately. A cue anywhere in the answer says nothing about a match
+    400 characters away, and checking globally flagged most long grounded answers,
+    which routinely contain an unrelated negation.
+    """
+    if not raw or not needle:
+        return False
+    haystack = raw.lower()
+    probe = needle.lower()
+    start = haystack.find(probe)
+    while start != -1:
+        window = raw[max(0, start - _CUE_WINDOW):start]
+        if _CONTRADICTION.search(window):
+            return True
+        start = haystack.find(probe, start + 1)
+    return False
+
+
+def _format_number(value: float) -> list:
+    """Plausible surface forms of a number, for locating it in raw text."""
+    forms = {repr(value), str(value)}
+    if value == int(value):
+        forms.add(str(int(value)))
+    return [f for f in forms if f]
+
+
+def alias_match_detail(answer: str, refs: list) -> str:
+    """Return "hit", "miss" or "ambiguous".
+
+    "ambiguous" means the surface evidence is not trustworthy on its own and the
+    row needs a judge. Grading an ambiguous row correct is the failure that
+    matters here: it silently deletes a real error from the labels.
+    """
     na = normalize(answer)
     if not na:
-        return False
+        return "miss"
     na_tokens = set(na.split())
+    answer_numbers = _numbers(answer)
+    matched = False
+    contradicted = False
+
     for r in refs:
+        # A numeric reference is decided numerically, never by string containment,
+        # and a numeric miss stays a miss rather than falling through to text rules.
+        if _is_pure_number(r):
+            target = _numbers(r)[0]
+            if any(abs(value - target) < 1e-9 for value in answer_numbers):
+                matched = True
+                if any(_contradicted_near(answer, form)
+                       for form in _format_number(target)):
+                    contradicted = True
+            continue
         nr = normalize(r)
         if not nr:
             continue
-        # very short refs (yes/no/ok) match only as whole tokens, otherwise
-        # "no" would match inside "know"
+        hit = False
         if len(nr) < 4:
-            if nr in na_tokens:
-                return True
-            continue
-        # containment in either direction; guard against trivial short tokens
-        if nr in na or (len(na) >= 4 and na in nr):
-            return True
-        # numeric equality when both sides are numbers
-        a_n, r_n = _num(na), _num(nr)
-        if a_n is not None and r_n is not None and abs(a_n - r_n) < 1e-6:
-            return True
-    return False
+            hit = nr in na_tokens
+        elif nr in na or (len(na) >= 4 and na in nr):
+            hit = True
+        if hit:
+            matched = True
+            # Check the raw reference text, which is what a reader would see. If
+            # normalization changed it enough that it cannot be located in the
+            # raw answer, no cue is attributed to it.
+            if _contradicted_near(answer, r.strip()):
+                contradicted = True
+
+    if not matched:
+        return "miss"
+    return "ambiguous" if contradicted else "hit"
+
+
+def alias_match(answer: str, refs: list[str]) -> bool:
+    """Backwards-compatible boolean view. Ambiguous counts as NOT a hit."""
+    return alias_match_detail(answer, refs) == "hit"
 
 
 def _extract_json_object(text: str):
@@ -146,17 +228,22 @@ def grade_row(row: dict) -> dict:
             # correct iff the model abstained (SQuAD 2.0 unanswerable)
             return {"method": "unanswerable", "correct": abstained,
                     "abstained": abstained}
-        hit = alias_match(answer, refs)
-        if hit:
+        verdict = alias_match_detail(answer, refs)
+        if verdict == "hit":
             return {"method": "alias", "correct": True, "abstained": abstained}
+        if verdict == "ambiguous":
+            # The reference appears, but inside a contradiction. Surface matching
+            # cannot tell "Paris" from "not Paris" here, and guessing either way
+            # writes a wrong label, so abstain and let a judge decide.
+            return {"method": "needs_judge", "correct": None, "abstained": abstained}
         # no alias hit and the model abstained on an answerable q -> wrong (miss)
         if abstained:
             return {"method": "alias", "correct": False, "abstained": True}
         # confident non-matching answer: usually wrong, but alias lists are noisy
         return {"method": "alias", "correct": False, "abstained": False}
 
-    # llm-graded sources: cheap pre-pass only
-    if refs and alias_match(answer, refs):
+    # llm-graded sources: cheap pre-pass only, and only on unambiguous evidence
+    if refs and alias_match_detail(answer, refs) == "hit":
         return {"method": "llm_prepass_alias", "correct": True, "abstained": abstained}
     return {"method": "needs_judge", "correct": None, "abstained": abstained}
 

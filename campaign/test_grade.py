@@ -1,72 +1,142 @@
-"""Hand-built grader unit tests (Stage 0 checklist).
+"""Grader unit tests.
 
-Run: python -m campaign.test_grade
+Previously a hand-rolled script with a main() and a check() helper, which meant
+`python -m unittest` discovered zero tests in the module that produces every
+label in the campaign. Converted to unittest so it runs in the suite, with the
+original Stage 0 checklist preserved and counterexamples added for the numeric
+and contradiction failures found on 2026-09-10.
+
+Run: python -m unittest campaign.test_grade
 """
 
-from campaign.grade_deterministic import grade_row, normalize, alias_match
+import unittest
+
+from campaign.grade_deterministic import (
+    alias_match,
+    alias_match_detail,
+    grade_row,
+    normalize,
+)
 
 
-def check(name, got, want):
-    ok = got == want
-    print(f"  {'ok ' if ok else 'FAIL'} {name}: got={got} want={want}")
-    return ok
+class TestStage0Checklist(unittest.TestCase):
+    """The original hand-built checks, unchanged in substance."""
+
+    def test_normalize_strips_articles_and_punctuation(self) -> None:
+        self.assertEqual(normalize("The, Beatles!"), "beatles")
+
+    def test_alias_containment(self) -> None:
+        self.assertTrue(alias_match("It was the Beatles", ["Beatles"]))
+
+    def test_no_false_hit_on_short_token(self) -> None:
+        self.assertFalse(alias_match("Paris", ["a"]))
+
+    def test_numeric_equality(self) -> None:
+        self.assertTrue(alias_match("about 42 people", ["42"]))
+
+    def test_exact_hit(self) -> None:
+        self.assertTrue(grade_row({
+            "answer": "Rome", "aliases": ["Rome", "Roma"], "answerable": True,
+            "grader_type": "exact"})["correct"])
+
+    def test_exact_miss(self) -> None:
+        self.assertFalse(grade_row({
+            "answer": "London", "aliases": ["Rome"], "answerable": True,
+            "grader_type": "exact"})["correct"])
+
+    def test_unanswerable_abstention_is_correct(self) -> None:
+        g = grade_row({"answer": "I cannot answer from the context.",
+                       "references": [], "answerable": False, "grader_type": "exact"})
+        self.assertTrue(g["correct"])
+        self.assertTrue(g["abstained"])
+
+    def test_unanswerable_but_answered_is_wrong(self) -> None:
+        g = grade_row({"answer": "The capital is Berlin.", "references": [],
+                       "answerable": False, "grader_type": "exact"})
+        self.assertFalse(g["correct"])
+
+    def test_answerable_abstention_is_a_miss(self) -> None:
+        g = grade_row({"answer": "I don't know.", "aliases": ["Rome"],
+                       "answerable": True, "grader_type": "exact"})
+        self.assertFalse(g["correct"])
+        self.assertTrue(g["abstained"])
+
+    def test_llm_prepass_alias_hit(self) -> None:
+        g = grade_row({"answer": "Mitochondria regulate perforations.",
+                       "references": ["Mitochondria regulate perforations"],
+                       "answerable": True, "grader_type": "llm"})
+        self.assertTrue(g["correct"])
+
+    def test_llm_without_obvious_hit_needs_a_judge(self) -> None:
+        g = grade_row({"answer": "A nuanced clinical explanation follows.",
+                       "references": ["Some other ground truth"],
+                       "answerable": True, "grader_type": "llm"})
+        self.assertIsNone(g["correct"])
 
 
-def main() -> int:
-    passed = True
+class TestNumericFidelity(unittest.TestCase):
+    """normalize() deletes "." and "-".
 
-    passed &= check("normalize strips articles/punct",
-                    normalize("The, Beatles!"), "beatles")
-    passed &= check("alias containment", alias_match("It was the Beatles",
-                    ["Beatles"]), True)
-    passed &= check("alias no false hit on short token",
-                    alias_match("Paris", ["a"]), False)
-    passed &= check("numeric equality", alias_match("about 42 people",
-                    ["42"]), True)
+    Reading numbers out of a normalized string therefore compared "3 14" against
+    "3 15" as 3.0 against 3.0, and turned "-5" into "5". Numbers are now read from
+    raw text, and a numeric reference is decided numerically rather than falling
+    through to string rules.
+    """
 
-    # exact answerable, alias hit -> correct
-    passed &= check("exact hit", grade_row({
-        "answer": "Rome", "aliases": ["Rome", "Roma"], "answerable": True,
-        "grader_type": "exact"})["correct"], True)
+    def test_different_decimals_are_not_equal(self) -> None:
+        self.assertEqual(alias_match_detail("3.15", ["3.14"]), "miss")
+        self.assertEqual(alias_match_detail("2.5", ["2.05"]), "miss")
 
-    # exact answerable, confident wrong -> incorrect
-    passed &= check("exact miss", grade_row({
-        "answer": "London", "aliases": ["Rome"], "answerable": True,
-        "grader_type": "exact"})["correct"], False)
+    def test_sign_is_not_discarded(self) -> None:
+        self.assertEqual(alias_match_detail("-5", ["5"]), "miss")
+        self.assertEqual(alias_match_detail("5", ["-5"]), "miss")
 
-    # unanswerable + abstained -> correct
-    g = grade_row({"answer": "I cannot answer from the context.",
-                   "references": [], "answerable": False, "grader_type": "exact"})
-    passed &= check("unanswerable abstain correct", g["correct"], True)
-    passed &= check("unanswerable abstain flagged", g["abstained"], True)
+    def test_identical_numbers_still_match(self) -> None:
+        self.assertEqual(alias_match_detail("3.14", ["3.14"]), "hit")
+        self.assertEqual(alias_match_detail("-5", ["-5"]), "hit")
 
-    # unanswerable but model answered anyway -> incorrect (hallucinated)
-    g = grade_row({"answer": "The capital is Berlin.", "references": [],
-                   "answerable": False, "grader_type": "exact"})
-    passed &= check("unanswerable but answered = wrong", g["correct"], False)
+    def test_thousands_separators_still_match(self) -> None:
+        self.assertEqual(alias_match_detail("1,200", ["1200"]), "hit")
 
-    # answerable but abstained -> wrong (miss), abstained flagged
-    g = grade_row({"answer": "I don't know.", "aliases": ["Rome"],
-                   "answerable": True, "grader_type": "exact"})
-    passed &= check("answerable abstain = miss", g["correct"], False)
-    passed &= check("answerable abstain flagged", g["abstained"], True)
+    def test_number_embedded_in_prose_still_matches(self) -> None:
+        self.assertEqual(alias_match_detail("about 42 people", ["42"]), "hit")
 
-    # llm-graded with obvious alias hit -> prepass correct
-    g = grade_row({"answer": "Mitochondria regulate perforations.",
-                   "references": ["Mitochondria regulate perforations"],
-                   "answerable": True, "grader_type": "llm"})
-    passed &= check("llm prepass alias hit", g["correct"], True)
+    def test_wrong_number_in_prose_is_a_miss(self) -> None:
+        self.assertEqual(alias_match_detail("about 43 people", ["42"]), "miss")
 
-    # llm-graded, no obvious hit -> needs judge
-    g = grade_row({"answer": "A nuanced clinical explanation follows.",
-                   "references": ["Some other ground truth"],
-                   "answerable": True, "grader_type": "llm"})
-    passed &= check("llm needs judge", g["correct"], None)
 
-    print("ALL PASS" if passed else "SOME TESTS FAILED")
-    return 0 if passed else 1
+class TestContradictionIsNotAHit(unittest.TestCase):
+    """A reference can appear inside an answer that denies it.
+
+    Containment alone read "Not Paris; the answer is London." as a hit for
+    "Paris". Surface matching cannot resolve that, so the row is reported
+    ambiguous and routed to a judge rather than being labelled either way.
+    """
+
+    def test_negated_reference_is_ambiguous(self) -> None:
+        self.assertEqual(
+            alias_match_detail("Not Paris; the answer is London.", ["Paris"]),
+            "ambiguous")
+
+    def test_negated_number_is_ambiguous(self) -> None:
+        self.assertEqual(
+            alias_match_detail("The answer is not 7, it is 9.", ["7"]),
+            "ambiguous")
+
+    def test_ambiguous_rows_go_to_a_judge_not_to_a_label(self) -> None:
+        g = grade_row({"answer": "Not Paris; the answer is London.",
+                       "aliases": ["Paris"], "answerable": True,
+                       "grader_type": "exact"})
+        self.assertEqual(g["method"], "needs_judge")
+        self.assertIsNone(g["correct"])
+
+    def test_plain_correct_answers_are_unaffected(self) -> None:
+        self.assertEqual(alias_match_detail("Paris", ["Paris"]), "hit")
+        self.assertEqual(alias_match_detail("The capital is Paris.", ["Paris"]), "hit")
+
+    def test_boolean_view_treats_ambiguous_as_not_a_hit(self) -> None:
+        self.assertFalse(alias_match("Not Paris; the answer is London.", ["Paris"]))
 
 
 if __name__ == "__main__":
-    import sys
-    sys.exit(main())
+    unittest.main(verbosity=2)
