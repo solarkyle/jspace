@@ -8,18 +8,27 @@ All work local on Gemma-4-E4B-it NF4, one GPU worker.
 
 ## Headline
 
-**The v3 continuous score does move with the intervention — and it is not detecting
-the concept.** A random perturbation produces a *larger* "something changed" shift
-than the real injected concept in every single cell, and the random arm is also the
-one that destroys the ordinary task. What the score tracks is perturbation
-magnitude, not concept identity.
+> **CORRECTED 2026-09-11.** The original headline below overreached on three counts,
+> all of them interpretation rather than measurement. See
+> [V3-INTERPRETATION-CORRECTION-2026-09-11.md](experiments/self_focus/results/V3-INTERPRETATION-CORRECTION-2026-09-11.md).
+> Corrected headline:
+>
+> **Internal interventions shift the model's monitoring score. J_FOCUS shows
+> promising separation in this small pilot, but the mechanism and generality remain
+> unresolved.**
+>
+> Withdrawn: (a) the "baseline artifact" argument, which is mathematically void
+> because within-condition AUROC is invariant to a constant score offset; (b) "lower
+> variance is an artifact", since a smaller but tighter shift can be the better
+> detector; (c) "specificity kills it", which conflated presence detection with
+> concept identification and leaned on a random arm that destroys the task and
+> therefore cannot settle specificity. J_FOCUS is preserved as exploratory, neither
+> confirmed introspection nor a proven artifact.
 
-**J_FOCUS has the highest AUROC in both settings, and that advantage is a variance
-artifact, not a larger effect.** Its mean shift is *smaller* than NORMAL's; its
-AUROC is higher because its within-arm spread is narrower and its baseline sits
-closer to the decision boundary.
+The v3 continuous score moves with the intervention. The greedy choice never flipped
+on any of the 480 trials, so the continuous readout was necessary to see it at all.
 
-No evidence of privileged internal access. No consciousness claim is made or implied.
+No consciousness claim is made or implied.
 
 ---
 
@@ -125,6 +134,9 @@ Ordinary task accuracy by arm, out of 40 per arm per setting:
 | arm | primary | secondary |
 |---|---:|---:|
 | none, sham, concept, wrong_concept, steer | 40/40 each | 40/40 each |
+
+> **CORRECTED.** These use substring matching (`expected_answer in text`), which the
+> protocol forbids elsewhere, so they are upper bounds on task preservation.
 | **random** | **1/40** | **0/40** |
 
 So the random arm is **not functionally matched** — it is catastrophic, exactly as
@@ -136,10 +148,21 @@ this run, and is not.**
 ### Identification is at floor
 
 Strict designated-letter identification: **0/80** on both settings. The model chose
-`none` on 79/80 and 80/80. Naive substring scoring also found nothing, so there is
+`none` on 79/80 and 80/80.
+
+> **CORRECTED.** This is not a clean floor. `choice_options` builds the five options
+> around the trial's own concept while the `wrong_concept` arm injects a different
+> one, so **40 of 80 wrong_concept trials had the injected concept absent from the
+> options** and could never score a hit. The `concept` arm's 0/40 stands. Naive substring scoring also found nothing, so there is
 no gap to report this time.
 
-## 5. The J_FOCUS result, and why I am not claiming it
+## 5. The J_FOCUS result
+
+> **CORRECTED.** The subsection originally argued this away as a variance and
+> baseline artifact. Both arguments are withdrawn: within-condition AUROC is
+> invariant to a constant offset, and a tighter smaller shift can legitimately be a
+> better detector. J_FOCUS stands as an exploratory finding on 8 concepts and 1
+> context, which is far too narrow for generality.
 
 AUROC for concept against none+sham, with bootstrap 95% intervals over trials:
 
