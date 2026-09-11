@@ -243,6 +243,9 @@ def main() -> None:
         "rows_by_source": dict(collections.Counter(r["source_dataset"] for r in rows)),
         "error_rate_by_source": {},
         "models": {},
+        # Set after scoring. Stays provisional while any row is unadjudicated,
+        # regardless of what the labelled subset says.
+        "full_population_conclusion": None,
     }
     by_src = collections.defaultdict(list)
     for r in rows:
@@ -275,11 +278,19 @@ def main() -> None:
             return out
 
         block["registered_primary"] = ratio("prefix_lp", "prefix_lp_ws")
+        # The measurement and the claim are different things. The first is what the
+        # retained, labelled rows say. The second is what can be asserted about the
+        # population, which stays provisional while any row is unadjudicated.
+        block["registered_primary"]["scope"] = "labelled_subset_only"
+        block["labelled_subset_verdict"] = block["registered_primary"]["verdict"]
         block["secondary_prefix_plus_last_token"] = ratio("prefix_plus_lp", "prefix_plus_lp_ws")
         block["deployable_token8"] = ratio("fixed8_lp", "fixed8_lp_ws")
         block["deployable_token16"] = ratio("fixed16_lp", "fixed16_lp_ws")
-        # Bound the registered verdict against the unresolved rows. Imputing all
-        # of them one way and then the other brackets every possible adjudication.
+        # Probe the registered verdict against the unresolved rows. These are
+        # SCENARIOS, NOT BOUNDS: AUROC is not monotone in label flips and the
+        # statistic is a ratio of two AUROC differences, so a mixed assignment can
+        # land outside both uniform ones. test_uniform_scenarios.py carries a
+        # four-row counterexample. Agreement here is weak reassurance, never proof.
         if unresolved:
             bounds = {}
             for name, as_error in (("all_unresolved_are_errors", True),
@@ -307,16 +318,22 @@ def main() -> None:
                 row.pop("_label", None)
             verdicts = {b.get("verdict") for b in bounds.values()}
             primary = block["registered_primary"].get("verdict")
-            bounds["verdict_stable_under_every_assignment"] = (
+            bounds["uniform_scenarios_agree"] = (
                 len(verdicts) == 1 and primary in verdicts)
             bounds["note"] = (
                 "Unresolved rows are those the deterministic grader routed to a "
-                "judge and no judge has adjudicated. Imputing them both ways "
-                "brackets the verdict; if the bracket disagrees with the primary "
-                "result the gate is undecided until they are judged.")
+                "judge, and no judge has adjudicated them. These two uniform "
+                "assignments are SENSITIVITY SCENARIOS, NOT BOUNDS: a mixed "
+                "assignment can fall outside both, so agreement here does not "
+                "certify the gate. Only adjudication can.")
             block["unresolved_sensitivity"] = bounds
+        block["full_population_conclusion"] = (
+            "PROVISIONAL_UNADJUDICATED" if unresolved
+            else block["labelled_subset_verdict"])
         payload["models"][model_name] = block
 
+    payload["full_population_conclusion"] = (
+        "PROVISIONAL_UNADJUDICATED" if unresolved else "FINAL")
     payload["caveats"] = [
         "Reduced-scope follow-up, not the original Gate C plan executed unchanged.",
         "LODO only; pooled numbers untrusted per the registered identity-leakage rule.",
@@ -330,8 +347,12 @@ def main() -> None:
         "observation; token 8 and token 16 are the deployable ones.",
         "Sources below the size or minority-class floor are skipped and listed.",
         "Rows the grader routed to a judge have NOT been adjudicated. They are "
-        "excluded from the primary result, counted by source and method, and the "
-        "verdict is bracketed by imputing them both ways.",
+        "excluded from the primary result and counted by source and method. The "
+        "two uniform imputations reported are sensitivity scenarios, NOT bounds: "
+        "AUROC is not monotone in label flips and the statistic is a ratio of two "
+        "AUROC differences, so a mixed assignment can fall outside both.",
+        "While any row is unadjudicated the full-population conclusion is "
+        "PROVISIONAL_UNADJUDICATED, whatever the labelled subset says.",
     ]
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
@@ -371,10 +392,16 @@ def main() -> None:
                 b = sens[name]
                 rt = (f"{b['retention_ratio']:.3f}" if b.get("retention_ratio") is not None
                       else "n/a")
-                print(f"  sensitivity {name:32s} ratio {rt} -> {b['verdict']}")
-            print(f"  verdict stable under every assignment: "
-                  f"{sens['verdict_stable_under_every_assignment']}")
-    print(f"\nwrote {args.out}")
+                print(f"  scenario {name:35s} ratio {rt} -> {b['verdict']}")
+            print(f"  uniform scenarios agree: {sens['uniform_scenarios_agree']} "
+                  f"(scenarios, NOT bounds; a mixed assignment can fall outside both)")
+        print(f"  labelled-subset verdict:     {block['labelled_subset_verdict']}")
+        print(f"  full-population conclusion:  {block['full_population_conclusion']}")
+    print(f"\nfull-population conclusion: {payload['full_population_conclusion']}")
+    if unresolved:
+        print(f"  {len(unresolved)} rows remain unadjudicated; the labelled-subset "
+              f"verdict above is a measurement, not a settled result")
+    print(f"wrote {args.out}")
 
 
 if __name__ == "__main__":

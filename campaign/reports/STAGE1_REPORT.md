@@ -1,5 +1,21 @@
 # Stage 1 report, corrected (2026-07-10, post peer review)
 
+> **CORRECTION NOTICE, 2026-09-10.** The deterministic grader that produced most
+> of the labels behind this report had three defects: numbers were parsed from a
+> normalised string that had already had "." and "-" deleted, a numeric reference
+> could match through a non-numeric reference list, and a reference counted as a
+> hit anywhere in the answer including inside a contradiction. Re-grading the
+> 14,106 deterministically-labelled rows changes 253 labels and withdraws 847 to
+> "needs a judge"; the 2,072 judge-decided labels are untouched.
+>
+> Both gates still pass on the retained subset, and both numbers below reproduce
+> exactly from the saved features on the original labels. But most of the apparent
+> movement is selection rather than relabelling, and the Gate B margin was 0.10pp
+> over its registered threshold. **The verdicts stated in this report should be
+> read together with
+> [LABEL-CORRECTION-2026-09-10.md](LABEL-CORRECTION-2026-09-10.md)**, which gives
+> the decomposition, the per-source counts and the outstanding adjudication.
+
 18,220 prompts, Gemma-4-12B bf16, greedy, two-pass lens capture. Eight datasets
 across five domains. Pre-registration: campaign/PREREG_STAGE1.md (written blind,
 pre-Stage-0; caveat: the file is untracked by git, so prospective but not

@@ -6,10 +6,13 @@ dated recheck of the published Stage 1 gates against a corrected label set.
 **It does not supersede `STAGE1_REPORT.md`.** That report stands as published. This
 is the sensitivity analysis beside it.
 
-**Headline: both gates survive, and the apparent improvement is mostly not the
-relabelling.** Roughly 80 percent of the Gate A gain comes from removing rows the
-corrected grader refuses to label, not from the labels that changed. On Gate B the
-relabelling moves the result slightly the wrong way.
+**Headline: both gates pass under the revised grader on the retained subset.
+Independent label adjudication remains outstanding, and most of the apparent
+improvement reflects selection.** Roughly 80 percent of the Gate A gain comes from
+removing the 847 rows the corrected grader refuses to label, not from the 253
+labels that changed. On Gate B the relabelling moves the result slightly the wrong
+way. No claim is made about the full population: 847 rows are unadjudicated and the
+253 flips are unverified.
 
 ## What was wrong with the grader
 
@@ -122,10 +125,15 @@ grading was the moving part.
   disagreements, not 253 verified corrections. `out/campaign/relabel_report.json`
   exports 60 flip examples for adjudication. None have been adjudicated by an
   independent judge.
-- **The 847 unresolved rows were never judged.** They are excluded, counted by
-  source, and in the Gate C scorer the verdict is bracketed by imputing them both
-  ways. For Gate A and Gate B here they are simply absent, which is what variant B
-  exists to quantify.
+- **The 847 unresolved rows were never judged.** They are excluded and counted by
+  source. The Gate C scorer reports two uniform imputations of such rows, but those
+  are sensitivity SCENARIOS, not bounds: AUROC is not monotone in label flips and
+  the retention statistic is a ratio of two AUROC differences, so a mixed
+  assignment can fall outside both uniform ones. A four-row counterexample is
+  pinned in `campaign/test_uniform_scenarios.py`, where both uniform assignments
+  give a ratio of 2.00 and one mixed assignment gives 0.00. For Gate A and Gate B
+  here the unresolved rows are simply absent, which is what variant B exists to
+  quantify.
 - **This is the retraining variant.** LODO retrains with corrected labels on both
   sides. The pure rescoring variant, holding the frozen classifiers' predictions
   fixed and changing only the evaluation labels, has not been run.
