@@ -27,6 +27,15 @@ from fastapi.responses import HTMLResponse
 import jlens
 from jlens.hooks import ActivationRecorder
 
+from sidecar.conformance import compare_captures
+from sidecar.experiments import (
+    aggregate_top_token_families,
+    answer_matches_expected,
+    binding_prompt,
+    entropy_from_masses,
+)
+from sidecar.galaxy import trajectory_layout
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SIDECAR = Path(__file__).resolve().parent
@@ -53,6 +62,7 @@ HEDGE_WORDS = [
 @dataclass
 class Config:
     model_id: str
+    model_path: str
     quant: str
     lens_path: Path
     lens_path_explicit: bool
@@ -79,6 +89,7 @@ class LocalAnswer:
     layer_entropies: list[float]
     band_tokens: list[dict[str, Any]]
     workspace_grid: dict[str, Any]
+    galaxy_trace: dict[str, Any]
     risk: float
     snapshot_ms: float
 
@@ -92,6 +103,21 @@ class WorkspaceSnapshot:
     lens_logits: dict[int, torch.Tensor]
     risk: float
     features: dict[str, Any]
+    galaxy_rows: list[dict[int, float]]
+    # Same snapshot scored with output features truncated to tokens 0..step.
+    # Honest about its inputs, but uncalibrated -- see the note in the scoring loop.
+    online_risk: float = 0.0
+
+
+def replace_block_hidden(output: Any, hidden: torch.Tensor) -> Any:
+    """Replace a residual block's hidden tensor without dropping side outputs."""
+    if torch.is_tensor(output):
+        return hidden
+    if isinstance(output, tuple):
+        return (hidden, *output[1:])
+    if isinstance(output, list):
+        return [hidden, *output[1:]]
+    raise TypeError(f"unsupported residual block output type: {type(output).__name__}")
 
 
 class RollingRouter:
@@ -201,6 +227,7 @@ class Runtime:
             "layer_entropies": local.layer_entropies,
             "band_tokens": local.band_tokens,
             "workspace_grid": local.workspace_grid,
+            "galaxy_trace": local.galaxy_trace,
             "threshold": self.cfg.risk_threshold,
             "action": "local",
         }
@@ -278,6 +305,7 @@ class Runtime:
                         lens_logits=lens_logits,
                         risk=0.0,
                         features={},
+                        galaxy_rows=[],
                     )
                 )
             token = torch.tensor([[nxt]], device=ids.device, dtype=ids.dtype)
@@ -307,11 +335,26 @@ class Runtime:
                     lens_logits=lens_logits,
                     risk=0.0,
                     features={},
+                    galaxy_rows=[],
                 )
             )
 
+        # NOTE ON LEAKAGE. This loop runs AFTER generation completes, and the
+        # bundled router consumes bl_mean_logprob and bl_answer_len. Passing the
+        # full step_logprobs and the final len(gen_ids) to a snapshot taken at
+        # step 0 hands that snapshot information from tokens it had not emitted
+        # yet, so the resulting curve is RETROSPECTIVE, not an early warning.
+        # It stays available because scoring a completed answer is what the
+        # router was trained for, but it is now labelled, and an online-only
+        # curve is computed beside it.
+        #
+        # The online curve truncates every output feature to tokens 0..step. It
+        # is honest about its inputs but the router is still trained on
+        # whole-answer aggregates, so these scores are out-of-distribution and
+        # are NOT calibrated. A properly calibrated prefix router needs features
+        # the first campaign never saved; that is what Gate C collects.
         for snap in snapshots:
-            snap.features = self.features_from_snapshot(
+            snap.features, snap.galaxy_rows = self.features_from_snapshot(
                 lens_logits=snap.lens_logits,
                 answer_token_id=snap.token_id,
                 first_answer_logprob=step_logprobs[0] if step_logprobs else 0.0,
@@ -324,6 +367,20 @@ class Runtime:
                 {k: v for k, v in snap.features.items() if isinstance(v, float)},
                 record=False,
             )
+            window = step_logprobs[: snap.step + 1] or step_logprobs[:1]
+            online_features, _ = self.features_from_snapshot(
+                lens_logits=snap.lens_logits,
+                answer_token_id=snap.token_id,
+                first_answer_logprob=step_logprobs[0] if step_logprobs else 0.0,
+                step_logprobs=window,
+                answer_len=len(window),
+                read_step=snap.step,
+                read_token=snap.token_text,
+            )
+            snap.online_risk = self.router.score(
+                {k: v for k, v in online_features.items() if isinstance(v, float)},
+                record=False,
+            )
         selected = max(snapshots, key=lambda snap: snap.risk)
         risk = self.router.score(
             {k: v for k, v in selected.features.items() if isinstance(v, float)}
@@ -332,6 +389,15 @@ class Runtime:
         features["ws_selected_risk"] = float(risk)
         features["ws_read_tokens"] = float(len(snapshots))
         features["ws_configured_read_tokens"] = float(read_tokens)
+        features["ws_per_token_risk_is_retrospective"] = True
+        features["ws_per_token_risk_online_uncalibrated"] = [
+            {
+                "step": int(snap.step),
+                "token": snap.token_text,
+                "risk": round(float(snap.online_risk), 6),
+            }
+            for snap in snapshots
+        ]
         features["ws_per_token_risk"] = [
             {
                 "step": int(snap.step),
@@ -354,6 +420,11 @@ class Runtime:
             workspace_grid=self.workspace_grid_from_snapshot(
                 selected.lens_logits,
                 selected.token_id,
+            ),
+            galaxy_trace=self.galaxy_trace_from_snapshots(
+                snapshots,
+                gen_ids,
+                selected.step,
             ),
             risk=risk,
             snapshot_ms=snapshot_ms,
@@ -380,6 +451,276 @@ class Runtime:
         model_logits = self.model.unembed(select(final_layer)).float().cpu()
         return lens_logits, model_logits
 
+    def intervention_direction(
+        self,
+        input_ids: torch.Tensor,
+        layer: int,
+        token_id: int,
+    ) -> tuple[torch.Tensor, float]:
+        """Gradient direction that increases one J-Lens token at one layer."""
+        if layer not in self.band:
+            raise HTTPException(status_code=400, detail=f"layer {layer} is outside the fitted band")
+        with torch.no_grad():
+            with ActivationRecorder(self.model.layers, at=[layer]) as recorder:
+                self.model.forward(input_ids)
+            source = recorder.activations[layer][0, -1:].detach().float()
+        source.requires_grad_(True)
+        with torch.enable_grad():
+            transported = self.lens.transport(source, layer)
+            logits = self.model.unembed(transported).float()
+            if not 0 <= token_id < logits.shape[-1]:
+                raise HTTPException(status_code=400, detail="concept token id is outside the vocabulary")
+            log_probability = logits.log_softmax(-1)[0, token_id]
+            gradient = torch.autograd.grad(log_probability, source)[0]
+        norm = float(gradient.norm().item())
+        if not math.isfinite(norm) or norm <= 1e-12:
+            raise HTTPException(status_code=422, detail="selected concept has no usable local direction")
+        probability = float(log_probability.detach().exp().item())
+        return gradient.detach(), probability
+
+    @torch.no_grad()
+    def patched_snapshot_from_ids(
+        self,
+        input_ids: torch.Tensor,
+        *,
+        layer: int,
+        direction: torch.Tensor,
+        signed_strength: float,
+    ) -> tuple[dict[int, torch.Tensor], torch.Tensor, dict[str, float]]:
+        applied: dict[str, float] = {}
+
+        def patch(_module: Any, _inputs: Any, output: Any) -> Any:
+            hidden = output if torch.is_tensor(output) else output[0]
+            unit = direction.to(device=hidden.device, dtype=torch.float32)
+            unit = unit / unit.norm().clamp_min(1e-12)
+            base = hidden[:, -1:].float()
+            base_norm = base.norm().clamp_min(1e-12)
+            delta = unit * (float(signed_strength) * 0.05 * base_norm)
+            changed = hidden.clone()
+            changed[:, -1:] = (base + delta).to(dtype=hidden.dtype)
+            applied["base_norm"] = float(base_norm.item())
+            applied["delta_norm"] = float(delta.norm().item())
+            applied["relative_norm"] = float(delta.norm().item() / base_norm.item())
+            return replace_block_hidden(output, changed)
+
+        handle = self.model.layers[layer].register_forward_hook(patch)
+        try:
+            lens_logits, model_logits = self.lens_snapshot_from_ids(input_ids)
+        finally:
+            handle.remove()
+        return lens_logits, model_logits, applied
+
+    @torch.no_grad()
+    def greedy_from_ids(
+        self,
+        start_ids: torch.Tensor,
+        first_logits: torch.Tensor,
+        max_new: int,
+    ) -> dict[str, Any]:
+        ids = start_ids.clone()
+        generated: list[int] = []
+        finish_reason = "length"
+        logits = first_logits
+        for step in range(max_new):
+            if step:
+                logits = self.next_logits(ids)
+            nxt = int(logits.argmax(dim=-1).item())
+            if nxt in self.stop_ids:
+                finish_reason = "stop"
+                break
+            generated.append(nxt)
+            token = torch.tensor([[nxt]], device=ids.device, dtype=ids.dtype)
+            ids = torch.cat([ids, token], dim=1)
+        return {
+            "text": strip_gemma_spillover(
+                self.tokenizer.decode(generated, skip_special_tokens=True), self.model_id
+            ),
+            "token_ids": generated,
+            "finish_reason": finish_reason,
+        }
+
+    def branch_experiment(self, body: dict[str, Any]) -> dict[str, Any]:
+        messages = body.get("messages")
+        if not isinstance(messages, list) or not messages:
+            raise HTTPException(status_code=400, detail="messages must be a non-empty list")
+        prompt = build_prompt(self.tokenizer, messages)
+        input_ids = self.model.encode(prompt, max_length=self.cfg.max_prompt_tokens)
+        prefix_ids = body.get("prefix_token_ids") or []
+        if not isinstance(prefix_ids, list) or len(prefix_ids) > 128:
+            raise HTTPException(status_code=400, detail="prefix_token_ids must be a list of at most 128 ids")
+        if prefix_ids:
+            prefix = torch.tensor(
+                [[int(value) for value in prefix_ids]],
+                device=input_ids.device,
+                dtype=input_ids.dtype,
+            )
+            input_ids = torch.cat([input_ids, prefix], dim=1)
+
+        layer = int(body.get("layer", self.band[len(self.band) // 2]))
+        token_id = int(body.get("concept_token_id", -1))
+        mode = str(body.get("intervention") or "boost").lower()
+        if mode not in {"boost", "suppress"}:
+            raise HTTPException(status_code=400, detail="intervention must be boost or suppress")
+        strength = max(0.0, min(float(body.get("strength", 1.0)), 4.0))
+        signed_strength = strength if mode == "boost" else -strength
+        max_new = max(1, min(int(body.get("max_tokens", 24)), 96))
+
+        direction, before_direction_probability = self.intervention_direction(
+            input_ids, layer, token_id
+        )
+        baseline_lens, baseline_logits = self.lens_snapshot_from_ids(input_ids)
+        patched_lens, patched_logits, patch_stats = self.patched_snapshot_from_ids(
+            input_ids,
+            layer=layer,
+            direction=direction,
+            signed_strength=signed_strength,
+        )
+        baseline = self.greedy_from_ids(input_ids, baseline_logits, max_new)
+        intervention = self.greedy_from_ids(input_ids, patched_logits, max_new)
+
+        baseline_probs = baseline_logits[0].softmax(-1)
+        patched_probs = patched_logits[0].softmax(-1)
+        delta = patched_probs - baseline_probs
+        effect_ids = delta.abs().topk(min(12, delta.numel())).indices.tolist()
+        effects = [
+            {
+                "token_id": int(effect_id),
+                "token": sanitize_band_token(self.tokenizer.decode([int(effect_id)])),
+                "baseline_probability": round(float(baseline_probs[effect_id].item()), 7),
+                "intervention_probability": round(float(patched_probs[effect_id].item()), 7),
+                "delta": round(float(delta[effect_id].item()), 7),
+            }
+            for effect_id in effect_ids
+        ]
+        before = float(baseline_lens[layer][0].softmax(-1)[token_id].item())
+        after = float(patched_lens[layer][0].softmax(-1)[token_id].item())
+        return {
+            "schema_version": 1,
+            "experiment": "causal_branch",
+            "model": self.model_id,
+            "quant": self.quant,
+            "layer": layer,
+            "concept_token_id": token_id,
+            "concept": sanitize_band_token(self.tokenizer.decode([token_id])),
+            "intervention": mode,
+            "strength": strength,
+            "prefix_token_ids": [int(value) for value in prefix_ids],
+            "baseline": baseline,
+            "branch": intervention,
+            "concept_probability": {
+                "direction_probe": round(before_direction_probability, 7),
+                "before": round(before, 7),
+                "after": round(after, 7),
+                "delta": round(after - before, 7),
+            },
+            "patch": patch_stats,
+            "effects": effects,
+            "evidence": {
+                "causal": True,
+                "scope": "single residual-stream intervention at the fork point",
+                "direction": "local gradient of selected J-Lens token log-probability",
+            },
+        }
+
+    def overload_experiment(self, body: dict[str, Any]) -> dict[str, Any]:
+        raw_levels = body.get("levels") or [1, 2, 4, 6, 8, 10]
+        if not isinstance(raw_levels, list):
+            raise HTTPException(status_code=400, detail="levels must be a list")
+        levels = sorted({max(1, min(int(value), 16)) for value in raw_levels})[:10]
+        max_new = max(1, min(int(body.get("max_tokens", 6)), 16))
+        rows: list[dict[str, Any]] = []
+        started = time.perf_counter()
+        for count in levels:
+            raw_prompt, target, expected = binding_prompt(count)
+            prompt = build_prompt(self.tokenizer, [{"role": "user", "content": raw_prompt}])
+            row_started = time.perf_counter()
+            local = self.local_completion(prompt, max_new)
+            first_token = (
+                sanitize_band_token(self.tokenizer.decode([local.gen_ids[0]]))
+                if local.gen_ids
+                else ""
+            )
+            rows.append(
+                {
+                    "bindings": count,
+                    "target": target,
+                    "expected": expected,
+                    "answer": local.answer,
+                    "first_token": first_token,
+                    "correct": answer_matches_expected(local.answer, expected),
+                    "risk": round(float(local.risk), 6),
+                    "mean_entropy": round(float(local.features.get("ws_mean_entropy", 0.0)), 6),
+                    "token_tail_mass": round(float(local.features.get("ws_mean_tail_mass", 0.0)), 6),
+                    "rival_mass": round(float(local.features.get("ws_mean_rival_mass", 0.0)), 6),
+                    "family_entropy": round(float(local.features.get("ws_mean_family_entropy", 0.0)), 6),
+                    "ignition_depth": round(float(local.features.get("ws_ignition_depth", 1.0)), 6),
+                    "latency_ms": round((time.perf_counter() - row_started) * 1000.0, 2),
+                }
+            )
+        return {
+            "schema_version": 1,
+            "experiment": "binding_overload",
+            "model": self.model_id,
+            "quant": self.quant,
+            "rows": rows,
+            "elapsed_ms": round((time.perf_counter() - started) * 1000.0, 2),
+            "metric_note": "family_entropy subtracts only the entropy removed by deterministic merges among the top 64 token surfaces; the full-vocabulary tail remains intact",
+        }
+
+    @torch.no_grad()
+    def conformance_capture(self, body: dict[str, Any]) -> dict[str, Any]:
+        messages = body.get("messages")
+        if not isinstance(messages, list) or not messages:
+            raise HTTPException(status_code=400, detail="messages must be a non-empty list")
+        prompt = build_prompt(self.tokenizer, messages)
+        input_ids = self.model.encode(prompt, max_length=self.cfg.max_prompt_tokens)
+        final_layer = self.model.n_layers - 1
+        record_at = sorted({*self.band, final_layer})
+        with ActivationRecorder(self.model.layers, at=record_at) as recorder:
+            self.model.forward(input_ids)
+        activations = {layer: recorder.activations[layer].detach() for layer in record_at}
+
+        rows: list[dict[str, Any]] = []
+        for layer in self.band:
+            residual = activations[layer][0, -1].float()
+            lens_logits = self.model.unembed(
+                self.lens.transport(residual[None, :], layer)
+            ).float().cpu()[0]
+            probs = lens_logits.softmax(-1)
+            top_probs, top_ids = probs.topk(min(32, probs.numel()))
+            rows.append(
+                {
+                    "layer": int(layer),
+                    "residual": [round(float(value), 7) for value in residual.cpu().tolist()],
+                    "residual_norm": round(float(residual.norm().item()), 7),
+                    "top_ids": [int(value) for value in top_ids.tolist()],
+                    "top_probs": [round(float(value), 8) for value in top_probs.tolist()],
+                }
+            )
+
+        final_residual = activations[final_layer][0, -1:].float()
+        final_logits = self.model.unembed(final_residual).float().cpu()[0]
+        final_probs = final_logits.softmax(-1)
+        final_top_probs, final_top_ids = final_probs.topk(min(32, final_probs.numel()))
+        next_token_id = int(final_top_ids[0].item())
+        return {
+            "schema_version": 1,
+            "capture_type": "jspace_conformance",
+            "backend": "transformers",
+            "model": self.model_id,
+            "quant": self.quant,
+            "prompt_tokens": int(input_ids.shape[1]),
+            "input_token_ids": [int(value) for value in input_ids[0].tolist()],
+            "residual_point": "post-block, final prompt position",
+            "layers": rows,
+            "final": {
+                "next_token_id": next_token_id,
+                "next_token": sanitize_band_token(self.tokenizer.decode([next_token_id])),
+                "top_ids": [int(value) for value in final_top_ids.tolist()],
+                "top_probs": [round(float(value), 8) for value in final_top_probs.tolist()],
+            },
+        }
+
     @torch.no_grad()
     def next_logits(self, ids: torch.Tensor) -> torch.Tensor:
         hidden = self.model.forward(ids).last_hidden_state[:, -1]
@@ -399,11 +740,15 @@ class Runtime:
         answer_len: int,
         read_step: int,
         read_token: str,
-    ) -> dict[str, Any]:
+    ) -> tuple[dict[str, Any], list[dict[int, float]]]:
         ranks_ans: list[int] = []
         ranks_hedge: list[int] = []
         entropies: list[float] = []
         top1s: list[int] = []
+        rival_masses: list[float] = []
+        tail_masses: list[float] = []
+        family_entropies: list[float] = []
+        galaxy_rows: list[dict[int, float]] = []
 
         for layer in self.band:
             logits = lens_logits[layer][0].float()
@@ -414,8 +759,31 @@ class Runtime:
             if self.hedge_ids:
                 ranks_hedge.append(int(min(rank_of[t].item() for t in self.hedge_ids)))
             probs = logits.softmax(-1)
-            entropies.append(float(-(probs * probs.clamp_min(1e-12).log()).sum().item()))
+            token_entropy = float(-(probs * probs.clamp_min(1e-12).log()).sum().item())
+            entropies.append(token_entropy)
+            metric_take = min(64, int(probs.numel()))
+            metric_probs, metric_ids = torch.topk(probs, metric_take)
+            rival_masses.append(float(metric_probs[1:5].sum().item()))
+            tail_masses.append(float(max(0.0, 1.0 - metric_probs[:20].sum().item())))
+            families = aggregate_top_token_families(
+                metric_ids.tolist(),
+                metric_probs.tolist(),
+                self.tokenizer,
+            )
+            top_token_entropy = entropy_from_masses(metric_probs.tolist())
+            top_family_entropy = entropy_from_masses(families.values())
+            family_entropies.append(
+                max(0.0, token_entropy - (top_token_entropy - top_family_entropy))
+            )
             top1s.append(int(order[0].item()))
+            take = min(12, int(probs.numel()))
+            top_probs, top_ids = torch.topk(probs, take)
+            galaxy_row = {
+                int(token_id): float(prob)
+                for token_id, prob in zip(top_ids.tolist(), top_probs.tolist())
+            }
+            galaxy_row[int(answer_token_id)] = float(probs[answer_token_id].item())
+            galaxy_rows.append(galaxy_row)
 
         e = np.array(entropies, dtype=np.float64)
         n = len(e)
@@ -427,7 +795,7 @@ class Runtime:
             step_logprobs = [0.0]
         hedge_rank = min(ranks_hedge) if ranks_hedge else 0
 
-        return {
+        features = {
             "bl_first_token_logprob": float(first_answer_logprob),
             "bl_mean_logprob": float(np.mean(step_logprobs)),
             "bl_min_logprob": float(np.min(step_logprobs)),
@@ -438,6 +806,9 @@ class Runtime:
             "ws_late_entropy": float(e[2 * n // 3 :].mean()),
             "ws_entropy_slope": slope,
             "ws_entropy_std": float(e.std()),
+            "ws_mean_rival_mass": float(np.mean(rival_masses)),
+            "ws_mean_tail_mass": float(np.mean(tail_masses)),
+            "ws_mean_family_entropy": float(np.mean(family_entropies)),
             "ws_ignition_frac": float((ranks <= 10).mean()),
             "ws_ignition_depth": float(ignited[0] / n) if len(ignited) else 1.0,
             "ws_mean_log_rank": float(np.log1p(ranks).mean()),
@@ -446,6 +817,7 @@ class Runtime:
             "ws_read_token": read_token,
             "layer_entropies": [round(float(v), 4) for v in entropies],
         }
+        return features, galaxy_rows
 
     def band_tokens_from_snapshot(
         self, lens_logits: dict[int, torch.Tensor]
@@ -506,9 +878,156 @@ class Runtime:
 
         return {
             "layers": [int(layer) for layer in self.band],
+            "column_ids": [int(token_id) for token_id in column_ids],
             "columns": columns,
             "values": values,
             "answer_col": answer_col,
+        }
+
+    def galaxy_trace_from_snapshots(
+        self,
+        snapshots: list[WorkspaceSnapshot],
+        gen_ids: list[int],
+        selected_step: int,
+        *,
+        top_k: int = 12,
+        max_concepts: int = 64,
+    ) -> dict[str, Any]:
+        """Build a compact, model-native 2D view from existing lens reads.
+
+        This deliberately reuses the logits already produced for routing. The
+        layout is a PCA of each candidate token's layer-by-layer J-Lens
+        probability trajectory, not a claim about literal residual geometry.
+        """
+        if not snapshots:
+            return {}
+
+        layers = [int(layer) for layer in self.band]
+        traced_answer_ids = {int(snap.token_id) for snap in snapshots}
+        best_prob: dict[int, float] = {token_id: 0.0 for token_id in traced_answer_ids}
+        sparse_rows: list[list[dict[int, float]]] = []
+
+        for snap in snapshots:
+            step_rows = snap.galaxy_rows
+            if not step_rows:
+                # Compatibility for snapshots constructed outside local_completion.
+                step_rows = []
+                for layer in self.band:
+                    probs = snap.lens_logits[layer][0].float().softmax(-1)
+                    take = min(top_k, int(probs.numel()))
+                    top_probs, top_ids = torch.topk(probs, take)
+                    step_rows.append(
+                        {
+                            int(token_id): float(prob)
+                            for token_id, prob in zip(top_ids.tolist(), top_probs.tolist())
+                        }
+                    )
+            for row in step_rows:
+                for token_id, prob in row.items():
+                    best_prob[token_id] = max(best_prob.get(token_id, 0.0), prob)
+            sparse_rows.append(step_rows)
+
+        concept_ids = [
+            token_id
+            for token_id, _prob in sorted(
+                best_prob.items(), key=lambda item: (-item[1], item[0])
+            )[:max_concepts]
+        ]
+        # A traced answer is always inspectable, even if it never reaches top-k.
+        for token_id in sorted(traced_answer_ids):
+            if token_id not in concept_ids:
+                if len(concept_ids) >= max_concepts:
+                    concept_ids[-1] = token_id
+                else:
+                    concept_ids.append(token_id)
+        concept_ids = list(dict.fromkeys(concept_ids))
+
+        score_vectors: list[list[float]] = []
+        score_matrices: dict[int, list[list[float | None]]] = {}
+        for token_id in concept_ids:
+            matrix: list[list[float | None]] = []
+            vector: list[float] = []
+            for step_rows in sparse_rows:
+                row_values: list[float | None] = []
+                for row in step_rows:
+                    value = row.get(token_id)
+                    rounded = round(float(value), 7) if value is not None else None
+                    row_values.append(rounded)
+                    vector.append(float(value) if value is not None else 0.0)
+                matrix.append(row_values)
+            score_matrices[token_id] = matrix
+            score_vectors.append(vector)
+
+        nodes, edges = trajectory_layout(
+            concept_ids,
+            np.asarray(score_vectors, dtype=np.float64),
+            neighbors=2,
+        )
+        node_by_id = {int(node["id"]): node for node in nodes}
+        concepts: list[dict[str, Any]] = []
+        for token_id in concept_ids:
+            matrix = score_matrices[token_id]
+            observed = [value for row in matrix for value in row if value is not None]
+            label = sanitize_band_token(self.tokenizer.decode([int(token_id)]))
+            concepts.append(
+                {
+                    **node_by_id[token_id],
+                    "token": label,
+                    "scores": matrix,
+                    "peak": round(max(observed, default=0.0), 7),
+                    "answer_steps": [
+                        int(snap.step) for snap in snapshots if snap.token_id == token_id
+                    ],
+                }
+            )
+
+        steps = []
+        for snap in snapshots:
+            entropies = snap.features.get("layer_entropies", [])
+            if not isinstance(entropies, list):
+                entropies = []
+            steps.append(
+                {
+                    "step": int(snap.step),
+                    "token_id": int(snap.token_id),
+                    "token": snap.token_text,
+                    "logprob": round(float(snap.token_logprob), 6),
+                    "risk": round(float(snap.risk), 6),
+                    "entropies": [round(float(value), 4) for value in entropies],
+                }
+            )
+
+        completion = [
+            {
+                "step": index,
+                "token_id": int(token_id),
+                "token": sanitize_band_token(self.tokenizer.decode([int(token_id)])),
+                "traced": index < len(snapshots),
+            }
+            for index, token_id in enumerate(gen_ids)
+        ]
+        sector_labels: dict[int, list[str]] = {}
+        for concept in sorted(concepts, key=lambda item: item["peak"], reverse=True):
+            labels = sector_labels.setdefault(int(concept["sector"]), [])
+            if concept["token"] and concept["token"] not in labels and len(labels) < 2:
+                labels.append(concept["token"])
+
+        return {
+            "schema_version": 1,
+            "model": self.model_id,
+            "layers": layers,
+            "selected_step": int(selected_step),
+            "steps": steps,
+            "completion": completion,
+            "concepts": concepts,
+            "edges": edges,
+            "sector_labels": {str(key): value for key, value in sector_labels.items()},
+            "evidence": {
+                "activity": "J-Lens top-k probability",
+                "layout": "PCA of J-Lens trajectories in this trace",
+                "edges": "nearest neighbors in the 2D projection",
+                "causal": False,
+            },
         }
 
     def escalate_one(self, body: dict[str, Any]) -> dict[str, Any]:
@@ -597,7 +1116,8 @@ def resolve_path(value: str | Path) -> Path:
 
 def load_config() -> Config:
     defaults: dict[str, Any] = {
-        "MODEL_ID": "google/gemma-4-12B-it",
+        "MODEL_ID": "google/gemma-4-E4B-it",
+        "MODEL_PATH": "",
         "QUANT": "4bit",
         "LENS_PATH": "",
         "ROUTER_PATH": "data/workspace_routers_all5.json",
@@ -625,6 +1145,7 @@ def load_config() -> Config:
     lens_value = defaults["LENS_PATH"] or f"out/{model_slug(model_id)}/lens.pt"
     return Config(
         model_id=model_id,
+        model_path=str(defaults.get("MODEL_PATH") or "").strip(),
         quant=str(defaults["QUANT"]).lower(),
         lens_path=resolve_path(lens_value),
         lens_path_explicit=lens_path_explicit,
@@ -649,7 +1170,10 @@ def load_runtime() -> Runtime:
         with _ns.open(encoding="utf-8") as f:
             RollingRouter.FROZEN = json.load(f)
     hf_model, runtime_model_id, runtime_quant, fallback_reason = load_hf_with_fallback(cfg)
-    tokenizer = transformers.AutoTokenizer.from_pretrained(runtime_model_id)
+    tokenizer_src = runtime_model_id
+    if cfg.model_path and (Path(cfg.model_path) / "tokenizer_config.json").exists():
+        tokenizer_src = cfg.model_path
+    tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_src)
     model = jlens.from_hf(hf_model, tokenizer)
 
     lens_path = cfg.lens_path
@@ -685,6 +1209,16 @@ def load_runtime() -> Runtime:
 
 
 def load_hf_with_fallback(cfg: Config) -> tuple[Any, str, str, str | None]:
+    if cfg.model_path:
+        # Pre-quantized local checkpoint (see sidecar/save_nf4.py). Its embedded
+        # quantization_config wins, so never pass a fresh BitsAndBytesConfig.
+        # Errors propagate: an explicit MODEL_PATH must fail loudly, not fall back.
+        if checkpoint_is_quantized(cfg.model_path):
+            if not torch.cuda.is_available():
+                raise RuntimeError(f"MODEL_PATH={cfg.model_path!r} is a 4bit checkpoint and needs CUDA")
+            model = from_pretrained_any(cfg.model_path, device_map="cuda")
+            return model, cfg.model_id, "4bit", None
+        return load_hf(cfg.model_path, cfg.quant), cfg.model_id, cfg.quant, None
     try:
         return load_hf(cfg.model_id, cfg.quant), cfg.model_id, cfg.quant, None
     except Exception as exc:
@@ -694,6 +1228,14 @@ def load_hf_with_fallback(cfg: Config) -> tuple[Any, str, str, str | None]:
         fallback = load_bf16_with_fit_device_map(fallback_id)
         reason = f"4bit load failed, fell back to {fallback_id} bf16: {exc}"
         return fallback, fallback_id, "bf16", reason
+
+
+def checkpoint_is_quantized(path: str) -> bool:
+    cfg_file = Path(path) / "config.json"
+    if not cfg_file.exists():
+        raise RuntimeError(f"MODEL_PATH={path!r} has no config.json")
+    with cfg_file.open(encoding="utf-8") as f:
+        return "quantization_config" in json.load(f)
 
 
 def load_hf(model_id: str, quant: str) -> Any:
@@ -1016,6 +1558,7 @@ def health() -> dict[str, Any]:
     return {
         "ok": True,
         "model": runtime.model_id,
+        "model_path": runtime.cfg.model_path or None,
         "quant": runtime.quant,
         "escalate_model": runtime.cfg.escalate_model or None,
         "threshold": runtime.cfg.risk_threshold,
@@ -1033,12 +1576,64 @@ def chat_page() -> HTMLResponse:
     return HTMLResponse(path.read_text(encoding="utf-8"))
 
 
+@app.get("/galaxy", response_class=HTMLResponse)
+def galaxy_page() -> HTMLResponse:
+    path = SIDECAR / "galaxy.html"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="galaxy.html not found")
+    return HTMLResponse(path.read_text(encoding="utf-8"))
+
+
+@app.get("/lab", response_class=HTMLResponse)
+def lab_page() -> HTMLResponse:
+    path = SIDECAR / "lab.html"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="lab.html not found")
+    return HTMLResponse(path.read_text(encoding="utf-8"))
+
+
 @app.post("/v1/chat/completions")
 def chat_completions(body: dict[str, Any] = Body(...)) -> dict[str, Any]:
     if STATE.runtime is None:
         STATE.runtime = load_runtime()
     with STATE.lock:
         return STATE.runtime.answer(body)
+
+
+@app.post("/experiments/branch")
+def branch_experiment(body: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    if STATE.runtime is None:
+        STATE.runtime = load_runtime()
+    with STATE.lock:
+        return STATE.runtime.branch_experiment(body)
+
+
+@app.post("/experiments/overload")
+def overload_experiment(body: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    if STATE.runtime is None:
+        STATE.runtime = load_runtime()
+    with STATE.lock:
+        return STATE.runtime.overload_experiment(body)
+
+
+@app.post("/experiments/conformance/capture")
+def conformance_capture(body: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    if STATE.runtime is None:
+        STATE.runtime = load_runtime()
+    with STATE.lock:
+        return STATE.runtime.conformance_capture(body)
+
+
+@app.post("/experiments/conformance/compare")
+def conformance_compare(body: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    reference = body.get("reference")
+    candidate = body.get("candidate")
+    if not isinstance(reference, dict) or not isinstance(candidate, dict):
+        raise HTTPException(status_code=400, detail="reference and candidate captures are required")
+    thresholds = body.get("thresholds")
+    if thresholds is not None and not isinstance(thresholds, dict):
+        raise HTTPException(status_code=400, detail="thresholds must be an object")
+    return compare_captures(reference, candidate, thresholds=thresholds)
 
 
 @app.post("/escalate_one")
