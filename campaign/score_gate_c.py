@@ -14,9 +14,9 @@ The differences are deliberate and are reported in the output payload:
   * Rows are restricted to answers of at least 32 tokens. Early warning is
     undefined where there is no room to warn: legal_hallucinations never reaches
     8 tokens and trivia_qa's median answer is about 4.
-  * Answers are freshly generated and freshly graded. The July generations are
-    not reproducible from the current image, so July labels do not describe
-    September answers.
+  * Answers are freshly generated and freshly graded. The July generations did
+    not reproduce in a September comparison, so a July label does not describe a
+    September answer. Why they diverged has not been isolated.
   * The primary model is logistic regression, matching the 2026-09-05 audit.
     LightGBM is reported beside it when installed, since the campaign's frozen
     classifier was LightGBM and the two were effectively tied at Stage 1.
@@ -199,25 +199,32 @@ def main() -> None:
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
-    rows, dropped = [], collections.Counter()
+    rows, unresolved, dropped = [], [], collections.Counter()
+    excluded_by_source = collections.Counter()
+    excluded_methods = collections.Counter()
     with io.open(args.input, encoding="utf-8") as fh:
         for line in fh:
             if not line.strip():
                 continue
             row = json.loads(line)
-            # Label from the FRESH grade of THIS run's answer. The manifest also
-            # carries the July label, but greedy regeneration reproduced almost
-            # none of the July answers, so that label describes different text.
-            grade = row.get("deterministic_grade") or {}
-            if grade.get("correct") is None:
-                dropped["unlabeled_needs_judge"] += 1
-                continue
             a = arms(row)
             if not a:
                 dropped["missing_checkpoint"] += 1
                 continue
-            row["_label"] = not bool(grade["correct"])
             row["_arms"] = a
+            # Label from the FRESH grade of THIS run's answer. The manifest also
+            # carries the July label, but regeneration reproduced almost none of
+            # the July answers, so that label describes different text.
+            grade = row.get("deterministic_grade") or {}
+            if grade.get("correct") is None:
+                # Unresolved, not discarded. Kept so the verdict can be bounded
+                # against every possible assignment of these rows.
+                dropped["unlabeled_needs_judge"] += 1
+                excluded_by_source[row["source_dataset"]] += 1
+                excluded_methods[grade.get("method", "unknown")] += 1
+                unresolved.append(row)
+                continue
+            row["_label"] = not bool(grade["correct"])
             rows.append(row)
 
     arm_names = ["full_lp", "full_lp_ws", "prefix_lp", "prefix_lp_ws",
@@ -230,6 +237,9 @@ def main() -> None:
         "criterion": "50%-prefix increment >= 90% of full-answer increment (LODO mean)",
         "n_rows": len(rows),
         "dropped": dict(dropped),
+        "excluded_unresolved_by_source": dict(excluded_by_source),
+        "excluded_unresolved_by_method": dict(excluded_methods),
+        "n_unresolved_kept_for_sensitivity": len(unresolved),
         "rows_by_source": dict(collections.Counter(r["source_dataset"] for r in rows)),
         "error_rate_by_source": {},
         "models": {},
@@ -268,6 +278,43 @@ def main() -> None:
         block["secondary_prefix_plus_last_token"] = ratio("prefix_plus_lp", "prefix_plus_lp_ws")
         block["deployable_token8"] = ratio("fixed8_lp", "fixed8_lp_ws")
         block["deployable_token16"] = ratio("fixed16_lp", "fixed16_lp_ws")
+        # Bound the registered verdict against the unresolved rows. Imputing all
+        # of them one way and then the other brackets every possible adjudication.
+        if unresolved:
+            bounds = {}
+            for name, as_error in (("all_unresolved_are_errors", True),
+                                   ("all_unresolved_are_correct", False)):
+                for row in unresolved:
+                    row["_label"] = as_error
+                augmented = rows + unresolved
+                lo = lodo(augmented, "prefix_lp", make_model)
+                hi = lodo(augmented, "prefix_lp_ws", make_model)
+                f_lo = lodo(augmented, "full_lp", make_model)
+                f_hi = lodo(augmented, "full_lp_ws", make_model)
+                if None in (lo["mean"], hi["mean"], f_lo["mean"], f_hi["mean"]):
+                    bounds[name] = {"verdict": "UNDECIDABLE"}
+                    continue
+                full = f_hi["mean"] - f_lo["mean"]
+                inc = hi["mean"] - lo["mean"]
+                entry = {"increment": inc, "full_answer_increment": full}
+                if full <= 0:
+                    entry["verdict"] = "UNDECIDABLE"
+                else:
+                    entry["retention_ratio"] = inc / full
+                    entry["verdict"] = "HIT" if inc / full >= 0.90 else "MISS"
+                bounds[name] = entry
+            for row in unresolved:
+                row.pop("_label", None)
+            verdicts = {b.get("verdict") for b in bounds.values()}
+            primary = block["registered_primary"].get("verdict")
+            bounds["verdict_stable_under_every_assignment"] = (
+                len(verdicts) == 1 and primary in verdicts)
+            bounds["note"] = (
+                "Unresolved rows are those the deterministic grader routed to a "
+                "judge and no judge has adjudicated. Imputing them both ways "
+                "brackets the verdict; if the bracket disagrees with the primary "
+                "result the gate is undecided until they are judged.")
+            block["unresolved_sensitivity"] = bounds
         payload["models"][model_name] = block
 
     payload["caveats"] = [
@@ -282,6 +329,9 @@ def main() -> None:
         "The 50% checkpoint needs the eventual answer length and is an oracle "
         "observation; token 8 and token 16 are the deployable ones.",
         "Sources below the size or minority-class floor are skipped and listed.",
+        "Rows the grader routed to a judge have NOT been adjudicated. They are "
+        "excluded from the primary result, counted by source and method, and the "
+        "verdict is bracketed by imputing them both ways.",
     ]
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
@@ -289,6 +339,11 @@ def main() -> None:
         json.dump(payload, fh, indent=2)
 
     print(f"rows={len(rows)} dropped={dict(dropped)}")
+    if excluded_by_source:
+        print(f"UNRESOLVED (routed to a judge, none adjudicated): "
+              f"{sum(excluded_by_source.values())}")
+        print(f"  by source: {dict(excluded_by_source)}")
+        print(f"  by method: {dict(excluded_methods)}")
     print(f"by source: {payload['rows_by_source']}")
     print(f"error rate: {payload['error_rate_by_source']}")
     for model_name, block in payload["models"].items():
@@ -310,6 +365,15 @@ def main() -> None:
                 ci = f" CI[{r['increment_p2.5']:+.4f},{r['increment_p97.5']:+.4f}]"
             print(f"  {key:34s} increment {r.get('increment', float('nan')):+.4f}{ci} "
                   f"ratio {ratio_txt} -> {r['verdict']}")
+        sens = block.get("unresolved_sensitivity")
+        if sens:
+            for name in ("all_unresolved_are_errors", "all_unresolved_are_correct"):
+                b = sens[name]
+                rt = (f"{b['retention_ratio']:.3f}" if b.get("retention_ratio") is not None
+                      else "n/a")
+                print(f"  sensitivity {name:32s} ratio {rt} -> {b['verdict']}")
+            print(f"  verdict stable under every assignment: "
+                  f"{sens['verdict_stable_under_every_assignment']}")
     print(f"\nwrote {args.out}")
 
 
