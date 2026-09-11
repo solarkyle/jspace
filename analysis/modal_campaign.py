@@ -71,7 +71,8 @@ def _slug(model_id: str) -> str:
     secrets=[modal.Secret.from_name("huggingface")],
 )
 def run_shard(model_id: str, prompts: list, tag: str, shard: int,
-              max_new: int = 64, quant: str = "", verify: int = 0) -> dict:
+              max_new: int = 64, quant: str = "", verify: int = 0,
+              revision: str = "") -> dict:
     import logging
     import time
     os.environ["HF_HOME"] = "/hf"
@@ -80,16 +81,20 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
     import numpy as np, torch, transformers, jlens
     from jlens.hooks import ActivationRecorder
 
-    tok = transformers.AutoTokenizer.from_pretrained(model_id)
+    # Pin the revision when one is given. Without it the hub serves whatever the
+    # branch currently points at, which is why the July generations cannot be
+    # reproduced: the model repo changed on 2026-07-20, after the campaign ran.
+    rev = {"revision": revision} if revision else {}
+    tok = transformers.AutoTokenizer.from_pretrained(model_id, **rev)
     kwargs = dict(dtype=torch.bfloat16, device_map="cuda")
     if quant == "4bit":
         kwargs = dict(quantization_config=transformers.BitsAndBytesConfig(
             load_in_4bit=True, bnb_4bit_quant_type="nf4",
             bnb_4bit_compute_dtype=torch.bfloat16), device_map="cuda")
     try:
-        hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+        hf = transformers.AutoModelForCausalLM.from_pretrained(model_id, **kwargs, **rev)
     except ValueError:
-        hf = transformers.AutoModelForImageTextToText.from_pretrained(model_id, **kwargs)
+        hf = transformers.AutoModelForImageTextToText.from_pretrained(model_id, **kwargs, **rev)
     hf.eval()
     hf_cache.commit()
     model = jlens.from_hf(hf, tok)
@@ -315,20 +320,101 @@ def run_shard(model_id: str, prompts: list, tag: str, shard: int,
         "max_verify_abs_err": max_verify_err, "verified": min(verify, len(rows)),
         "verify_feat_err": {k: round(v, 5) for k, v in verify_feat_err.items()},
         "path": path,
+        "model_revision": revision or "(unpinned)",
     }
     logging.info("STATS %s", json.dumps(stats))
     return stats
 
 
+@app.function(
+    image=image, timeout=600,
+    volumes={"/hf": hf_cache, "/out": out_vol},
+    secrets=[modal.Secret.from_name("huggingface")],
+)
+def env_report(model_id: str = "google/gemma-4-12B-it") -> dict:
+    """Record the environment the shards actually ran in. CPU only, no GPU cost.
+
+    This does not make the run reproducible after the fact. It makes it
+    DESCRIBABLE, which is the part that was missing: the first campaign left no
+    record at all, so when its generations stopped reproducing there was nothing
+    to compare against.
+    """
+    import hashlib
+    import platform
+    import subprocess
+    import sys
+
+    out = {"python": sys.version, "platform": platform.platform()}
+
+    packages = {}
+    for name in ("torch", "transformers", "accelerate", "bitsandbytes",
+                 "datasets", "huggingface_hub", "numpy", "jlens"):
+        try:
+            module = __import__(name)
+            packages[name] = getattr(module, "__version__", "unknown")
+        except Exception as exc:
+            packages[name] = f"unavailable: {exc.__class__.__name__}"
+    out["packages"] = packages
+
+    try:
+        out["pip_freeze"] = subprocess.run(
+            [sys.executable, "-m", "pip", "freeze"],
+            capture_output=True, text=True, timeout=120).stdout.splitlines()
+    except Exception as exc:
+        out["pip_freeze"] = f"unavailable: {exc}"
+
+    # The commit the unpinned model id actually resolves to right now.
+    try:
+        from huggingface_hub import HfApi
+        info = HfApi().model_info(model_id)
+        out["model"] = {"id": model_id, "sha": info.sha,
+                        "last_modified": str(getattr(info, "lastModified", ""))}
+    except Exception as exc:
+        out["model"] = f"unavailable: {exc}"
+
+    lens_path = f"/out/{_slug(model_id)}/lens.pt"
+    try:
+        digest = hashlib.sha256()
+        with open(lens_path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b""):
+                digest.update(chunk)
+        out["lens"] = {"path": lens_path, "sha256": digest.hexdigest(),
+                       "bytes": os.path.getsize(lens_path)}
+    except Exception as exc:
+        out["lens"] = f"unavailable: {exc}"
+
+    out["settings"] = {"band_lo": BAND_LO, "band_hi": BAND_HI,
+                       "prefix_fracs": PREFIX_FRACS,
+                       "fixed_checkpoints": FIXED_CHECKPOINTS,
+                       "requested_gpu": GPU, "timeout_s": TIMEOUT_S}
+    return out
+
+
+@app.local_entrypoint()
+def env(model: str = "google/gemma-4-12B-it", out: str = "out/campaign/environment.json"):
+    """Write the image's resolved environment to a local JSON file."""
+    report = env_report.remote(model)
+    os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
+    with open(out, "w", encoding="utf-8") as fh:
+        json.dump(report, fh, indent=2)
+    print(json.dumps({k: v for k, v in report.items() if k != "pip_freeze"}, indent=2))
+    print(f"wrote {out}")
+
+
 @app.local_entrypoint()
 def run(manifest: str, model: str = "google/gemma-4-12B-it", tag: str = "pilot",
         shard: int = 0, n_shards: int = 1, max_new: int = 64, quant: str = "",
-        verify: int = 0):
+        verify: int = 0, revision: str = ""):
     prompts = [json.loads(l) for l in open(manifest, encoding="utf-8") if l.strip()]
     if n_shards > 1:
         prompts = prompts[shard::n_shards]
     print(f"{len(prompts)} prompts, shard {shard}/{n_shards}, model {model}")
-    stats = run_shard.remote(model, prompts, tag, shard, max_new, quant, verify)
+    revision = revision or os.environ.get("JLENS_MODEL_REVISION", "")
+    if not revision:
+        print("WARNING: model revision is unpinned; this run will not be "
+              "reproducible once the hub repo changes")
+    stats = run_shard.remote(model, prompts, tag, shard, max_new, quant,
+                             verify, revision)
     print("STATS:", json.dumps(stats, indent=2))
     if stats["verified"]:
         fe = stats["verify_feat_err"]
