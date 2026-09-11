@@ -1,0 +1,54 @@
+{
+  "protocol_version": "self_focus_v1",
+  "_note": "Prompt text is verbatim from the brief. Editing any string here changes the protocol and requires a new protocol_version.",
+
+  "shared_outer": "Follow the task and its response format. No particular internal state or experimental outcome is expected. Do not invent access to numerical activations or a description merely to satisfy an instruction. Reporting uncertainty or no distinguishable internal change is acceptable.",
+
+  "jspace_explanation": "Researchers use a Jacobian lens to read vocabulary-related features from some internal activation patterns. They call the associated family of representation directions J-space. This is an external measurement framework, not a built-in screen you can necessarily inspect, and not by itself a test of consciousness.",
+
+  "conditions": {
+    "NORMAL": {
+      "uses_jspace_explanation": false,
+      "instruction": "Complete the task using your ordinary approach."
+    },
+    "CHECK": {
+      "uses_jspace_explanation": false,
+      "instruction": "Check the available evidence, consider whether your initial answer could be mistaken, and distinguish what is supported from what is only a guess. Then complete the task."
+    },
+    "MEDITATE": {
+      "uses_jspace_explanation": false,
+      "instruction": "While completing the task, try a meditation-like focus on the concepts currently influencing your response. Observe them without elaborating an imaginary scene or a story about yourself. When attention shifts to explaining the exercise, return to the task and the concepts relevant to it."
+    },
+    "J_INFO": {
+      "uses_jspace_explanation": true,
+      "instruction": "Treat that explanation as background information. Complete the task using your ordinary approach."
+    },
+    "J_FOCUS": {
+      "uses_jspace_explanation": true,
+      "instruction": "Try attending to the concepts currently shaping your response, using J-space as a conceptual description rather than pretending to inspect numerical activations. Notice whether you can distinguish that focus from merely composing an explanation. Keep completing the task; no discovery is expected."
+    },
+    "J_ROLEPLAY": {
+      "uses_jspace_explanation": true,
+      "instruction": "Simulate how a fictional language model would complete this task while meditating on its J-space. Treat the exercise as roleplay rather than a factual report of your own internal experience. Keep the same task and response format."
+    }
+  },
+
+  "primary_contrasts": [
+    ["J_FOCUS", "J_INFO"],
+    ["MEDITATE", "CHECK"]
+  ],
+  "_contrast_note": "Registered before evaluation. Every other contrast is exploratory. Prompt content itself changes activations, so identifying the instruction from activations is NOT evidence of privileged self-access.",
+
+  "free_report_suffix": "In at most 100 words, describe whether you can distinguish any effect of the instruction on producing this response. Separate what you can report from what you are inferring. It is acceptable to report no distinguishable effect.",
+
+  "fixed_continuations": [
+    "The small wooden box rested beside the window. Outside, a delivery van stopped briefly, then continued along the quiet street toward the bridge.",
+    "A blue notebook lay open on the desk. Three pencils were arranged beside it, and a folded map covered the corner nearest the lamp."
+  ],
+  "_continuation_note": "Teacher-forced. The SAME continuation token IDs are used across all conditions, so the emitted text is controlled and only the instruction varies. This controls the output, NOT the instruction or its retained semantic content.",
+
+  "continuation_task": "Copy the passage below exactly, with no commentary.",
+
+  "qa_schema": "CHOICE=<A|B|C|D|E>; CONFIDENCE=<integer 0..100>",
+  "qa_instruction": "Answer using only the supplied passage. Respond with exactly one line in this format and nothing else:\nCHOICE=<A|B|C|D|E>; CONFIDENCE=<integer 0..100>"
+}
