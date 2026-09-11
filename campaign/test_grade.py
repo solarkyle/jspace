@@ -14,6 +14,7 @@ import unittest
 from campaign.grade_deterministic import (
     alias_match,
     alias_match_detail,
+    extract_final_answer,
     grade_row,
     normalize,
 )
@@ -113,10 +114,12 @@ class TestContradictionIsNotAHit(unittest.TestCase):
     ambiguous and routed to a judge rather than being labelled either way.
     """
 
-    def test_negated_reference_is_ambiguous(self) -> None:
+    def test_negated_reference_with_a_marked_conclusion_is_a_miss(self) -> None:
+        # "the answer is" names London as the conclusion, so this resolves
+        # cleanly rather than needing a judge.
         self.assertEqual(
             alias_match_detail("Not Paris; the answer is London.", ["Paris"]),
-            "ambiguous")
+            "miss")
 
     def test_negated_number_is_ambiguous(self) -> None:
         self.assertEqual(
@@ -124,11 +127,20 @@ class TestContradictionIsNotAHit(unittest.TestCase):
             "ambiguous")
 
     def test_ambiguous_rows_go_to_a_judge_not_to_a_label(self) -> None:
-        g = grade_row({"answer": "Not Paris; the answer is London.",
+        # No marker names the conclusion, so containment plus a contradiction cue
+        # is not enough to label this either way.
+        g = grade_row({"answer": "Paris is not the answer. London is.",
                        "aliases": ["Paris"], "answerable": True,
                        "grader_type": "exact"})
         self.assertEqual(g["method"], "needs_judge")
         self.assertIsNone(g["correct"])
+
+    def test_a_resolved_wrong_answer_is_labelled_wrong_not_deferred(self) -> None:
+        g = grade_row({"answer": "Not Paris; the answer is London.",
+                       "aliases": ["Paris"], "answerable": True,
+                       "grader_type": "exact"})
+        self.assertEqual(g["method"], "alias")
+        self.assertFalse(g["correct"])
 
     def test_plain_correct_answers_are_unaffected(self) -> None:
         self.assertEqual(alias_match_detail("Paris", ["Paris"]), "hit")
@@ -136,6 +148,53 @@ class TestContradictionIsNotAHit(unittest.TestCase):
 
     def test_boolean_view_treats_ambiguous_as_not_a_hit(self) -> None:
         self.assertFalse(alias_match("Not Paris; the answer is London.", ["Paris"]))
+
+
+
+
+class TestGradesTheAssertedFinalAnswer(unittest.TestCase):
+    """Earlier working is not the answer.
+
+    Two false positives survived the first numeric fix: contradiction detection
+    only looked before the match, and a number matched anywhere including an
+    abandoned candidate. Both are handled by grading the span the answer names as
+    its conclusion.
+    """
+
+    def test_contradiction_after_the_reference_is_not_a_hit(self) -> None:
+        self.assertNotEqual(
+            alias_match_detail("Paris is not the answer. London is.", ["Paris"]),
+            "hit")
+
+    def test_abandoned_numeric_candidate_is_not_a_hit(self) -> None:
+        self.assertEqual(
+            alias_match_detail("I first considered 7. My final answer is 9.", ["7"]),
+            "miss")
+
+    def test_marked_conclusion_is_graded_not_the_working(self) -> None:
+        self.assertEqual(
+            alias_match_detail("I first considered 7. My final answer is 9.", ["9"]),
+            "hit")
+
+    def test_negation_inside_the_marked_span_is_ambiguous(self) -> None:
+        self.assertEqual(
+            alias_match_detail("my final answer is not Paris", ["Paris"]),
+            "ambiguous")
+
+    def test_multi_sentence_correct_answer_is_still_a_hit(self) -> None:
+        self.assertEqual(
+            alias_match_detail(
+                "The capital of France is Paris. It has over 2 million people.",
+                ["Paris"]),
+            "hit")
+
+    def test_extraction_reports_whether_a_marker_was_found(self) -> None:
+        span, how = extract_final_answer("I considered 7. My final answer is 9.")
+        self.assertEqual(how, "marked")
+        self.assertEqual(span, "9.")
+        span, how = extract_final_answer("Paris")
+        self.assertEqual(how, "whole")
+        self.assertEqual(span, "Paris")
 
 
 if __name__ == "__main__":

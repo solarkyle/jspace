@@ -63,83 +63,76 @@ def _is_pure_number(raw):
     return bool(_PURE_NUMBER.match(raw or ""))
 
 
-# How much text before a match can carry a contradiction that applies to it.
-_CUE_WINDOW = 48
+# Where an answer states its conclusion. Matching against the span after the last
+# such marker means earlier working, abandoned candidates and restated questions
+# are not treated as the answer.
+_FINAL_MARKER = re.compile(
+    r"\b(?:my\s+|the\s+)?final\s+answer(?:\s+is|\s+would\s+be)?\s*[:=]?|"
+    r"\bthe\s+answer\s+is\b|"
+    r"\banswer\s*[:=]|"
+    r"\bin\s+conclusion\b,?|"
+    r"\bso\s+the\s+answer\s+is\b|"
+    r"\btherefore\b,?", re.I)
 
 
-def _contradicted_near(raw: str, needle: str) -> bool:
-    """True if a contradiction cue sits just before `needle` in `raw`.
+def extract_final_answer(answer: str):
+    """Return (span_to_grade, how) where how is "marked" or "whole".
 
-    Scoped deliberately. A cue anywhere in the answer says nothing about a match
-    400 characters away, and checking globally flagged most long grounded answers,
-    which routinely contain an unrelated negation.
+    "marked" means the answer named its own conclusion and the span is only that
+    conclusion. "whole" means no marker was found and the entire answer is graded,
+    which is the looser case and is why contradiction cues still matter there.
     """
-    if not raw or not needle:
-        return False
-    haystack = raw.lower()
-    probe = needle.lower()
-    start = haystack.find(probe)
-    while start != -1:
-        window = raw[max(0, start - _CUE_WINDOW):start]
-        if _CONTRADICTION.search(window):
-            return True
-        start = haystack.find(probe, start + 1)
-    return False
-
-
-def _format_number(value: float) -> list:
-    """Plausible surface forms of a number, for locating it in raw text."""
-    forms = {repr(value), str(value)}
-    if value == int(value):
-        forms.add(str(int(value)))
-    return [f for f in forms if f]
+    text = (answer or "").strip()
+    if not text:
+        return text, "whole"
+    marks = list(_FINAL_MARKER.finditer(text))
+    if marks:
+        span = text[marks[-1].end():].strip()
+        if span:
+            return span, "marked"
+    return text, "whole"
 
 
 def alias_match_detail(answer: str, refs: list) -> str:
     """Return "hit", "miss" or "ambiguous".
 
-    "ambiguous" means the surface evidence is not trustworthy on its own and the
-    row needs a judge. Grading an ambiguous row correct is the failure that
-    matters here: it silently deletes a real error from the labels.
+    "ambiguous" means surface evidence is not trustworthy on its own and the row
+    needs a judge. Grading an ambiguous row correct is the failure that matters
+    here: it silently deletes a real error from the labels.
     """
-    na = normalize(answer)
+    span, how = extract_final_answer(answer)
+    na = normalize(span)
     if not na:
         return "miss"
     na_tokens = set(na.split())
-    answer_numbers = _numbers(answer)
+    span_numbers = _numbers(span)
     matched = False
-    contradicted = False
 
     for r in refs:
         # A numeric reference is decided numerically, never by string containment,
         # and a numeric miss stays a miss rather than falling through to text rules.
         if _is_pure_number(r):
             target = _numbers(r)[0]
-            if any(abs(value - target) < 1e-9 for value in answer_numbers):
+            if any(abs(value - target) < 1e-9 for value in span_numbers):
                 matched = True
-                if any(_contradicted_near(answer, form)
-                       for form in _format_number(target)):
-                    contradicted = True
             continue
         nr = normalize(r)
         if not nr:
             continue
-        hit = False
         if len(nr) < 4:
-            hit = nr in na_tokens
-        elif nr in na or (len(na) >= 4 and na in nr):
-            hit = True
-        if hit:
+            if nr in na_tokens:
+                matched = True
+            continue
+        if nr in na or (len(na) >= 4 and na in nr):
             matched = True
-            # Check the raw reference text, which is what a reader would see. If
-            # normalization changed it enough that it cannot be located in the
-            # raw answer, no cue is attributed to it.
-            if _contradicted_near(answer, r.strip()):
-                contradicted = True
 
     if not matched:
         return "miss"
-    return "ambiguous" if contradicted else "hit"
+    # A contradiction inside the graded span is decisive either way: the span is
+    # what the answer asserts. When nothing marked the conclusion, a cue anywhere
+    # in the answer is enough to stop trusting surface containment.
+    scope = span if how == "marked" else answer
+    return "ambiguous" if _CONTRADICTION.search(scope or "") else "hit"
 
 
 def alias_match(answer: str, refs: list[str]) -> bool:
