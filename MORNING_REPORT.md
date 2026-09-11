@@ -38,7 +38,7 @@ No consciousness claim is made or implied.
 |---|---|
 | propagation verification and bounded recalibration | done, reported previously |
 | corrected intervention pilot, both frozen settings | **done, 480 trials** |
-| hallucination / error-awareness study | **NOT RUN** |
+| hallucination / error-awareness study | **BUILT, 0 TRIALS RUN** (deadline expired) |
 | consolidated reports | this file |
 
 `JSPACE_SEVEN_HOUR_AGENT_PLAN.md` was never saved to disk; I executed from the
@@ -103,7 +103,12 @@ score registered the change anyway, which is precisely what the switch away from
 binary readout was for. v2's floored `DETECTED=yes/no` could not have seen any of
 this.
 
-## 4. Why it is not introspection
+## 4. Why it is not yet evidence of introspection
+
+> **CORRECTED.** This section originally read "Why it is not introspection" and argued
+> the case too strongly. Presence detection and concept identification are different
+> questions, and neither the wrong-concept arm nor a task-destroying random arm
+> settles the mechanism. The measurements below stand; the conclusion does not.
 
 ### Specificity fails, and fails in the wrong direction
 
@@ -118,14 +123,23 @@ moves the score more than noise does:
 | J_FOCUS | **0.172** | **0.000** |
 | LONG_NEUTRAL_CONTROL | 0.328 | 0.266 |
 
-Every cell is far **below** 0.5. Random noise reliably produces a larger
-"something changed" signal than the actual injected concept.
+Every cell is far **below** 0.5: random noise moves the score more than the real
+concept does.
 
-### And `wrong_concept` is indistinguishable from `concept`
+> **CORRECTED.** This does not settle specificity. The random arm destroys the
+> ordinary task (1/40 and 0/40 correct), so it is not a matched control and its
+> larger response compares perturbations of very different severity.
 
-Injecting a *different* real concept through the same mechanism shifts the score
-by about the same amount, sometimes more (NORMAL primary: +4.116 wrong against
-+3.640 right). The shift does not depend on which concept arrived.
+### `wrong_concept` matches `concept`
+
+Injecting a *different* real concept through the same mechanism shifts the score by
+about the same amount, sometimes more (NORMAL primary: +4.116 wrong against +3.640
+right).
+
+> **CORRECTED.** This bears on IDENTIFICATION, not on presence detection.
+> `wrong_concept` is labelled `intervention_present: true` by the code, so its raising
+> the presence score is a success of presence detection. It shows the shift does not
+> encode *which* concept arrived.
 
 ### The biggest mover is the arm that breaks the model
 
@@ -134,10 +148,10 @@ Ordinary task accuracy by arm, out of 40 per arm per setting:
 | arm | primary | secondary |
 |---|---:|---:|
 | none, sham, concept, wrong_concept, steer | 40/40 each | 40/40 each |
+| **random** | **1/40** | **0/40** |
 
 > **CORRECTED.** These use substring matching (`expected_answer in text`), which the
 > protocol forbids elsewhere, so they are upper bounds on task preservation.
-| **random** | **1/40** | **0/40** |
 
 So the random arm is **not functionally matched** — it is catastrophic, exactly as
 in v2 — and it is also the arm with the largest detection shift. A plausible reading
@@ -268,3 +282,61 @@ Recommended order next session:
    without a baseline-adjusted measure.
 3. The watchdog is running and will enforce the 07:48 deadline independently of this
    conversation. Nothing needs to stay open.
+
+---
+
+## SESSION CLOSED: deadline expired, QA study built but NOT run
+
+**The seven-hour window ran 00:48 to 07:48 and has expired.** The watchdog wrote the
+STOP sentinel at 07:49:08, and the QA runner, launched after that, correctly refused
+to start:
+
+```
+deadline: {'elapsed_minutes': 482.0, 'remaining_minutes': -62.0, 'expired': True,
+           'stop_sentinel': True}
+deadline expired; not starting
+```
+
+**Exact blocker: the authorized window is over. I did not reset the clock, because
+the instruction was to keep the original deadline.** Re-authorization is needed to
+run anything further.
+
+### What the QA study reached
+
+Built, committed and verified by execution, but **0 trials run**:
+
+| component | state |
+|---|---|
+| `qa_tasks.py` item generator | working; 20 dev / 80 eval items, 4 item types |
+| family split | verified disjoint: dev and eval share no `family_id` |
+| strict field parser | verified; rejects bad letters, non-integer and out-of-range confidence, and prose |
+| `qa_run.py` runner, freeze, onset measurement | written, imports clean, refused to start on the expired deadline |
+| **trials executed** | **0 dev, 0 eval** |
+
+One command runs it when re-authorized, after the deadline is re-issued:
+
+```bash
+python -m experiments.self_focus.qa_run
+```
+
+### Why it did not run, stated plainly
+
+This is the **second** session in which the intervention branch consumed the
+available window and the QA study did not execute. The sequence this time was:
+propagation diagnosis, corrected calibration, the 480-trial v3 pilot, then the
+interpretation correction. Each was warranted on its own, and together they filled
+seven hours before QA was reached. The queue order was wrong: QA was listed as
+protected but placed last in practice, and "protected" needs to mean "run first".
+
+### Watchdog: partial
+
+- **The STOP sentinel worked.** It is what prevented the QA run from starting past
+  the deadline, which is the behaviour that mattered.
+- **Its process-kill path did not.** It used `wmic`, which current Windows no longer
+  ships, so the kill silently failed. No workers survived regardless, because they
+  had already exited; the GPU was released (15.89 GB of 17.10 GB free). The kill path
+  is therefore **untested in anger** and should be rewritten with PowerShell
+  `Get-CimInstance` before being relied on.
+- A watchdog is a stop mechanism, not a scheduler. It never advanced the queue and
+  was never going to. No durable work-queue supervisor was built, so nothing
+  continues past this conversation.
