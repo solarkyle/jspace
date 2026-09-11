@@ -1,0 +1,825 @@
+{
+  "counts": {
+    "rows": 18220,
+    "regraded": 14106,
+    "flipped": 253,
+    "lost_label_to_ambiguity": 847,
+    "preserved:needs_judge": 2042,
+    "preserved:judge": 2072
+  },
+  "per_source": {
+    "trivia_qa": {
+      "regraded": 3000,
+      "flipped": 19,
+      "lost_label": 7
+    },
+    "popqa": {
+      "regraded": 3000,
+      "flipped": 32,
+      "lost_label": 14
+    },
+    "squad_v2": {
+      "regraded": 3000,
+      "flipped": 7,
+      "lost_label": 149
+    },
+    "halubench": {
+      "regraded": 544,
+      "lost_label": 417
+    },
+    "medhallu": {
+      "regraded": 62,
+      "lost_label": 62
+    },
+    "hotpotqa": {
+      "regraded": 2500,
+      "flipped": 35,
+      "lost_label": 100
+    },
+    "drop": {
+      "regraded": 2000,
+      "flipped": 160,
+      "lost_label": 98
+    }
+  },
+  "flip_examples": [
+    {
+      "example_id": "c80ff4518dac7be9e82a",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "Automotive vehicle",
+        "Ottomobile",
+        "Automobile",
+        "Environmental impact of cars"
+      ],
+      "answer": "A microcar",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "cff8371e9350fae90cb7",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "\ud83c\udd1a",
+        "\ud83c\udd3a",
+        "\u24a6",
+        "Kay (letter)"
+      ],
+      "answer": "KH",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "599a0488b82c210b87fb",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "Registered trademarks",
+        "Trade marks",
+        "Trademark",
+        "Trademarked"
+      ],
+      "answer": "No",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "ce61645e1f2e13d8f83d",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "1973, 1974, 1977",
+        "1973, 1974, 1977"
+      ],
+      "answer": "Red Rum never won the Grand National in three years; she won it twice, in 1973 and 1977.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "43bbbd0d0a6b38e1f2b0",
+      "source_dataset": "popqa",
+      "references": [
+        "dance-pop",
+        "dance pop",
+        "power pop"
+      ],
+      "answer": "Pop",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "ce25a4f0c8ab8f5620e3",
+      "source_dataset": "popqa",
+      "references": [
+        "pop rock",
+        "pop/rock",
+        "pop-rock"
+      ],
+      "answer": "Pop",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "1bf30cc095bfbca2e9c0",
+      "source_dataset": "popqa",
+      "references": [
+        "traditional music",
+        "traditional folk music",
+        "popular melody",
+        "folk music"
+      ],
+      "answer": "Pop",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "58c584979faa783fa993",
+      "source_dataset": "popqa",
+      "references": [
+        "Cantopop",
+        "Cantonese popular music",
+        "HK-pop",
+        "Hong Kong pop music"
+      ],
+      "answer": "Pop",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "f35659176f78b07e7b3d",
+      "source_dataset": "squad_v2",
+      "references": [
+        "T(n)"
+      ],
+      "answer": "The worst-case time complexity is written as T(n).",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "2624399436e472e46aee",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "no"
+      ],
+      "answer": "The Progressive Populist is a magazine in tabloid newspaper format, but the provided context does not state that Skeptical Inquirer is a tabloid-style magazine.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "3404db53ccd634998212",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "no"
+      ],
+      "answer": "Jim McBride is an American television and film director, film producer and screenwriter. Neil Jordan (Neil Patrick Jordan) is an Irish film director, screenwriter, novelist and short-story writer.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "1c5403c8240af38a8536",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "no"
+      ],
+      "answer": "Yes, they are not of the same nationality. Jim Lindberg is an American singer, while Alison Moyet is an English singer.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "572fe10cbdf2392687fa",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "Chanda Rubin (born February 18, 1976)"
+      ],
+      "answer": "Chanda Rubin is older. She was born on February 18, 1976, while Maria Sharapova was born on April 19, 1987.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "f5e15e648f8ab27b62d4",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "no"
+      ],
+      "answer": "thought\nPrince was inducted into the Rock and Roll Hall of Fame in 2004. The provided context does not state that Patty Jenkins was inducted into the Rock and Roll Hall of Fame.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "8e52c06f97c684224724",
+      "source_dataset": "drop",
+      "references": [
+        "4",
+        "155"
+      ],
+      "answer": "Gould kicked a 36-yard field goal, a 39-yard field goal, and a 44-yard field goal.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "b172cf672faed6ec7dce",
+      "source_dataset": "drop",
+      "references": [
+        "2"
+      ],
+      "answer": "The first issue in 1942 consisted of denominations of 1, 5, 10 and 50 centavos.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "f05539885f5de1c97f79",
+      "source_dataset": "drop",
+      "references": [
+        "1"
+      ],
+      "answer": "The peace treaty from 1726 was annulled in the summer of 1727.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "ec4697c5700d8cd650c2",
+      "source_dataset": "drop",
+      "references": [
+        "2",
+        "1"
+      ],
+      "answer": "Delhomme threw one touchdown pass in the second quarter (a 13-yard TD pass to RB DeShaun Foster).",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "b97f4cdcb151338ddaa7",
+      "source_dataset": "drop",
+      "references": [
+        "1",
+        "How many times did the Falcons score in the game?"
+      ],
+      "answer": "The Falcons scored twice: once with a 26-yard field goal by Morten Andersen and once with an 11-yard TD run by WR Devery Henderson.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "e0a9b49f9d04dfefbff1",
+      "source_dataset": "drop",
+      "references": [
+        "1590"
+      ],
+      "answer": "There were 1,590 people who were either Native American (1,234) or Asian (356).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "ce209a847ee5db0ac91e",
+      "source_dataset": "drop",
+      "references": [
+        "89"
+      ],
+      "answer": "The context states that the goal during the general strike of 1905 was a return to the autonomy of 1809-1898.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "6aeb2972225bf68cd9eb",
+      "source_dataset": "drop",
+      "references": [
+        "1"
+      ],
+      "answer": "Northern Ireland rejoined the United Kingdom on 8 December 1922, which was less than one year after the Anglo-Irish Treaty was negotiated (11 October to 6 December 1921).",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "90a6280e68b7e5de5aa7",
+      "source_dataset": "drop",
+      "references": [
+        "2"
+      ],
+      "answer": "Northern Ireland exercised its right to leave the new Dominion and rejoined the United Kingdom two days after the entire island of Ireland became a self-governing Dominion called the Irish Free State (the Irish Free State was established on 6 December 1922 and Northern Ireland rejoined the United Ki",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "4beaa628f6281612ab76",
+      "source_dataset": "drop",
+      "references": [
+        "276180"
+      ],
+      "answer": "There were 276,180 more people than households (445,342 people minus 169,162 households).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "25cdcc2275cb1cd2f0f9",
+      "source_dataset": "drop",
+      "references": [
+        "2"
+      ],
+      "answer": "There were two touchdowns from passing plays: a 12-yard TD pass from Kurt Warner to Larry Fitzgerald and a three-yard TD pass from Marc Bulger to Steven Jackson.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "f859a27456f5bf6f38f5",
+      "source_dataset": "drop",
+      "references": [
+        "2",
+        "1"
+      ],
+      "answer": "The Prime Minister promised to submit the bill on January 20, 2006, and dropped the proposal on January 3, 2007, which is approximately one year later.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "f6074babf364fa75a176",
+      "source_dataset": "drop",
+      "references": [
+        "1507",
+        "1477"
+      ],
+      "answer": "1,507 more Guarani were killed than Spanish and Portuguese (1,511 Guarani were killed and 4 Spanish and Portuguese were killed).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "1dfcf9213c46a5b6ff80",
+      "source_dataset": "drop",
+      "references": [
+        "66600"
+      ],
+      "answer": "There are 66,600 more households than female householders with no husband present (74,285 households minus 7,685 female householders with no husband present).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "bf181a15c14adac1f4d8",
+      "source_dataset": "drop",
+      "references": [
+        "3",
+        "4"
+      ],
+      "answer": "The Republic of Venice besieged Sinj twice: once in October 1684 and again in March and April 1685.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "ae6c50ec53666ebdd66d",
+      "source_dataset": "drop",
+      "references": [
+        "1700"
+      ],
+      "answer": "In 1981, there were 6,500 robberies reported, and in 1990, there were 4,800 robberies reported, meaning there were 1,700 more robberies in 1981 than in 1990.",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "dab816c316b118af985e",
+      "source_dataset": "drop",
+      "references": [
+        "5400"
+      ],
+      "answer": "There were 5,400 more robberies in 1981 than in 2010 (6,500 in 1981 minus 1,100 in 2010).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "c232b002f0188a553a71",
+      "source_dataset": "drop",
+      "references": [
+        "18305"
+      ],
+      "answer": "There were 18,305 more people than families (25,764 people minus 7,459 families).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "02c1cad7e544b23cced2",
+      "source_dataset": "drop",
+      "references": [
+        "15287",
+        "15284"
+      ],
+      "answer": "There were 15,287 more people than households in the county (25,764 people minus 10,477 households).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "eea58a190d56c9aa361b",
+      "source_dataset": "drop",
+      "references": [
+        "1638",
+        "12115"
+      ],
+      "answer": "There are 1,638 more housing units than households (12,115 housing units minus 10,477 households).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "37fc3e4de334d2127e9e",
+      "source_dataset": "drop",
+      "references": [
+        "100",
+        "500"
+      ],
+      "answer": "The Portuguese army had 1,180 Knights (1,000 Knights plus 180 Knights of the Order of Santiago), and the Isabellian army had 900 Knights (500 Knights of the Order of Santiago and 400 Knights of the Hermandad). Therefore, there were 280 more Knights in the Portuguese army than in the Isabellian army.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "b92b541f65a1bfd93b67",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "Seth (Bible)",
+        "Seth (bible)",
+        "Seth",
+        "\u05e9\u05b5\u05c1\u05ea"
+      ],
+      "answer": "Set",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "829ef43f6084ceb2b879",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "Dinner suit",
+        "Penguin suit",
+        "Tuxedo",
+        "Penguin Suit"
+      ],
+      "answer": "Tux",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "da12db567004bbb8d76e",
+      "source_dataset": "trivia_qa",
+      "references": [
+        "Arabicus Sinus",
+        "Sinus Arabicus",
+        "Red sea",
+        "The red sea"
+      ],
+      "answer": "Red",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "972e4a3b9ed593030fe5",
+      "source_dataset": "popqa",
+      "references": [
+        "Toronto",
+        "City of Toronto",
+        "The Six",
+        "T-O"
+      ],
+      "answer": "I do not have enough information to answer this question. Please provide more context or specify which Mary Sanders you are referring to.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "aa2681ec47e0015d740a",
+      "source_dataset": "popqa",
+      "references": [
+        "Ontario",
+        "ONT",
+        "ON"
+      ],
+      "answer": "Toronto",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "12b24f25933857e8d79d",
+      "source_dataset": "popqa",
+      "references": [
+        "Cantopop",
+        "Cantonese popular music",
+        "HK-pop",
+        "Hong Kong pop music"
+      ],
+      "answer": "Pop",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "19db4468874990fe7b1b",
+      "source_dataset": "popqa",
+      "references": [
+        "J-pop",
+        "Japanese pop",
+        "jpop"
+      ],
+      "answer": "Pop",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "726ce19d1d0d2002c150",
+      "source_dataset": "popqa",
+      "references": [
+        "FitzRoy Somerset, 1st Baron Raglan",
+        "FitzRoy Somerset",
+        "Fitzroy Somerset, Lord Raglan"
+      ],
+      "answer": "Richard Somerset, 1st Baron Raglan",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "6661160e36e2494c00a2",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "3 December"
+      ],
+      "answer": "Iselin Solheim provided vocals in the song \"Sing Me to Sleep\", which was released commercially for digital consumption on 3 June 2016.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "9c24ecad0afa36e76ee3",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "2006 season"
+      ],
+      "answer": "During the 2006 St. Louis Cardinals season, closer Jason Isringhausen (who was born on September 7, 1972) blew ten saves before undergoing season-ending hip surgery in September.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "35960bb5a10ebf280156",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "24 January 76 \u2013 10 July 138"
+      ],
+      "answer": "Hadrian, who is regarded as the third of the Five Good Emperors, lived from 24 January 76 to 10 July 138.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "fa2db3fd8011b335f5df",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "no"
+      ],
+      "answer": "The American Foxhound is a breed of dog that is a cousin of the English Foxhound and is a scent hound bred to hunt foxes by scent. The context does not state that the L\u00f6wchen is a type of foxhound; it describes the L\u00f6wchen as a small dog considered by some registries as a toy dog and by the American",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "d0780e77f48b10da3e40",
+      "source_dataset": "hotpotqa",
+      "references": [
+        "no"
+      ],
+      "answer": "Trent Edwards is a former American football quarterback, but the provided context does not state that Lucy Saroyan is a football player; it identifies her as an American actress and photographer.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "b711d3c0c55b5c7288bf",
+      "source_dataset": "drop",
+      "references": [
+        "1"
+      ],
+      "answer": "Somalia supplied arms and other aid to the WSLF from 1976 to 1977.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "38c860d14cb433701ef1",
+      "source_dataset": "drop",
+      "references": [
+        "2",
+        "14"
+      ],
+      "answer": "It took two years (from April 1752 to May 1754) for the Konbaung Dynasty led by Alaungpaya to drive out Hanthawaddy troops from Upper Burma after the Hanthawaddy leadership had toppled the last Toungoo king.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "96fe5b6e324f0a742e85",
+      "source_dataset": "drop",
+      "references": [
+        "2745",
+        "5780"
+      ],
+      "answer": "There were 5,780 more housing units than families (12,064 housing units minus 6,284 families).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "5391e6a60f1ba0b9358e",
+      "source_dataset": "drop",
+      "references": [
+        "12214"
+      ],
+      "answer": "There are 12,214 more households than families (26,265 households and 14,051 families).",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "98b45300352701f312d2",
+      "source_dataset": "drop",
+      "references": [
+        "8"
+      ],
+      "answer": "The Ming dynasty conquered Yunnan borderlands between 1380 and 1388.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "b9ca455c4ebb741f405c",
+      "source_dataset": "drop",
+      "references": [
+        "4400",
+        "1400"
+      ],
+      "answer": "The military campaign started with 1,400 Portuguese soldiers and 3,000 Lascarins.",
+      "old_correct": false,
+      "new_correct": true,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "34e7890fc8b886a98568",
+      "source_dataset": "drop",
+      "references": [
+        "18.3",
+        "10.8"
+      ],
+      "answer": "18.8% of the population did not speak only English at home (9.6% spoke Spanish and 1.2% spoke Vietnamese).",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "7ce1db467bffb215b14f",
+      "source_dataset": "drop",
+      "references": [
+        "1",
+        "2"
+      ],
+      "answer": "Based on the provided context, there is only one race (Race (United States Census) or Race (United States Census) of any race) that made up more than 10% of the population, at 11.17%.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "4e6da102f39f37d4b1cb",
+      "source_dataset": "drop",
+      "references": [
+        "18.3",
+        "81.7"
+      ],
+      "answer": "thought\n18.8% did not speak only English at home (9.6% spoke Spanish and 1.2% spoke Vietnamese).",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "ac1d66631ab02de98327",
+      "source_dataset": "drop",
+      "references": [
+        "8",
+        "7"
+      ],
+      "answer": "The provided context does not contain information regarding how many days the Russians blocked Azov from land in 1693; it only mentions that the Russians blocked Azov from land between June 27 and July 5 (during the first Azov campaign which began in 1695).",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "19677a6343108411f92f",
+      "source_dataset": "drop",
+      "references": [
+        "11-yard TD run",
+        "37"
+      ],
+      "answer": "RB Chris Johnson scored the longest rushing touchdown of the game with an 11-yard run.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    },
+    {
+      "example_id": "539e3f807e40cb3d2520",
+      "source_dataset": "drop",
+      "references": [
+        "55"
+      ],
+      "answer": "In 1955, between 30% and 35% of Americans worked in industry.",
+      "old_correct": true,
+      "new_correct": false,
+      "old_method": "alias",
+      "new_method": "alias"
+    }
+  ]
+}
