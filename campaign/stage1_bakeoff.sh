@@ -5,7 +5,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 PY=.venv/Scripts/python
-TABFM_PY="C:/Users/18632/Desktop/stuff/ufc_bet/.venv-tabfm/Scripts/python.exe"
+# Point TABFM_PY at a python that has TabPFN/TabFM installed.
+TABFM_PY="${TABFM_PY:?set TABFM_PY to a python with TabFM installed}"
 export PYTHONIOENCODING=utf-8
 
 echo "== concat verdicts + ingest =="
