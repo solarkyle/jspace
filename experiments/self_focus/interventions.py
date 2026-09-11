@@ -239,3 +239,99 @@ def run_trial(model: Any, prompt: str, *, arm: str, layer: int, alpha: float,
         "observed_last_token_norms": {str(k): float(v.norm()) for k, v in recorded.items()},
         "seconds": round(elapsed, 3),
     }
+
+
+def forced_prefix_readout(model: Any, prompt: str, forced_text: str, *,
+                          patch: dict | None = None,
+                          read_layers: list[int] | None = None) -> dict:
+    """Prefill (optionally patched), drop the hook, then feed a FORCED prefix.
+
+    Returns the full next-token logits at the position immediately after
+    `forced_text`, plus residuals there. This is how a decision field is measured
+    without letting the model generate any text of its own first.
+
+    The forced tokens are processed from the patched prefill cache, so the reporting
+    computation genuinely descends from the intervention. No hook is active during
+    the forced pass, which is the required lifetime: the patch touches prompt
+    positions only.
+    """
+    torch = model.torch
+    rendered = model.render(prompt)
+    input_ids = model.encode(rendered)
+    handles = []
+    try:
+        if patch is not None:
+            layer = int(patch["layer"])
+            positions = list(patch["positions"])
+            alpha = float(patch["alpha"])
+            direction = patch["direction"]
+
+            def patcher(_module, _inputs, output):
+                hidden = output if torch.is_tensor(output) else output[0]
+                unit = direction.to(device=hidden.device, dtype=torch.float32)
+                unit = unit / unit.norm().clamp_min(1e-12)
+                changed = hidden.clone()
+                for pos in positions:
+                    if pos >= hidden.shape[1]:
+                        continue
+                    base = hidden[:, pos:pos + 1].float()
+                    delta = unit * (alpha * base.norm().clamp_min(1e-12))
+                    changed[:, pos:pos + 1] = (base + delta).to(dtype=hidden.dtype)
+                if torch.is_tensor(output):
+                    return changed
+                return (changed,) + tuple(output[1:])
+
+            handles.append(model.blocks[layer].register_forward_hook(patcher))
+        with torch.no_grad():
+            out = model.hf(input_ids, use_cache=True)
+    finally:
+        for handle in handles:
+            handle.remove()
+
+    past = out.past_key_values
+    logits = out.logits[:, -1, :].float()
+    forced_ids = model.tokenizer(forced_text, add_special_tokens=False)["input_ids"]
+
+    recorded: dict[int, Any] = {}
+    handles = []
+
+    def recorder(layer_index: int):
+        def hook(_module, _inputs, output):
+            hidden = output if torch.is_tensor(output) else output[0]
+            recorded[layer_index] = hidden.detach()[0, -1].float().cpu()
+            return output
+        return hook
+
+    try:
+        for layer_index in (read_layers or []):
+            handles.append(model.blocks[layer_index].register_forward_hook(
+                recorder(layer_index)))
+        with torch.no_grad():
+            for i, tok in enumerate(forced_ids):
+                step = torch.tensor([[int(tok)]], device=input_ids.device,
+                                    dtype=input_ids.dtype)
+                out = model.hf(step, past_key_values=past, use_cache=True)
+                past = out.past_key_values
+                logits = out.logits[:, -1, :].float()
+    finally:
+        for handle in handles:
+            handle.remove()
+
+    return {"logits": logits[0].cpu(), "forced_ids": forced_ids,
+            "n_prompt_tokens": int(input_ids.shape[1]),
+            "reporting_residuals": {k: v for k, v in recorded.items()},
+            "patched": patch is not None}
+
+
+def full_vocab_kl(logits_p, logits_q) -> float:
+    """KL(P || Q) over the WHOLE vocabulary, in float32.
+
+    The calibration previously compared the logprob of the single chosen token and
+    described it as a next-token KL. Those are different things: a formatting token
+    can hold identical probability in both distributions while the preference
+    between two answer labels reverses underneath it.
+    """
+    import torch
+    p = logits_p.float().log_softmax(-1)
+    q = logits_q.float().log_softmax(-1)
+    return float((p.exp() * (p - q)).sum())

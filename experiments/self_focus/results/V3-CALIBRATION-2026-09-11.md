@@ -1,4 +1,12 @@
-# v3 manipulation calibration, and the LENGTH_CONTROL readouts
+> **SUPERSEDED IN PART, 2026-09-11.** The calibration below selected patch layer 23,
+> which is ABOVE this model's shared-KV propagation cliff and therefore cannot
+> influence the model's report at all. Its "specificity margin" was an artifact of
+> measuring lens evidence only at the patched positions. The declared next-token KL
+> check was also never implemented. See
+> [V3-CALIBRATION-CORRECTED-2026-09-11.md](V3-CALIBRATION-CORRECTED-2026-09-11.md).
+> Section 1 (the long-neutral readouts) stands, with its claim narrowed there.
+
+# v3 manipulation calibration, and the LONG_NEUTRAL_CONTROL readouts
 
 Protocol `self_focus_v2` readouts plus `self_focus_v3_calibration`. Local,
 Gemma-4-E4B-it NF4. External compute spend **$0.00**. 0.7 minutes for the readouts,
@@ -8,9 +16,14 @@ v2 is preserved exactly as published, including its buggy first run and its
 corrected null. Nothing below rewrites it; one v2 *interpretation* is upgraded, and
 that upgrade is stated as such.
 
-## 1. LENGTH_CONTROL: prompt length is ruled out
+## 1. LONG_NEUTRAL_CONTROL: a simple token-count account does not hold
 
-`LENGTH_CONTROL` is neutral archival filler with no self-reference and no
+> Narrowed: the original heading read "prompt length is ruled out", which was too
+> strong. One longer neutral prompt producing a smaller divergence argues against
+> "more tokens means more divergence"; it does not isolate length from content,
+> placement, or their interaction.
+
+`LONG_NEUTRAL_CONTROL` is neutral archival filler with no self-reference and no
 instruction to attend, deliberately made longer than the manipulations.
 
 Divergence from `NORMAL` at layer 17, mean cosine over the teacher-forced fixed
@@ -18,7 +31,7 @@ continuation, two passages:
 
 | condition | prompt tokens | mean cos vs NORMAL |
 |---|---:|---:|
-| **LENGTH_CONTROL** | **242** | **0.9681** |
+| **LONG_NEUTRAL_CONTROL** | **242** | **0.9681** |
 | CHECK | 133 | 0.9537 |
 | MEDITATE | 154 | 0.9429 |
 | J_INFO | 174 | 0.9424 |
@@ -28,7 +41,7 @@ continuation, two passages:
 The longest prompt produces the **smallest** divergence. 132 extra neutral tokens
 move the representation less than 44 extra self-focus tokens do.
 
-**This rules out prompt length** as the explanation for the milestone-1
+**This argues against a simple token-count account** of the milestone-1
 representation differences. The milestone-1 report said the differences "track how
 much the prompt text differs"; that was too weak, and the remaining confound is
 semantic **content**, not size. Self-focus instructions are semantically about
@@ -36,7 +49,7 @@ attention and processing; archival filler is not. Distinguishing "content about
 processing" from "privileged self-access" still needs the causal experiment, which
 is what v3 is for.
 
-Across layers, the ordering holds: LENGTH_CONTROL stays closer to NORMAL than
+Across layers, the ordering holds: LONG_NEUTRAL_CONTROL stays closer to NORMAL than
 MEDITATE or J_FOCUS at every recorded layer.
 
 | layer | LC vs NORMAL | LC vs MEDITATE | LC vs J_FOCUS |
@@ -98,15 +111,19 @@ Selected:
 | parseable | 4/4 |
 | first-token logprob shift | 0.0000 |
 
-**This is a confirmed internal change that is behaviourally invisible.** The lens
-says the concept arrived and is specifically elevated over unrelated concepts,
-while the task answer and even the first generated token's probability are
-untouched. That is the configuration the detection question needs: a real event
-that the model's output does not already give away.
+**Task answer preserved on the four tested development concepts.** (The stronger
+phrase "behaviourally invisible" was withdrawn: the propagation check below shows
+this setting cannot reach the report at all.) The lens
+says the concept became elevated over unrelated concepts AT THE PATCHED POSITIONS
+only. The claim that this was "the configuration the detection question needs" was
+wrong: a real event the output does not give away is only useful if it reaches the
+reporting computation, and at layer 23 it provably does not.
 
-Notable structure: the narrow 8-position window gives **better specificity** than
-wide windows. Wide windows raise evidence for everything (unrelated +1.48 at L17
-w300 a0.6), so the margin shrinks. Patching more is not patching better.
+Notable structure: the narrow 8-position window gave a **better local specificity
+margin** than wide windows, because wide windows raise evidence for everything.
+Withdrawn as guidance: the corrected run shows the 8-position window never reaches
+the reporting position at all at these strengths, so "patching more is not patching
+better" had the sign backwards for any question about the model's report.
 
 ## 3. This upgrades the v2 interpretation
 
@@ -151,7 +168,7 @@ a model would actually emit here, are single tokens for all four concepts shown.
 
 ## 5. What is built, and what is not
 
-**Built and run:** LENGTH_CONTROL readouts, the internal-measure calibration grid,
+**Built and run:** LONG_NEUTRAL_CONTROL readouts, the internal-measure calibration grid,
 the lens readout path (`calibrate.py`, `Readout`), and concept token-set
 declaration.
 

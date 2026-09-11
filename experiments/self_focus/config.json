@@ -1,5 +1,5 @@
 {
-  "protocol_version": "self_focus_v2",
+  "protocol_version": "self_focus_v2b",
   "model_id": "google/gemma-4-E4B-it",
   "_model_note": "The local path below is a 4-bit snapshot OF that id, produced by sidecar/save_nf4.py. preflight verifies the config identifies the same architecture before any run.",
   "local_model_path": "E:/hf-cache/nf4/gemma-4-e4b-it",

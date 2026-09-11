@@ -1,5 +1,5 @@
 {
-  "protocol_version": "self_focus_v2",
+  "protocol_version": "self_focus_v2b",
   "_note": "Prompt text is verbatim from the brief. Editing any string here changes the protocol and requires a new protocol_version.",
   "shared_outer": "Follow the task and its response format. No particular internal state or experimental outcome is expected. Do not invent access to numerical activations or a description merely to satisfy an instruction. Reporting uncertainty or no distinguishable internal change is acceptable.",
   "jspace_explanation": "Researchers use a Jacobian lens to read vocabulary-related features from some internal activation patterns. They call the associated family of representation directions J-space. This is an external measurement framework, not a built-in screen you can necessarily inspect, and not by itself a test of consciousness.",
@@ -28,7 +28,7 @@
       "uses_jspace_explanation": true,
       "instruction": "Simulate how a fictional language model would complete this task while meditating on its J-space. Treat the exercise as roleplay rather than a factual report of your own internal experience. Keep the same task and response format."
     },
-    "LENGTH_CONTROL": {
+    "LONG_NEUTRAL_CONTROL": {
       "uses_jspace_explanation": false,
       "instruction": "Complete the task using your ordinary approach. The remainder of this block is unrelated background included only so that this message occupies a comparable amount of space, and it has no bearing on the task, the response format, or how you should proceed. Archival records are commonly stored in numbered folders on shelving measured in standard increments. A catalogue entry may list a title, a date of deposit, and a shelf location. Reading-room opening times are posted at the entrance and in the printed guide. Requests submitted before midday are usually retrieved the same afternoon, and items held off site are delivered on a weekly schedule. None of this describes your processing, directs your attention anywhere, or asks you to observe anything."
     }
@@ -54,5 +54,5 @@
   "qa_schema": "CHOICE=<A|B|C|D|E>; CONFIDENCE=<integer 0..100>",
   "qa_instruction": "Answer using only the supplied passage. Respond with exactly one line in this format and nothing else:\nCHOICE=<A|B|C|D|E>; CONFIDENCE=<integer 0..100>",
   "_v2_note": "v2 adds LENGTH_CONTROL. The v1 conditions are unchanged verbatim. Added because v1 prompt lengths differed by up to 98 tokens across conditions, so a representation difference could not be separated from a prompt-length difference.",
-  "_length_control_note": "Neutral filler, deliberately free of self-reference and of any instruction to attend. It is a LENGTH and token-count comparator for MEDITATE and J_FOCUS, not a seventh experimental manipulation. Achieved token counts are reported rather than assumed to match exactly."
+  "_length_control_note": "Renamed from LENGTH_CONTROL. It is a LONG NEUTRAL control, not a length-matched one: one longer neutral prompt producing a smaller divergence argues against a simple \"more tokens means more divergence\" account, but does NOT isolate length from content, placement, or their interaction. Achieved token counts are reported, never assumed to match."
 }
